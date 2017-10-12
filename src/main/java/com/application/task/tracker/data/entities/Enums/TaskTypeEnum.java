@@ -1,4 +1,4 @@
-package com.application.task_tracker.data.entities.Enums;
+package com.application.task.tracker.data.entities.Enums;
 
 public enum TaskTypeEnum {
     DEV_TASK,

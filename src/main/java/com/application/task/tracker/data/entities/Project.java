@@ -1,4 +1,4 @@
-package com.application.task_tracker.data.entities;
+package com.application.task.tracker.data.entities;
 
 import javax.persistence.*;
 import java.util.List;

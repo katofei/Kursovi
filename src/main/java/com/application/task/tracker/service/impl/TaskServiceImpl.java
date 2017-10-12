@@ -1,8 +1,8 @@
-package com.application.task_tracker.service.impl;
+package com.application.task.tracker.service.impl;
 
-import com.application.task_tracker.data.entities.Task;
-import com.application.task_tracker.repositories.TaskRepository;
-import com.application.task_tracker.service.TaskService;
+import com.application.task.tracker.data.entities.Task;
+import com.application.task.tracker.repositories.TaskRepository;
+import com.application.task.tracker.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

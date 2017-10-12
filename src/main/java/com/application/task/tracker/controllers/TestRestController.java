@@ -1,7 +1,7 @@
-package com.application.task_tracker.controllers;
+package com.application.task.tracker.controllers;
 
-import com.application.task_tracker.data.entities.User;
-import com.application.task_tracker.service.UserService;
+import com.application.task.tracker.data.entities.User;
+import com.application.task.tracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

@@ -1,7 +1,7 @@
-package com.application.task_tracker.data.entities;
+package com.application.task.tracker.data.entities;
 
 
-import com.application.task_tracker.data.entities.Enums.UserRolesEnum;
+import com.application.task.tracker.data.entities.Enums.UserRolesEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

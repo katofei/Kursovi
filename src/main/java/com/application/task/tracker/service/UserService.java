@@ -1,6 +1,6 @@
-package com.application.task_tracker.service;
+package com.application.task.tracker.service;
 
-import com.application.task_tracker.data.entities.User;
+import com.application.task.tracker.data.entities.User;
 
 import java.util.List;
 

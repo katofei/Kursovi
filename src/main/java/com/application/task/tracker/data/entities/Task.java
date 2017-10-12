@@ -1,8 +1,8 @@
-package com.application.task_tracker.data.entities;
+package com.application.task.tracker.data.entities;
 
-import com.application.task_tracker.data.entities.Enums.TaskPriorityEnum;
-import com.application.task_tracker.data.entities.Enums.TaskStatusEnum;
-import com.application.task_tracker.data.entities.Enums.TaskTypeEnum;
+import com.application.task.tracker.data.entities.Enums.TaskPriorityEnum;
+import com.application.task.tracker.data.entities.Enums.TaskStatusEnum;
+import com.application.task.tracker.data.entities.Enums.TaskTypeEnum;
 
 import javax.persistence.*;
 import java.util.Date;
