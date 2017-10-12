@@ -1,4 +1,4 @@
-package com.application.task.tracker.data.entities.Enums;
+package com.application.task.tracker.data.entities.enums;
 
 public enum  UserRolesEnum {
     SUPER_ADMIN,
