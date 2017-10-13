@@ -1,6 +1,6 @@
-package com.application.task.tracker.repositories;
+package by.application.task.tracker.repositories;
 
-import com.application.task.tracker.data.entities.User;
+import by.application.task.tracker.data.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

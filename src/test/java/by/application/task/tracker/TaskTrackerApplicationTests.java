@@ -1,4 +1,4 @@
-package com.application.task.tracker;
+package by.application.task.tracker;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

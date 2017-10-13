@@ -1,8 +1,4 @@
-package com.application.task.tracker.data.entities;
-
-import com.application.task.tracker.data.entities.enums.TaskPriorityEnum;
-import com.application.task.tracker.data.entities.enums.TaskStatusEnum;
-import com.application.task.tracker.data.entities.enums.TaskTypeEnum;
+package by.application.task.tracker.data;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,12 +7,11 @@ import java.util.Date;
 @Table(name = "tasks")
 public class Task {
 
-    public Task() {
-    }
+    public Task() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", length = 5, nullable = false)
     private Long id;
 
     @Column(name = "task_name")
@@ -31,25 +26,26 @@ public class Task {
     @Column(name = "time_spent")
     private Date timeSpent;
 
+    @Column(name = "percentage")
+    private Double percentage;
+
     @ManyToOne
-    //@JoinColumn(name = "creator_id", nullable = false)
     private User creator;
 
     @ManyToOne
-    //@JoinColumn(name = "executor_id", nullable = false)
     private User executor;
 
-    @Column(name = "task_status")
-    @Enumerated(EnumType.STRING)
-    private TaskStatusEnum taskStatus;
+    @ManyToOne
+    private TaskStatus taskStatus;
 
-    @Column(name = "task_priority")
-    @Enumerated(EnumType.STRING)
-    private TaskPriorityEnum taskPriority;
+    @ManyToOne
+    private TaskPriority taskPriority;
 
-    @Column(name = "task_type")
-    @Enumerated(EnumType.STRING)
-    private TaskTypeEnum taskType;
+    @ManyToOne
+    private TaskType taskType;
+
+    @ManyToOne
+    private Project projectId;
 
     public Long getId() {
         return id;
@@ -99,29 +95,35 @@ public class Task {
 
     public void setExecutor(User executor) {this.executor = executor;}
 
-    public TaskStatusEnum getTaskStatus() {
+    public TaskStatus getTaskStatus() {
         return taskStatus;
     }
 
-    public void setTaskStatus(TaskStatusEnum taskStatus) {
+    public void setTaskStatus(TaskStatus taskStatus) {
         this.taskStatus = taskStatus;
     }
 
-    public TaskPriorityEnum getTaskPriority() {
+    public TaskPriority getTaskPriority() {
         return taskPriority;
     }
 
-    public void setTaskPriority(TaskPriorityEnum taskPriority) {
-        this.taskPriority = taskPriority;
-    }
+    public void setTaskPriority(TaskPriority taskPriority) {this.taskPriority = taskPriority;}
 
-    public TaskTypeEnum getTaskType() {
-        return taskType;
-    }
+    public TaskType getTaskType() {return taskType;}
 
-    public void setTaskType(TaskTypeEnum taskType) {
-        this.taskType = taskType;
-    }
+    public void setTaskType(TaskType taskType) {this.taskType = taskType;}
+
+    public Date getTimeSpent() {return timeSpent;}
+
+    public void setTimeSpent(Date timeSpent) {this.timeSpent = timeSpent;}
+
+    public Project getProjectId() {return projectId;}
+
+    public void setProjectId(Project projectId) {this.projectId = projectId;}
+
+    public Double getPersentage() {return percentage;}
+
+    public void setPersentage(Double percentage) {this.percentage = percentage;}
 
     @Override
     public String toString() {
@@ -139,3 +141,7 @@ public class Task {
                 '}';
     }
 }
+
+
+
+

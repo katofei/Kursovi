@@ -1,7 +1,6 @@
-package com.application.task.tracker.data.entities;
+package by.application.task.tracker.data;
 
 
-import com.application.task.tracker.data.entities.enums.UserRolesEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -17,8 +16,8 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(name = "id", length = 5, nullable = false)
+    private Long userId;
 
     @Column(name = "name")
     private String userName;
@@ -39,13 +38,11 @@ public class User implements Serializable {
     @Column(name = "position")
     private String position;
 
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING)
-    private UserRolesEnum role;
+    @ManyToOne
+    private UserRoles userRole;
 
     @ManyToOne
-    //@JoinColumn(name = "project_id", nullable = false)
-    private Project project;
+    private Project projectId;
 
     @JsonIgnore
     @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
@@ -103,30 +100,29 @@ public class User implements Serializable {
         this.position = position;
     }
 
-    public UserRolesEnum getRole() {
-        return role;
+    public UserRoles getRole() {
+        return userRole;
     }
 
-    public void setRole(UserRolesEnum role) {
-        this.role = role;
+    public void setRole(UserRoles userRole) {
+        this.userRole = userRole;
     }
 
-    public Project getProject() {
-        return project;
+    public Project getProjectId() {
+        return projectId;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setProjectId(Project projectId) {
+        this.projectId = projectId;
     }
 
     public Long getId() {
-        return id;
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long userId) {
+        this.userId = userId;
     }
-
 
     public List<Task> getCreatedTasks() {
         return createdTasks;
@@ -147,15 +143,15 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "user_id=" + id +
+                "user_id=" + userId +
                 ", user_name='" + userName + '\'' +
                 ", user_surname='" + userSurname + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", eMail='" + eMail + '\'' +
                 ", position='" + position + '\'' +
-                ", role=" + role +
-                ", project_id=" + project +
+                ", role=" + userRole +
+                ", project_id=" + projectId +
                 '}';
     }
 }
