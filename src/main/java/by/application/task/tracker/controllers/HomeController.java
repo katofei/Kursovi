@@ -1,6 +1,6 @@
-package com.application.task.tracker.controllers;
+package by.application.task.tracker.controllers;
 
-import com.application.task.tracker.service.UserService;
+import by.application.task.tracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
