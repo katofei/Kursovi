@@ -16,27 +16,25 @@ public class TaskServiceImpl implements TaskService {
     private TaskRepository taskRepository;
 
     @Override
-    public Task addUser(Task task) {
-        return taskRepository.save(task);
-    }
+    public Task addTask(Task task) {return taskRepository.save(task);}
 
     @Override
-    public void delete(Long task_id) {
+    public void deleteTask(Long task_id) {
         taskRepository.delete(task_id);
     }
 
     @Override
-    public Task edit(Task task) {
+    public Task editTask(Task task) {
         return taskRepository.save(task);
     }
 
     @Override
-    public Task findById(Long task_id) {
+    public Task findTaskById(Long task_id) {
         return taskRepository.findOne(task_id);
     }
 
     @Override
-    public List<Task> getAll() {
+    public List<Task> getAllTasks() {
         List<Task> tasks = new ArrayList<>();
         taskRepository.findAll().forEach(tasks::add);
         return tasks;
