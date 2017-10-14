@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "proirites")
+@Table(name = "priorities")
 public class TaskPriority implements Serializable{
 
    public TaskPriority(){}

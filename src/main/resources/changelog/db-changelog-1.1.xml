@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+                   http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+<changeSet id="insert-into-tables-1" author="lenovo">
+    <insert tableName="roles">
+        <column name = "role_name">SUPER_ADMIN</column>
+    </insert>
+    <insert tableName="roles">
+        <column name = "role_name">USER</column>
+    </insert>
+    <insert tableName="roles">
+        <column name = "role_name">LEAD</column>
+    </insert>
+    <insert tableName="roles">
+        <column name = "role_name">MANAGER</column>
+    </insert>
+
+    <insert tableName="statuses">
+        <column name = "status_name">OPEN</column>
+    </insert>
+    <insert tableName="statuses">
+        <column name = "status_name">REOPEN</column>
+    </insert>
+    <insert tableName="statuses">
+        <column name = "status_name">ON_HOLD</column>
+    </insert>
+    <insert tableName="statuses">
+        <column name = "status_name">IN_PROGRESS</column>
+    </insert>
+    <insert tableName="statuses">
+        <column name = "status_name">RESOLVED</column>
+    </insert>
+    <insert tableName="statuses">
+        <column name = "status_name">CLOSED</column>
+    </insert>
+    <insert tableName="statuses">
+        <column name = "status_name">IMPLEMENTED</column>
+    </insert>
+    <insert tableName="statuses">
+        <column name = "status_name">READY_FOR_TESTING</column>
+    </insert>
+
+    <insert tableName="types">
+        <column name = "type_name">DEV_TASK</column>
+    </insert>
+    <insert tableName="types">
+        <column name = "type_name">DEV_TEST</column>
+    </insert>
+    <insert tableName="types">
+        <column name = "type_name">BUG</column>
+    </insert>
+    <insert tableName="types">
+        <column name = "type_name">QA_TEST</column>
+    </insert>
+
+    <insert tableName="priorities">
+        <column name = "priority_name">LOW</column>
+    </insert>
+    <insert tableName="priorities">
+        <column name = "priority_name">NORMAL</column>
+    </insert>
+    <insert tableName="priorities">
+        <column name = "priority_name">HIGH</column>
+    </insert>
+    <insert tableName="priorities">
+        <column name = "priority_name">CRITICAL</column>
+    </insert>
+    <insert tableName="priorities">
+        <column name = "priority_name">MAJOR</column>
+    </insert>
+    <insert tableName="priorities">
+        <column name = "priority_name">MINOR</column>
+    </insert>
+    <insert tableName="priorities">
+        <column name = "priority_name">FIRE</column>
+    </insert>
+
+    <insert tableName="projects">
+        <column name="project_id">00000</column>
+        <column name="project_country">Belarus</column>
+        <column name="project_name">Support the system</column>
+    </insert>
+
+
+    <insert tableName="users">
+        <column name="user_id">00000</column>
+        <column name="e_mail">g14.katya@gmail.com</column>
+        <column name="login">admin</column>
+        <column name ="password">admin</column>
+        <column name = "position">Super admin</column>
+        <column name="user_name">Johny</column>
+        <column name="surname">Depp</column>
+        <column valueComputed="(SELECT project_id FROM project WHERE project_name = 'Support the system')"/>
+        <column valueComputed="(SELECT role_id FROM role WHERE role_name = 'SUPER_ADMIN')"/>
+    </insert>
+</changeSet>
+</databaseChangeLog>
