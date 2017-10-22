@@ -39,4 +39,9 @@ public class UserServiceImpl implements UserService{
         userRepository.findAll().forEach(users::add);
         return users;
     }
+
+    @Override
+    public User findUserByName(String login) {
+        return userRepository.findUserByLogin(login);
+    }
 }

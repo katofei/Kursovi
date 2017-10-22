@@ -38,6 +38,9 @@ public class User implements Serializable {
     @Column(name = "position")
     private String position;
 
+    @Column(name = "enabled")
+    private Boolean enabled = true;
+
     @ManyToOne
     private UserRoles userRole;
 
@@ -139,6 +142,18 @@ public class User implements Serializable {
     public void setExecutingTasks(List<Task> executingTasks) {
         this.executingTasks = executingTasks;
     }
+
+    public Long getUserId() {return userId;}
+
+    public void setUserId(Long userId) {this.userId = userId;}
+
+    public Boolean getEnabled() {return enabled;}
+
+    public void setEnabled(Boolean enabled) {this.enabled = enabled;}
+
+    public UserRoles getUserRole() {return userRole;}
+
+    public void setUserRole(UserRoles userRole) {this.userRole = userRole;}
 
     @Override
     public String toString() {

@@ -10,4 +10,6 @@ public interface UserService {
     User editUser(User user);
     User findUserById(Long userId);
     List<User> getAllUsers();
+
+    User findUserByName(String login);
 }
