@@ -9,31 +9,31 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/application")
+@RequestMapping(value = "/projects")
 public class ProjectRestController {
 
 
     @Autowired
     private ProjectService projectService;
 
-    @RequestMapping(value = "/projects/{projectId}", method = RequestMethod.GET)
-    public ResponseEntity getUser(@PathVariable("projectId") Long projectId){
+    @RequestMapping(value = "/{projectId}", method = RequestMethod.GET)
+    public ResponseEntity getProject(@PathVariable("projectId") Long projectId){
         return new ResponseEntity<>(projectService.findProjectById(projectId), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/projects//All", method = RequestMethod.GET)
-    public ResponseEntity getAllUsers(){
+    @RequestMapping(value = "/All", method = RequestMethod.GET)
+    public ResponseEntity getAllProjects(){
         return new ResponseEntity<>(projectService.getAllProjects(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/projects", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "/project_add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createUser(@RequestBody Project project) {
+    public ResponseEntity createProject(@RequestBody Project project) {
         return new ResponseEntity<>(projectService.addProject(project), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/projects/{projectId}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteUser(@PathVariable("projectId") Long projectId) {
+    @RequestMapping(value = "/{projectId}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteProject(@PathVariable("projectId") Long projectId) {
         return new ResponseEntity<>(projectService.findProjectById(projectId), HttpStatus.OK);
     }
 }

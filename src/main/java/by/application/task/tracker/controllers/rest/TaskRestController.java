@@ -9,30 +9,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/application")
+@RequestMapping(value = "/tasks")
 public class TaskRestController {
 
     @Autowired
     private TaskService taskService;
 
-    @RequestMapping(value = "/tasks/{taskId}", method = RequestMethod.GET)
-    public ResponseEntity getUser(@PathVariable("projectId") Long taskId){
+    @RequestMapping(value = "/{taskId}", method = RequestMethod.GET)
+    public ResponseEntity getTask(@PathVariable("taskId") Long taskId){
         return new ResponseEntity<>(taskService.findTaskById(taskId), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/tasks//All", method = RequestMethod.GET)
-    public ResponseEntity getAllUsers(){
+    @RequestMapping(value = "/All", method = RequestMethod.GET)
+    public ResponseEntity getAllTasks(){
         return new ResponseEntity<>(taskService.getAllTasks(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/tasks", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "/add_task", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity createUser(@RequestBody Task task) {
+    public ResponseEntity createTask(@RequestBody Task task) {
         return new ResponseEntity<>(taskService.addTask(task), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/tasks/{taskId}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteUser(@PathVariable("projectId") Long taskId) {
+    @RequestMapping(value = "/{taskId}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteTask(@PathVariable("taskId") Long taskId) {
         return new ResponseEntity<>(taskService.findTaskById(taskId), HttpStatus.OK);
     }
 }
