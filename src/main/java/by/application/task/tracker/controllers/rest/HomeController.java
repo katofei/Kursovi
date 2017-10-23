@@ -21,7 +21,7 @@ public class HomeController {
     }
 
     @RequestMapping(path = "/starter", method = RequestMethod.GET)
-    public ModelAndView index(){
+    public ModelAndView getstarterPage(){
         ModelAndView view = new ModelAndView("starter");
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
         String username = loggedInUser.getName();
@@ -38,4 +38,11 @@ public class HomeController {
     public ModelAndView error(){
         return new ModelAndView("error");
     }*/
+
+@RequestMapping(path = "profile", method = RequestMethod.GET)
+    public ModelAndView getProfilePage(){
+    ModelAndView view = new ModelAndView("profile");
+    return view;
+}
+
 }
