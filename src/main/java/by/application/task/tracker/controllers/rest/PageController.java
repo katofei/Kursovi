@@ -10,39 +10,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class HomeController {
+public class PageController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = {"/","/authorization"}, method = RequestMethod.GET)
-    public ModelAndView getHomePage()
-    {        return new ModelAndView("authorization");
+    @RequestMapping(value = {"/", "/authorization"}, method = RequestMethod.GET)
+    public ModelAndView getHomePage() {
+        return new ModelAndView("authorization");
     }
 
     @RequestMapping(path = "/starter", method = RequestMethod.GET)
-    public ModelAndView getstarterPage(){
+    public ModelAndView getStarterPage() {
         ModelAndView view = new ModelAndView("starter");
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
         String username = loggedInUser.getName();
-//        view.addObject("user", userService.findUserByName(userCredentials.getUsername()));
+        //view.addObject("user", userService.findUserByName(userCredentials.getUsername()));
         return view;
     }
 
-/*    @RequestMapping(path = "/access-denied", method = RequestMethod.GET)
-    public ModelAndView accessDenied(){
-        return new ModelAndView("access-denied");
+    @RequestMapping(path = "/profile", method = RequestMethod.GET)
+    public ModelAndView getProfilePage() {
+        return new ModelAndView("profile");
     }
 
-    @RequestMapping(path = "/error", method = RequestMethod.GET)
-    public ModelAndView error(){
-        return new ModelAndView("error");
-    }*/
-
-@RequestMapping(path = "profile", method = RequestMethod.GET)
-    public ModelAndView getProfilePage(){
-    ModelAndView view = new ModelAndView("profile");
-    return view;
-}
+    @RequestMapping(path = "/task_creation", method = RequestMethod.GET)
+    public ModelAndView getTaskCreationPage() {
+        return new ModelAndView("task_creation");
+    }
 
 }

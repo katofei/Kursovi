@@ -10,8 +10,6 @@
     <link rel="stylesheet" th:href="@{/bower_components/Ionicons/css/ionicons.min.css}"/>
     <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"/>
     <link rel="stylesheet" th:href="@{/plugins/iCheck/square/blue.css}"/>
-    <!--<link rel="stylesheet"-->
-    <!--th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic}">-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -57,7 +55,7 @@
                                     <i class="fa fa-phone"></i>
                                 </div>
                                 <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"'
-                                       data-mask>
+                                       data-mask/>
                             </div>
                         </div>
                         <div class="form-group has-feedback">
@@ -69,14 +67,16 @@
                             <label>Project name</label>
                             <textarea class="form-control" rows="1" placeholder="Enter project name"></textarea>
                         </div>
-                        <label>Position</label>
-                        <select class="form-control select2" style="width: 100%;">
-                            <option selected="selected">Junior</option>
-                            <option>Midle</option>
-                            <option>Sinior</option>
-                            <option>Team Lead</option>
-                            <option>Project Manager</option>
-                        </select>
+                        <div class="form-group has-feedback">
+                            <label>Position</label>
+                            <select class="form-control select2" style="width: 100%;">
+                                <option selected="selected">Junior</option>
+                                <option>Midle</option>
+                                <option>Sinior</option>
+                                <option>Team Lead</option>
+                                <option>Project Manager</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
