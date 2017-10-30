@@ -23,11 +23,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .rolePrefix("ROLE_")
-				.usersByUsernameQuery(
-                "select login as username,password, enabled from users where login=?")
-				.authoritiesByUsernameQuery(
-                "select u.login as username, r.role_name as role from roles r,users u "
-                        + "where u.user_role_role_id = r.role_id and u.login=?")
+                .usersByUsernameQuery(
+                        "select login as username,password, enabled from users where login=?")
+                .authoritiesByUsernameQuery(
+                        "select u.login as username, r.role_name as role from roles r,users u "
+                                + "where u.user_role_role_id = r.role_id and u.login=?")
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder());
     }
@@ -36,21 +36,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/","/authorization").permitAll()
-                .antMatchers("/starter").authenticated()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasRole("USER")
+                .antMatchers("/starter").hasRole("ADMIN")
+               /* .antMatchers("/admin*//**").hasRole("ADMIN")
+                .antMatchers("/user*//**").hasRole("USER")*/
                 .and()
-            .csrf().disable()
-            .formLogin()
-                .loginPage("/authorization")
+                .csrf().disable()
+                .formLogin()
+                .loginPage("/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
                 .defaultSuccessUrl("/starter")
-                .and()
-            .logout()
+                //.loginProcessingUrl("/login")
+                /*.logout();
                 .logoutUrl("/authorization")
-                .logoutSuccessUrl("/");
-                /*.and()
-            .exceptionHandling()
-                .accessDeniedPage("/access-denied");*/
+                .logoutSuccessUrl("/")*/
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/access-denied");
 
     }
 

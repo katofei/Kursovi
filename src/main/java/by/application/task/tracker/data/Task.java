@@ -1,5 +1,7 @@
 package by.application.task.tracker.data;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -18,9 +20,11 @@ public class Task {
     private String taskName;
 
     @Column(name = "start_date")
+    @DateTimeFormat (pattern="dd-MMM-YYYY")
     private Date startDate;
 
     @Column(name = "end_date")
+    @DateTimeFormat(pattern="dd-MMM-YYYY")
     private Date endDate;
 
     @Column(name = "time_spent")

@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "users")
 public class User implements Serializable {
 
-    public User(){}
+    public User() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,17 +35,23 @@ public class User implements Serializable {
     @Column(name = "e_mail")
     private String eMail;
 
-    @Column(name = "position")
-    private String position;
+    @ManyToOne
+    private Position position;
 
-    @Column(name = "enabled")
-    private Boolean enabled = true;
+    @ManyToOne
+    private Qualification qualification;
+
+    @ManyToOne
+    private ProjectRole projectRole;
 
     @ManyToOne
     private UserRoles userRole;
 
     @ManyToOne
     private Project projectId;
+
+    @Column(name = "enabled")
+    private Boolean enabled = true;
 
     @JsonIgnore
     @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
@@ -54,6 +60,14 @@ public class User implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "executor", fetch = FetchType.LAZY)
     private List<Task> executingTasks;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public String getUserName() {
         return userName;
@@ -95,19 +109,27 @@ public class User implements Serializable {
         this.eMail = eMail;
     }
 
-    public String getPosition() {
+    public Position getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 
-    public UserRoles getRole() {
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public UserRoles getUserRole() {
         return userRole;
     }
 
-    public void setRole(UserRoles userRole) {
+    public void setUserRole(UserRoles userRole) {
         this.userRole = userRole;
     }
 
@@ -117,14 +139,6 @@ public class User implements Serializable {
 
     public void setProjectId(Project projectId) {
         this.projectId = projectId;
-    }
-
-    public Long getId() {
-        return userId;
-    }
-
-    public void setId(Long userId) {
-        this.userId = userId;
     }
 
     public List<Task> getCreatedTasks() {
@@ -143,17 +157,17 @@ public class User implements Serializable {
         this.executingTasks = executingTasks;
     }
 
-    public Long getUserId() {return userId;}
+    public Qualification getQualification() {return qualification;}
 
-    public void setUserId(Long userId) {this.userId = userId;}
+    public void setQualification(Qualification qualification) {this.qualification = qualification;}
 
-    public Boolean getEnabled() {return enabled;}
+    public ProjectRole getProjectRole() {
+        return projectRole;
+    }
 
-    public void setEnabled(Boolean enabled) {this.enabled = enabled;}
-
-    public UserRoles getUserRole() {return userRole;}
-
-    public void setUserRole(UserRoles userRole) {this.userRole = userRole;}
+    public void setProjectRole(ProjectRole projectRole) {
+        this.projectRole = projectRole;
+    }
 
     @Override
     public String toString() {
