@@ -1,4 +1,4 @@
-package by.application.task.tracker.data;
+package by.application.task.tracker.data.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,13 +31,4 @@ public class TaskType implements Serializable{
     public List<Task> getTasks() {return tasks;}
 
     public void setTasks(List<Task> tasks) {this.tasks = tasks;}
-
-    @Override
-    public String toString() {
-        return "TaskType{" +
-                "typeId=" + typeId +
-                ", typeName='" + typeName + '\'' +
-                ", tasks=" + tasks +
-                '}';
-    }
 }

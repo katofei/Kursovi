@@ -1,5 +1,6 @@
-package by.application.task.tracker.data;
+package by.application.task.tracker.data.entities;
 
+import by.application.task.tracker.data.dto.TaskDTO;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -10,6 +11,14 @@ import java.util.Date;
 public class Task {
 
     public Task() {}
+
+    public Task(TaskDTO taskDTO){
+        this.id = taskDTO.getId();
+        this.taskName = taskDTO.getName();
+        this.description = taskDTO.getDescription();
+        this.endDate = taskDTO.getEndDate();
+        this.startDate = taskDTO.getStartDate();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,6 +35,9 @@ public class Task {
     @Column(name = "end_date")
     @DateTimeFormat(pattern="dd-MMM-YYYY")
     private Date endDate;
+
+    @Lob
+    private String description;
 
     @Column(name = "time_spent")
     private Date timeSpent;
@@ -49,7 +61,7 @@ public class Task {
     private TaskType taskType;
 
     @ManyToOne
-    private Project projectId;
+    private Project project;
 
     public Long getId() {
         return id;
@@ -121,28 +133,20 @@ public class Task {
 
     public void setTimeSpent(Date timeSpent) {this.timeSpent = timeSpent;}
 
-    public Project getProjectId() {return projectId;}
+    public Project getProject() {return project;}
 
-    public void setProjectId(Project projectId) {this.projectId = projectId;}
+    public void setProject(Project project) {this.project = project;}
 
     public Double getPersentage() {return percentage;}
 
     public void setPersentage(Double percentage) {this.percentage = percentage;}
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "task_id=" + id +
-                ", taskName='" + taskName + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", stimeSpent=" + timeSpent +
-                ", creatorId=" + creator +
-                ", executorId=" + executor +
-                ", taskStatus=" + taskStatus +
-                ", taskPriority=" + taskPriority +
-                ", taskType=" + taskType +
-                '}';
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
 

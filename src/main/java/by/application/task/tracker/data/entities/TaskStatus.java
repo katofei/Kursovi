@@ -1,4 +1,4 @@
-package by.application.task.tracker.data;
+package by.application.task.tracker.data.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -7,6 +7,7 @@ import java.util.List;
 @Entity
 @Table(name = "statuses")
 public class TaskStatus implements Serializable{
+
     public TaskStatus(){}
 
     @Id
@@ -32,12 +33,4 @@ public class TaskStatus implements Serializable{
 
     public void setTasks(List<Task> tasks) {this.tasks = tasks;}
 
-    @Override
-    public String toString() {
-        return "TaskStatus{" +
-                "statusId=" + statusId +
-                ", statusName='" + statusName + '\'' +
-                ", tasks=" + tasks +
-                '}';
-    }
 }

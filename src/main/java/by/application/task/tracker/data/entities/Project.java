@@ -1,4 +1,4 @@
-package by.application.task.tracker.data;
+package by.application.task.tracker.data.entities;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,10 +20,10 @@ public class Project {
     @Column(name = "project_country")
     private String projectCountry;
 
-    @OneToMany(mappedBy = "projectId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
     private List<User> users;
 
-    @OneToMany(mappedBy = "projectId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
     private List<Task> tasks;
 
     public Long getProjectId() {
@@ -58,14 +58,4 @@ public class Project {
 
     public void setTasks(List<Task> tasks) {this.tasks = tasks;}
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                "projectId=" + projectId +
-                ", projectName='" + projectName + '\'' +
-                ", projectCountry='" + projectCountry + '\'' +
-                ", users=" + users +
-                ", tasks=" + tasks +
-                '}';
-    }
 }

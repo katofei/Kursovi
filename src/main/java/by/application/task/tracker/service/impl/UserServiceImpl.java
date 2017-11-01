@@ -1,6 +1,6 @@
 package by.application.task.tracker.service.impl;
 
-import by.application.task.tracker.data.User;
+import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.repositories.UserRepository;
 import by.application.task.tracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +16,7 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
 
     @Override
-    public User addUser(User user) {
-        return userRepository.save(user);
-    }
+    public User createUser(User user) {return userRepository.save(user);}
 
     @Override
     public void deleteUser(Long userId) {userRepository.delete(userId);}

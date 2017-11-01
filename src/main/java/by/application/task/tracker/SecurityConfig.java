@@ -35,21 +35,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/","/authorization").permitAll()
-                .antMatchers("/starter").hasRole("ADMIN")
-               /* .antMatchers("/admin*//**").hasRole("ADMIN")
-                .antMatchers("/user*//**").hasRole("USER")*/
-                .and()
-                .csrf().disable()
+                .antMatchers("/", "/login").permitAll()
+                .antMatchers("/starter").authenticated()
+                .and().csrf().disable()
                 .formLogin()
-                .loginPage("/login")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/starter")
-                //.loginProcessingUrl("/login")
-                /*.logout();
-                .logoutUrl("/authorization")
-                .logoutSuccessUrl("/")*/
+                    .loginPage("/login")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .defaultSuccessUrl("/starter")
+                .and()
+                .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/")
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/access-denied");
@@ -57,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder;
     }

@@ -1,11 +1,11 @@
 package by.application.task.tracker.service;
 
-import by.application.task.tracker.data.User;
+import by.application.task.tracker.data.entities.User;
 
 import java.util.List;
 
 public interface UserService {
-    User addUser(User user);
+    User createUser(User user);
     void deleteUser(Long userId);
     User editUser(User user);
     User findUserById(Long userId);
@@ -13,3 +13,4 @@ public interface UserService {
     User findByUserName(String name);
     User findByLogin(String login);
 }
+

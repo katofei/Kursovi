@@ -6,7 +6,7 @@
                    http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet author="lenovo (generated)" id="1509305030888-1">
+    <changeSet author="lenovo (generated)" id="1509472144114-1">
         <createTable tableName="positions">
             <column autoIncrement="true" name="position_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -14,7 +14,7 @@
             <column name="position_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-2">
+    <changeSet author="lenovo (generated)" id="1509472144114-2">
         <createTable tableName="priorities">
             <column autoIncrement="true" name="priority_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -22,7 +22,7 @@
             <column name="priority_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-3">
+    <changeSet author="lenovo (generated)" id="1509472144114-3">
         <createTable tableName="project_roles">
             <column autoIncrement="true" name="project_role_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -30,7 +30,7 @@
             <column name="project_role_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-4">
+    <changeSet author="lenovo (generated)" id="1509472144114-4">
         <createTable tableName="projects">
             <column autoIncrement="true" name="project_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -39,7 +39,7 @@
             <column name="project_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-5">
+    <changeSet author="lenovo (generated)" id="1509472144114-5">
         <createTable tableName="qualifications">
             <column autoIncrement="true" name="qualification_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -47,7 +47,7 @@
             <column name="qualification_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-6">
+    <changeSet author="lenovo (generated)" id="1509472144114-6">
         <createTable tableName="roles">
             <column autoIncrement="true" name="role_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -55,7 +55,7 @@
             <column name="role_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-7">
+    <changeSet author="lenovo (generated)" id="1509472144114-7">
         <createTable tableName="statuses">
             <column autoIncrement="true" name="status_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -63,11 +63,12 @@
             <column name="status_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-8">
+    <changeSet author="lenovo (generated)" id="1509472144114-8">
         <createTable tableName="tasks">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="description" type="LONGTEXT"/>
             <column name="end_date" type="datetime(6)"/>
             <column name="percentage" type="DOUBLE"/>
             <column name="start_date" type="datetime(6)"/>
@@ -75,13 +76,13 @@
             <column name="time_spent" type="datetime(6)"/>
             <column name="creator_user_id" type="BIGINT"/>
             <column name="executor_user_id" type="BIGINT"/>
-            <column name="project_id_project_id" type="BIGINT"/>
+            <column name="project_project_id" type="BIGINT"/>
             <column name="task_priority_priority_id" type="BIGINT"/>
             <column name="task_status_status_id" type="BIGINT"/>
             <column name="task_type_type_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-9">
+    <changeSet author="lenovo (generated)" id="1509472144114-9">
         <createTable tableName="types">
             <column autoIncrement="true" name="type_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -89,7 +90,7 @@
             <column name="type_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-10">
+    <changeSet author="lenovo (generated)" id="1509472144114-10">
         <createTable tableName="users">
             <column autoIncrement="true" name="user_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -101,104 +102,98 @@
             <column name="user_name" type="VARCHAR(255)"/>
             <column name="user_surname" type="VARCHAR(255)"/>
             <column name="position_position_id" type="BIGINT"/>
-            <column name="project_id_project_id" type="BIGINT"/>
+            <column name="project_project_id" type="BIGINT"/>
             <column name="project_role_project_role_id" type="BIGINT"/>
             <column name="qualification_qualification_id" type="BIGINT"/>
             <column name="user_role_role_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-11">
+    <changeSet author="lenovo (generated)" id="1509472144114-11">
         <createIndex indexName="FK1txbuwm7iaeju7m0yw5129io5" tableName="tasks">
             <column name="task_priority_priority_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-12">
+    <changeSet author="lenovo (generated)" id="1509472144114-12">
         <createIndex indexName="FK2lhfsxcxxbn7odacysl07jjxf" tableName="tasks">
             <column name="executor_user_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-13">
+    <changeSet author="lenovo (generated)" id="1509472144114-13">
         <createIndex indexName="FK45g8qgbd8onnqru6dqd28jvg2" tableName="users">
             <column name="position_position_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-14">
+    <changeSet author="lenovo (generated)" id="1509472144114-14">
         <createIndex indexName="FK4b56n6r621d3cjw3vvqxc6ien" tableName="tasks">
             <column name="task_type_type_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-15">
+    <changeSet author="lenovo (generated)" id="1509472144114-15">
         <createIndex indexName="FK76i604w0g03q2mgbcya77xaii" tableName="users">
             <column name="project_role_project_role_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-16">
+    <changeSet author="lenovo (generated)" id="1509472144114-16">
+        <createIndex indexName="FK79jo1tntcfow8r9bobgamf3n0" tableName="users">
+            <column name="project_project_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lenovo (generated)" id="1509472144114-17">
         <createIndex indexName="FKbjpqawr5fb8qr7qtb5sx86nic" tableName="users">
             <column name="user_role_role_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-17">
-        <createIndex indexName="FKia93ltdsd2071bvy7hr7aiegl" tableName="users">
-            <column name="project_id_project_id"/>
+    <changeSet author="lenovo (generated)" id="1509472144114-18">
+        <createIndex indexName="FKigthsww3hccygu9ax5o8of6j4" tableName="tasks">
+            <column name="project_project_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-18">
+    <changeSet author="lenovo (generated)" id="1509472144114-19">
         <createIndex indexName="FKmr19rpmsbd23betc4hsyn7spv" tableName="tasks">
             <column name="task_status_status_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-19">
+    <changeSet author="lenovo (generated)" id="1509472144114-20">
         <createIndex indexName="FKnb2ma7q9p8210byu0u3een0hj" tableName="tasks">
             <column name="creator_user_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-20">
-        <createIndex indexName="FKok98chj5d2221laytavbfn0hs" tableName="tasks">
-            <column name="project_id_project_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-21">
+    <changeSet author="lenovo (generated)" id="1509472144114-21">
         <createIndex indexName="FKteiw5vxjuk1mhv4m2fxmuoufi" tableName="users">
             <column name="qualification_qualification_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-22">
-        <addForeignKeyConstraint
-                baseColumnNames="task_priority_priority_id"
-                baseTableName="tasks" constraintName="FK1txbuwm7iaeju7m0yw5129io5"
-                deferrable="false" initiallyDeferred="false"
-                onDelete="NO ACTION" onUpdate="NO ACTION"
-                referencedColumnNames="priority_id"
-                referencedTableName="priorities"/>
+    <changeSet author="lenovo (generated)" id="1509472144114-22">
+        <addForeignKeyConstraint baseColumnNames="task_priority_priority_id" baseTableName="tasks" constraintName="FK1txbuwm7iaeju7m0yw5129io5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="priority_id" referencedTableName="priorities"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-23">
+    <changeSet author="lenovo (generated)" id="1509472144114-23">
         <addForeignKeyConstraint baseColumnNames="executor_user_id" baseTableName="tasks" constraintName="FK2lhfsxcxxbn7odacysl07jjxf" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="users"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-24">
+    <changeSet author="lenovo (generated)" id="1509472144114-24">
         <addForeignKeyConstraint baseColumnNames="position_position_id" baseTableName="users" constraintName="FK45g8qgbd8onnqru6dqd28jvg2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="position_id" referencedTableName="positions"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-25">
+    <changeSet author="lenovo (generated)" id="1509472144114-25">
         <addForeignKeyConstraint baseColumnNames="task_type_type_id" baseTableName="tasks" constraintName="FK4b56n6r621d3cjw3vvqxc6ien" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="type_id" referencedTableName="types"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-26">
+    <changeSet author="lenovo (generated)" id="1509472144114-26">
         <addForeignKeyConstraint baseColumnNames="project_role_project_role_id" baseTableName="users" constraintName="FK76i604w0g03q2mgbcya77xaii" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_role_id" referencedTableName="project_roles"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-27">
+    <changeSet author="lenovo (generated)" id="1509472144114-27">
+        <addForeignKeyConstraint baseColumnNames="project_project_id" baseTableName="users" constraintName="FK79jo1tntcfow8r9bobgamf3n0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_id" referencedTableName="projects"/>
+    </changeSet>
+    <changeSet author="lenovo (generated)" id="1509472144114-28">
         <addForeignKeyConstraint baseColumnNames="user_role_role_id" baseTableName="users" constraintName="FKbjpqawr5fb8qr7qtb5sx86nic" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="role_id" referencedTableName="roles"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-28">
-        <addForeignKeyConstraint baseColumnNames="project_id_project_id" baseTableName="users" constraintName="FKia93ltdsd2071bvy7hr7aiegl" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_id" referencedTableName="projects"/>
+    <changeSet author="lenovo (generated)" id="1509472144114-29">
+        <addForeignKeyConstraint baseColumnNames="project_project_id" baseTableName="tasks" constraintName="FKigthsww3hccygu9ax5o8of6j4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_id" referencedTableName="projects"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-29">
+    <changeSet author="lenovo (generated)" id="1509472144114-30">
         <addForeignKeyConstraint baseColumnNames="task_status_status_id" baseTableName="tasks" constraintName="FKmr19rpmsbd23betc4hsyn7spv" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="status_id" referencedTableName="statuses"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-30">
+    <changeSet author="lenovo (generated)" id="1509472144114-31">
         <addForeignKeyConstraint baseColumnNames="creator_user_id" baseTableName="tasks" constraintName="FKnb2ma7q9p8210byu0u3een0hj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="users"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-31">
-        <addForeignKeyConstraint baseColumnNames="project_id_project_id" baseTableName="tasks" constraintName="FKok98chj5d2221laytavbfn0hs" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_id" referencedTableName="projects"/>
-    </changeSet>
-    <changeSet author="lenovo (generated)" id="1509305030888-32">
+    <changeSet author="lenovo (generated)" id="1509472144114-32">
         <addForeignKeyConstraint baseColumnNames="qualification_qualification_id" baseTableName="users" constraintName="FKteiw5vxjuk1mhv4m2fxmuoufi" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="qualification_id" referencedTableName="qualifications"/>
     </changeSet>
 
@@ -231,7 +226,7 @@
             <column name="position_name">Tester</column>
         </insert>
         <insert tableName="positions">
-            <column name="position_name">Business analytic</column>
+            <column name="position_name">Business analyst</column>
         </insert>
         <insert tableName="positions">
             <column name="position_name">Quality assurance</column>
@@ -335,7 +330,7 @@
             <column name="user_name">Johny</column>
             <column name="user_surname">Depp</column>
             <column name="enabled">1</column>
-            <column name="project_id_project_id"
+            <column name="project_project_id"
                     valueComputed="(SELECT project_id FROM projects WHERE project_name = 'Support the system')"/>
             <column name="user_role_role_id" valueComputed="(SELECT role_id FROM roles WHERE role_name = 'ADMIN')"/>
         </insert>
@@ -349,7 +344,7 @@
             <column name="user_name">Robert</column>
             <column name="user_surname">Dauni</column>
             <column name="enabled">1</column>
-            <column name="project_id_project_id"
+            <column name="project_project_id"
                     valueComputed="(SELECT project_id FROM projects WHERE project_name = 'Support the system')"/>
             <column name="user_role_role_id" valueComputed="(SELECT role_id FROM roles WHERE role_name = 'USER')"/>
         </insert>

@@ -1,4 +1,4 @@
-package by.application.task.tracker.data;
+package by.application.task.tracker.data.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -48,7 +48,7 @@ public class User implements Serializable {
     private UserRoles userRole;
 
     @ManyToOne
-    private Project projectId;
+    private Project project;
 
     @Column(name = "enabled")
     private Boolean enabled = true;
@@ -133,12 +133,12 @@ public class User implements Serializable {
         this.userRole = userRole;
     }
 
-    public Project getProjectId() {
-        return projectId;
+    public Project getProject() {
+        return project;
     }
 
-    public void setProjectId(Project projectId) {
-        this.projectId = projectId;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public List<Task> getCreatedTasks() {
@@ -167,20 +167,5 @@ public class User implements Serializable {
 
     public void setProjectRole(ProjectRole projectRole) {
         this.projectRole = projectRole;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "user_id=" + userId +
-                ", user_name='" + userName + '\'' +
-                ", user_surname='" + userSurname + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", eMail='" + eMail + '\'' +
-                ", position='" + position + '\'' +
-                ", role=" + userRole +
-                ", project_id=" + projectId +
-                '}';
     }
 }

@@ -1,6 +1,6 @@
 package by.application.task.tracker.service;
 
-import by.application.task.tracker.data.Task;
+import by.application.task.tracker.data.entities.Task;
 
 import java.util.List;
 

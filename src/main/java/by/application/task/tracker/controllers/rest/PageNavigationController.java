@@ -1,7 +1,6 @@
 package by.application.task.tracker.controllers.rest;
 
-import by.application.task.tracker.data.User;
-import by.application.task.tracker.service.UserService;
+import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,17 +14,24 @@ public class PageNavigationController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = {"/", "/authorization"}, method = RequestMethod.GET)
+    @Autowired
+    private TaskService taskService;
+
+    @Autowired
+    private TaskTypeService taskTypeService;
+
+    @Autowired
+    private TaskStatusService taskStatusService;
+
+    @Autowired
+    private TaskPriorityService taskPriorityService;
+
+    @Autowired
+    private ProjectService projectService;
+
+    @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
     public ModelAndView getHomePage() {
         return new ModelAndView("authorization");
-    }
-
-    @RequestMapping(path = "/starter", method = RequestMethod.GET)
-    public ModelAndView getStarterPage() {
-        ModelAndView view = new ModelAndView("starter");
-        User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("user", user);
-        return view;
     }
 
     @RequestMapping(path = "/profile", method = RequestMethod.GET)
@@ -33,9 +39,16 @@ public class PageNavigationController {
         return new ModelAndView("profile");
     }
 
-    @RequestMapping(path = "/task_creation", method = RequestMethod.GET)
+    @RequestMapping(path = "/taskCreation", method = RequestMethod.GET)
     public ModelAndView getTaskCreationPage() {
-        return new ModelAndView("task_creation");
+        ModelAndView view = new ModelAndView("taskCreation");
+        view.addObject("allUsers", userService.getAllUsers());
+        view.addObject("currentUser", userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
+        view.addObject("taskTypes",taskTypeService.getAllTaskTypes());
+        view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
+        view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
+        view.addObject("projects", projectService.getAllProjects());
+        return view;
     }
 
     @RequestMapping(path = "/registration", method = RequestMethod.GET)

@@ -13,6 +13,7 @@
     <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.min.css}"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -32,56 +33,46 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Create new task</h3>
                 </div>
-                <form role="form" th:action="@{/}" th:object="${task}" method="post">
-                    <div class="box-body">s
+                <form role="form" th:action="@{/taskCreation}" th:object="${task}" method="post">
+                    <div class="box-body">
                         <div class="form-group has-feedback">
                             <label>Task name</label>
-                            <textarea th:field="*{name}" class="form-control" rows="1" placeholder="Enter name"></textarea>
+                            <input type="text" th:field="*{taskName}" class="form-control"  placeholder="Enter name"/>
                         </div>
                         <div class="form-group has-feedback">
-                            <label for="exampleInputEmail1">Assigned User</label>
-                            <input type="email" th:field="*{ass_user}" class="form-control" id="exampleInputEmail1" placeholder="Enter user name"/>
+                            <label >Assigned User</label>
+                            <input type="text" th:field="*{executor}" class="form-control" placeholder="Enter user name"/>
                         </div>
                         <div class="form-group has-feedback">
                         <label>Priority</label>
-                        <select th:field="*{proirity}" class="form-control select2" style="width: 100%;">
-                            <option th:value="${Low}" selected="selected">Low</option>
-                            <option th:value="${Normal}">Normal</option>
-                            <option th:value="${High}">High</option>
-                            <option th:value="${Critical}">Critical</option>
-                            <option th:value="${Major}">Major</option>
-                            <option th:value="${Minor}">Minor</option>
-                            <option th:value="${FIRE}">FIRE</option>
+                        <select th:field="*{taskPriority}" class="form-control select2" style="width: 100%;">
+                            <option th:each = "taskPriority:${taskPriorities}"
+                            th:value="${taskPriority}"
+                            th:text="${taskPriority.priorityName}" selected="selected">LOW</option>
                         </select>
                         </div>
                         <div class="form-group has-feedback">
                         <label>Type</label>
-                        <select  th:field="*{proirity}"  class="form-control select2" style="width: 100%;">
-                            <option th:value="${Dev_Task}" selected="selected">Dev_Task</option>
-                            <option th:value="${Dev_Test}">Dev_Test</option>
-                            <option th:value="${Bug}">Bug</option>
-                            <option th:value="${QA_Task}">QA_Task</option>
-                            <option th:value="${QA_Test}">QA_Test</option>
-                            <option th:value="${QUESTION}">QUESTION</option>
-                            <option th:value="${DOC}">DOC</option>
-                            <option th:value="${BA_TASK}">BA_TASK</option>
+                        <select  th:field="*{taskType}"  class="form-control select2" style="width: 100%;">
+                            <option th:each="taskType:${taskTypes}"
+                                    th:value="${taskType}"
+                                    th:text="${taskType.typeName}" selected="selected">Dev Task</option>
                         </select>
                         </div>
-                        <div class="form-group has-feedback">
+                      <div class="form-group has-feedback">
                         <label>Description</label>
                         <div class="form-group">
                             <label>Textarea</label>
-                            <textarea th:field="*{description}" class="form-control" rows="5" placeholder="Enter ...">
-                            </textarea>
+                            <input type="text" th:field="*{description}" class="form-control"  placeholder="Enter ..." />
+\                        </div>
                         </div>
-                        </div>
-                        <div class="form-group has-feedback">
+                       <div class="form-group has-feedback">
                             <label>Start Date:</label>
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" th:field="*{start_date}" class="form-control pull-right" id="start_datepicker"/>
+                                <input type="date" th:field="*{startDate}" class="form-control pull-right"/>
                             </div>
                         </div>
                         <div class="form-group has-feedback">
@@ -91,7 +82,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" th:field="*{end_date}" class="form-control pull-right" id="datepicker"/>
+                                    <input type="date" th:field="*{endDate}" class="form-control pull-right" />
                                 </div>
                             </div>
                         </div>
@@ -111,6 +102,7 @@
 <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
 <script th:src="@{/dist/js/adminlte.min.js}"></script>
 <script th:src="@{/dist/js/demo.js}"></script>
+<script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
 
 </body>
 </html>

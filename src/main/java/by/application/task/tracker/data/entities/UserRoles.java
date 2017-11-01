@@ -1,4 +1,4 @@
-package by.application.task.tracker.data;
+package by.application.task.tracker.data.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -33,12 +33,4 @@ public class UserRoles implements Serializable {
 
     public void setUsers(List<User> users) {this.users = users;}
 
-    @Override
-    public String toString() {
-        return "UserRoles{" +
-                "roleId=" + roleId +
-                ", roleName='" + roleName + '\'' +
-                ", users=" + users +
-                '}';
-    }
 }

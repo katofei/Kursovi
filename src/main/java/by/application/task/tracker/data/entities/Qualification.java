@@ -1,4 +1,4 @@
-package by.application.task.tracker.data;
+package by.application.task.tracker.data.entities;
 
 import javax.persistence.*;
 import java.util.List;
@@ -44,12 +44,4 @@ public class Qualification {
         this.users = users;
     }
 
-    @Override
-    public String toString() {
-        return "Qualification{" +
-                "qualificationId=" + qualificationId +
-                ", qualificationName='" + qualificationName + '\'' +
-                ", users=" + users +
-                '}';
-    }
 }

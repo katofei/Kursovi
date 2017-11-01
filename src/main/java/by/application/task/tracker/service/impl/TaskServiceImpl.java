@@ -1,6 +1,6 @@
 package by.application.task.tracker.service.impl;
 
-import by.application.task.tracker.data.Task;
+import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.repositories.TaskRepository;
 import by.application.task.tracker.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;

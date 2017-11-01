@@ -1,4 +1,4 @@
-package by.application.task.tracker.data;
+package by.application.task.tracker.data.entities;
 
 import javax.persistence.*;
 import java.util.List;
@@ -32,12 +32,4 @@ public class Position {
 
     public void setUsers(List<User> users) {this.users = users;}
 
-    @Override
-    public String toString() {
-        return "Position{" +
-                "positionId=" + positionId +
-                ", positionName='" + positionName + '\'' +
-                ", users=" + users +
-                '}';
-    }
 }
