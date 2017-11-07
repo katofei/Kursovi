@@ -1,8 +1,9 @@
 package by.application.task.tracker.service.impl;
 
+import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.repositories.UserRepository;
-import by.application.task.tracker.service.UserService;
+import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,16 +11,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public User createUser(User user) {return userRepository.save(user);}
+    @Autowired
+    private PositionService positionService;
+    @Autowired
+    private ProjectService projectService;
+    @Autowired
+    private ProjectRoleService projectRoleService;
+    @Autowired
+    private QualificationService qualificationService;
 
     @Override
-    public void deleteUser(Long userId) {userRepository.delete(userId);}
+    public User createUser(UserDTO userDTO) {
+        User createdUser = new User();
+        createdUser.setUserName(userDTO.getName());
+        createdUser.setUserSurname(userDTO.getSurname());
+        createdUser.seteMail(userDTO.getEmail());
+        createdUser.setLogin(userDTO.getLogin());
+        createdUser.setPassword(userDTO.getPassword());
+        createdUser.setProject(projectService.findProjectById(userDTO.getProjectId()));
+        createdUser.setProjectRole(projectRoleService.findProjectRoleById(userDTO.getProjectRoleId()));
+        createdUser.setPosition(positionService.findPositionById(userDTO.getPositionId()));
+        createdUser.setQualification(qualificationService.findQualificationById(userDTO.getQualificationId()));
+        return userRepository.save(createdUser);
+    }
+
+    @Override
+    public void deleteUser(Long userId) {
+        userRepository.delete(userId);
+    }
 
     @Override
     public User editUser(User user) {

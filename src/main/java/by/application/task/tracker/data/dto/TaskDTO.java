@@ -7,35 +7,16 @@ public class TaskDTO implements Serializable{
 
     public TaskDTO() {}
 
-    private long Id;
-    private String name;
     private String taskName;
     private Date startDate;
     private Date endDate;
     private String description;
-    private long taskTypeId;
-    private long taskPriorityId;
-    private long executorId;
-    private long creatorId;
-    private long taskStatusID;
-    private long projectId;
-
-
-    public long getId() {
-        return Id;
-    }
-
-    public void setId(long id) {
-        Id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private long taskType;
+    private long taskPriority;
+    private long executor;
+    private long creator;
+    private long taskStatus;
+    private long project;
 
     public String getTaskName() {
         return taskName;
@@ -69,51 +50,51 @@ public class TaskDTO implements Serializable{
         this.description = description;
     }
 
-    public long getTaskTypeId() {
-        return taskTypeId;
+    public long getTaskType() {
+        return taskType;
     }
 
-    public void setTaskTypeId(long taskTypeId) {
-        this.taskTypeId = taskTypeId;
+    public void setTaskType(long taskType) {
+        this.taskType = taskType;
     }
 
-    public long getTaskPriorityId() {
-        return taskPriorityId;
+    public long getTaskPriority() {
+        return taskPriority;
     }
 
-    public void setTaskPriorityId(long taskPriorityId) {
-        this.taskPriorityId = taskPriorityId;
+    public void setTaskPriority(long taskPriority) {
+        this.taskPriority = taskPriority;
     }
 
-    public long getExecutorId() {
-        return executorId;
+    public long getExecutor() {
+        return executor;
     }
 
-    public void setExecutorId(long executorId) {
-        this.executorId = executorId;
+    public void setExecutor(long executor) {
+        this.executor = executor;
     }
 
-    public long getCreatorId() {
-        return creatorId;
+    public long getCreator() {
+        return creator;
     }
 
-    public void setCreatorId(long creatorId) {
-        this.creatorId = creatorId;
+    public void setCreator(long creator) {
+        this.creator = creator;
     }
 
-    public long getTaskStatusID() {
-        return taskStatusID;
+    public long getTaskStatus() {
+        return taskStatus;
     }
 
-    public void setTaskStatusID(long taskStatusID) {
-        this.taskStatusID = taskStatusID;
+    public void setTaskStatus(long taskStatus) {
+        this.taskStatus = taskStatus;
     }
 
-    public long getProjectId() {
-        return projectId;
+    public long getProject() {
+        return project;
     }
 
-    public void setProjectId(long projectId) {
-        this.projectId = projectId;
+    public void setProject(long project) {
+        this.project = project;
     }
 }

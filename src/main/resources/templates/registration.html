@@ -30,62 +30,70 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">User Registration</h3>
                 </div>
-                <form role="form" th:action="@{/}" th:object="${user}" method="post">
+                <form role="form" th:action="@{/registration}" th:object="${user}" method="post">
                     <div class="box-body">
                         <div class="form-group has-feedback">
                             <label>User name</label>
-                            <textarea class="form-control" th:field="*{name}" rows="1" placeholder="Enter name"></textarea>
+                            <input type="text" class="form-control" th:field="*{userName}" placeholder="Enter name"/>
                         </div>
                         <div class="form-group has-feedback">
                             <label>User surname</label>
-                            <textarea class="form-control" th:field="*{surname}"  rows="1" placeholder="Enter surname"></textarea>
+                            <input type="text" class="form-control" th:field="*{userSurname}" placeholder="Enter surname"/>
                         </div>
                         <div class="form-group has-feedback">
                             <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" th:field="*{email}" class="form-control" id="exampleInputEmail1" placeholder="Enter email" />
+                            <input type="email" th:field="*{eMail}" class="form-control" id="exampleInputEmail1"
+                                   placeholder="Enter email"/>
                         </div>
-                        <div class="form-group has-feedback">
+              <!--          <div class="form-group has-feedback">
                             <label>Enter phone number:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </div>
-                                <input type="text" th:field="*{phone}" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask/>
+                                <input type="text" th:field="*{phone}" class="form-control"
+                                       th:format='"mask": "(999) 999-9999"'
+                                       placeholder="Enter phone number"/>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group has-feedback">
                             <label for="exampleInputPassword1">Password</label>
-                            <input type="password" th:field="*{password}" class="form-control" id="exampleInputPassword1"
-                                   placeholder="Password">
+                            <input type="password" th:field="*{password}" class="form-control"
+                                   id="exampleInputPassword1"
+                                   placeholder="Enter password"/>
                         </div>
                         <div class="form-group has-feedback">
                             <label>Project name</label>
-                            <textarea class="form-control" rows="1" placeholder="Enter project name"></textarea>
+                            <select th:field="*{project}" class="form-control select2" style="width: 100%;">
+                                <option th:each="project:${projects}"
+                                        th:value="project.projectId"
+                                        th:text="${project.projectName}">
+                                </option>
+                            </select>
                         </div>
                         <div class="form-group has-feedback">
                             <label>Position</label>
                             <select th:field="*{position}" class="form-control select2" style="width: 100%;">
-                                <option th:value="${Java_Developer}" selected="selected">Java developer</option>
-                                <option th:value="${Front_End_Developer}">Front end developer</option>
-                                <option th:value="${Tester}">Tester</option>
-                                <option th:value="${BA}">Business analytic</option>
-                                <option th:value="${QA}">Quality assurance</option>
-                                <option th:value="${SE}">Software engineer</option>
+                                <option th:each="position:${positions}"
+                                        th:value="position.posotionId"
+                                        th:text="${position.positionName}" selected="selected">Java developer
+                                </option>
                             </select>
                         </div>
                         <div class="form-group has-feedback">
                             <label>Qualification</label>
                             <select th:field="*{qualification}" class="form-control select2" style="width: 100%;">
-                                <option th:value="${Junior}" selected="selected">Junior</option>
-                                <option th:value="${Midle}" >Midle</option>
-                                <option th:value="${Sinior}" >Sinior</option>
+                                <option th:each="qualification:${qualifications}"
+                                        th:value="qualification.qualificationId"
+                                        th:text="${qualification.qualificationName}" selected="selected">Junior</option>
                             </select>
                         </div>
                         <div class="form-group has-feedback">
                             <label>Project role</label>
-                            <select th:field="*{project_roel}" class="form-control select2" style="width: 100%;">
-                                <option th:value="${PM}" selected="selected">Project Manager</option>
-                                <option th:value="${TL}">Team Lead</option>
+                            <select th:field="*{projectRole}" class="form-control select2" style="width: 100%;">
+                                <option th:each="projectRole.projectRoles"
+                                        th:value="projectRole.projectRoleId"
+                                        th:text="${projectRole.projectRoleName}" selected="selected">Project Manager</option>
                             </select>
                         </div>
                     </div>

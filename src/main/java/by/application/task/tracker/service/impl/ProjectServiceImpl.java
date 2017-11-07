@@ -1,5 +1,6 @@
 package by.application.task.tracker.service.impl;
 
+import by.application.task.tracker.data.dto.ProjectDTO;
 import by.application.task.tracker.data.entities.Project;
 import by.application.task.tracker.repositories.ProjectRepository;
 import by.application.task.tracker.service.ProjectService;
@@ -16,7 +17,11 @@ public class ProjectServiceImpl implements ProjectService{
     private ProjectRepository projectRepository;
 
     @Override
-    public Project addProject(Project project) {return projectRepository.save(project);}
+    public Project createProject(ProjectDTO projectDTO) {
+        Project createdProject = new Project();
+        createdProject.setProjectName(projectDTO.getProjectName());
+        createdProject.setProjectCountry(projectDTO.getCountry());
+        return projectRepository.save(createdProject);}
 
     @Override
     public void deleteProject(Long projectId) { projectRepository.delete(projectId);}

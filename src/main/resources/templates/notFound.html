@@ -3,17 +3,14 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Error</title>
+    <title>Log in</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/font_awesome/css/font_awesome.min.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/Ionicons/css/ionicons.min.css}"/>
     <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"/>
     <link rel="stylesheet" th:href="@{/plugins/iCheck/square/blue.css}"/>
-    <link rel="stylesheet" th:href="@{/dist/css/skins/_all_skins.min.css}"/>
-    <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
-    <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
-    <link rel="stylesheet" th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
+</head>
 
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -23,15 +20,14 @@
         </div>
         <section class="content">
             <div class="error-page">
-                <h2 class="headline text-yellow"> 403</h2>
+                <h2 class="headline text-yellow">404</h2>
 
                 <div class="error-content">
-                    <h3><i class="fa fa-warning text-yellow"></i> Oops! Access denied.</h3>
+                    <h3><i class="fa fa-warning text-yellow"></i> Oops! Page not found.</h3>
 
-                    <p>Sorry, <a th:text="${user.userName}">
-                        You don't have permission to view that page
-                        Please, return to dashboard <a th:href="@{starter.html}"></a>
-                    </a>
+                    <p>
+                        We could not find the page you were looking for.
+                        Meanwhile, you may return to dashboard <a th:href="@{starter.html}"></a>
                     </p>
 
                     <form class="search-form">
@@ -50,9 +46,11 @@
         </section>
     </div>
 </div>
+
+
 <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
 <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
 <script th:src="@{/dist/js/adminlte.min.js}"></script>
-
+<script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
 </body>
 </html>
