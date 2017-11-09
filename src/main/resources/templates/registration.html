@@ -5,103 +5,155 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>Registration</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-    <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dis/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/font_awesome/css/font_awesome.min.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/Ionicons/css/ionicons.min.css}"/>
     <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"/>
     <link rel="stylesheet" th:href="@{/plugins/iCheck/square/blue.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/skins/_all_skins.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
     <header class="main-header">
-        <a th:href="@{/starter.html}" class="logo">
+        <a href="#" class="logo">
             <span class="logo-lg"><b>Dash</b>Bord</span>
         </a>
 
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"></a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="/dist/img/user2-160x160.jpg" class="user-image"/>
+                            <span class="hidden-xs"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                <img src="/dist/img/user2-160x160.jpg" class="img-circle"/>
+                                <p th:text="${currentUser.userName} +' '+ ${currentUser.userSurname}">
+                                    <small  th:text="${currentUser.position} +' '+ ${currentUser.qualification}"></small>
+                                </p>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a th:href="@{/profile.html}" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a th:href="@{/login}" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </header>
 
 
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">MAIN NAVIGATION</li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                        <span class="pull-right-container"></span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </aside>
+
     <div class="content-wrapper">
         <section class="content-header">
-        </section>
-        <section class="content container-fluid">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">User Registration</h3>
-                </div>
-                <form role="form" th:action="@{/registration}" th:object="${user}" method="post">
-                    <div class="box-body">
-                        <div class="form-group has-feedback">
-                            <label>User name</label>
-                            <input type="text" class="form-control" th:field="*{userName}" placeholder="Enter name"/>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label>User surname</label>
-                            <input type="text" class="form-control" th:field="*{userSurname}" placeholder="Enter surname"/>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" th:field="*{eMail}" class="form-control" id="exampleInputEmail1"
-                                   placeholder="Enter email"/>
-                        </div>
-              <!--          <div class="form-group has-feedback">
-                            <label>Enter phone number:</label>
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-phone"></i>
-                                </div>
-                                <input type="text" th:field="*{phone}" class="form-control"
-                                       th:format='"mask": "(999) 999-9999"'
-                                       placeholder="Enter phone number"/>
+            <section class="content container-fluid">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">User Registration</h3>
+                    </div>
+                    <form role="form" th:action="@{/registration}" th:object="${user}" method="post">
+                        <div class="box-body">
+                            <div class="form-group has-feedback">
+                                <label>User name</label>
+                                <input type="text" class="form-control" th:field="*{userName}"
+                                       placeholder="Enter name"/>
                             </div>
-                        </div>-->
-                        <div class="form-group has-feedback">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" th:field="*{password}" class="form-control"
-                                   id="exampleInputPassword1"
-                                   placeholder="Enter password"/>
+                            <div class="form-group has-feedback">
+                                <label>User surname</label>
+                                <input type="text" class="form-control" th:field="*{userSurname}"
+                                       placeholder="Enter surname"/>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" th:field="*{eMail}" class="form-control" id="exampleInputEmail1"
+                                       placeholder="Enter email"/>
+                            </div>
+                            <!--          <div class="form-group has-feedback">
+                                          <label>Enter phone number:</label>
+                                          <div class="input-group">
+                                              <div class="input-group-addon">
+                                                  <i class="fa fa-phone"></i>
+                                              </div>
+                                              <input type="text" th:field="*{phone}" class="form-control"
+                                                     th:format='"mask": "(999) 999-9999"'
+                                                     placeholder="Enter phone number"/>
+                                          </div>
+                                      </div>-->
+                            <div class="form-group has-feedback">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" th:field="*{password}" class="form-control"
+                                       id="exampleInputPassword1"
+                                       placeholder="Enter password"/>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label>Project name</label>
+                                <select th:field="*{project}" class="form-control select2" style="width: 100%;">
+                                    <option th:each="project:${projects}"
+                                            th:value="${project.projectId}"
+                                            th:text="${project.projectName}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label>Position</label>
+                                <select th:field="*{position}" class="form-control select2" style="width: 100%;">
+                                    <option th:each="position:${positions}"
+                                            th:value="${position.positionId}"
+                                            th:text="${position.positionName}" selected="selected">Java developer
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label>Qualification</label>
+                                <select th:field="*{qualification}" class="form-control select2" style="width: 100%;">
+                                    <option th:each="qualification:${qualifications}"
+                                            th:value="${qualification.qualificationId}"
+                                            th:text="${qualification.qualificationName}" selected="selected">Junior
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label>Project role</label>
+                                <select th:field="*{projectRole}" class="form-control select2" style="width: 100%;">
+                                    <option th:each="projectRole:${projectRoles}"
+                                            th:value="${projectRole.projectRoleId}"
+                                            th:text="${projectRole.projectRoleName}" selected="selected">Project Manager
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group has-feedback">
-                            <label>Project name</label>
-                            <select th:field="*{project}" class="form-control select2" style="width: 100%;">
-                                <option th:each="project:${projects}"
-                                        th:value="project.projectId"
-                                        th:text="${project.projectName}">
-                                </option>
-                            </select>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
-                        <div class="form-group has-feedback">
-                            <label>Position</label>
-                            <select th:field="*{position}" class="form-control select2" style="width: 100%;">
-                                <option th:each="position:${positions}"
-                                        th:value="position.posotionId"
-                                        th:text="${position.positionName}" selected="selected">Java developer
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label>Qualification</label>
-                            <select th:field="*{qualification}" class="form-control select2" style="width: 100%;">
-                                <option th:each="qualification:${qualifications}"
-                                        th:value="qualification.qualificationId"
-                                        th:text="${qualification.qualificationName}" selected="selected">Junior</option>
-                            </select>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label>Project role</label>
-                            <select th:field="*{projectRole}" class="form-control select2" style="width: 100%;">
-                                <option th:each="projectRole.projectRoles"
-                                        th:value="projectRole.projectRoleId"
-                                        th:text="${projectRole.projectRoleName}" selected="selected">Project Manager</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            </section>
         </section>
     </div>
     <div class="control-sidebar-bg"></div>

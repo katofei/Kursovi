@@ -11,8 +11,6 @@
     <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"/>
     <link rel="stylesheet" th:href="@{/plugins/iCheck/square/blue.css}"/>
     <link rel="stylesheet" th:href="@{/dist/css/skins/_all_skins.min.css}"/>
-    <link rel="stylesheet"
-          th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic}"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -39,9 +37,8 @@
                             <!-- The user image in the menu -->
                             <li class="user-header">
                                 <img src="/dist/img/user2-160x160.jpg" class="img-circle"/>
-                                <p>
-                                    Alexander Pierce - Web Developer
-                                    <small>Member since Nov. 2012</small>
+                                <p th:text="${currentUser.userName} +' '+ ${currentUser.userSurname}">
+                                    <small  th:text="${currentUser.position} +' '+ ${currentUser.qualification}"></small>
                                 </p>
                             </li>
                             <!-- Menu Footer-->

@@ -14,40 +14,81 @@
 
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-    <div class="login-box">
-        <div class="login-logo">
-            <a th:href="@{starter.html}"><b>Dash</b>Board</a>
-        </div>
-        <section class="content">
-            <div class="error-page">
-                <h2 class="headline text-yellow">401</h2>
 
-                <div class="error-content">
-                    <h3><i class="fa fa-warning text-yellow"></i> Oops! Authorization Required</h3>
+    <header class="main-header">
+        <a href="#" class="logo">
+            <span class="logo-lg"><b>Dash</b>Bord</span>
+        </a>
 
-                    <p>
-                       Access is allowed only for authorized users.
-                        Please visit authorization page.
-                        <a th:href="@{authorization.html}"></a>
-                    </p>
-
-                    <form class="search-form">
-                        <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="Search">
-
-                            <div class="input-group-btn">
-                                <button type="submit" name="submit" class="btn btn-warning btn-flat"><i
-                                        class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"></a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="/dist/img/user2-160x160.jpg" class="user-image"/>
+                          <!--  <span class="hidden-xs"></span>-->
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                <img src="/dist/img/user2-160x160.jpg" class="img-circle"/>
+                                <p th:text="${currentUser.userName} +' '+ ${currentUser.userSurname}">
+                                    <small  th:text="${currentUser.position} +' '+ ${currentUser.qualification}"></small>
+                                </p>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a th:href="@{/profile.html}" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a th:href="@{/login}" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
+        </nav>
+    </header>
+
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">MAIN NAVIGATION</li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                        <span class="pull-right-container"></span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </aside>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                401 Error Page
+            </h1>
+        </section>
+        <section class="content-header">
+            <section class="content">
+                <div class="error-page">
+                    <h2 class="headline text-yellow">401</h2>
+                    <div class="error-content">
+                        <h3><i class="fa fa-warning text-yellow"></i> Oops! Authorization Required</h3>
+                        <p>
+                            Access is allowed only for authorized users.
+                            Please visit authorization page.
+                            <a th:href="@{authorization.html}"></a>
+                        </p>
+                    </div>
+                </div>
+            </section>
         </section>
     </div>
 </div>
-
 
 <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
 <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>

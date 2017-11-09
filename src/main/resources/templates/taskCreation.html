@@ -3,106 +3,181 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Registration</title>
+    <title>Create new task</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-    <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dis/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/font_awesome/css/font_awesome.min.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/Ionicons/css/ionicons.min.css}"/>
     <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"/>
     <link rel="stylesheet" th:href="@{/plugins/iCheck/square/blue.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/skins/_all_skins.min.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
-    <link rel="stylesheet" th:href="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.min.css}"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
     <header class="main-header">
-        <a th:href="@{/starter.html}" class="logo">
+        <a href="#" class="logo">
             <span class="logo-lg"><b>Dash</b>Bord</span>
         </a>
 
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"></a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="/dist/img/user2-160x160.jpg" class="user-image"/>
+                            <span class="hidden-xs"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                <img src="/dist/img/user2-160x160.jpg" class="img-circle"/>
+                                <p th:text="${currentUser.userName} +' '+ ${currentUser.userSurname}"></p>
+                                <small th:text="${currentUser.position} +' '+ ${currentUser.qualification}"></small>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a th:href="@{/profile.html}" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a th:href="@{/login}" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </header>
+
+
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">MAIN NAVIGATION</li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                        <span class="pull-right-container"></span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </aside>
+
     <div class="content-wrapper">
         <section class="content-header">
-        </section>
-        <section class="content container-fluid">
-
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Create new task</h3>
-                </div>
-                <form role="form" th:action="@{/taskCreation}" th:object="${task}" method="post">
-                    <div class="box-body">
-                        <div class="form-group has-feedback">
-                            <label>Task name</label>
-                            <input type="text" th:field="*{taskName}" class="form-control"  placeholder="Enter name"/>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label >Assigned User</label>
-                            <input type="text" th:field="*{executor}" class="form-control" placeholder="Enter user name"/>
-                        </div>
-                        <div class="form-group has-feedback">
-                        <label>Priority</label>
-                        <select th:field="*{taskPriority}" class="form-control select2" style="width: 100%;">
-                            <option th:each = "taskPriority:${taskPriorities}"
-                            th:value="${taskPriority.priorityId}"
-                            th:text="${taskPriority.priorityName}" selected="selected">LOW</option>
-                        </select>
-                        </div>
-                        <div class="form-group has-feedback">
-                        <label>Type</label>
-                        <select  th:field="*{taskType}"  class="form-control select2" style="width: 100%;">
-                            <option th:each="taskType:${taskTypes}"
-                                    th:value="${taskType.typeId}"
-                                    th:text="${taskType.typeName}" selected="selected">Dev Task</option>
-                        </select>
-                        </div>
-                      <div class="form-group has-feedback">
-                        <label>Description</label>
-                        <div class="form-group">
-                            <label>Textarea</label>
-                            <input type="text" th:field="*{description}" class="form-control"  placeholder="Enter ..." />
-                        </div>
-                        </div>
-                       <div class="form-group has-feedback">
-                            <label>Start Date:</label>
-                            <div class="input-group date">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="date" th:field="*{startDate}" class="form-control pull-right" id="datepicker"/>
+            <section class="content container-fluid">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Task creation</h3>
+                    </div>
+                    <form role="form" th:action="@{/taskCreation}" th:object="${task}" method="post">
+                        <div class="box-body">
+                            <div class="form-group has-feedback">
+                                <label>Task name</label>
+                                <input type="text" th:field="*{taskName}" class="form-control"
+                                       placeholder="Enter name"/>
                             </div>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <div class="form-group">
-                                <label>Estimation Date:</label>
+                            <div class="form-group has-feedback">
+                                <label>Project</label>
+                                <select th:field="*{project}" class="form-control select2" style="width: 100%;">
+                                    <option th:each="project:${projects}"
+                                            th:value="${project.projectId}"
+                                            th:text="${project.projectName}" selected="selected">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label>Creator</label>
+                                <input type="text" th:value="${currentUser.userName}+' '+${currentUser.userSurname}"
+                                       class="form-control" th:disabled="true"/>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label>Assigned User</label>
+                                <select th:field="*{executor}" class="form-control select2" style="width: 100%;">
+                                    <option th:each="executor:${allUsers}"
+                                            th:value="${executor.userId}"
+                                            th:text="${executor.userName}+' '+${executor.userSurname}" selected="selected">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label>Priority</label>
+                                <select th:field="*{taskPriority}" class="form-control select2" style="width: 100%;">
+                                    <option th:each="taskPriority:${taskPriorities}"
+                                            th:value="${taskPriority.priorityId}"
+                                            th:text="${taskPriority.priorityName}" selected="selected">LOW
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label>Type</label>
+                                <select th:field="*{taskType}" class="form-control select2" style="width: 100%;">
+                                    <option th:each="taskType:${taskTypes}"
+                                            th:value="${taskType.typeId}"
+                                            th:text="${taskType.typeName}" selected="selected">Dev Task
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label>Description</label>
+                                <div class="form-group">
+                                    <input type="text" th:field="*{description}" class="form-control"
+                                           placeholder="Enter ..."/>
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label>Start Date:</label>
                                 <div class="input-group date">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="date" th:field="*{endDate}" class="form-control pull-right" id="datepicker"/>
+                                    <input type="date" th:field="*{startDate}" class="form-control pull-right"
+                                           id="datepicker"/>
                                 </div>
                             </div>
+                            <div class="form-group has-feedback">
+                                <div class="form-group">
+                                    <label>Estimation Date:</label>
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="date" th:field="*{endDate}" class="form-control pull-right"
+                                               id="datepicker"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
                         </div>
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            </section>
         </section>
     </div>
-    <div class="control-sidebar-bg"></div>
-
 </div>
+
+<script>
+    $(function () {
+        $('#datepicker').datepicker({
+            autoclose: true
+        })
+    })
+</script>
 
 <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
 <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
 <script th:src="@{/dist/js/adminlte.min.js}"></script>
 <script th:src="@{/dist/js/demo.js}"></script>
 <script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
+<script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
 
 </body>
 </html>

@@ -28,15 +28,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(UserDTO userDTO) {
         User createdUser = new User();
-        createdUser.setUserName(userDTO.getName());
-        createdUser.setUserSurname(userDTO.getSurname());
-        createdUser.seteMail(userDTO.getEmail());
+        createdUser.setUserName(userDTO.getUserName());
+        createdUser.setUserSurname(userDTO.getUserSurname());
+        createdUser.seteMail(userDTO.geteMail());
         createdUser.setLogin(userDTO.getLogin());
         createdUser.setPassword(userDTO.getPassword());
-        createdUser.setProject(projectService.findProjectById(userDTO.getProjectId()));
-        createdUser.setProjectRole(projectRoleService.findProjectRoleById(userDTO.getProjectRoleId()));
-        createdUser.setPosition(positionService.findPositionById(userDTO.getPositionId()));
-        createdUser.setQualification(qualificationService.findQualificationById(userDTO.getQualificationId()));
+        createdUser.setProject(projectService.findProjectById(userDTO.getProject()));
+        createdUser.setProjectRole(projectRoleService.findProjectRoleById(userDTO.getProjectRole()));
+        createdUser.setPosition(positionService.findPositionById(userDTO.getPosition()));
+        createdUser.setQualification(qualificationService.findQualificationById(userDTO.getQualification()));
         return userRepository.save(createdUser);
     }
 

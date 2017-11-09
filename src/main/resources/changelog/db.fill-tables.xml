@@ -339,8 +339,9 @@
             <column name="user_id">174121921</column>
             <column name="e_mail">g14.katya@gmail.com</column>
             <column name="login">user</column>
-            <column name="password">$2a$10$ryKL4ZqBoqKKUzWxPQkb7O0S9plB5beQY5pWY4N5xBjHqz7thqU4</column>
+            <column name="password">$2a$10$p5CnYpFsCUKfmbdFj8gx4.4OzWcAGrwnx/kdoxE/A.h5WjUF0Sapa</column>
             <column name="position_position_id" valueComputed ="(SELECT position_id from positions WHERE position_name = 'Java developer')"/>
+            <column name="qualification_qualification_id" valueComputed ="(SELECT qualification_id from qualifications WHERE qualification_name = 'Junior')"/>
             <column name="user_name">Robert</column>
             <column name="user_surname">Dauni</column>
             <column name="enabled">1</column>

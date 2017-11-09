@@ -31,4 +31,12 @@ public class ProjectRole {
     public List<User> getUsers() {return users;}
 
     public void setUsers(List<User> users) {this.users = users;}
+
+    public Long getProjectRoleId() {return projectRoleId;}
+
+    public void setProjectRoleId(Long projectRoleId) {this.projectRoleId = projectRoleId;}
+
+    public String getProjectRoleName() {return projectRoleName;}
+
+    public void setProjectRoleName(String projectRoleName) {this.projectRoleName = projectRoleName;}
 }

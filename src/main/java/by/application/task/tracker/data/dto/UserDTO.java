@@ -4,29 +4,29 @@ import java.io.Serializable;
 
 public class UserDTO implements Serializable{
 
-   public UserDTO(){}
+    public UserDTO(){}
 
-    private String name;
-    private String surname;
-    private String email;
+    private String userName;
+    private String userSurname;
+    private String eMail;
     private String login;
     private String password;
-    private long projectId;
-    private long positionId;
-    private long qualificationId;
-    private long projectRoleId;
+    private long project;
+    private long position;
+    private long qualification;
+    private long projectRole;
 
-    public void setName(String name) {this.name = name;}
+    public String getUserName() {return userName;}
 
-    public String getName() {return name;}
+    public void setUserName(String userName) {this.userName = userName;}
 
-    public String getSurname() {return surname;}
+    public String getUserSurname() {return userSurname;}
 
-    public void setSurname(String surname) {this.surname = surname;}
+    public void setUserSurname(String userSurname) {this.userSurname = userSurname;}
 
-    public String getEmail() {return email;}
+    public String geteMail() {return eMail;}
 
-    public void setEmail(String email) {this.email = email;}
+    public void seteMail(String eMail) {this.eMail = eMail;}
 
     public String getLogin() {return login;}
 
@@ -36,19 +36,19 @@ public class UserDTO implements Serializable{
 
     public void setPassword(String password) {this.password = password;}
 
-    public long getProjectId() {return projectId;}
+    public long getProject() {return project;}
 
-    public void setProjectId(long projectId) {this.projectId = projectId;}
+    public void setProject(long project) {this.project = project;}
 
-    public long getPositionId() {return positionId;}
+    public long getPosition() {return position;}
 
-    public void setPositionId(long positionId) {this.positionId = positionId;}
+    public void setPosition(long position) {this.position = position;}
 
-    public long getQualificationId() {return qualificationId;}
+    public long getQualification() {return qualification;}
 
-    public void setQualificationId(long qualificationId) {this.qualificationId = qualificationId;}
+    public void setQualification(long qualification) {this.qualification = qualification;}
 
-    public long getProjectRoleId() {return projectRoleId;}
+    public long getProjectRole() {return projectRole;}
 
-    public void setProjectRoleId(long projectRoleId) {this.projectRoleId = projectRoleId;}
+    public void setProjectRole(long projectRole) {this.projectRole = projectRole;}
 }

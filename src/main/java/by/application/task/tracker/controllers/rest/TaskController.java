@@ -2,6 +2,7 @@ package by.application.task.tracker.controllers.rest;
 
 import by.application.task.tracker.data.dto.TaskDTO;
 import by.application.task.tracker.data.entities.Task;
+import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,7 +32,8 @@ public class TaskController {
     public ModelAndView getTaskCreationPage() {
         ModelAndView view = new ModelAndView("taskCreation");
         view.addObject("allUsers", userService.getAllUsers());
-        view.addObject("currentUser", userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
         view.addObject("taskTypes",taskTypeService.getAllTaskTypes());
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
