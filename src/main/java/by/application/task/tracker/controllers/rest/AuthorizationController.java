@@ -19,7 +19,7 @@ public class AuthorizationController {
     public ModelAndView getStarterPage() {
         ModelAndView view = new ModelAndView("starter");
         User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("user", user);
+        view.addObject("currentUser", user);
         return view;
     }
 }
