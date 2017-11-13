@@ -14,19 +14,20 @@ public class PageNavigationController {
 
     @Autowired
     private UserService userService;
-
     @Autowired
     private TaskService taskService;
-
     @Autowired
     private TaskTypeService taskTypeService;
-
     @Autowired
     private TaskStatusService taskStatusService;
-
     @Autowired
     private TaskPriorityService taskPriorityService;
-
+    @Autowired
+    private PositionService positionService;
+    @Autowired
+    private QualificationService qualificationService;
+    @Autowired
+    private ProjectRoleService projectRoleService;
     @Autowired
     private ProjectService projectService;
 
@@ -39,13 +40,21 @@ public class PageNavigationController {
     public ModelAndView getProfilePage() {
         User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         ModelAndView view = new ModelAndView("profile");
-        view.addObject("user", user);
+        view.addObject("currentUser", user);
+        view.addObject("position",positionService.findPositionById(user.getPosition().getPositionId()));
+        view.addObject("project", projectService.findProjectById(user.getProject().getProjectId()));
+        view.addObject("qualification",qualificationService.findQualificationById(user.getQualification().getQualificationId()));
         return view;
     }
 
     @RequestMapping(path = "/access-denied", method = RequestMethod.GET)
     public ModelAndView getDeniedPage() {
         return new ModelAndView("accessDenied");
+    }
+
+    @RequestMapping(path = "/start", method = RequestMethod.GET)
+    public ModelAndView getStartPage() {
+        return new ModelAndView("startPage");
     }
 
 }

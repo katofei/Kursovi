@@ -26,8 +26,8 @@ public abstract class MainExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public String  handleNotFoundException(Exception ex) {
-        return ("Not found:"+ ex.getMessage());
+    public String handleNotFoundException(Exception ex) {
+        return ("Not found:" + ex.getMessage());
     }
 
     @ExceptionHandler(IllegalStateException.class)
@@ -40,7 +40,7 @@ public abstract class MainExceptionHandler {
     @ExceptionHandler(SQLException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public String handleSQLException(Exception ex){
+    public String handleSQLException(Exception ex) {
         return ("SQL excepiton:" + ex.getMessage());
     }
 
@@ -48,7 +48,7 @@ public abstract class MainExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     private String handleException(Exception ex) {
-        return ("Server error"+ ex.getMessage());
+        return ("Server error" + ex.getMessage());
     }
 
 }

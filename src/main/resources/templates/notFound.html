@@ -24,9 +24,7 @@
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"></a>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- User Account Menu -->
                     <li class="dropdown user user-menu">
-                        <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="/dist/img/user2-160x160.jpg" class="user-image"/>
                             <span class="hidden-xs"></span>
@@ -34,9 +32,8 @@
                         <ul class="dropdown-menu">
                             <li class="user-header">
                                 <img src="/dist/img/user2-160x160.jpg" class="img-circle"/>
-                                <p th:text="${currentUser.userName} +' '+ ${currentUser.userSurname}">
-                                    <small  th:text="${currentUser.position} +' '+ ${currentUser.qualification}"></small>
-                                </p>
+                                <p th:text="${currentUser.userName}+' '+${currentUser.userSurname}"></p>
+                                <p th:text="${qualification.qualificationName}+' '+${position.positionName}"></p>
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">

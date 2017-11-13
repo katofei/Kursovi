@@ -20,11 +20,11 @@ public class Task {
     private String taskName;
 
     @Column(name = "start_date")
-    @DateTimeFormat (pattern="dd-MMM-YYYY")
+    @DateTimeFormat(pattern="YYYY-MM-dd")
     private Date startDate;
 
     @Column(name = "end_date")
-    @DateTimeFormat(pattern="dd-MMM-YYYY")
+    @DateTimeFormat(pattern="YYYY-MM-dd")
     private Date endDate;
 
     @Lob

@@ -46,12 +46,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                     .logoutUrl("/logout")
+                    .deleteCookies("JSESSIONID")
                     .logoutSuccessUrl("/")
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/access-denied");
-
-
+                    .accessDeniedPage("/accessDenied")
+                .and()
+                .rememberMe()
+                .key("uniqueAndSecret")
+                .rememberMeParameter("remember-me")
+                .rememberMeCookieName("my-remember-me")
+                .tokenValiditySeconds(1209600);//week
     }
 
     @Bean
@@ -59,5 +64,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder;
     }
-
 }

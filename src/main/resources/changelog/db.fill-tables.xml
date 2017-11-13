@@ -243,76 +243,76 @@
         </insert>
 
         <insert tableName="statuses">
-            <column name="status_name">OPEN</column>
+            <column name="status_name">Open</column>
         </insert>
         <insert tableName="statuses">
-            <column name="status_name">REOPEN</column>
+            <column name="status_name">Reopen</column>
         </insert>
         <insert tableName="statuses">
-            <column name="status_name">ON_HOLD</column>
+            <column name="status_name">On_hold</column>
         </insert>
         <insert tableName="statuses">
-            <column name="status_name">IN_PROGRESS</column>
+            <column name="status_name">In_progress</column>
         </insert>
         <insert tableName="statuses">
-            <column name="status_name">RESOLVED</column>
+            <column name="status_name">Resolved</column>
         </insert>
         <insert tableName="statuses">
-            <column name="status_name">CLOSED</column>
+            <column name="status_name">Closed</column>
         </insert>
         <insert tableName="statuses">
-            <column name="status_name">IMPLEMENTED</column>
+            <column name="status_name">Implemented</column>
         </insert>
         <insert tableName="statuses">
-            <column name="status_name">READY_FOR_TESTING</column>
+            <column name="status_name">Ready_for_testing</column>
         </insert>
 
         <insert tableName="types">
-            <column name="type_name">DEV_TASK</column>
+            <column name="type_name">Dev_task</column>
         </insert>
         <insert tableName="types">
-            <column name="type_name">DEV_TEST</column>
+            <column name="type_name">Dev_test</column>
         </insert>
         <insert tableName="types">
-            <column name="type_name">QA_TASK</column>
+            <column name="type_name">Qa_task</column>
         </insert>
         <insert tableName="types">
-            <column name="type_name">BUG</column>
+            <column name="type_name">Bug</column>
         </insert>
         <insert tableName="types">
-            <column name="type_name">QA_TEST</column>
+            <column name="type_name">Qa_test</column>
         </insert>
         <insert tableName="types">
-            <column name="type_name">QUESTION</column>
+            <column name="type_name">Question</column>
         </insert>
         <insert tableName="types">
-            <column name="type_name">DOC</column>
+            <column name="type_name">Doc</column>
         </insert>
         <insert tableName="types">
-            <column name="type_name">BA_TASK</column>
+            <column name="type_name">Ba_task</column>
         </insert>
 
 
         <insert tableName="priorities">
-            <column name="priority_name">LOW</column>
+            <column name="priority_name">Low</column>
         </insert>
         <insert tableName="priorities">
-            <column name="priority_name">NORMAL</column>
+            <column name="priority_name">Normal</column>
         </insert>
         <insert tableName="priorities">
-            <column name="priority_name">HIGH</column>
+            <column name="priority_name">High</column>
         </insert>
         <insert tableName="priorities">
-            <column name="priority_name">CRITICAL</column>
+            <column name="priority_name">Critical</column>
         </insert>
         <insert tableName="priorities">
-            <column name="priority_name">MAJOR</column>
+            <column name="priority_name">Major</column>
         </insert>
         <insert tableName="priorities">
-            <column name="priority_name">MINOR</column>
+            <column name="priority_name">Minor</column>
         </insert>
         <insert tableName="priorities">
-            <column name="priority_name">FIRE</column>
+            <column name="priority_name">Fire</column>
         </insert>
 
         <insert tableName="projects">

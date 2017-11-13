@@ -1,15 +1,29 @@
 package by.application.task.tracker.data.dto;
 
+import by.application.task.tracker.validation.ValidEmail;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class UserDTO implements Serializable{
 
     public UserDTO(){}
 
+    @NotBlank(message = "User name is required")
     private String userName;
+
+    @NotBlank(message = "User surname is required")
     private String userSurname;
+
+    @ValidEmail
+    @NotBlank(message = "E-mail can not be empty")
     private String eMail;
+
+    @Size(min =6, message = "Login is too short: 6 symbols are required")
     private String login;
+
+    @Size(min =6, message = "Password is too short: 6 symbols are required")
     private String password;
     private long project;
     private long position;

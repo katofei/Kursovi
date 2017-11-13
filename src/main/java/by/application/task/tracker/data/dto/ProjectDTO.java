@@ -1,8 +1,12 @@
 package by.application.task.tracker.data.dto;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class ProjectDTO {
 
+    @NotBlank(message = "Project name is required")
     private String projectName;
+    @NotBlank(message = "Project country is required")
     private String country;
 
     public String getProjectName() {return projectName;}
