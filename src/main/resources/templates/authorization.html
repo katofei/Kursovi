@@ -18,9 +18,8 @@
   <div class="login-logo">
     <a th:href="@{starter.html}"><b>Dash</b>Board</a>
   </div>
-
-    <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
+
     <form th:action="@{/login}" method="POST">
       <div class="form-group has-feedback">
         <input name="username" type="text" class="form-control" placeholder="Login"/>
@@ -30,20 +29,19 @@
         <input name="password" type="password" class="form-control" placeholder="Password"/>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
-        <div class="row">
-            <div class="col-xs-8">
-                <div class="checkbox icheck">
-                    <label>
-                        <input name="remember-me" type="checkbox"/> Remember Me
-                    </label>
-                </div>
-            </div>
-            <div class="col-xs-4">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-            </div>
+      <div class="row">
+        <div class="col-xs-8">
+          <div class="checkbox icheck">
+            <label>
+              <input type="checkbox" name="remember-me" >Remember Me
+            </label>
+          </div>
         </div>
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        </div>
+      </div>
     </form>
-    </div>
 </div>
 
 

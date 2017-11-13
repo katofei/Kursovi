@@ -1,7 +1,7 @@
 package by.application.task.tracker.controllers.rest;
 
 import by.application.task.tracker.data.entities.User;
-import by.application.task.tracker.service.*;
+import by.application.task.tracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
