@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class TaskController {
@@ -50,6 +51,7 @@ public class TaskController {
         view.addObject("task", taskForCreation);
         return view;
     }
+
     @RequestMapping(path = "/taskCreation", method = RequestMethod.POST)
     public ModelAndView createTask(@Valid @ModelAttribute("task")TaskDTO taskDTO, BindingResult result){
         ModelAndView view = new ModelAndView("taskCreation");
@@ -73,6 +75,19 @@ public class TaskController {
         return view;
     }
 
+    @RequestMapping(path = "/allTasks", method = RequestMethod.GET)
+    public ModelAndView getAllTasks() {
+        User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<Task> taskList = taskService.getAllTasks();
+        ModelAndView view = new ModelAndView("allTasksPage");
+        view.addObject("currentUser", user);
+        view.addObject("position", positionService.findPositionById(user.getPosition().getPositionId()));
+        view.addObject("project", projectService.findProjectById(user.getProject().getProjectId()));
+        view.addObject("qualification", qualificationService.findQualificationById(user.getQualification().getQualificationId()));
+
+        view.addObject("userList", taskList);
+        return view;
+    }
 
     @RequestMapping(path = "/task/{id}", method = RequestMethod.GET)
     public ModelAndView getTaskPage(@PathVariable("id") long id) {

@@ -53,6 +53,7 @@ public class RegistrationController {
         view.addObject("currentUser", currentUser);
         view.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
         view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+
         view.addObject("positions",positionService.getAllPositions());
         view.addObject("projects", projectService.getAllProjects());
         view.addObject("qualifications",qualificationService.getAllQualifications());
@@ -61,6 +62,7 @@ public class RegistrationController {
             view.setViewName("registration");
             return view;
         }
+
         view.setViewName("profile");
         User registeredUser = userService.createUser(userDTO);
         view.addObject("user", registeredUser);
