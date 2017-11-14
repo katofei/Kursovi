@@ -40,7 +40,7 @@ public class ErrorController {
                 parag = "400 Error Page";
                 warning = " Oops! Bad request";
                 errorMsg = " You or Your browser sent a request that this server could not understand.\n" +
-                        "Meanwhile, you may return to dashboard <a th:href=\"@{starter.html}\"";
+                        "Meanwhile, you may return to dashboard <a th:href=\"@{homePage.html}\"";
                 break;
             }
             case 401: {
@@ -56,21 +56,21 @@ public class ErrorController {
                 warning = " Oops! Access denied";
                 errorMsg = " Sorry, <a th:text=\"${user.userName}\">\n" +
                         "You don't have permission to view that page\n" +
-                        "Please, return to dashboard <a th:href=\"@{starter.html}\"";
+                        "Please, return to dashboard <a th:href=\"@{homePage.html}\"";
                 break;
             }
             case 404: {
                 parag = "404 Error Page";
                 warning = " Oops! Page not found.";
                 errorMsg = " We could not find the page you were looking for.\n" +
-                        " Meanwhile, you may return to dashboard <a th:href=\"@{starter.html}\"";
+                        " Meanwhile, you may return to dashboard <a th:href=\"@{homePage.html}\"";
                 break;
             }
             case 500: {
                 parag = "500 Error Page";
                 warning = " Oops! Something went wrong.";
                 errorMsg = " We will work on fixing that right away.\n" +
-                        "Meanwhile, you may return to dashboard <a th:href=\"@{starter.html}\"";
+                        "Meanwhile, you may return to dashboard <a th:href=\"@{homePage.html}\"";
                 break;
             }
         }

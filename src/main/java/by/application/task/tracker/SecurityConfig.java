@@ -1,5 +1,6 @@
 package by.application.task.tracker;
 
+import by.application.task.tracker.controllers.handlers.CustomAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -39,10 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/starter").authenticated()
                 .and().csrf().disable()
                 .formLogin()
-                    .loginPage("/login")
+                    .loginPage("/login") .successHandler(customAuthenticationSuccessHandler)
                     .usernameParameter("username")
                     .passwordParameter("password")
-                    .defaultSuccessUrl("/starter")
                 .and()
                 .logout()
                     .logoutUrl("/logout")
