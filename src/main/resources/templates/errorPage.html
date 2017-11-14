@@ -67,21 +67,18 @@
 
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>
-                400 Error Page
-            </h1>
+            <h1 th:text="${parag}"></h1>
         </section>
         <section class="content-header">
             <section class="content">
                 <div class="error-page">
-                    <h2 class="headline text-yellow">400</h2>
+                    <h2 class="headline text-yellow" th:text="${errorCode}"></h2>
 
                     <div class="error-content">
-                        <h3><i class="fa fa-warning text-yellow"></i> Oops! Bad request</h3>
+                        <h3><i class="fa fa-warning text-yellow" th:text="${warning}"></i></h3>
 
-                        <p>
-                            You or Your browser sent a request that this server could not understand.
-                            Meanwhile, you may return to dashboard <a th:href="@{starter.html}"></a>
+                        <p th:text="${errorMsg} + ${advice}">
+                          <a th:href="${thref}"></a>
                         </p>
                     </div>
                 </div>

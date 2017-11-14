@@ -33,11 +33,13 @@ public class ErrorController {
         String advice = "";
         String parag="";
         String warning ="";
+        String code= "";
         String thref ="";
         int httpErrorCode = getErrorCode(httpRequest);
 
         switch (httpErrorCode) {
             case 400: {
+                code = String.valueOf(httpErrorCode);
                 parag = "400 Error Page";
                 warning = " Oops! Bad request";
                 errorMsg = " You or Your browser sent a request that this server could not understand.\n";
@@ -46,6 +48,7 @@ public class ErrorController {
                 break;
             }
             case 401: {
+                code = String.valueOf(httpErrorCode);
                 parag = "401 Error Page";
                 warning = " Oops! Authorization Required";
                 errorMsg = " Access is allowed only for authorized users.\n";
@@ -54,6 +57,7 @@ public class ErrorController {
                 break;
             }
             case 403: {
+                code = String.valueOf(httpErrorCode);
                 parag = "403 Error Page";
                 warning = " Oops! Access denied";
                 errorMsg = " Sorry, <a th:text=\"${user.userName}\">\n" +
@@ -63,6 +67,7 @@ public class ErrorController {
                 break;
             }
             case 404: {
+                code = String.valueOf(httpErrorCode);
                 parag = "404 Error Page";
                 warning = " Oops! Page not found.";
                 errorMsg = " We could not find the page you were looking for.\n" ;
@@ -71,6 +76,7 @@ public class ErrorController {
                 break;
             }
             case 500: {
+                code = String.valueOf(httpErrorCode);
                 parag = "500 Error Page";
                 warning = " Oops! Something went wrong.";
                 errorMsg = " We will work on fixing that right away.\n" ;
@@ -79,7 +85,7 @@ public class ErrorController {
                 break;
             }
         }
-        errorPage.addObject("errorCode", httpErrorCode);
+        errorPage.addObject("errorCode", code);
         errorPage.addObject("errorMsg", errorMsg);
         errorPage.addObject("parag", parag);
         errorPage.addObject("warning", warning);
