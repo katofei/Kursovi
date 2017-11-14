@@ -234,6 +234,9 @@
         <insert tableName="positions">
             <column name="position_name">Software engineer</column>
         </insert>
+        <insert tableName="positions">
+            <column name="position_name">System administrator</column>
+        </insert>
 
         <insert tableName="project_roles">
             <column name="project_role_name">Project Manager</column>
@@ -249,10 +252,10 @@
             <column name="status_name">Reopen</column>
         </insert>
         <insert tableName="statuses">
-            <column name="status_name">On_hold</column>
+            <column name="status_name">On hold</column>
         </insert>
         <insert tableName="statuses">
-            <column name="status_name">In_progress</column>
+            <column name="status_name">In progress</column>
         </insert>
         <insert tableName="statuses">
             <column name="status_name">Resolved</column>
@@ -264,23 +267,23 @@
             <column name="status_name">Implemented</column>
         </insert>
         <insert tableName="statuses">
-            <column name="status_name">Ready_for_testing</column>
+            <column name="status_name">Ready for testing</column>
         </insert>
 
         <insert tableName="types">
-            <column name="type_name">Dev_task</column>
+            <column name="type_name">Dev task</column>
         </insert>
         <insert tableName="types">
-            <column name="type_name">Dev_test</column>
+            <column name="type_name">Dev test</column>
         </insert>
         <insert tableName="types">
-            <column name="type_name">Qa_task</column>
+            <column name="type_name">Qa task</column>
         </insert>
         <insert tableName="types">
             <column name="type_name">Bug</column>
         </insert>
         <insert tableName="types">
-            <column name="type_name">Qa_test</column>
+            <column name="type_name">Qa test</column>
         </insert>
         <insert tableName="types">
             <column name="type_name">Question</column>
@@ -289,7 +292,7 @@
             <column name="type_name">Doc</column>
         </insert>
         <insert tableName="types">
-            <column name="type_name">Ba_task</column>
+            <column name="type_name">Ba task</column>
         </insert>
 
 
@@ -327,6 +330,8 @@
             <column name="e_mail">g14.katya@gmail.com</column>
             <column name="login">admin</column>
             <column name="password">$2a$10$B8D0ifMmcnKQus1VafyPpOoTQQII6gxrpGylcMAOsw1KWB4boO9si</column>
+            <column name="position_position_id" valueComputed ="(SELECT position_id from positions WHERE position_name = 'System administrator')"/>
+            <column name="qualification_qualification_id" valueComputed ="(SELECT qualification_id from qualifications WHERE qualification_name = 'Senior')"/>
             <column name="user_name">Johny</column>
             <column name="user_surname">Depp</column>
             <column name="enabled">1</column>

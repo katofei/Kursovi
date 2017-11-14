@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Dash Board</title>
+    <title>Create new task</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/font_awesome/css/font_awesome.min.css}"/>
@@ -14,7 +14,6 @@
     <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
-
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -25,24 +24,24 @@
         </a>
 
         <nav class="navbar navbar-static-top" role="navigation">
-            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-            </a>
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"></a>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="/dist/img/user2-160x160.jpg" class="user-image"/>
-                            <span class="hidden-xs" th:text="${currentUser.userName}+' '+${currentUser.userSurname}"></span>
+                            <span class="hidden-xs"
+                                  th:text="${currentUser.userName}+' '+${currentUser.userSurname}"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
                                 <img src="/dist/img/user2-160x160.jpg" class="img-circle"/>
                                 <p th:text="${currentUser.userName}+' '+${currentUser.userSurname}"></p>
                                 <p th:text="${qualification.qualificationName}+' '+${position.positionName}"></p>
-                           </li>
-                            <li class=" user-footer">
+                            </li>
+                            <li class="user-footer">
                                 <div class="pull-left">
-                                    <a th:href="@{/profile}" class="btn btn-default btn-flat">Profile</a>
+                                    <a th:href="@{/profile.html}" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a th:href="@{/login}" class="btn btn-default btn-flat">Sign out</a>

@@ -31,10 +31,6 @@ public class PageNavigationController {
     @Autowired
     private ProjectService projectService;
 
-    @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
-    public ModelAndView getHomePage() {
-        return new ModelAndView("authorization");
-    }
 
     @RequestMapping(path = "/profile", method = RequestMethod.GET)
     public ModelAndView getProfilePage() {
@@ -47,13 +43,8 @@ public class PageNavigationController {
         return view;
     }
 
-    @RequestMapping(path = "/access-denied", method = RequestMethod.GET)
-    public ModelAndView getDeniedPage() {
-        return new ModelAndView("errorPage");
-    }
-
     @RequestMapping(path = "/homePage", method = RequestMethod.GET)
-    public ModelAndView getStartPage() {
+    public ModelAndView getHomePage() {
         return new ModelAndView("homePage");
     }
 

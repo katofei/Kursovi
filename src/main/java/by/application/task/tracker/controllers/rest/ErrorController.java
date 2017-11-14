@@ -24,11 +24,11 @@ public class ErrorController {
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public ModelAndView getErrorPage(HttpServletRequest httpRequest) {
         ModelAndView errorPage = new ModelAndView("errorPage");
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+       /* User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         errorPage.addObject("currentUser", currentUser);
         errorPage.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
         errorPage.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification()
-                 .getQualificationId()));
+                 .getQualificationId()));*/
         String errorMsg = "";
         String advice = "";
         String parag="";
@@ -54,16 +54,6 @@ public class ErrorController {
                 errorMsg = " Access is allowed only for authorized users.\n";
                 advice="Please visit authorization page.\n";
                 thref = "login";
-                break;
-            }
-            case 403: {
-                code = String.valueOf(httpErrorCode);
-                parag = "403 Error Page";
-                warning = " Oops! Access denied";
-                errorMsg = " Sorry, <a th:text=\"${user.userName}\">\n" +
-                        "You don't have permission to view that page\n";
-                advice= "Please, return to dashboard";
-                thref = "homePage";
                 break;
             }
             case 404: {

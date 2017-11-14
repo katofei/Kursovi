@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>User Profile</title>
+    <title>Create new task</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/font_awesome/css/font_awesome.min.css}"/>
@@ -11,13 +11,16 @@
     <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"/>
     <link rel="stylesheet" th:href="@{/plugins/iCheck/square/blue.css}"/>
     <link rel="stylesheet" th:href="@{/dist/css/skins/_all_skins.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
     <header class="main-header">
-        <a th:href="@{starter.html}" class="logo">
-            <span class="logo-lg"><b>Dash</b>Board</span>
+        <a href="#" class="logo">
+            <span class="logo-lg"><b>Dash</b>Bord</span>
         </a>
 
         <nav class="navbar navbar-static-top" role="navigation">
@@ -36,7 +39,7 @@
                                 <p th:text="${currentUser.userName}+' '+${currentUser.userSurname}"></p>
                                 <p th:text="${qualification.qualificationName}+' '+${position.positionName}"></p>
                             </li>
-                            <li class=" user-footer">
+                            <li class="user-footer">
                                 <div class="pull-left">
                                     <a th:href="@{/profile.html}" class="btn btn-default btn-flat">Profile</a>
                                 </div>
@@ -46,13 +49,11 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                    </li>
                 </ul>
             </div>
         </nav>
     </header>
+
     <aside class="main-sidebar">
         <section class="sidebar">
             <ul class="sidebar-menu" data-widget="tree">

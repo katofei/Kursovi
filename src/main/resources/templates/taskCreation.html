@@ -103,8 +103,7 @@
                                     <option th:each="executor:${allUsers}"
                                             th:value="${executor.userId}"
                                             th:text="${executor.userName}+' '+${executor.userSurname}"
-                                            th:default="${currentUser.userName}+' '+${currentUser.userSurname}"
-                                            selected="selected">
+                                            th:default="${currentUser.userName}+' '+${currentUser.userSurname}">
                                     </option>
                                 </select>
                             </div>
@@ -136,7 +135,7 @@
                             <div class="form-group has-feedback">
                                 <label>Start Date:</label>
                                 <div class="form-group">
-                                    <input type="text" <!--th:field="${task.startDate}"--> class="form-control pull-right"
+                                    <input type="text" th:field="${task.startDate}" class="form-control pull-right"
                                            th:disabled="true"/>
                                 </div>
                             </div>
