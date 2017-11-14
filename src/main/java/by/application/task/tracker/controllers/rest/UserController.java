@@ -27,7 +27,7 @@ public class UserController {
     @RequestMapping(path = "/userPage", method = RequestMethod.GET)
     public ModelAndView getAdminStartPage() {
         User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        ModelAndView view = new ModelAndView("adminStartPage");
+        ModelAndView view = new ModelAndView("userStartPage");
         view.addObject("currentUser", user);
         view.addObject("position",positionService.findPositionById(user.getPosition().getPositionId()));
         view.addObject("project", projectService.findProjectById(user.getProject().getProjectId()));
