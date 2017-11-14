@@ -49,12 +49,12 @@ public class PageNavigationController {
 
     @RequestMapping(path = "/access-denied", method = RequestMethod.GET)
     public ModelAndView getDeniedPage() {
-        return new ModelAndView("accessDenied");
+        return new ModelAndView("errorPage");
     }
 
-    @RequestMapping(path = "/start", method = RequestMethod.GET)
+    @RequestMapping(path = "/homePage", method = RequestMethod.GET)
     public ModelAndView getStartPage() {
-        return new ModelAndView("startPage");
+        return new ModelAndView("homePage");
     }
 
 }

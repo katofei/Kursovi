@@ -31,10 +31,22 @@ public class AuthorizationController {
     @Autowired
     private ProjectService projectService;
 
-    @RequestMapping(path = "/starter", method = RequestMethod.GET)
-    public ModelAndView getStarterPage() {
-        ModelAndView view = new ModelAndView("starter");
+    @RequestMapping(path = "/adminPage", method = RequestMethod.GET)
+    public ModelAndView getAdminStartPage() {
         User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        ModelAndView view = new ModelAndView("adminStartPage");
+        view.addObject("currentUser", user);
+        view.addObject("position",positionService.findPositionById(user.getPosition().getPositionId()));
+        view.addObject("project", projectService.findProjectById(user.getProject().getProjectId()));
+        view.addObject("qualification",qualificationService.findQualificationById(user.getQualification().getQualificationId()));
+        return view;
+    }
+
+
+    @RequestMapping(path = "/userPage", method = RequestMethod.GET)
+    public ModelAndView getUserStartPage() {
+        User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        ModelAndView view = new ModelAndView("userStartPage");
         view.addObject("currentUser", user);
         view.addObject("position",positionService.findPositionById(user.getPosition().getPositionId()));
         view.addObject("project", projectService.findProjectById(user.getProject().getProjectId()));
