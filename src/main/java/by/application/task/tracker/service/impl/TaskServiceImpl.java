@@ -28,7 +28,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task createTask(TaskDTO taskDTO) {
-        Task createdTask = new Task();
+        Task createdTask = new Task(taskDTO);
         createdTask.setTaskStatus(taskStatusService.findTaskByStatusName("Open"));
         createdTask.setTaskPriority(taskPriorityService.findTaskByPriorityId(taskDTO.getTaskPriority()));
         createdTask.setTaskType(taskTypeService.findTaskByTypeId(taskDTO.getTaskType()));
