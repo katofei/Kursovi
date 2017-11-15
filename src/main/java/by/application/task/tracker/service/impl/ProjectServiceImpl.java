@@ -30,7 +30,7 @@ public class ProjectServiceImpl implements ProjectService{
     public Project editProject(Project project) {return projectRepository.save(project);}
 
     @Override
-    public Project findProjectById(Long projectId) {return projectRepository.findOne(projectId);}
+    public Project findByProjectId(Long projectId) {return projectRepository.findOne(projectId);}
 
     @Override
     public List<Project> getAllProjects() {

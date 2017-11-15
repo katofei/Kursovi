@@ -59,7 +59,7 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>
                 <li>
-                    <a th:href="@{/homePage">
+                    <a th:href="@{/homePage}">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                         <span class="pull-right-container"></span>
@@ -84,26 +84,25 @@
                                     <small style="color: #a31515; font-family: Times, serif; font-weight:bold;"
                                            th:if="${#fields.hasErrors('taskName')}" th:errors="*{taskName}">
                                     </small></h3>
-                                <input type="text" th:field="*{taskName}" class="form-control"
-                                       placeholder="Enter name"/>
+                                <input type="text" th:field="*{taskName}" class="form-control" placeholder="Enter name"/>
                             </div>
                             <div class="form-group has-feedback">
                                 <label>Project</label>
-                                <input type="text" th:value="${project.projectName}"
-                                       class="form-control" th:disabled="true"/>
+                                <input th:field="*{project}" type="text" class="form-control" th:text="${project.projectName}"
+                                       th:value="${project.projectId}"  th:disabled="true"/>
                             </div>
                             <div class="form-group has-feedback">
                                 <label>Creator</label>
-                                <input type="text" th:value="${currentUser.userName}+' '+${currentUser.userSurname}"
-                                       class="form-control" th:disabled="true"/>
+                                <input th:field="*{creator}" type="text" class="form-control"   th:value="${currentUser.userId}"
+                                       th:text="${currentUser.userName}+' '+${currentUser.userSurname}"
+                                       th:disabled="true"/>
                             </div>
                             <div class="form-group has-feedback">
                                 <label>Assigned User</label>
                                 <select th:field="*{executor}" class="form-control select2" style="width: 100%;">
                                     <option th:each="executor:${allUsers}"
                                             th:value="${executor.userId}"
-                                            th:text="${executor.userName}+' '+${executor.userSurname}"
-                                            th:default="${currentUser.userName}+' '+${currentUser.userSurname}">
+                                            th:text="${executor.userName}+' '+${executor.userSurname}">
                                     </option>
                                 </select>
                             </div>
@@ -128,15 +127,17 @@
                             <div class="form-group has-feedback">
                                 <label>Description</label>
                                 <div class="form-group">
-                                    <input type="text" th:field="*{description}" class="form-control"
-                                           placeholder="Enter ..."/>
+                                    <input type="text" th:field="*{description}" class="form-control" placeholder="Enter ..."/>
                                 </div>
                             </div>
                             <div class="form-group has-feedback">
                                 <label>Start Date:</label>
-                                <div class="form-group">
-                                    <input type="text" th:field="${task.startDate}" class="form-control pull-right"
-                                           th:disabled="true"/>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="date" th:field="*{startDate}" class="form-control pull-right"
+                                           id="datepicker"/>
                                 </div>
                             </div>
                             <div class="form-group has-feedback">
@@ -146,7 +147,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input type="date" th:field="*{{endDate}}" class="form-control pull-right"
+                                        <input type="date" th:field="*{endDate}" class="form-control pull-right"
                                                id="datepicker"/>
                                     </div>
                                 </div>

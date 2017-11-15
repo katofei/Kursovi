@@ -29,13 +29,9 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task createTask(TaskDTO taskDTO) {
         Task createdTask = new Task();
-        createdTask.setTaskName(taskDTO.getTaskName());
-        createdTask.setStartDate(taskDTO.getStartDate());
-        createdTask.setEndDate(taskDTO.getEndDate());
-        createdTask.setDescription(taskDTO.getDescription());
-        createdTask.setTaskPriority(taskPriorityService.findTaskPriorityById(taskDTO.getTaskPriority()));
-        createdTask.setTaskStatus(taskStatusService.findTaskStatusById(taskDTO.getTaskStatus()));
-        createdTask.setTaskType(taskTypeService.findTaskTypeById(taskDTO.getTaskType()));
+        createdTask.setTaskStatus(taskStatusService.findTaskByStatusName("Open"));
+        createdTask.setTaskPriority(taskPriorityService.findTaskByPriorityId(taskDTO.getTaskPriority()));
+        createdTask.setTaskType(taskTypeService.findTaskByTypeId(taskDTO.getTaskType()));
         createdTask.setCreator(userService.findUserById(taskDTO.getCreator()));
         createdTask.setExecutor(userService.findUserById(taskDTO.getExecutor()));
         return taskRepository.save(createdTask);

@@ -28,7 +28,7 @@ public class TaskStatusServiceImpl implements TaskStatusService {
     }
 
     @Override
-    public TaskStatus findByTaskStatusName(String taskStatusName) {
+    public TaskStatus findTaskByStatusName(String taskStatusName) {
         return taskStatusRepository.findByStatusName(taskStatusName);
     }
 }

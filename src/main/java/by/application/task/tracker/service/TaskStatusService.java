@@ -8,5 +8,5 @@ public interface TaskStatusService {
 
     TaskStatus findTaskStatusById(Long taskStatusId);
     List<TaskStatus> getAllTaskStatuses();
-    TaskStatus findByTaskStatusName(String taskStatusName);
+    TaskStatus findTaskByStatusName(String taskStatusName);
 }

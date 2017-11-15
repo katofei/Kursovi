@@ -6,6 +6,7 @@ import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,8 +36,9 @@ public class RegistrationController {
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
         view.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
-        view.addObject("project", projectService.findProjectById(currentUser.getProject().getProjectId()));
+        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
         view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+
         view.addObject("positions",positionService.getAllPositions());
         view.addObject("projects", projectService.getAllProjects());
         view.addObject("qualifications",qualificationService.getAllQualifications());

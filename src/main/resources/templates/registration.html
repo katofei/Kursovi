@@ -169,6 +169,7 @@
                             <div class="form-group has-feedback">
                                 <label>Project role</label>
                                 <select th:field="*{projectRole}" class="form-control select2" style="width: 100%;">
+                                    <option th:value="0"></option>
                                     <option th:each="projectRole:${projectRoles}"
                                             th:value="${projectRole.projectRoleId}"
                                             th:text="${projectRole.projectRoleName}" selected="selected">Project Manager

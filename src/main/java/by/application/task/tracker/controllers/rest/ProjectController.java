@@ -21,7 +21,7 @@ public class ProjectController {
     @RequestMapping(value = "/project/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView getProject(@PathVariable("id") long id) {
-        Project project = projectService.findProjectById(id);
+        Project project = projectService.findByProjectId(id);
         ModelAndView view = new ModelAndView("project");
         view.addObject("project", project);
         return view;

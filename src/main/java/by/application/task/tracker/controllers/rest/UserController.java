@@ -33,7 +33,7 @@ public class UserController {
         ModelAndView view = new ModelAndView("userStartPage");
         view.addObject("currentUser", user);
         view.addObject("position", positionService.findPositionById(user.getPosition().getPositionId()));
-        view.addObject("project", projectService.findProjectById(user.getProject().getProjectId()));
+        view.addObject("project", projectService.findByProjectId(user.getProject().getProjectId()));
         view.addObject("qualification", qualificationService.findQualificationById(user.getQualification().getQualificationId()));
         return view;
     }
@@ -45,7 +45,7 @@ public class UserController {
         ModelAndView view = new ModelAndView("profile");
         view.addObject("currentUser", user);
         view.addObject("position", positionService.findPositionById(user.getPosition().getPositionId()));
-        view.addObject("project", projectService.findProjectById(user.getProject().getProjectId()));
+        view.addObject("project", projectService.findByProjectId(user.getProject().getProjectId()));
         view.addObject("qualification", qualificationService.findQualificationById(user.getQualification().getQualificationId()));
         return view;
     }

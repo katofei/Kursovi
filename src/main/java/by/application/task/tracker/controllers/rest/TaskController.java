@@ -39,14 +39,17 @@ public class TaskController {
     public ModelAndView getTaskCreationPage() {
         ModelAndView view = new ModelAndView("taskCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("allUsers", userService.getAllUsers());
         view.addObject("currentUser", currentUser);
         view.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
         view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+
+
+        view.addObject("allUsers", userService.getAllUsers());
         view.addObject("taskTypes",taskTypeService.getAllTaskTypes());
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
-        view.addObject("project", projectService.findProjectById(currentUser.getProject().getProjectId()));
+        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
         TaskDTO taskForCreation = new TaskDTO();
         view.addObject("task", taskForCreation);
         return view;
@@ -59,11 +62,13 @@ public class TaskController {
         view.addObject("currentUser", currentUser);
         view.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
         view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
 
+        view.addObject("allUsers", userService.getAllUsers());
         view.addObject("taskTypes",taskTypeService.getAllTaskTypes());
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
-        view.addObject("project", projectService.findProjectById(currentUser.getProject().getProjectId()));
+        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
 
         if (result.hasErrors()) {
             view.setViewName("taskCreation");
@@ -82,10 +87,10 @@ public class TaskController {
         ModelAndView view = new ModelAndView("allTasksPage");
         view.addObject("currentUser", user);
         view.addObject("position", positionService.findPositionById(user.getPosition().getPositionId()));
-        view.addObject("project", projectService.findProjectById(user.getProject().getProjectId()));
+        view.addObject("project", projectService.findByProjectId(user.getProject().getProjectId()));
         view.addObject("qualification", qualificationService.findQualificationById(user.getQualification().getQualificationId()));
 
-        view.addObject("userList", taskList);
+        view.addObject("taskList", taskList);
         return view;
     }
 

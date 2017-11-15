@@ -5,6 +5,7 @@ import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.repositories.UserRepository;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,9 +14,9 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
+    public static final String USER_ROLE = "USER";
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private PositionService positionService;
     @Autowired
@@ -24,16 +25,18 @@ public class UserServiceImpl implements UserService {
     private ProjectRoleService projectRoleService;
     @Autowired
     private QualificationService qualificationService;
+    @Autowired
+    private UserRoleService roleService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Override
     public User createUser(UserDTO userDTO) {
-        User createdUser = new User();
-        createdUser.setUserName(userDTO.getUserName());
-        createdUser.setUserSurname(userDTO.getUserSurname());
-        createdUser.seteMail(userDTO.geteMail());
-        createdUser.setLogin(userDTO.getLogin());
-        createdUser.setPassword(userDTO.getPassword());
-        createdUser.setProject(projectService.findProjectById(userDTO.getProject()));
+        User createdUser = new User(userDTO);
+        createdUser.setUserRole(roleService.findByRoleName(USER_ROLE));
+        createdUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        createdUser.setProject(projectService.findByProjectId(userDTO.getProject()));
         createdUser.setProjectRole(projectRoleService.findProjectRoleById(userDTO.getProjectRole()));
         createdUser.setPosition(positionService.findPositionById(userDTO.getPosition()));
         createdUser.setQualification(qualificationService.findQualificationById(userDTO.getQualification()));

@@ -1,8 +1,11 @@
 package by.application.task.tracker.data.entities;
 
 
+import by.application.task.tracker.data.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +16,13 @@ import java.util.List;
 public class User implements Serializable {
 
     public User() {}
+
+    public User(UserDTO userDTO) {
+        this.userName = userDTO.getUserName();
+        this.userSurname = userDTO.getUserSurname();
+        this.eMail = userDTO.geteMail();
+        this.login = userDTO.getLogin();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,7 +55,7 @@ public class User implements Serializable {
     private ProjectRole projectRole;
 
     @ManyToOne
-    private UserRoles userRole;
+    private UserRole userRole;
 
     @ManyToOne
     private Project project;
@@ -125,11 +135,11 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
-    public UserRoles getUserRole() {
+    public UserRole getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(UserRoles userRole) {
+    public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
 
@@ -157,9 +167,13 @@ public class User implements Serializable {
         this.executingTasks = executingTasks;
     }
 
-    public Qualification getQualification() {return qualification;}
+    public Qualification getQualification() {
+        return qualification;
+    }
 
-    public void setQualification(Qualification qualification) {this.qualification = qualification;}
+    public void setQualification(Qualification qualification) {
+        this.qualification = qualification;
+    }
 
     public ProjectRole getProjectRole() {
         return projectRole;

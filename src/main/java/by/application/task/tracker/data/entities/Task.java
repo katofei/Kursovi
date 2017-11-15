@@ -1,5 +1,6 @@
 package by.application.task.tracker.data.entities;
 
+import by.application.task.tracker.data.dto.TaskDTO;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -10,6 +11,13 @@ import java.util.Date;
 public class Task {
 
     public Task() {}
+
+    public Task(TaskDTO taskDTO){
+        this.taskName = taskDTO.getTaskName();
+        this.startDate = taskDTO.getStartDate();
+        this.endDate = taskDTO.getEndDate();
+        this.description = taskDTO.getDescription();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -25,6 +25,8 @@ public class UserDTO implements Serializable{
 
     @Size(min =6, message = "Password is too short: 6 symbols are required")
     private String password;
+
+    private long userRole;
     private long project;
     private long position;
     private long qualification;
@@ -65,4 +67,8 @@ public class UserDTO implements Serializable{
     public long getProjectRole() {return projectRole;}
 
     public void setProjectRole(long projectRole) {this.projectRole = projectRole;}
+
+    public long getUserRole() {return userRole;}
+
+    public void setUserRole(long userRole) {this.userRole = userRole;}
 }

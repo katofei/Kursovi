@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TaskPriorityService {
 
-    TaskPriority findTaskPriorityById(Long taskPriorityId);
+    TaskPriority findTaskByPriorityId(Long taskPriorityId);
     List<TaskPriority> getAllTaskPriorities();
-    TaskPriority findByTaskPriorityName(String taskPriorityName);
+    TaskPriority findTaskByPriorityName(String taskPriorityName);
 }

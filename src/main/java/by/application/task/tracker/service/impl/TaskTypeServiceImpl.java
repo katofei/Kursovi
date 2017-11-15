@@ -16,7 +16,7 @@ public class TaskTypeServiceImpl implements TaskTypeService{
     private TaskTypeRepository taskTypeRepository;
 
     @Override
-    public TaskType findTaskTypeById(Long taskTypeId) {
+    public TaskType findTaskByTypeId(Long taskTypeId) {
         return taskTypeRepository.findOne(taskTypeId);
     }
 
@@ -28,7 +28,7 @@ public class TaskTypeServiceImpl implements TaskTypeService{
     }
 
     @Override
-    public TaskType findByTaskTypeName(String taskTypeName) {
+    public TaskType findTaskByTypeName(String taskTypeName) {
         return null;
     }
 }

@@ -6,9 +6,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "roles")
-public class UserRoles implements Serializable {
+public class UserRole implements Serializable {
 
-    public UserRoles(){}
+    public UserRole(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

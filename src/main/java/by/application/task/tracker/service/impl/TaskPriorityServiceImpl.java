@@ -17,7 +17,7 @@ public class TaskPriorityServiceImpl implements TaskPriorityService {
 
 
     @Override
-    public TaskPriority findTaskPriorityById(Long taskPriorityId) {
+    public TaskPriority findTaskByPriorityId(Long taskPriorityId) {
         return taskPriorityRepository.findOne(taskPriorityId);
     }
 
@@ -29,7 +29,7 @@ public class TaskPriorityServiceImpl implements TaskPriorityService {
     }
 
     @Override
-    public TaskPriority findByTaskPriorityName(String taskPriorityName) {
+    public TaskPriority findTaskByPriorityName(String taskPriorityName) {
         return taskPriorityRepository.findByPriorityName(taskPriorityName);
     }
 }

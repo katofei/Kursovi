@@ -32,7 +32,7 @@ public class AdminController {
         ModelAndView view = new ModelAndView("adminStartPage");
         view.addObject("currentUser", user);
         view.addObject("position",positionService.findPositionById(user.getPosition().getPositionId()));
-        view.addObject("project", projectService.findProjectById(user.getProject().getProjectId()));
+        view.addObject("project", projectService.findByProjectId(user.getProject().getProjectId()));
         view.addObject("qualification",qualificationService.findQualificationById(user.getQualification().getQualificationId()));
         return view;
     }
@@ -44,7 +44,7 @@ public class AdminController {
         ModelAndView view = new ModelAndView("allUserPage");
         view.addObject("currentUser", user);
         view.addObject("position", positionService.findPositionById(user.getPosition().getPositionId()));
-        view.addObject("project", projectService.findProjectById(user.getProject().getProjectId()));
+        view.addObject("project", projectService.findByProjectId(user.getProject().getProjectId()));
         view.addObject("qualification", qualificationService.findQualificationById(user.getQualification().getQualificationId()));
 
         view.addObject("userList", userList);
@@ -58,7 +58,7 @@ public class AdminController {
         ModelAndView view = new ModelAndView("allProjectsPage");
         view.addObject("currentUser", user);
         view.addObject("position", positionService.findPositionById(user.getPosition().getPositionId()));
-        view.addObject("project", projectService.findProjectById(user.getProject().getProjectId()));
+        view.addObject("project", projectService.findByProjectId(user.getProject().getProjectId()));
         view.addObject("qualification", qualificationService.findQualificationById(user.getQualification().getQualificationId()));
 
         view.addObject("userList", projectsList);
