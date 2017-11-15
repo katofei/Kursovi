@@ -88,14 +88,13 @@
                             </div>
                             <div class="form-group has-feedback">
                                 <label>Project</label>
-                                <input th:field="*{project}" type="text" class="form-control" th:text="${project.projectName}"
-                                       th:value="${project.projectId}"  th:disabled="true"/>
+                                <input type="text" class="form-control" th:text="${project.projectName}"
+                                       th:disabled="true"/>
                             </div>
                             <div class="form-group has-feedback">
                                 <label>Creator</label>
-                                <input th:field="*{creator}" type="text" class="form-control"   th:value="${currentUser.userId}"
-                                       th:text="${currentUser.userName}+' '+${currentUser.userSurname}"
-                                       th:disabled="true"/>
+                                <input  type="text" class="form-control"  th:value="${currentUser.userId}"
+                                       th:text="${currentUser.userName}+' '+${currentUser.userSurname}" th:disabled="true"/>
                             </div>
                             <div class="form-group has-feedback">
                                 <label>Assigned User</label>

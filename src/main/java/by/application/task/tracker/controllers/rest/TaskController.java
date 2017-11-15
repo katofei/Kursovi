@@ -49,7 +49,6 @@ public class TaskController {
         view.addObject("taskTypes",taskTypeService.getAllTaskTypes());
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
-        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
         TaskDTO taskForCreation = new TaskDTO();
         view.addObject("task", taskForCreation);
         return view;
@@ -68,7 +67,6 @@ public class TaskController {
         view.addObject("taskTypes",taskTypeService.getAllTaskTypes());
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
-        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
 
         if (result.hasErrors()) {
             view.setViewName("taskCreation");
