@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,6 +31,8 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task createTask(TaskDTO taskDTO) {
         Task createdTask = new Task(taskDTO);
+        Date date = new Date();
+        createdTask.setCreated(date);
         createdTask.setTaskStatus(taskStatusService.findTaskByStatusName("Open"));
         createdTask.setTaskPriority(taskPriorityService.findTaskByPriorityId(taskDTO.getTaskPriority()));
         createdTask.setTaskType(taskTypeService.findTaskByTypeId(taskDTO.getTaskType()));

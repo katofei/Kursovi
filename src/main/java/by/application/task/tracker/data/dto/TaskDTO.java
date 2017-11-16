@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class TaskDTO implements Serializable{
 
@@ -14,16 +14,16 @@ public class TaskDTO implements Serializable{
     private String taskName;
 
     @DateTimeFormat(pattern="YYYY-MM-dd")
-    private Date created;
+    private LocalDate created;
 
     @DateTimeFormat(pattern="YYYY-MM-dd")
-    private Date resolved;
+    private LocalDate resolved;
 
     @DateTimeFormat(pattern="YYYY-MM-dd")
-    private Date updated;
+    private LocalDate updated;
 
     @DateTimeFormat(pattern="YYYY-MM-dd")
-    private Date estimation;
+    private LocalDate estimation;
 
     private String description;
 
@@ -45,33 +45,25 @@ public class TaskDTO implements Serializable{
         this.taskName = taskName;
     }
 
-    public Date getCreated() {
+    public LocalDate getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(LocalDate created) {
         this.created = created;
     }
 
-    public Date getResolved() {
-        return resolved;
-    }
+    public LocalDate getResolved() {return resolved;}
 
-    public void setResolved(Date resolved) {
-        this.resolved = resolved;
-    }
+    public void setResolved(LocalDate resolved) {this.resolved = resolved;}
 
-    public Date getUpdated() {
-        return updated;
-    }
+    public LocalDate getUpdated() {return updated;}
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
+    public void setUpdated(LocalDate updated) {this.updated = updated;}
 
-    public Date getEstimation() {return estimation;}
+    public LocalDate getEstimation() {return estimation;}
 
-    public void setEstimation(Date estimation) {this.estimation = estimation;}
+    public void setEstimation(LocalDate estimation) {this.estimation = estimation;}
 
     public String getDescription() {
         return description;

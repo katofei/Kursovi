@@ -4,6 +4,7 @@ import by.application.task.tracker.data.dto.TaskDTO;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -27,20 +28,20 @@ public class Task {
     private String taskName;
 
     @Column(name = "created")
-    @DateTimeFormat(pattern="YYYY-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date created;
 
     @Column(name = "updated")
     @DateTimeFormat(pattern="YYYY-MM-dd")
-    private Date updated;
+    private LocalDate updated;
 
     @Column(name = "resolved")
     @DateTimeFormat(pattern="YYYY-MM-dd")
-    private Date resolved;
+    private LocalDate resolved;
 
     @Column(name = "estimation")
     @DateTimeFormat(pattern="YYYY-MM-dd")
-    private Date estimation;
+    private LocalDate estimation;
 
     @Lob
     private String description;
@@ -81,109 +82,61 @@ public class Task {
         return taskName;
     }
 
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
+    public void setTaskName(String taskName) {this.taskName = taskName;}
 
-    public Date getCreated() {
-        return created;
-    }
+    public Date getCreated() {return created;}
 
-    public void setCreated(Date created) {
-        this.created = created;
-    }
+    public void setCreated(Date created) {this.created = created;}
 
-    public Date getUpdated() {
-        return updated;
-    }
+    public LocalDate getUpdated() {return updated;}
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
+    public void setUpdated(LocalDate updated) {this.updated = updated;}
 
-    public Date getResolved() {
-        return resolved;
-    }
+    public LocalDate getResolved() {return resolved;}
 
-    public void setResolved(Date resolved) {
-        this.resolved = resolved;
-    }
+    public void setResolved(LocalDate resolved) {this.resolved = resolved;}
 
-    public String getDescription() {
-        return description;
-    }
+    public LocalDate getEstimation() {return estimation;}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public void setEstimation(LocalDate estimation) {this.estimation = estimation;}
 
-    public Date getTimeSpent() {
-        return timeSpent;
-    }
+    public String getDescription() {return description;}
 
-    public void setTimeSpent(Date timeSpent) {
-        this.timeSpent = timeSpent;
-    }
+    public void setDescription(String description) {this.description = description;}
 
-    public Date getEstimation() {return estimation;}
+    public Date getTimeSpent() {return timeSpent;}
 
-    public void setEstimation(Date estimation) {this.estimation = estimation;}
+    public void setTimeSpent(Date timeSpent) {this.timeSpent = timeSpent;}
 
-    public Double getPercentage() {
-        return percentage;
-    }
+    public Double getPercentage() {return percentage;}
 
-    public void setPercentage(Double percentage) {
-        this.percentage = percentage;
-    }
+    public void setPercentage(Double percentage) {this.percentage = percentage;}
 
-    public User getCreator() {
-        return creator;
-    }
+    public User getCreator() {return creator;}
 
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
+    public void setCreator(User creator) {this.creator = creator;}
 
-    public User getExecutor() {
-        return executor;
-    }
+    public User getExecutor() {return executor;}
 
-    public void setExecutor(User executor) {
-        this.executor = executor;
-    }
+    public void setExecutor(User executor) {this.executor = executor;}
 
-    public TaskStatus getTaskStatus() {
-        return taskStatus;
-    }
+    public TaskStatus getTaskStatus() {return taskStatus;}
 
-    public void setTaskStatus(TaskStatus taskStatus) {
-        this.taskStatus = taskStatus;
-    }
+    public void setTaskStatus(TaskStatus taskStatus) {this.taskStatus = taskStatus;}
 
     public TaskPriority getTaskPriority() {
         return taskPriority;
     }
 
-    public void setTaskPriority(TaskPriority taskPriority) {
-        this.taskPriority = taskPriority;
-    }
+    public void setTaskPriority(TaskPriority taskPriority) {this.taskPriority = taskPriority;}
 
-    public TaskType getTaskType() {
-        return taskType;
-    }
+    public TaskType getTaskType() {return taskType;}
 
-    public void setTaskType(TaskType taskType) {
-        this.taskType = taskType;
-    }
+    public void setTaskType(TaskType taskType) {this.taskType = taskType;}
 
-    public Project getProject() {
-        return project;
-    }
+    public Project getProject() {return project;}
 
-    public void setProject(Project project) {
-        this.project = project;
-    }
+    public void setProject(Project project) {this.project = project;}
 }
 
 

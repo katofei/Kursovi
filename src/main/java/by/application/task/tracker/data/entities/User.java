@@ -4,8 +4,6 @@ package by.application.task.tracker.data.entities;
 import by.application.task.tracker.data.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -74,9 +72,7 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "executor", fetch = FetchType.LAZY)
     private List<Task> executingTasks;
 
-    public Long getUserId() {
-        return userId;
-    }
+    public Long getUserId() {return userId;}
 
     public void setUserId(Long userId) {
         this.userId = userId;

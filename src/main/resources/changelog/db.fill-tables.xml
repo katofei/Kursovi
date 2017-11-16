@@ -6,7 +6,18 @@
                    http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet author="lenovo (generated)" id="1509472144114-1">
+    <changeSet author="lenovo (generated)" id="1510855711941-1">
+        <createTable tableName="location">
+            <column autoIncrement="true" name="location_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="country" type="VARCHAR(255)"/>
+            <column name="house_number" type="INT"/>
+            <column name="street" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lenovo (generated)" id="1510855711941-2">
         <createTable tableName="positions">
             <column autoIncrement="true" name="position_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -14,7 +25,7 @@
             <column name="position_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-2">
+    <changeSet author="lenovo (generated)" id="1510855711941-3">
         <createTable tableName="priorities">
             <column autoIncrement="true" name="priority_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -22,7 +33,18 @@
             <column name="priority_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-3">
+    <changeSet author="lenovo (generated)" id="1510855711941-4">
+        <createTable tableName="project_contact">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="fax" type="VARCHAR(255)"/>
+            <column name="office_phone" type="VARCHAR(255)"/>
+            <column name="office_email" type="VARCHAR(255)"/>
+            <column name="project_location_location_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lenovo (generated)" id="1510855711941-5">
         <createTable tableName="project_roles">
             <column autoIncrement="true" name="project_role_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -30,16 +52,19 @@
             <column name="project_role_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-4">
+    <changeSet author="lenovo (generated)" id="1510855711941-6">
         <createTable tableName="projects">
             <column autoIncrement="true" name="project_id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="description" type="LONGTEXT"/>
+            <column name="main_aim" type="LONGTEXT"/>
             <column name="project_country" type="VARCHAR(255)"/>
             <column name="project_name" type="VARCHAR(255)"/>
+            <column name="project_contact_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-5">
+    <changeSet author="lenovo (generated)" id="1510855711941-7">
         <createTable tableName="qualifications">
             <column autoIncrement="true" name="qualification_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -47,7 +72,7 @@
             <column name="qualification_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-6">
+    <changeSet author="lenovo (generated)" id="1510855711941-8">
         <createTable tableName="roles">
             <column autoIncrement="true" name="role_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -55,7 +80,7 @@
             <column name="role_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-7">
+    <changeSet author="lenovo (generated)" id="1510855711941-9">
         <createTable tableName="statuses">
             <column autoIncrement="true" name="status_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -63,7 +88,7 @@
             <column name="status_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="yekr0717 (generated)" id="1510818832634-8">
+    <changeSet author="lenovo (generated)" id="1510855711941-10">
         <createTable tableName="tasks">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -84,7 +109,7 @@
             <column name="task_type_type_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-9">
+    <changeSet author="lenovo (generated)" id="1510855711941-11">
         <createTable tableName="types">
             <column autoIncrement="true" name="type_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -92,7 +117,20 @@
             <column name="type_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-10">
+    <changeSet author="lenovo (generated)" id="1510855711941-12">
+        <createTable tableName="user_contact">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="fax" type="VARCHAR(255)"/>
+            <column name="private_email" type="VARCHAR(255)"/>
+            <column name="private_phone" type="VARCHAR(255)"/>
+            <column name="work_email" type="VARCHAR(255)"/>
+            <column name="work_phone" type="VARCHAR(255)"/>
+            <column name="user_location_location_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lenovo (generated)" id="1510855711941-13">
         <createTable tableName="users">
             <column autoIncrement="true" name="user_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -107,100 +145,268 @@
             <column name="project_project_id" type="BIGINT"/>
             <column name="project_role_project_role_id" type="BIGINT"/>
             <column name="qualification_qualification_id" type="BIGINT"/>
+            <column name="user_contact_id" type="BIGINT"/>
             <column name="user_role_role_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-11">
+    <changeSet author="lenovo (generated)" id="1510855711941-14">
         <createIndex indexName="FK1txbuwm7iaeju7m0yw5129io5" tableName="tasks">
             <column name="task_priority_priority_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-12">
+    <changeSet author="lenovo (generated)" id="1510855711941-15">
         <createIndex indexName="FK2lhfsxcxxbn7odacysl07jjxf" tableName="tasks">
             <column name="executor_user_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-13">
+    <changeSet author="lenovo (generated)" id="1510855711941-16">
+        <createIndex indexName="FK3gilccrpr71n09dlarscw4adm" tableName="project_contact">
+            <column name="project_location_location_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lenovo (generated)" id="1510855711941-17">
         <createIndex indexName="FK45g8qgbd8onnqru6dqd28jvg2" tableName="users">
             <column name="position_position_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-14">
+    <changeSet author="lenovo (generated)" id="1510855711941-18">
         <createIndex indexName="FK4b56n6r621d3cjw3vvqxc6ien" tableName="tasks">
             <column name="task_type_type_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-15">
+    <changeSet author="lenovo (generated)" id="1510855711941-19">
+        <createIndex indexName="FK51qyoa6hl7m9ufteapqvh2pg4" tableName="projects">
+            <column name="project_contact_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lenovo (generated)" id="1510855711941-20">
+        <createIndex indexName="FK5nr58sst09l2msbg6r9xud7ow" tableName="users">
+            <column name="user_contact_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lenovo (generated)" id="1510855711941-21">
         <createIndex indexName="FK76i604w0g03q2mgbcya77xaii" tableName="users">
             <column name="project_role_project_role_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-16">
+    <changeSet author="lenovo (generated)" id="1510855711941-22">
         <createIndex indexName="FK79jo1tntcfow8r9bobgamf3n0" tableName="users">
             <column name="project_project_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-17">
+    <changeSet author="lenovo (generated)" id="1510855711941-23">
+        <createIndex indexName="FKb5s5p1c64lrsasr71st74g0ib" tableName="user_contact">
+            <column name="user_location_location_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lenovo (generated)" id="1510855711941-24">
         <createIndex indexName="FKbjpqawr5fb8qr7qtb5sx86nic" tableName="users">
             <column name="user_role_role_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-18">
+    <changeSet author="lenovo (generated)" id="1510855711941-25">
         <createIndex indexName="FKigthsww3hccygu9ax5o8of6j4" tableName="tasks">
             <column name="project_project_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-19">
+    <changeSet author="lenovo (generated)" id="1510855711941-26">
         <createIndex indexName="FKmr19rpmsbd23betc4hsyn7spv" tableName="tasks">
             <column name="task_status_status_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-20">
+    <changeSet author="lenovo (generated)" id="1510855711941-27">
         <createIndex indexName="FKnb2ma7q9p8210byu0u3een0hj" tableName="tasks">
             <column name="creator_user_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-21">
+    <changeSet author="lenovo (generated)" id="1510855711941-28">
         <createIndex indexName="FKteiw5vxjuk1mhv4m2fxmuoufi" tableName="users">
             <column name="qualification_qualification_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-22">
+    <changeSet author="lenovo (generated)" id="1510855711941-29">
         <addForeignKeyConstraint baseColumnNames="task_priority_priority_id" baseTableName="tasks" constraintName="FK1txbuwm7iaeju7m0yw5129io5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="priority_id" referencedTableName="priorities"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-23">
+    <changeSet author="lenovo (generated)" id="1510855711941-30">
         <addForeignKeyConstraint baseColumnNames="executor_user_id" baseTableName="tasks" constraintName="FK2lhfsxcxxbn7odacysl07jjxf" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="users"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-24">
+    <changeSet author="lenovo (generated)" id="1510855711941-31">
+        <addForeignKeyConstraint baseColumnNames="project_location_location_id" baseTableName="project_contact" constraintName="FK3gilccrpr71n09dlarscw4adm" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="location_id" referencedTableName="location"/>
+    </changeSet>
+    <changeSet author="lenovo (generated)" id="1510855711941-32">
         <addForeignKeyConstraint baseColumnNames="position_position_id" baseTableName="users" constraintName="FK45g8qgbd8onnqru6dqd28jvg2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="position_id" referencedTableName="positions"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-25">
+    <changeSet author="lenovo (generated)" id="1510855711941-33">
         <addForeignKeyConstraint baseColumnNames="task_type_type_id" baseTableName="tasks" constraintName="FK4b56n6r621d3cjw3vvqxc6ien" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="type_id" referencedTableName="types"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-26">
+    <changeSet author="lenovo (generated)" id="1510855711941-34">
+        <addForeignKeyConstraint baseColumnNames="project_contact_id" baseTableName="projects" constraintName="FK51qyoa6hl7m9ufteapqvh2pg4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_contact"/>
+    </changeSet>
+    <changeSet author="lenovo (generated)" id="1510855711941-35">
+        <addForeignKeyConstraint baseColumnNames="user_contact_id" baseTableName="users" constraintName="FK5nr58sst09l2msbg6r9xud7ow" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user_contact"/>
+    </changeSet>
+    <changeSet author="lenovo (generated)" id="1510855711941-36">
         <addForeignKeyConstraint baseColumnNames="project_role_project_role_id" baseTableName="users" constraintName="FK76i604w0g03q2mgbcya77xaii" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_role_id" referencedTableName="project_roles"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-27">
+    <changeSet author="lenovo (generated)" id="1510855711941-37">
         <addForeignKeyConstraint baseColumnNames="project_project_id" baseTableName="users" constraintName="FK79jo1tntcfow8r9bobgamf3n0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_id" referencedTableName="projects"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-28">
+    <changeSet author="lenovo (generated)" id="1510855711941-38">
+        <addForeignKeyConstraint baseColumnNames="user_location_location_id" baseTableName="user_contact" constraintName="FKb5s5p1c64lrsasr71st74g0ib" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="location_id" referencedTableName="location"/>
+    </changeSet>
+    <changeSet author="lenovo (generated)" id="1510855711941-39">
         <addForeignKeyConstraint baseColumnNames="user_role_role_id" baseTableName="users" constraintName="FKbjpqawr5fb8qr7qtb5sx86nic" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="role_id" referencedTableName="roles"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-29">
+    <changeSet author="lenovo (generated)" id="1510855711941-40">
         <addForeignKeyConstraint baseColumnNames="project_project_id" baseTableName="tasks" constraintName="FKigthsww3hccygu9ax5o8of6j4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_id" referencedTableName="projects"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-30">
+    <changeSet author="lenovo (generated)" id="1510855711941-41">
         <addForeignKeyConstraint baseColumnNames="task_status_status_id" baseTableName="tasks" constraintName="FKmr19rpmsbd23betc4hsyn7spv" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="status_id" referencedTableName="statuses"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-31">
+    <changeSet author="lenovo (generated)" id="1510855711941-42">
         <addForeignKeyConstraint baseColumnNames="creator_user_id" baseTableName="tasks" constraintName="FKnb2ma7q9p8210byu0u3een0hj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="users"/>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-32">
+    <changeSet author="lenovo (generated)" id="1510855711941-43">
         <addForeignKeyConstraint baseColumnNames="qualification_qualification_id" baseTableName="users" constraintName="FKteiw5vxjuk1mhv4m2fxmuoufi" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="qualification_id" referencedTableName="qualifications"/>
     </changeSet>
 
 
     <changeSet id="insert-into-tables-1" author="lenovo">
+
+        <insert tableName="location">
+            <column name="location_id">12</column>
+            <column name="country">Belarus</column>
+            <column name="city">Dzyarzhynsk</column>
+            <column name="street">Derek</column>
+            <column name="house_number">1</column>
+        </insert>
+        <insert tableName="location">
+            <column name="location_id">13</column>
+            <column name="country">China</column>
+            <column name="city">Xiage</column>
+            <column name="street">Parkside</column>
+            <column name="house_number">334</column>
+        </insert>
+        <insert tableName="location">
+            <column name="location_id">14</column>
+            <column name="country">Bermuda</column>
+            <column name="city">Hamilton</column>
+            <column name="street">Warbler</column>
+            <column name="house_number">92</column>
+        </insert>
+        <insert tableName="location">
+            <column name="location_id">15</column>
+            <column name="country">Egypt</column>
+            <column name="city">Ismailia</column>
+            <column name="street">Lakewood Gardens</column>
+            <column name="house_number">65</column>
+        </insert>
+        <insert tableName="location">
+            <column name="location_id">16</column>
+            <column name="country">Russia</column>
+            <column name="city">Tolstoy-Yurt</column>
+            <column name="street">Forster</column>
+            <column name="house_number">5097</column>
+        </insert>
+        <insert tableName="location">
+            <column name="location_id">17</column>
+            <column name="country">Philippines</column>
+            <column name="city">Placer</column>
+            <column name="street">East</column>
+            <column name="house_number">06166</column>
+        </insert>
+        <insert tableName="location">
+            <column name="location_id">18</column>
+            <column name="country">Russia</column>
+            <column name="city">Volkhovskiy</column>
+            <column name="street">Bartillon</column>
+            <column name="house_number">5587</column>
+        </insert>
+        <insert tableName="location">
+            <column name="location_id">19</column>
+            <column name="country">Nigeria</column>
+            <column name="city">Kaingiwa</column>
+            <column name="street">Sunfield</column>
+            <column name="house_number">903</column>
+        </insert>
+        <insert tableName="location">
+            <column name="location_id">20</column>
+            <column name="country">Mexico</column>
+            <column name="city">Santa Rosa</column>
+            <column name="street">Lunder</column>
+            <column name="house_number">4</column>
+        </insert>
+        <insert tableName="location">
+             <column name="location_id">21</column>
+             <column name="country">Philippines</column>
+             <column name="city">Bacnotan</column>
+             <column name="street">Granby</column>
+             <column name="house_number">74</column>
+        </insert>
+        <insert tableName="location">
+             <column name="location_id">22</column>
+             <column name="country">South Africa</column>
+             <column name="city">Midrand</column>
+             <column name="street">Monterey</column>
+             <column name="house_number">93</column>
+        </insert>
+        <insert tableName="location">
+             <column name="location_id">23</column>
+             <column name="country">Philippines</column>
+             <column name="city">Balabag</column>
+             <column name="street">Summit</column>
+             <column name="house_number">88</column>
+        </insert>
+        <insert tableName="location">
+             <column name="location_id">24</column>
+             <column name="country">Brazil</column>
+             <column name="city">Jacobina</column>
+             <column name="street">Messerschmidt</column>
+             <column name="house_number">39218</column>
+        </insert>
+        <insert tableName="location">
+             <column name="location_id">25</column>
+             <column name="country">China</column>
+             <column name="city">Yanjiao</column>
+             <column name="street">Duke</column>
+             <column name="house_number">1195</column>
+        </insert>
+        <insert tableName="location">
+             <column name="location_id">26</column>
+            <column name="country">Francia</column>
+             <column name="city">Teresa</column>
+             <column name="street">Brown</column>
+             <column name="house_number">94291</column>
+        </insert>
+        <insert tableName="location">
+             <column name="location_id">27</column>
+             <column name="country">Germany</column>
+             <column name="city">Hannover</column>
+             <column name="street">Kenwood</column>
+             <column name="house_number">83813</column>
+        </insert>
+        <insert tableName="location">
+             <column name="location_id">28</column>
+             <column name="country">China</column>
+             <column name="city">Huadian</column>
+             <column name="street">Forest Run</column>
+             <column name="house_number">8</column>
+        </insert>
+        <insert tableName="location">
+            <column name="location_id">29</column>
+            <column name="country">Philippines</column>
+            <column name="city">Mayorga</column>
+            <column name="street">Hauk</column>
+            <column name="house_number">27</column>
+        </insert>
+        <insert tableName="location">
+            <column name="location_id">30</column>
+            <column name="country">French Southern Territories</column>
+            <column name="city">Port-aux-Français</column>
+            <column name="street">Bluestem</column>
+            <column name="house_number">6</column>
+        </insert>
+
         <insert tableName="roles">
             <column name="role_name">ADMIN</column>
         </insert>
