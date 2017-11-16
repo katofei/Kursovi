@@ -14,56 +14,118 @@ public class TaskDTO implements Serializable{
     private String taskName;
 
     @DateTimeFormat(pattern="YYYY-MM-dd")
-    private Date startDate;
+    private Date created;
 
     @DateTimeFormat(pattern="YYYY-MM-dd")
-    private Date endDate;
+    private Date resolved;
+
+    @DateTimeFormat(pattern="YYYY-MM-dd")
+    private Date updated;
+
+    @DateTimeFormat(pattern="YYYY-MM-dd")
+    private Date estimation;
 
     private String description;
+
     private long taskType;
+
     private long taskPriority;
+
     private long executor;
-    private long creator;
+
+    private long creatorId;
+
     private long taskStatus;
-    private long project;
+
+    private long projectId;
 
     public String getTaskName() {return taskName;}
 
-    public void setTaskName(String taskName) {this.taskName = taskName;}
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
 
-    public Date getStartDate() {return startDate;}
+    public Date getCreated() {
+        return created;
+    }
 
-    public void setStartDate(Date startDate) {this.startDate = startDate;}
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 
-    public Date getEndDate() {return endDate;}
+    public Date getResolved() {
+        return resolved;
+    }
 
-    public void setEndDate(Date endDate) {this.endDate = endDate;}
+    public void setResolved(Date resolved) {
+        this.resolved = resolved;
+    }
 
-    public String getDescription() {return description;}
+    public Date getUpdated() {
+        return updated;
+    }
 
-    public void setDescription(String description) {this.description = description;}
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
 
-    public long getTaskType() {return taskType;}
+    public Date getEstimation() {return estimation;}
 
-    public void setTaskType(long taskType) {this.taskType = taskType;}
+    public void setEstimation(Date estimation) {this.estimation = estimation;}
 
-    public long getTaskPriority() {return taskPriority;}
+    public String getDescription() {
+        return description;
+    }
 
-    public void setTaskPriority(long taskPriority) {this.taskPriority = taskPriority;}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public long getExecutor() {return executor;}
+    public long getTaskType() {
+        return taskType;
+    }
 
-    public void setExecutor(long executor) {this.executor = executor;}
+    public void setTaskType(long taskType) {
+        this.taskType = taskType;
+    }
 
-    public long getCreator() {return creator;}
+    public long getTaskPriority() {
+        return taskPriority;
+    }
 
-    public void setCreator(long creator) {this.creator = creator;}
+    public void setTaskPriority(long taskPriority) {
+        this.taskPriority = taskPriority;
+    }
 
-    public long getTaskStatus() {return taskStatus;}
+    public long getExecutor() {
+        return executor;
+    }
 
-    public void setTaskStatus(long taskStatus) {this.taskStatus = taskStatus;}
+    public void setExecutor(long executor) {
+        this.executor = executor;
+    }
 
-    public long getProject() {return project;}
+    public long getCreatorId() {
+        return creatorId;
+    }
 
-    public void setProject(long project) {this.project = project;}
+    public void setCreatorId(long creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public long getTaskStatus() {
+        return taskStatus;
+    }
+
+    public void setTaskStatus(long taskStatus) {
+        this.taskStatus = taskStatus;
+    }
+
+    public long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(long projectId) {
+        this.projectId = projectId;
+    }
 }

@@ -115,9 +115,9 @@
                                 <tbody>
                                     <tr th:each="task :${tasksList}">
                                         <th th:text="${task.id}"></th>
-                                        <th th:text="${tack.creator}"></th>
+                                        <th th:text="${tack.creatorId}"></th>
                                         <th th:text="${task.executor}"></th>
-                                        <th th:text="${task.endDate}"></th>
+                                        <th th:text="${task.updated}"></th>
                                         <th th:text="${task.taskStatus}"></th>
                                         <th th:text="${task.taskName}"></th>
                                     </tr>

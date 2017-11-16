@@ -60,6 +60,9 @@ public class User implements Serializable {
     @ManyToOne
     private Project project;
 
+    @ManyToOne
+    private UserContact userContact;
+
     @Column(name = "enabled")
     private Boolean enabled = true;
 
@@ -182,4 +185,8 @@ public class User implements Serializable {
     public void setProjectRole(ProjectRole projectRole) {
         this.projectRole = projectRole;
     }
+
+    public UserContact getUserContact() {return userContact;}
+
+    public void setUserContact(UserContact userContact) {this.userContact = userContact;}
 }

@@ -14,9 +14,8 @@ public class Task {
 
     public Task(TaskDTO taskDTO){
         this.taskName = taskDTO.getTaskName();
-        this.startDate = taskDTO.getStartDate();
-        this.endDate = taskDTO.getEndDate();
         this.description = taskDTO.getDescription();
+        this.estimation = taskDTO.getEstimation();
     }
 
     @Id
@@ -27,13 +26,21 @@ public class Task {
     @Column(name = "task_name")
     private String taskName;
 
-    @Column(name = "start_date")
+    @Column(name = "created")
     @DateTimeFormat(pattern="YYYY-MM-dd")
-    private Date startDate;
+    private Date created;
 
-    @Column(name = "end_date")
+    @Column(name = "updated")
     @DateTimeFormat(pattern="YYYY-MM-dd")
-    private Date endDate;
+    private Date updated;
+
+    @Column(name = "resolved")
+    @DateTimeFormat(pattern="YYYY-MM-dd")
+    private Date resolved;
+
+    @Column(name = "estimation")
+    @DateTimeFormat(pattern="YYYY-MM-dd")
+    private Date estimation;
 
     @Lob
     private String description;
@@ -78,37 +85,73 @@ public class Task {
         this.taskName = taskName;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Date getUpdated() {
+        return updated;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 
-    public Date getStimeSpent() {
+    public Date getResolved() {
+        return resolved;
+    }
+
+    public void setResolved(Date resolved) {
+        this.resolved = resolved;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getTimeSpent() {
         return timeSpent;
     }
 
-    public void setStimeSpent(Date stimeSpent) {
-        this.timeSpent = stimeSpent;
+    public void setTimeSpent(Date timeSpent) {
+        this.timeSpent = timeSpent;
     }
 
-    public User getCreator() {return creator;}
+    public Date getEstimation() {return estimation;}
 
-    public void setCreator(User creator) {this.creator = creator;}
+    public void setEstimation(Date estimation) {this.estimation = estimation;}
 
-    public User getExecutor() {return executor;}
+    public Double getPercentage() {
+        return percentage;
+    }
 
-    public void setExecutor(User executor) {this.executor = executor;}
+    public void setPercentage(Double percentage) {
+        this.percentage = percentage;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public User getExecutor() {
+        return executor;
+    }
+
+    public void setExecutor(User executor) {
+        this.executor = executor;
+    }
 
     public TaskStatus getTaskStatus() {
         return taskStatus;
@@ -122,30 +165,24 @@ public class Task {
         return taskPriority;
     }
 
-    public void setTaskPriority(TaskPriority taskPriority) {this.taskPriority = taskPriority;}
-
-    public TaskType getTaskType() {return taskType;}
-
-    public void setTaskType(TaskType taskType) {this.taskType = taskType;}
-
-    public Date getTimeSpent() {return timeSpent;}
-
-    public void setTimeSpent(Date timeSpent) {this.timeSpent = timeSpent;}
-
-    public Project getProject() {return project;}
-
-    public void setProject(Project project) {this.project = project;}
-
-    public Double getPersentage() {return percentage;}
-
-    public void setPersentage(Double percentage) {this.percentage = percentage;}
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTaskPriority(TaskPriority taskPriority) {
+        this.taskPriority = taskPriority;
     }
 
-    public String getDescription() {
-        return description;
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 }
 

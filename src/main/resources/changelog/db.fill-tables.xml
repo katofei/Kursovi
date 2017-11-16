@@ -63,17 +63,19 @@
             <column name="status_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lenovo (generated)" id="1509472144114-8">
+    <changeSet author="yekr0717 (generated)" id="1510818832634-8">
         <createTable tableName="tasks">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="created" type="datetime(6)"/>
             <column name="description" type="LONGTEXT"/>
-            <column name="end_date" type="datetime(6)"/>
+            <column name="estimation" type="datetime(6)"/>
             <column name="percentage" type="DOUBLE"/>
-            <column name="start_date" type="datetime(6)"/>
+            <column name="resolved" type="datetime(6)"/>
             <column name="task_name" type="VARCHAR(255)"/>
             <column name="time_spent" type="datetime(6)"/>
+            <column name="updated" type="datetime(6)"/>
             <column name="creator_user_id" type="BIGINT"/>
             <column name="executor_user_id" type="BIGINT"/>
             <column name="project_project_id" type="BIGINT"/>

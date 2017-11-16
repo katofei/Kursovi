@@ -22,9 +22,10 @@ public class TaskServiceImpl implements TaskService {
     private TaskStatusService taskStatusService;
     @Autowired
     private TaskTypeService taskTypeService;
-
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProjectService projectService;
 
     @Override
     public Task createTask(TaskDTO taskDTO) {
@@ -32,7 +33,8 @@ public class TaskServiceImpl implements TaskService {
         createdTask.setTaskStatus(taskStatusService.findTaskByStatusName("Open"));
         createdTask.setTaskPriority(taskPriorityService.findTaskByPriorityId(taskDTO.getTaskPriority()));
         createdTask.setTaskType(taskTypeService.findTaskByTypeId(taskDTO.getTaskType()));
-        createdTask.setCreator(userService.findUserById(taskDTO.getCreator()));
+        createdTask.setProject(projectService.findByProjectId(taskDTO.getProjectId()));
+        createdTask.setCreator(userService.findUserById(taskDTO.getCreatorId()));
         createdTask.setExecutor(userService.findUserById(taskDTO.getExecutor()));
         return taskRepository.save(createdTask);
     }

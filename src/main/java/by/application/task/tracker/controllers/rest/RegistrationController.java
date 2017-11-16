@@ -60,6 +60,7 @@ public class RegistrationController {
         view.addObject("projects", projectService.getAllProjects());
         view.addObject("qualifications",qualificationService.getAllQualifications());
         view.addObject("projectRoles", projectRoleService.getAllProjectRoles());
+
         if (result.hasErrors()) {
             view.setViewName("registration");
             return view;

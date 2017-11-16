@@ -11,4 +11,8 @@ public class TaskTrackerApplication {
     public static void main(String[] args) {
         SpringApplication.run(TaskTrackerApplication.class, args);
     }
+    //todo добавить кнопки на edit pages
+    //todo добавить на edit pages оставшиеся поля
+    //todo сделать ЁБАНЫЙ курсач
+
 }
