@@ -2,15 +2,11 @@ package by.application.task.tracker.controllers.rest;
 
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
-import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/user")

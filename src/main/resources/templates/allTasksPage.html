@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Create new task</title>
+    <title>All tasks</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/font_awesome/css/font_awesome.min.css}"/>
@@ -86,13 +86,13 @@
                             <div class="box-header">
                                 <h3>
                                     <small style="color:#a31515; font-family: Times, serif; font-weight:bold;"
-                                           th:if="${not #list.isEmpty(tasksList)}" th:errors="*{tasksList}">
+                                           th:if="${taskList.isEmpty()}" th:errors="*{taskList}">
                                     </small></h3>
                                 <h3 class="box-title">All tasks</h3>
                                 <div class="box-tools">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                    <div class="input-group input-group-sm" style="width: 300px;">
                                         <input type="text" name="table_search" class="form-control pull-right"
-                                               placeholder="Search">
+                                               placeholder="Search"/>
                                         <div class="input-group-btn">
                                             <button type="submit" class="btn btn-default"><i
                                                     class="fa fa-search"></i></button>
@@ -104,22 +104,24 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th>Task id</th>
+                                        <th>№</th>
+                                        <th>Name</th>
                                         <th>Creator</th>
                                         <th>Executor</th>
-                                        <th>End date</th>
+                                        <th>Estimation date</th>
                                         <th>Status</th>
-                                        <th>Name</th>
                                     </tr>
                                     </thead>
                                 <tbody>
-                                    <tr th:each="task :${tasksList}">
-                                        <th th:text="${task.id}"></th>
-                                        <th th:text="${tack.creator}"></th>
-                                        <th th:text="${task.executor}"></th>
-                                        <th th:text="${task.updated}"></th>
-                                        <th th:text="${task.taskStatus}"></th>
-                                        <th th:text="${task.taskName}"></th>
+                                    <tr th:each="task:${taskList}">
+                                        <th th:text="${task.id}"  style="font-weight: normal"></th>
+                                        <th th:text="${task.taskName}"  style="font-weight: normal"></th>
+                                        <th th:text="${task.creator.userName}+' '+${task.creator.userSurname}"
+                                            style="font-weight: normal"></th>
+                                        <th th:text="${task.executor.userName}+' '+${task.executor.userSurname}"
+                                            style="font-weight: normal"></th>
+                                        <th th:text="${task.estimation}" style="font-weight: normal"></th>
+                                        <th th:text="${task.taskStatus.statusName}"></th>
                                     </tr>
                                 </tbody>
                                 </table>

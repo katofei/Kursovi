@@ -12,6 +12,7 @@ public class ProjectDTO {
 
     private String description;
 
+    @NotBlank(message = "Main aim is required")
     private String mainAim;
 
     public String getProjectName() {return projectName;}

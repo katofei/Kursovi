@@ -80,14 +80,14 @@ public class TaskController {
 
     @RequestMapping(path = "/allTasks", method = RequestMethod.GET)
     public ModelAndView getAllTasks() {
-        User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        List<Task> taskList = taskService.getAllTasks();
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         ModelAndView view = new ModelAndView("allTasksPage");
-        view.addObject("currentUser", user);
-        view.addObject("position", positionService.findPositionById(user.getPosition().getPositionId()));
-        view.addObject("project", projectService.findByProjectId(user.getProject().getProjectId()));
-        view.addObject("qualification", qualificationService.findQualificationById(user.getQualification().getQualificationId()));
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
 
+        List<Task> taskList = taskService.getAllTasks();
         view.addObject("taskList", taskList);
         return view;
     }
