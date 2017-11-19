@@ -63,14 +63,15 @@ public class ProjectController {
 
     @RequestMapping(path = "/allProjects", method = RequestMethod.GET)
     public ModelAndView getAllProjects() {
-        User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        List<Project> projectList = projectService.getAllProjects();
         ModelAndView view = new ModelAndView("allProjectsPage");
+        User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+
         view.addObject("currentUser", user);
         view.addObject("position", positionService.findPositionById(user.getPosition().getPositionId()));
         view.addObject("project", projectService.findByProjectId(user.getProject().getProjectId()));
         view.addObject("qualification", qualificationService.findQualificationById(user.getQualification().getQualificationId()));
 
+        List<Project> projectList = projectService.getAllProjects();
         view.addObject("projectList", projectList);
         return view;
     }

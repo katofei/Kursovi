@@ -80,8 +80,8 @@ public class TaskController {
 
     @RequestMapping(path = "/allTasks", method = RequestMethod.GET)
     public ModelAndView getAllTasks() {
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         ModelAndView view = new ModelAndView("allTasksPage");
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
         view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
         view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
@@ -94,8 +94,14 @@ public class TaskController {
 
     @RequestMapping(path = "/task/{id}", method = RequestMethod.GET)
     public ModelAndView getTaskPage(@PathVariable("id") long id) {
-        Task task = taskService.findTaskById(id);
         ModelAndView view = new ModelAndView("task");
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+
+        Task task = taskService.findTaskById(id);
         view.addObject("task", task);
         return view;
     }
