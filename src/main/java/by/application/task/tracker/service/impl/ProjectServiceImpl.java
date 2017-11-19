@@ -18,9 +18,7 @@ public class ProjectServiceImpl implements ProjectService{
 
     @Override
     public Project createProject(ProjectDTO projectDTO) {
-        Project createdProject = new Project();
-        createdProject.setProjectName(projectDTO.getProjectName());
-        createdProject.setProjectCountry(projectDTO.getCountry());
+        Project createdProject = new Project(projectDTO);
         return projectRepository.save(createdProject);}
 
     @Override

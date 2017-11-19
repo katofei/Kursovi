@@ -1,6 +1,6 @@
 package by.application.task.tracker.data.entities;
 
-import org.hibernate.validator.constraints.NotBlank;
+import by.application.task.tracker.data.dto.ProjectDTO;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +10,13 @@ import java.util.List;
 public class Project {
 
     public Project(){}
+
+    public Project(ProjectDTO projectDTO){
+        this.description = projectDTO.getDescription();
+        this.projectName = projectDTO.getProjectName();
+        this.mainAim = projectDTO.getMainAim();
+        this.projectCountry = projectDTO.getProjectCountry();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,9 +1,7 @@
 package by.application.task.tracker.controllers.rest;
 
 import by.application.task.tracker.data.dto.ProjectDTO;
-import by.application.task.tracker.data.dto.TaskDTO;
 import by.application.task.tracker.data.entities.Project;
-import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.PositionService;
 import by.application.task.tracker.service.ProjectService;
@@ -20,7 +18,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/projects")
 public class ProjectController {
 
     @Autowired
@@ -34,7 +31,7 @@ public class ProjectController {
 
     @RequestMapping(path = "/projectCreation", method = RequestMethod.GET)
     public ModelAndView getProjectCreationPage() {
-        ModelAndView view = new ModelAndView("taskCreation");
+        ModelAndView view = new ModelAndView("projectCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
         view.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
@@ -47,13 +44,12 @@ public class ProjectController {
     }
 
     @RequestMapping(path = "/projectCreation", method = RequestMethod.POST)
-    public ModelAndView createProject(@Valid @ModelAttribute("task")ProjectDTO projectDTO, BindingResult result){
-        ModelAndView view = new ModelAndView("taskCreation");
+    public ModelAndView createProject(@Valid @ModelAttribute("project")ProjectDTO projectDTO, BindingResult result){
+        ModelAndView view = new ModelAndView("projectCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
         view.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
         view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
-        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
 
         if (result.hasErrors()) {
             view.setViewName("projectCreation");
@@ -61,7 +57,7 @@ public class ProjectController {
         }
         view.setViewName("project");
         Project createdTask = projectService.createProject(projectDTO);
-        view.addObject("task", createdTask);
+        view.addObject("project", createdTask);
         return view;
     }
 
@@ -69,7 +65,7 @@ public class ProjectController {
     public ModelAndView getAllProjects() {
         User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         List<Project> projectList = projectService.getAllProjects();
-        ModelAndView view = new ModelAndView("allTasksPage");
+        ModelAndView view = new ModelAndView("allProjectsPage");
         view.addObject("currentUser", user);
         view.addObject("position", positionService.findPositionById(user.getPosition().getPositionId()));
         view.addObject("project", projectService.findByProjectId(user.getProject().getProjectId()));
