@@ -1,10 +1,8 @@
 package by.application.task.tracker.data.entities;
 
 import by.application.task.tracker.data.dto.TaskDTO;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -16,7 +14,6 @@ public class Task {
     public Task(TaskDTO taskDTO){
         this.taskName = taskDTO.getTaskName();
         this.description = taskDTO.getDescription();
-        this.estimation = taskDTO.getEstimation();
     }
 
     @Id
@@ -28,20 +25,16 @@ public class Task {
     private String taskName;
 
     @Column(name = "created")
-    @Temporal(TemporalType.DATE)
-    private Date created;
+    private String created;
 
     @Column(name = "updated")
-    @DateTimeFormat(pattern="YYYY-MM-dd")
-    private LocalDate updated;
+    private String updated;
 
     @Column(name = "resolved")
-    @DateTimeFormat(pattern="YYYY-MM-dd")
-    private LocalDate resolved;
+    private String resolved;
 
     @Column(name = "estimation")
-    @DateTimeFormat(pattern="YYYY-MM-dd")
-    private LocalDate estimation;
+    private String estimation;
 
     @Lob
     private String description;
@@ -84,21 +77,21 @@ public class Task {
 
     public void setTaskName(String taskName) {this.taskName = taskName;}
 
-    public Date getCreated() {return created;}
+    public String getCreated() {return created;}
 
-    public void setCreated(Date created) {this.created = created;}
+    public void setCreated(String created) {this.created = created;}
 
-    public LocalDate getUpdated() {return updated;}
+    public String getUpdated() {return updated;}
 
-    public void setUpdated(LocalDate updated) {this.updated = updated;}
+    public void setUpdated(String updated) {this.updated = updated;}
 
-    public LocalDate getResolved() {return resolved;}
+    public String getResolved() {return resolved;}
 
-    public void setResolved(LocalDate resolved) {this.resolved = resolved;}
+    public void setResolved(String resolved) {this.resolved = resolved;}
 
-    public LocalDate getEstimation() {return estimation;}
+    public String getEstimation() {return estimation;}
 
-    public void setEstimation(LocalDate estimation) {this.estimation = estimation;}
+    public void setEstimation(String estimation) {this.estimation = estimation;}
 
     public String getDescription() {return description;}
 

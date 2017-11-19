@@ -1,10 +1,8 @@
 package by.application.task.tracker.data.dto;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 public class TaskDTO implements Serializable{
 
@@ -13,17 +11,11 @@ public class TaskDTO implements Serializable{
     @NotBlank(message = "Task name is required")
     private String taskName;
 
-    @DateTimeFormat(pattern="YYYY-MM-dd")
-    private LocalDate created;
+    private String resolved;
 
-    @DateTimeFormat(pattern="YYYY-MM-dd")
-    private LocalDate resolved;
+    private String updated;
 
-    @DateTimeFormat(pattern="YYYY-MM-dd")
-    private LocalDate updated;
-
-    @DateTimeFormat(pattern="YYYY-MM-dd")
-    private LocalDate estimation;
+    private String estimation;
 
     private String description;
 
@@ -33,11 +25,11 @@ public class TaskDTO implements Serializable{
 
     private long executor;
 
-    private long creatorId;
+    private long creator;
 
     private long taskStatus;
 
-    private long projectId;
+    private long project;
 
     public String getTaskName() {return taskName;}
 
@@ -45,25 +37,17 @@ public class TaskDTO implements Serializable{
         this.taskName = taskName;
     }
 
-    public LocalDate getCreated() {
-        return created;
-    }
+    public String getResolved() {return resolved;}
 
-    public void setCreated(LocalDate created) {
-        this.created = created;
-    }
+    public void setResolved(String resolved) {this.resolved = resolved;}
 
-    public LocalDate getResolved() {return resolved;}
+    public String getUpdated() {return updated;}
 
-    public void setResolved(LocalDate resolved) {this.resolved = resolved;}
+    public void setUpdated(String updated) {this.updated = updated;}
 
-    public LocalDate getUpdated() {return updated;}
+    public String getEstimation() {return estimation;}
 
-    public void setUpdated(LocalDate updated) {this.updated = updated;}
-
-    public LocalDate getEstimation() {return estimation;}
-
-    public void setEstimation(LocalDate estimation) {this.estimation = estimation;}
+    public void setEstimation(String estimation) {this.estimation = estimation;}
 
     public String getDescription() {
         return description;
@@ -97,12 +81,10 @@ public class TaskDTO implements Serializable{
         this.executor = executor;
     }
 
-    public long getCreatorId() {
-        return creatorId;
-    }
+    public long getCreator() {return creator;}
 
-    public void setCreatorId(long creatorId) {
-        this.creatorId = creatorId;
+    public void setCreator(long creator) {
+        this.creator = creator;
     }
 
     public long getTaskStatus() {
@@ -113,11 +95,11 @@ public class TaskDTO implements Serializable{
         this.taskStatus = taskStatus;
     }
 
-    public long getProjectId() {
-        return projectId;
+    public long getProject() {
+        return project;
     }
 
-    public void setProjectId(long projectId) {
-        this.projectId = projectId;
+    public void setProject(long project) {
+        this.project = project;
     }
 }
