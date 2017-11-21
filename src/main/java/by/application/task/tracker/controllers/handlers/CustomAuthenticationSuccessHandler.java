@@ -8,7 +8,6 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -59,10 +58,10 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
         }
 
         if (isUser) {
-            return "/user/userPage";
+            return "/userPage";
         }
         else if (isAdmin) {
-            return "/admin/adminPage";
+            return "/adminPage";
         }
         else {
             return "errorPage";

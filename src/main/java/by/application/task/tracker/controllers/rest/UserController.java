@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/user")
 public class UserController {
 
     @Autowired
