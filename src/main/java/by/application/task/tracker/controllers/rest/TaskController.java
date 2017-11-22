@@ -5,6 +5,7 @@ import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +56,7 @@ public class TaskController {
     }
 
     @RequestMapping(path = "/taskCreation", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
     public ModelAndView createTask(@Valid @ModelAttribute("task")TaskDTO taskDTO, BindingResult result){
         ModelAndView view = new ModelAndView("taskCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());

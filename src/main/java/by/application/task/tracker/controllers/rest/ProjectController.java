@@ -30,13 +30,14 @@ public class ProjectController {
     private QualificationService qualificationService;
 
     @RequestMapping(path = "/projectCreation", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.CREATED)
     public ModelAndView getProjectCreationPage() {
         ModelAndView view = new ModelAndView("projectCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
-        view.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
         view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
-        view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
 
         ProjectDTO projectDTO = new ProjectDTO();
         view.addObject("project", projectDTO);
@@ -44,12 +45,12 @@ public class ProjectController {
     }
 
     @RequestMapping(path = "/projectCreation", method = RequestMethod.POST)
-    public ModelAndView createProject(@Valid @ModelAttribute("project")ProjectDTO projectDTO, BindingResult result){
+    public ModelAndView createProject(@Valid @ModelAttribute("project") ProjectDTO projectDTO, BindingResult result) {
         ModelAndView view = new ModelAndView("projectCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
-        view.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
-        view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
 
         if (result.hasErrors()) {
             view.setViewName("projectCreation");
@@ -76,12 +77,30 @@ public class ProjectController {
         return view;
     }
 
-    @RequestMapping(value = "/project/{id}")
+    @RequestMapping(value = "/project/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView getProject(@PathVariable("id") long id) {
-        Project project = projectService.findByProjectId(id);
         ModelAndView view = new ModelAndView("project");
-        view.addObject("project", project);
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+
+        view.addObject("project", projectService.findByProjectId(id));
         return view;
+    }
+
+    @RequestMapping(value = "/project/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    public ModelAndView deleteProject(@PathVariable("id") long id) {
+        ModelAndView view = new ModelAndView("project");
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+
+        projectService.deleteProject(id);
+        return new ModelAndView("allProjects");
     }
 }

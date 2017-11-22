@@ -93,7 +93,7 @@
                                     <small style="color:#a31515; font-family: Times, serif; font-weight:bold;"
                                            th:if="${userList.isEmpty()}" th:errors="*{userList}">
                                     </small></h3>
-                                <h3 class="box-title">All tasks</h3>
+                                <h3 class="box-title">All users</h3>
                                 <div class="box-tools">
                                     <div class="input-group input-group-sm" style="width: 300px;">
                                         <input type="text" name="table_search" class="form-control pull-right"
@@ -116,13 +116,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="user:${userList}">
+                                        <tr class="clickableRow" th:each="user:${userList}"
+                                            th:href="@{profile/{id}(id=${user.userId})}">
                                         <th th:text="${user.userName}" style="font-weight: normal"></th>
                                         <th th:text="${user.userSurname}" style="font-weight: normal"></th>
                                         <th th:text="${user.eMail}" style="font-weight: normal"></th>
                                         <th th:text="${user.qualification.qualificationName}+' '+${user.position.positionName}"
                                             style="font-weight: normal"></th>
-                                    </tr>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -133,6 +134,15 @@
         </section>
     </div>
 </div>
+
+<script th:src="@{jquery-3.2.1.min.js}"></script>
+<script>
+    jQuery(document).ready(function($) {
+        $(".clickableRow").click(function() {
+            window.location = $(this).attr("href");
+        });
+    });
+</script>>
 
 </body>
 </html>

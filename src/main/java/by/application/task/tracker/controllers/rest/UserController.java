@@ -49,7 +49,7 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "/user/{id}")
+    @RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView getUser(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("profile");
@@ -62,4 +62,20 @@ public class UserController {
         view.addObject("user", userService.findUserById(id));
         return view;
     }
+
+
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    public ModelAndView deleteUserProfile(@PathVariable("id") long id) {
+        ModelAndView view = new ModelAndView("profile");
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+
+        userService.deleteUser(id);
+        return new ModelAndView("allUsers");
+    }
+
 }
