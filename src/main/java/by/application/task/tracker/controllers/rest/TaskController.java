@@ -94,6 +94,21 @@ public class TaskController {
         return view;
     }
 
+    @RequestMapping(path = "/myTasks", method = RequestMethod.GET)
+    public ModelAndView geMyTasks() {
+        ModelAndView view = new ModelAndView("myTasks");
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+
+        List<Task> taskList = taskService.getAllTasks();
+        view.addObject("taskList", taskList);
+        return view;
+    }
+
+
     @RequestMapping(path = "/task/{id}", method = RequestMethod.GET)
     public ModelAndView getTaskPage(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("task");
@@ -106,5 +121,18 @@ public class TaskController {
         Task task = taskService.findTaskById(id);
         view.addObject("task", task);
         return view;
+    }
+
+    @RequestMapping(value = "/task-deletion/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    public ModelAndView deleteProject(@PathVariable("id") long id) {
+        ModelAndView view = new ModelAndView("task");
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+
+        projectService.deleteProject(id);
+        return new ModelAndView("allTasks");
     }
 }

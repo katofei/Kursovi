@@ -530,8 +530,22 @@
             <column name="project_id">189784</column>
             <column name="project_country">Belarus</column>
             <column name="project_name">Support the system</column>
+            <column name="main_aim">Ensure the user experience and security of the system as a whole</column>
         </insert>
 
+        <insert tableName="projects">
+            <column name="project_id">121347</column>
+            <column name="project_country">Russia</column>
+            <column name="project_name">Protect the "Telegramm"</column>
+            <column name="main_aim">We want to help Pavel Durov save his child and protect him from stupid officials</column>
+        </insert>
+
+        <insert tableName="projects">
+            <column name="project_id">146874</column>
+            <column name="project_country">Ukraine</column>
+            <column name="project_name">War "For Freedom and Fat"</column>
+            <column name="main_aim">We want to win the damned war and make Donbass the capital of Ukraine</column>
+        </insert>
 
         <insert tableName="users">
             <column name="user_id">127497326</column>

@@ -117,7 +117,8 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="project:${projectList}">
+                                    <tr class="clickableRow"  th:each="project:${projectList}"
+                                        th:href="@{project/{id}(id=${project.projectId})}">
                                         <th th:text="${project.projectName}" style="font-weight: normal"></th>
                                         <th th:text="${project.projectCountry}" style="font-weight: normal"></th>
                                         <th th:text="${project.mainAim}" style="font-weight: normal"></th>
@@ -133,5 +134,14 @@
     </div>
 </div>
 
+
+<script th:src="@{jquery-3.2.1.min.js}"></script>
+<script>
+    jQuery(document).ready(function($) {
+        $(".clickableRow").click(function() {
+            window.location = $(this).attr("href");
+        });
+    });
+</script>>
 </body>
 </html>

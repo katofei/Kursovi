@@ -113,7 +113,8 @@
                                     </tr>
                                     </thead>
                                 <tbody>
-                                    <tr th:each="task:${taskList}">
+                                    <tr class="clickableRow"  th:each="task:${taskList}"
+                                        th:href="@{task/{id}(id=${task.taskId})}">
                                         <th th:text="${task.id}"  style="font-weight: normal"></th>
                                         <th th:text="${task.taskName}"  style="font-weight: normal"></th>
                                         <th th:text="${task.creator.userName}+' '+${task.creator.userSurname}"
@@ -133,6 +134,15 @@
         </section>
     </div>
 </div>
+
+<script th:src="@{jquery-3.2.1.min.js}"></script>
+<script>
+    jQuery(document).ready(function($) {
+        $(".clickableRow").click(function() {
+            window.location = $(this).attr("href");
+        });
+    });
+</script>>
 
 <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
 <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>

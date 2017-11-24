@@ -64,7 +64,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/user-deletion/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView deleteUserProfile(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("profile");

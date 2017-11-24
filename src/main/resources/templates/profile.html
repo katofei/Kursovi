@@ -59,11 +59,24 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>
                 <li>
-                    <a th:href="@{/starter.html}">
+                    <a th:href="@{/homePage}">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                         <span class="pull-right-container"></span>
                     </a>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-share"></i> <span>All Tasks</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a th:href="@{/myTasks}"><i class="fa fa-circle-o"></i>My tasks
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </section>
@@ -88,7 +101,7 @@
                             <h3 class="profile-username text-center"
                                 th:text="${user.userName}+' '+${user.userSurname}"></h3>
                             <p class="text-muted text-center"
-                           th:text="${qualification.qualificationName}+' '+${position.positionName}"></p>
+                               th:text="${qualification.qualificationName}+' '+${position.positionName}"></p>
                         </div>
                     </div>
 

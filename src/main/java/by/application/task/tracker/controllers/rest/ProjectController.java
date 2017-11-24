@@ -91,7 +91,7 @@ public class ProjectController {
         return view;
     }
 
-    @RequestMapping(value = "/project/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/project-deletion/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView deleteProject(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("project");
