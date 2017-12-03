@@ -96,8 +96,8 @@
                                 <h3 class="box-title">All users</h3>
                                 <div class="box-tools">
                                     <div class="input-group input-group-sm" style="width: 300px;">
-                                        <input type="text" name="table_search" class="form-control pull-right"
-                                               placeholder="Search"/>
+                                        <input class="form-control" id="myInput" type="text"
+                                               placeholder="Search.."/>
                                         <div class="input-group-btn">
                                             <button type="submit" class="btn btn-default"><i
                                                     class="fa fa-search"></i></button>
@@ -115,7 +115,7 @@
                                         <th>Post</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="myTable">
                                         <tr class="clickableRow" th:each="user:${userList}"
                                             th:href="@{profile/{id}(id=${user.userId})}">
                                         <th th:text="${user.userName}" style="font-weight: normal"></th>
@@ -135,6 +135,17 @@
     </div>
 </div>
 
+
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
 <script th:src="@{jquery-3.2.1.min.js}"></script>
 <script>
     jQuery(document).ready(function($) {

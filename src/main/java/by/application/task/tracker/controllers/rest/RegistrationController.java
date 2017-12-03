@@ -5,14 +5,12 @@ import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -38,7 +36,8 @@ public class RegistrationController {
         view.addObject("currentUser", currentUser);
         view.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
         view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
-        view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+        view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification()
+                .getQualificationId()));
 
         view.addObject("positions",positionService.getAllPositions());
         view.addObject("projects", projectService.getAllProjects());
@@ -50,27 +49,25 @@ public class RegistrationController {
     }
 
     @RequestMapping(path = "/registration", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
     public ModelAndView registerUser(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result) {
         ModelAndView view = new ModelAndView();
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("currentUser", currentUser);
-        view.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
-        view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
-
-        view.addObject("positions",positionService.getAllPositions());
-        view.addObject("projects", projectService.getAllProjects());
-        view.addObject("qualifications",qualificationService.getAllQualifications());
-        view.addObject("projectRoles", projectRoleService.getAllProjectRoles());
 
         if (result.hasErrors()) {
             view.setViewName("registration");
+            view.addObject("currentUser", currentUser);
+            view.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
+            view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification()
+                    .getQualificationId()));
+            view.addObject("positions",positionService.getAllPositions());
+            view.addObject("projects", projectService.getAllProjects());
+            view.addObject("qualifications",qualificationService.getAllQualifications());
+            view.addObject("projectRoles", projectRoleService.getAllProjectRoles());
             return view;
         }
 
-        view.setViewName("profile");
-        User registeredUser = userService.createUser(userDTO);
-        view.addObject("user", registeredUser);
+        view.setViewName("redirect:/allUsers");
+        userService.createUser(userDTO);
         return view;
     }
 }

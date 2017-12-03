@@ -141,10 +141,10 @@
                             </div>
                             <div class="form-group has-feedback">
                                 <label>Project name</label>
-                                <select th:field="*{projectId}" class="form-control select2" style="width: 100%;">
-                                    <option th:each="projectId:${projects}"
-                                            th:value="${projectId.projectId}"
-                                            th:text="${projectId.projectName}">
+                                <select th:field="*{project}" class="form-control select2" style="width: 100%;">
+                                    <option th:each="project:${projects}"
+                                            th:value="${project.projectId}"
+                                            th:text="${project.projectName}">
                                     </option>
                                 </select>
                             </div>
