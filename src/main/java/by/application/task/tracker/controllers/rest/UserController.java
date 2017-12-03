@@ -39,7 +39,7 @@ public class UserController {
 
     @RequestMapping(path = "/allUsers", method = RequestMethod.GET)
     public ModelAndView getAllUsers() {
-        ModelAndView view = new ModelAndView("test");
+        ModelAndView view = new ModelAndView("allUsersPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
         view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
