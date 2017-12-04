@@ -10,6 +10,7 @@ import by.application.task.tracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@Controller
 public class ProjectController {
 
     @Autowired
@@ -30,7 +31,6 @@ public class ProjectController {
     private QualificationService qualificationService;
 
     @RequestMapping(path = "/projectCreation", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.CREATED)
     public ModelAndView getProjectCreationPage() {
         ModelAndView view = new ModelAndView("projectCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -57,8 +57,7 @@ public class ProjectController {
             return view;
         }
         view.setViewName("project");
-        Project createdTask = projectService.createProject(projectDTO);
-        view.addObject("project", createdTask);
+        projectService.createProject(projectDTO);
         return view;
     }
 
@@ -78,7 +77,6 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/project/{id}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
     public ModelAndView getProject(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("project");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -92,7 +90,6 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/project-deletion/{id}", method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.OK)
     public ModelAndView deleteProject(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("project");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());

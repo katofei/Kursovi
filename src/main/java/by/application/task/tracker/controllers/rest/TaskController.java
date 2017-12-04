@@ -7,6 +7,7 @@ import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@Controller
 public class TaskController {
 
     @Autowired
@@ -41,13 +42,13 @@ public class TaskController {
         ModelAndView view = new ModelAndView("taskCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
-        view.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
         view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
-        view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
 
 
         view.addObject("allUsers", userService.getAllUsers());
-        view.addObject("taskTypes",taskTypeService.getAllTaskTypes());
+        view.addObject("taskTypes", taskTypeService.getAllTaskTypes());
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
         TaskDTO taskForCreation = new TaskDTO();
@@ -56,17 +57,16 @@ public class TaskController {
     }
 
     @RequestMapping(path = "/taskCreation", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    public ModelAndView createTask(@Valid @ModelAttribute("task")TaskDTO taskDTO, BindingResult result){
+    public ModelAndView createTask(@Valid @ModelAttribute("task") TaskDTO taskDTO, BindingResult result) {
         ModelAndView view = new ModelAndView("taskCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
-        view.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
-        view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
         view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
 
         view.addObject("allUsers", userService.getAllUsers());
-        view.addObject("taskTypes",taskTypeService.getAllTaskTypes());
+        view.addObject("taskTypes", taskTypeService.getAllTaskTypes());
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
 
@@ -74,9 +74,8 @@ public class TaskController {
             view.setViewName("taskCreation");
             return view;
         }
-        view.setViewName("task");
-        Task createdTask = taskService.createTask(taskDTO);
-        view.addObject("task", createdTask);
+        view.setViewName("redirect:/task");
+        taskService.createTask(taskDTO);
         return view;
     }
 

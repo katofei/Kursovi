@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-//@RestController
 @Controller
 public class UserController {
 
@@ -52,7 +51,6 @@ public class UserController {
     }
 
     @RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
     public ModelAndView getUser(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("profile");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -67,7 +65,6 @@ public class UserController {
 
 
     @RequestMapping(value = "/user-deletion/{id}", method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.OK)
     public ModelAndView deleteUserProfile(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("profile");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
