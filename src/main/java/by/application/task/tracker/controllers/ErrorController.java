@@ -1,4 +1,4 @@
-package by.application.task.tracker.controllers.rest;
+package by.application.task.tracker.controllers;
 
 import by.application.task.tracker.service.PositionService;
 import by.application.task.tracker.service.QualificationService;

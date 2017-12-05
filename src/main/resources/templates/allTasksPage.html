@@ -123,6 +123,22 @@
                                             style="font-weight: normal"></th>
                                         <th th:text="${task.estimation}" style="font-weight: normal"></th>
                                         <th th:text="${task.taskStatus.statusName}" style="font-weight: normal"></th>
+                                        <th width="80">
+                                            <button type="button" class="btn btn-primary btn-md">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </button>
+                                        </th>
+                                        <th width="80">
+                                            <button type="button" class="btn btn-primary btn-md">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </th>
+                                        <th  width="80">
+                                            <button type="button" class="btn btn-primary btn-md">
+                                                <a th:href="@{profile/{id}(id=${user.userId})}"></a>
+                                                <span class="glyphicon glyphicon-info-sign"></span>
+                                            </button>
+                                        </th>
                                     </tr>
                                 </tbody>
                                 </table>

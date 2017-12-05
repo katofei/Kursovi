@@ -1,4 +1,4 @@
-package by.application.task.tracker.controllers.rest;
+package by.application.task.tracker.controllers;
 
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;

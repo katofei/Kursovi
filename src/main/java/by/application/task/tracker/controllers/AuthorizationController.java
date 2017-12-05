@@ -1,4 +1,4 @@
-package by.application.task.tracker.controllers.rest;
+package by.application.task.tracker.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
