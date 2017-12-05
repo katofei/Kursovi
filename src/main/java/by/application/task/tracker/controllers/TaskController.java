@@ -74,7 +74,7 @@ public class TaskController {
             view.setViewName("taskCreation");
             return view;
         }
-        view.setViewName("redirect:/task");
+        view.setViewName("redirect:/allTasks");
         taskService.createTask(taskDTO);
         return view;
     }
@@ -108,7 +108,7 @@ public class TaskController {
     }
 
 
-    @RequestMapping(path = "/task/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/task", method = RequestMethod.GET)
     public ModelAndView getTaskPage(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("task");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
