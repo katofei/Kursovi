@@ -113,7 +113,7 @@
                                 </div>
                             </div>
                             <div class="box-body table-responsive no-padding">
-                                <table class="table table-hover">
+                                <table id="example1" class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>Name</th>
@@ -122,7 +122,7 @@
                                         <th>Post</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="myTable">
                                     <tr th:each="user:${userList}">
                                         <th th:text="${user.userName}" style="font-weight: normal"></th>
                                         <th th:text="${user.userSurname}" style="font-weight: normal"></th>
@@ -160,7 +160,6 @@
     </div>
 </div>
 
-
 <script>
     $(document).ready(function(){
         $("#myInput").on("keyup", function() {
@@ -171,6 +170,20 @@
         });
     });
 </script>
+<script>
+  $(function () {
+    $('#example1').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+</script>
 <script th:src="@{jquery-3.2.1.min.js}"></script>
+<script th:src="@{plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{plugins/datatables/dataTables.bootstrap.min.js}"></script>
 </body>
 </html>
