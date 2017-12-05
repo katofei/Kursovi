@@ -113,8 +113,7 @@
                                     </tr>
                                     </thead>
                                 <tbody>
-                                    <tr class="clickableRow"  th:each="task:${taskList}"
-                                        th:href="@{task/{id}(id=${task.taskId})}">
+                                    <tr th:each="task:${taskList}">
                                         <th th:text="${task.id}"  style="font-weight: normal"></th>
                                         <th th:text="${task.taskName}"  style="font-weight: normal"></th>
                                         <th th:text="${task.creator.userName}+' '+${task.creator.userSurname}"
@@ -123,20 +122,23 @@
                                             style="font-weight: normal"></th>
                                         <th th:text="${task.estimation}" style="font-weight: normal"></th>
                                         <th th:text="${task.taskStatus.statusName}" style="font-weight: normal"></th>
-                                        <th width="80">
+                                        <th width="100">
                                             <button type="button" class="btn btn-primary btn-md">
                                                 <span class="glyphicon glyphicon-pencil"></span>
+                                                <span>Edit</span>
                                             </button>
                                         </th>
-                                        <th width="80">
+                                        <th width="120">
                                             <button type="button" class="btn btn-primary btn-md">
                                                 <span class="glyphicon glyphicon-trash"></span>
+                                                <span>Delete</span>
                                             </button>
                                         </th>
-                                        <th  width="80">
+                                        <th  width="100">
                                             <button type="button" class="btn btn-primary btn-md">
-                                                <a th:href="@{profile/{id}(id=${user.userId})}"></a>
+                                                <a th:href="@{task/{id}(id=${task.taskId})}"></a>
                                                 <span class="glyphicon glyphicon-info-sign"></span>
+                                                <span>Info</span>
                                             </button>
                                         </th>
                                     </tr>
@@ -150,15 +152,6 @@
         </section>
     </div>
 </div>
-
-<script th:src="@{jquery-3.2.1.min.js}"></script>
-<script>
-    jQuery(document).ready(function($) {
-        $(".clickableRow").click(function() {
-            window.location = $(this).attr("href");
-        });
-    });
-</script>>
 
 <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
 <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>

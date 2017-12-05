@@ -129,20 +129,23 @@
                                         <th th:text="${user.eMail}" style="font-weight: normal"></th>
                                         <th th:text="${user.qualification.qualificationName}+' '+${user.position.positionName}"
                                             style="font-weight: normal"></th>
-                                        <th width="80">
+                                        <th width="100">
                                             <button type="button" class="btn btn-primary btn-md">
                                                 <span class="glyphicon glyphicon-pencil"></span>
+                                                <span>Edit</span>
                                             </button>
                                         </th>
-                                        <th width="80">
+                                        <th width="120">
                                             <button type="button" class="btn btn-primary btn-md">
                                                 <span class="glyphicon glyphicon-trash"></span>
+                                                <span>Delete</span>
                                             </button>
                                         </th>
-                                        <th  width="80">
+                                        <th  width="100">
                                             <button type="button" class="btn btn-primary btn-md">
                                                 <a th:href="@{profile/{id}(id=${user.userId})}"></a>
                                                 <span class="glyphicon glyphicon-info-sign"></span>
+                                                <span>Info</span>
                                             </button>
                                         </th>
                                     </tr>

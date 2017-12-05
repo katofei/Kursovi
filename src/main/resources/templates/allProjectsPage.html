@@ -117,25 +117,27 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr class="clickableRow"  th:each="project:${projectList}"
-                                        th:href="@{project/{id}(id=${project.projectId})}">
+                                    <tr th:each="project:${projectList}">
                                         <th th:text="${project.projectName}" style="font-weight: normal"></th>
                                         <th th:text="${project.projectCountry}" style="font-weight: normal"></th>
                                         <th th:text="${project.mainAim}" style="font-weight: normal"></th>
-                                        <th width="80">
+                                        <th width="100">
                                             <button type="button" class="btn btn-primary btn-md">
                                                 <span class="glyphicon glyphicon-pencil"></span>
+                                                <span>Edit</span>
                                             </button>
                                         </th>
-                                        <th width="80">
+                                        <th width="120">
                                             <button type="button" class="btn btn-primary btn-md">
                                                 <span class="glyphicon glyphicon-trash"></span>
+                                                <span>Delete</span>
                                             </button>
                                         </th>
-                                        <th  width="80">
+                                        <th  width="100">
                                             <button type="button" class="btn btn-primary btn-md">
-                                                <a th:href="@{profile/{id}(id=${user.userId})}"></a>
+                                                <a th:href="@{project/{id}(id=${project.projectId})}"></a>
                                                 <span class="glyphicon glyphicon-info-sign"></span>
+                                                <span>Info</span>
                                             </button>
                                         </th>
                                     </tr>
@@ -150,14 +152,5 @@
     </div>
 </div>
 
-
-<script th:src="@{jquery-3.2.1.min.js}"></script>
-<script>
-    jQuery(document).ready(function($) {
-        $(".clickableRow").click(function() {
-            window.location = $(this).attr("href");
-        });
-    });
-</script>>
 </body>
 </html>
