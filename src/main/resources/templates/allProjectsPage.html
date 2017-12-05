@@ -14,6 +14,11 @@
     <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
+
+    <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -109,12 +114,15 @@
                                 </div>
                             </div>
                                 <div class="box-body table-responsive no-padding">
-                                    <table id="example1" class="table table-hover">
+                                    <table id="example1" class="table  table-hover">
                                         <thead>
                                         <tr>
                                             <th>Name</th>
                                             <th>Country</th>
                                             <th>Main aim</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody id="myTable">
@@ -174,9 +182,6 @@
     });
   });
 </script>
-<script th:src="@{jquery-3.2.1.min.js}"></script>
-<script th:src="@{plugins/datatables/jquery.dataTables.min.js}"></script>
-<script th:src="@{plugins/datatables/dataTables.bootstrap.min.js}"></script>
 
 </body>
 </html>

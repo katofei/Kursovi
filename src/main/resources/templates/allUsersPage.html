@@ -17,6 +17,8 @@
 
     <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
     <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -120,6 +122,9 @@
                                         <th>Surname</th>
                                         <th>E-mail</th>
                                         <th>Post</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody id="myTable">
@@ -182,8 +187,5 @@
     });
   });
 </script>
-<script th:src="@{jquery-3.2.1.min.js}"></script>
-<script th:src="@{plugins/datatables/jquery.dataTables.min.js}"></script>
-<script th:src="@{plugins/datatables/dataTables.bootstrap.min.js}"></script>
 </body>
 </html>

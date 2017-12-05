@@ -14,6 +14,10 @@
     <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
+    <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -41,7 +45,8 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a th:href="@{profile/{id}(id=${currentUser.userId})}" class="btn btn-default btn-flat">My profile</a>
+                                    <a th:href="@{profile/{id}(id=${currentUser.userId})}"
+                                       class="btn btn-default btn-flat">My profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a th:href="@{/login}" class="btn btn-default btn-flat">Sign out</a>
@@ -87,7 +92,8 @@
                                 <h3>
                                     <small style="color:#a31515; font-family: Times, serif; font-weight:bold;"
                                            th:if="${taskList.isEmpty()}" th:errors="*{taskList}">
-                                    </small></h3>
+                                    </small>
+                                </h3>
                                 <h3 class="box-title">All tasks</h3>
                                 <div class="box-tools">
                                     <div class="input-group input-group-sm" style="width: 300px;">
@@ -110,12 +116,15 @@
                                         <th>Executor</th>
                                         <th>Estimation date</th>
                                         <th>Status</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                     </thead>
-                                <tbody id="myTable">
+                                    <tbody id="myTable">
                                     <tr th:each="task:${taskList}">
-                                        <th th:text="${task.id}"  style="font-weight: normal"></th>
-                                        <th th:text="${task.taskName}"  style="font-weight: normal"></th>
+                                        <th th:text="${task.id}" style="font-weight: normal"></th>
+                                        <th th:text="${task.taskName}" style="font-weight: normal"></th>
                                         <th th:text="${task.creator.userName}+' '+${task.creator.userSurname}"
                                             style="font-weight: normal"></th>
                                         <th th:text="${task.executor.userName}+' '+${task.executor.userSurname}"
@@ -134,15 +143,15 @@
                                                 <span>Delete</span>
                                             </button>
                                         </th>
-                                        <th  width="100">
+                                        <th width="100">
                                             <button type="button" class="btn btn-primary btn-md">
-                                                <a th:href="@{task/{id}(id=${task.taskId})}"></a>
+                                                <a th:href="@{task/{id}(id=${task.id})}"></a>
                                                 <span class="glyphicon glyphicon-info-sign"></span>
                                                 <span>Info</span>
                                             </button>
                                         </th>
                                     </tr>
-                                </tbody>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -153,37 +162,33 @@
     </div>
 </div>
 
-<script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+
 <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
 <script th:src="@{/dist/js/adminlte.min.js}"></script>
 <script th:src="@{/dist/js/demo.js}"></script>
 <script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
 <script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
 <script>
-    $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
             var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function() {
+            $("#myTable tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
     });
 </script>
 <script>
-  $(function () {
-    $('#example1').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
+    $(function (){
+        $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
     });
-  });
 </script>
-<script th:src="@{jquery-3.2.1.min.js}"></script>
-<script th:src="@{plugins/datatables/jquery.dataTables.min.js}"></script>
-<script th:src="@{plugins/datatables/dataTables.bootstrap.min.js}"></script>
-
 </body>
 </html>
