@@ -108,7 +108,7 @@ public class TaskController {
     }
 
 
-    @RequestMapping(path = "/task", method = RequestMethod.GET)
+    @RequestMapping(path = "/task/{id}", method = RequestMethod.GET)
     public ModelAndView getTaskPage(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("task");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -118,6 +118,12 @@ public class TaskController {
         view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
 
         Task task = taskService.findTaskById(id);
+        view.addObject("taskType", taskTypeService.findTaskByTypeId(task.getTaskType().getTypeId()));
+        view.addObject("taskProject", projectService.findByProjectId(task.getProject().getProjectId()));
+        view.addObject("taskPriority", taskPriorityService.findTaskByPriorityId(task.getTaskPriority().getPriorityId()));
+        view.addObject("taskStatus", taskStatusService.findTaskStatusById(task.getTaskStatus().getStatusId()));
+        view.addObject("creator", userService.findUserById(task.getCreator().getUserId()));
+        view.addObject("executor", userService.findUserById(task.getExecutor().getUserId()));
         view.addObject("task", task);
         return view;
     }

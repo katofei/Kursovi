@@ -41,7 +41,8 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a th:href="@{profile/{id}(id=${currentUser.userId})}" class="btn btn-default btn-flat">Profile</a>
+                                    <a th:href="@{profile/{id}(id=${currentUser.userId})}"
+                                       class="btn btn-default btn-flat">My profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a th:href="@{/login}" class="btn btn-default btn-flat">Sign out</a>
@@ -92,31 +93,84 @@
         </section>
 
         <section class="content">
-
-                    <div class="box box-primary">
-                        <div class="box-body box-profile">
-                            <img class="profile-user-img img-responsive img-circle"
-                                 src="dist/img/user4-128x128.jpg"/>
-                            <h3 class="profile-username text-center"
-                                th:text="${user.userName}+' '+${user.userSurname}"></h3>
-                            <p class="text-muted text-center"
-                               th:text="${qualification.qualificationName}+' '+${position.positionName}"></p>
+            <div class="col-md-8">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <i class="fa fa-text-width"></i>
+                        <div class="box box-primary">
+                            <div class="box-body box-profile">
+                                <table style="height: 265px; width: 852px;">
+                                    <tbody>
+                                    <tr style="height: 34px;">
+                                        <td style="width: 451px; height: 34px;">&nbsp;
+                                            <img class="profile-user-img img-responsive img-circle"
+                                                 src="dist/img/user4-128x128.jpg"/>
+                                            <h3 class="profile-username text-center"
+                                                th:text="${user.userName}+' '+${user.userSurname}"></h3>
+                                            <p class="text-muted text-center"
+                                               th:text="${userQualification.qualificationName}+' '+${userPosition.positionName}"></p>
+                                            <p class="text-muted text-center"
+                                               th:text="${projectRole.projectRoleName}"></p></td>
+                                        <td style="width: 385px; height: 34px;" rowspan="2">&nbsp;&nbsp;
+                                            <table style="height: 229px; width: 416px;">
+                                                <tbody>
+                                                <tr style="height: 5px;">
+                                                    <td style="width: 406px; height: 5px;" colspan="2">Contact
+                                                        information
+                                                    </td>
+                                                </tr>
+                                                <tr style="height: 11px;">
+                                                    <td style="width: 141.767px; height: 11px;"><strong><i
+                                                            class="fa fa-book margin-r-5"></i>Work phone:</strong></td>
+                                                    <td style="width: 258.233px; height: 11px;">&nbsp;</td>
+                                                </tr>
+                                                <tr style="height: 24px;">
+                                                    <td style="width: 141.767px; height: 24px;"><strong><i
+                                                            class="fa fa-book margin-r-5"></i>Work e-mail:</strong></td>
+                                                    <td style="width: 258.233px; height: 24px;">&nbsp;</td>
+                                                </tr>
+                                                <tr style="height: 24px;">
+                                                    <td style="width: 141.767px; height: 24px;"><strong><i
+                                                            class="fa fa-book margin-r-5"></i>Fax:</strong></td>
+                                                    <td style="width: 258.233px; height: 24px;">&nbsp;</td>
+                                                </tr>
+                                                <tr style="height: 24px;">
+                                                    <td style="width: 141.767px; height: 24px;"><strong><i
+                                                            class="fa fa-book margin-r-5"></i>Private phone:</strong>
+                                                    </td>
+                                                    <td style="width: 258.233px; height: 24px;">&nbsp;</td>
+                                                </tr>
+                                                <tr style="height: 27px;">
+                                                    <td style="width: 141.767px; height: 27px;"><strong><i
+                                                            class="fa fa-book margin-r-5"></i>Private e-mail:</strong>
+                                                    </td>
+                                                    <td style="width: 258.233px; height: 27px;">&nbsp;</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 147px;">
+                                        <td style="width: 451px; height: 147px;">&nbsp;
+                                            <div class="box-body">
+                                                <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                                                <p class="text-muted">
+                                                    B.S. in Computer Science from the University of Tennessee at
+                                                    Knoxville
+                                                </p>
+                                                <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                                                <p class="text-muted">Malibu, California</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <p>&nbsp;</p>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">About Me</h3>
-                        </div>
-                        <div class="box-body">
-                            <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
-                            <p class="text-muted">
-                                B.S. in Computer Science from the University of Tennessee at Knoxville
-                            </p>
-                            <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-                            <p class="text-muted">Malibu, California</p>
-                        </div>
-                    </div>
+                </div>
+            </div>
         </section>
     </div>
 </div>

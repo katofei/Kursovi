@@ -73,7 +73,7 @@
     <div class="content-wrapper">
         <section class="content-header"></section>
         <section class="content container-fluid">
-            <div class="col-md-6">
+            <div class="col-md-11">
                 <div class="box box-solid">
                     <div class="box-header with-border">
                         <i class="fa fa-text-width"></i>
@@ -81,84 +81,123 @@
                     </div>
                     <section class="content">
                         <h3 class="box-title" th:text="${task.taskName}"></h3>
-                        <table id="description" style="height: 249px; width: 836px;">
+                        <table style="height: 171px; width: 948px;">
                             <tbody>
-                            <tr style="height: 106px;">
-                                <td style="width: 814px; height: 106px;" colspan="2">
-                                    <table style="height: 91px; width: 892px;">
+                            <tr style="height: 30px;">
+                                <td style="width: 456px; height: 30px;">
+                                    <table style="height: 36px; width: 461px;">
+                                        <tbody>
+                                        <tr style="height: 33px;">
+                                            <td style="width: 132.8px; height: 33px;"><strong><i class="fa fa-book margin-r-5"></i>Project:</strong></td>
+                                            <td style="width: 310.2px; height: 33px;"
+                                                th:text="${taskProject.projectName}">&nbsp;
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td style="width: 471px; height: 30px;">&nbsp;</td>
+                            </tr>
+                            <tr style="height: 68px;">
+                                <td style="width: 456px; height: 68px;">
+                                    <table style="height: 78px; width: 461px;">
+                                        <tbody>
+                                        <tr style="height: 19.9px;">
+                                            <td style="width: 133.267px; height: 19.9px;"><strong><i class="fa fa-book margin-r-5"></i>Creator:</strong></td>
+                                            <td style="width: 311.733px; height: 19.9px;"
+                                                th:text="${creator.userName} +' '+${creator.userSurname}">&nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 12px;">
+                                            <td style="width: 133.267px; height: 12px;"><strong><i class="fa fa-book margin-r-5"></i>Executor:</strong></td>
+                                            <td style="width: 311.733px; height: 12px;"
+                                                th:text="${executor.userName} +' '+${executor.userSurname}">&nbsp;
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td style="width: 471px; height: 68px;">
+                                    <table style="height: 144px; width: 382px;">
                                         <tbody>
                                         <tr>
-                                            <td style="width: 151px;">Priority</td>
-                                            <td style="width: 245.767px;" th:text="${task.taskPriority}">&nbsp;</td>
-                                            <td style="width: 223.233px;">Time spent, h</td>
-                                            <td style="width: 241px;" th:text="${task.timeSpent}">&nbsp;</td>
+                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Created:</strong></td>
+                                            <td style="width: 230.867px;" th:text="${task.created}">&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 151px;">Type</td>
-                                            <td style="width: 245.767px;" th:text="${task.taskType}">&nbsp;</td>
-                                            <td style="width: 223.233px;">Persentage, %</td>
-                                            <td style="width: 241px;" th:text="${task.percentage}">&nbsp;</td>
+                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Updated:</strong></td>
+                                            <td style="width: 230.867px;" th:text="${task.updated}">&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 151px;">Status</td>
-                                            <td style="width: 245.767px;" th:text="${task.taskStatus}">&nbsp;</td>
-                                            <td style="width: 223.233px;">&nbsp;</td>
-                                            <td style="width: 241px;">&nbsp;</td>
+                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Resolved:</strong></td>
+                                            <td style="width: 230.867px;" th:text="${task.resolved}">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Estimation:</strong></td>
+                                            <td style="width: 230.867px;" th:text="${task.estimation}">&nbsp;</td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </td>
                             </tr>
-                            <tr style="height: 182.767px;">
-                                <td style="width: 462px; height: 182.767px;">
-                                    <table style="height: 98px; width: 410px;">
+                            <tr style="height: 125.117px;">
+                                <td style="width: 456px; height: 125.117px;">&nbsp;
+                                    <table style="height: 108px; width: 459px;">
                                         <tbody>
-                                        <tr>
-                                            <td style="width: 146.767px;">Creator</td>
-                                            <td style="width: 247.233px;" th:text="${task.creator}">&nbsp;</td>
+                                        <tr style="height: 34.2px;">
+                                            <td style="width: 133.25px; height: 34.2px;"><strong><i class="fa fa-book margin-r-5"></i>Priority:</strong></td>
+                                            <td style="width: 305.75px; height: 34.2px;"
+                                                th:text="${taskPriority.priorityName}">&nbsp;
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td style="width: 146.767px;">Executor</td>
-                                            <td style="width: 247.233px;" th:text="${task.executor}">&nbsp;</td>
+                                        <tr style="height: 37px;">
+                                            <td style="width: 133.25px; height: 37px;"><strong><i class="fa fa-book margin-r-5"></i>Type:</strong></td>
+                                            <td style="width: 305.75px; height: 37px;" th:text="${taskType.typeName}">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 35px;">
+                                            <td style="width: 133.25px; height: 35px;"><strong><i class="fa fa-book margin-r-5"></i>Status:</strong></td>
+                                            <td style="width: 305.75px; height: 35px;"
+                                                th:text="${taskStatus.statusName}">&nbsp;
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </td>
-                                <td style="width: 352px; height: 182.767px;">
-                                    <table style="height: 103px;" width="476">
+                                <td style="width: 471px; height: 125.117px;">
+                                    <table style="height: 92px; width: 473px;">
                                         <tbody>
                                         <tr>
-                                            <td style="width: 230px;">Created</td>
-                                            <td style="width: 230px;"  th:text="${task.created}">&nbsp;</td>
+                                            <td style="width: 135.5px;">&nbsp;
+                                                <strong><i class="fa fa-book margin-r-5"></i>Time spent, h:</strong></td>
+                                            <td style="width: 320.5px;" th:text="${task.timeSpent}">&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 230px;">Updated</td>
-                                            <td style="width: 230px;"  th:text="${task.updated}">&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 230px;">Resolved</td>
-                                            <td style="width: 230px;" th:text="${task.resolved}">&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 230px;">Estimation</td>
-                                            <td style="width: 230px;"  th:text="${task.estimation}">&nbsp;</td>
+                                            <td style="width: 135.5px;">&nbsp;
+                                                <strong><i class="fa fa-book margin-r-5"></i>Persentage, %:</strong></td>
+                                            <td style="width: 320.5px;" th:text="${task.percentage}">&nbsp;</td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </td>
+                            </tr>
+                            <tr style="height: 33px;">
+                                <td style="width: 456px; height: 33px;">&nbsp;
+                                    <strong><i class="fa fa-book margin-r-5"></i>Description</strong></td>
+                                <td style="width: 471px; height: 33px;">&nbsp;</td>
+                            </tr>
+                            <tr style="height: 184px;">
+                                <td style="width: 927px; height: 184px;" colspan="2">&nbsp;</td>
                             </tr>
                             </tbody>
                         </table>
                         <p>&nbsp;</p>
-
-                    </section>
+                 </section>
                 </div>
-
             </div>
         </section>
     </div>
-    </section>
-</div>
 </div>
 
 <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>

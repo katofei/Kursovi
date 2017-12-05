@@ -32,7 +32,8 @@ public class UserController {
         view.addObject("currentUser", currentUser);
         view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
         view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
-        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification()
+                .getQualificationId()));
         return view;
     }
 
@@ -43,7 +44,8 @@ public class UserController {
         view.addObject("currentUser", currentUser);
         view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
         //  view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
-        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification()
+                .getQualificationId()));
 
         List<User> userList = userService.getAllUsers();
         view.addObject("userList", userList);
@@ -57,9 +59,16 @@ public class UserController {
         view.addObject("currentUser", currentUser);
         view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
         view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
-        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification()
+                .getQualificationId()));
 
         view.addObject("user", userService.findUserById(id));
+        view.addObject("userPosition", positionService.findPositionById(userService.findUserById(id)
+                .getPosition().getPositionId()));
+        view.addObject("userQualification", qualificationService.findQualificationById(userService.findUserById(id)
+                .getQualification().getQualificationId()));
+        view.addObject("projectRole", projectRoleService.findProjectRoleById(userService.findUserById(id)
+                .getProjectRole().getProjectRoleId()));
         return view;
     }
 
