@@ -40,7 +40,8 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a th:href="@{profile/{id}(id=${currentUser.userId})}" class="btn btn-default btn-flat">Profile</a>
+                                    <a th:href="@{profile/{id}(id=${currentUser.userId})}"
+                                       class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a th:href="@{/login}" class="btn btn-default btn-flat">Sign out</a>
@@ -98,59 +99,70 @@
                                 <h3 class="box-title">All projects</h3>
                                 <div class="box-tools">
                                     <div class="input-group input-group-sm" style="width: 300px;">
-                                        <input type="text" name="table_search" class="form-control pull-right"
-                                               placeholder="Search"/>
+                                        <input class="form-control" id="myInput" type="text"
+                                               placeholder="Search.."/>
                                         <div class="input-group-btn">
-                                            <button type="submit" class="btn btn-default"><i
-                                                    class="fa fa-search"></i></button>
+                                            <button type="submit" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-search"></span></button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="box-body table-responsive no-padding">
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Country</th>
-                                        <th>Main aim</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="project:${projectList}">
-                                        <th th:text="${project.projectName}" style="font-weight: normal"></th>
-                                        <th th:text="${project.projectCountry}" style="font-weight: normal"></th>
-                                        <th th:text="${project.mainAim}" style="font-weight: normal"></th>
-                                        <th width="100">
-                                            <button type="button" class="btn btn-primary btn-md">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                                <span>Edit</span>
-                                            </button>
-                                        </th>
-                                        <th width="120">
-                                            <button type="button" class="btn btn-primary btn-md">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                                <span>Delete</span>
-                                            </button>
-                                        </th>
-                                        <th  width="100">
-                                            <button type="button" class="btn btn-primary btn-md">
-                                                <a th:href="@{project/{id}(id=${project.projectId})}"></a>
-                                                <span class="glyphicon glyphicon-info-sign"></span>
-                                                <span>Info</span>
-                                            </button>
-                                        </th>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <div class="box-body table-responsive no-padding">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Country</th>
+                                            <th>Main aim</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="project:${projectList}">
+                                            <th th:text="${project.projectName}" style="font-weight: normal"></th>
+                                            <th th:text="${project.projectCountry}" style="font-weight: normal"></th>
+                                            <th th:text="${project.mainAim}" style="font-weight: normal"></th>
+                                            <th width="100">
+                                                <button type="button" class="btn btn-primary btn-md">
+                                                    <span class="glyphicon glyphicon-pencil"></span>
+                                                    <span>Edit</span>
+                                                </button>
+                                            </th>
+                                            <th width="120">
+                                                <button type="button" class="btn btn-primary btn-md">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                    <span>Delete</span>
+                                                </button>
+                                            </th>
+                                            <th width="100">
+                                                <button type="button" class="btn btn-primary btn-md">
+                                                    <a th:href="@{project/{id}(id=${project.projectId})}"></a>
+                                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                                    <span>Info</span>
+                                                </button>
+                                            </th>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </section>
         </section>
     </div>
 </div>
 
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+<script th:src="@{jquery-3.2.1.min.js}"></script>
 </body>
 </html>
