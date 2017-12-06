@@ -31,7 +31,8 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserStatusService userStatusService;
-
+    @Autowired
+    private UserContactService contactService;
 
     @Override
     public User createUser(UserDTO userDTO) {
@@ -41,8 +42,11 @@ public class UserServiceImpl implements UserService {
         createdUser.setProject(projectService.findByProjectId(userDTO.getProject()));
         createdUser.setProjectRole(projectRoleService.findProjectRoleById(userDTO.getProjectRole()));
         createdUser.setPosition(positionService.findPositionById(userDTO.getPosition()));
-        if (userDTO.getProject()== 0) {
+        if (userDTO.getProject() == 0) {
             createdUser.setUserStatus(userStatusService.findByStatusName("Not assigned"));
+        }
+        else{
+            createdUser.setUserStatus(userStatusService.findByStatusName("Assigned"));
         }
         createdUser.setQualification(qualificationService.findQualificationById(userDTO.getQualification()));
         return userRepository.save(createdUser);
@@ -54,12 +58,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User editUser(UserDTO userDTO,User editedUser) {
-        editedUser.setUserRole(roleService.findByRoleName(USER_ROLE));
+    public User editUser(UserDTO userDTO, long id) {
+        User editedUser = userRepository.findOne(id);
+        editedUser.setUserName(userDTO.getUserName());
+        editedUser.setUserSurname(userDTO.getUserSurname());
+        editedUser.setLogin(userDTO.getLogin());
         editedUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         editedUser.setProject(projectService.findByProjectId(userDTO.getProject()));
         editedUser.setProjectRole(projectRoleService.findProjectRoleById(userDTO.getProjectRole()));
         editedUser.setPosition(positionService.findPositionById(userDTO.getPosition()));
+        editedUser.setUserContact(contactService.findByContactId(userDTO.getUserContact()));
         return userRepository.save(editedUser);
     }
 

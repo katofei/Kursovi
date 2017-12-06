@@ -40,7 +40,7 @@ public class Task {
     private String description;
 
     @Column(name = "time_spent")
-    private Date timeSpent;
+    private double timeSpent;
 
     @Column(name = "percentage")
     private Double percentage;
@@ -97,9 +97,9 @@ public class Task {
 
     public void setDescription(String description) {this.description = description;}
 
-    public Date getTimeSpent() {return timeSpent;}
+    public double getTimeSpent() {return timeSpent;}
 
-    public void setTimeSpent(Date timeSpent) {this.timeSpent = timeSpent;}
+    public void setTimeSpent(double timeSpent) {this.timeSpent = timeSpent;}
 
     public Double getPercentage() {return percentage;}
 

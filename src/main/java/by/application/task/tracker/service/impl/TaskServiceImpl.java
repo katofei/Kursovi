@@ -59,8 +59,25 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task editTask(Task task) {
-        return taskRepository.save(task);
+    public Task editTask(TaskDTO taskDTO, long id) {
+        Task editingTask = taskRepository.findOne(id);
+        editingTask.setExecutor(userService.findUserById(taskDTO.getExecutor()));
+        editingTask.setTaskType(taskTypeService.findTaskByTypeId(taskDTO.getTaskType()));
+        editingTask.setTaskStatus(taskStatusService.findTaskStatusById(taskDTO.getTaskStatus()));
+        editingTask.setTaskPriority(taskPriorityService.findTaskByPriorityId(taskDTO.getTaskPriority()));
+        if(taskDTO.getEstimation().isEmpty()){
+            editingTask.setEstimation(null);
+        }
+        else {
+            editingTask.setEstimation(taskDTO.getEstimation());
+        }
+        Date today = new Date();
+        LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        editingTask.setUpdated(date.format(DateTimeFormatter.ISO_DATE));
+        editingTask.setDescription(taskDTO.getDescription());
+        editingTask.setPercentage(taskDTO.getPercentage());
+        editingTask.setTimeSpent(taskDTO.getTimeSpent());
+        return taskRepository.save(editingTask);
     }
 
     @Override

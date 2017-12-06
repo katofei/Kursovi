@@ -76,7 +76,6 @@ public class User implements Serializable {
     private List<Task> executingTasks;
 
     public Long getUserId() {return userId;}
-
     public void setUserId(Long userId) {
         this.userId = userId;
     }
@@ -84,7 +83,6 @@ public class User implements Serializable {
     public String getUserName() {
         return userName;
     }
-
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -92,7 +90,6 @@ public class User implements Serializable {
     public String getUserSurname() {
         return userSurname;
     }
-
     public void setUserSurname(String userSurname) {
         this.userSurname = userSurname;
     }
@@ -100,7 +97,6 @@ public class User implements Serializable {
     public String getLogin() {
         return login;
     }
-
     public void setLogin(String login) {
         this.login = login;
     }
@@ -108,7 +104,6 @@ public class User implements Serializable {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -116,7 +111,6 @@ public class User implements Serializable {
     public String geteMail() {
         return eMail;
     }
-
     public void seteMail(String eMail) {
         this.eMail = eMail;
     }
@@ -124,7 +118,6 @@ public class User implements Serializable {
     public Position getPosition() {
         return position;
     }
-
     public void setPosition(Position position) {
         this.position = position;
     }
@@ -132,7 +125,6 @@ public class User implements Serializable {
     public Boolean getEnabled() {
         return enabled;
     }
-
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
@@ -140,7 +132,6 @@ public class User implements Serializable {
     public UserRole getUserRole() {
         return userRole;
     }
-
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
@@ -148,7 +139,6 @@ public class User implements Serializable {
     public Project getProject() {
         return project;
     }
-
     public void setProject(Project project) {
         this.project = project;
     }
@@ -156,7 +146,6 @@ public class User implements Serializable {
     public List<Task> getCreatedTasks() {
         return createdTasks;
     }
-
     public void setCreatedTasks(List<Task> createdTasks) {
         this.createdTasks = createdTasks;
     }
@@ -164,7 +153,6 @@ public class User implements Serializable {
     public List<Task> getExecutingTasks() {
         return executingTasks;
     }
-
     public void setExecutingTasks(List<Task> executingTasks) {
         this.executingTasks = executingTasks;
     }
@@ -172,7 +160,6 @@ public class User implements Serializable {
     public Qualification getQualification() {
         return qualification;
     }
-
     public void setQualification(Qualification qualification) {
         this.qualification = qualification;
     }
@@ -180,16 +167,13 @@ public class User implements Serializable {
     public ProjectRole getProjectRole() {
         return projectRole;
     }
-
     public void setProjectRole(ProjectRole projectRole) {
         this.projectRole = projectRole;
     }
 
     public UserContact getUserContact() {return userContact;}
-
     public void setUserContact(UserContact userContact) {this.userContact = userContact;}
 
     public UserStatus getUserStatus() {return userStatus;}
-
     public void setUserStatus(UserStatus userStatus) {this.userStatus = userStatus;}
 }

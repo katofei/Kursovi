@@ -92,12 +92,12 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Project edition</h3>
                     </div>
-                    <form role="form" th:action="@{/project-edition}" th:object="${project}" method="post">
+                    <form role="form" th:action="@{/project-edition/{id}(id=${id})}" th:object="${project}" method="post">
                         <div class="box-body">
-                            <table style="height: 588px;" width="862">
+                            <table style="height:450px;" width="862">
                                 <tbody>
                                 <tr>
-                                    <td style="width: 350px;">&nbsp;
+                                    <td style="width: 350px; vertical-align: top">&nbsp;
                                         <div class="form-group has-feedback">
                                             <label>Project name</label>
                                             <h3>
@@ -111,8 +111,15 @@
                                         </div>
                                         <div class="form-group has-feedback">
                                             <label>Main aim</label>
-                                            <input type="text" th:field="*{mainAim}" class="form-control"
-                                                   placeholder="Enter main aim"/>
+                                            <textarea th:field="*{mainAim}" class="form-control"
+                                                   placeholder="Enter main aim" style="height: 150px; white-space: normal">
+                                            </textarea>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label>Description</label>
+                                            <textarea th:field="*{description}" class="form-control"
+                                                      placeholder="Enter description" style="height: 150px; white-space: normal">
+                                            </textarea>
                                         </div>
                                     </td>
                                     <td style="width: 70px;"></td>
@@ -134,11 +141,11 @@
                                                 </div>
                                             </div>
                                             <div class="form-group has-feedback">
-                                                <h3>
+                                                <!--<h3>
                                                     <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
                                                            th:if="${#fields.hasErrors('eMail')}" th:errors="*{eMail}">
                                                     </small>
-                                                </h3>
+                                                </h3>-->
                                                 <label for="exampleInputEmail1">Office e-mail </label>
                                                 <input type="email" class="form-control"
                                                        id="exampleInputEmail1"/>
@@ -158,8 +165,7 @@
                                                            th:errors="*{projectCountry}">
                                                     </small>
                                                 </h3>
-                                                <input type="text" th:value="${projectCountry}"
-                                                       class="form-control" placeholder="Choose the country"/>
+                                                <input type="text" th:value="${projectCountry}" class="form-control"/>
                                             </div>
                                             <div class="form-group has-feedback">
                                                 <label>City</label>

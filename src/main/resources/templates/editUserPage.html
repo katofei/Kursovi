@@ -91,7 +91,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">User edition</h3>
                     </div>
-                    <form role="form" th:action="@{/user-edition}" th:object="${user}" method="post">
+                    <form role="form" th:action="@{/user-edition/{id}(id=${id})}" th:object="${user}" method="post">
                         <div class="box-body">
                             <table style="height: 588px;" width="862">
                                 <tbody>
@@ -188,11 +188,11 @@
                                                 <span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>
                                             </div>
                                             <div class="form-group has-feedback">
-                                                <h3>
-                                                    <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
-                                                           th:if="${#fields.hasErrors('eMail')}" th:errors="*{eMail}">
-                                                    </small>
-                                                </h3>
+                                                <!--<h3>-->
+                                                    <!--<small style="color: #a31515;font-family: Times, serif; font-weight: bold;"-->
+                                                           <!--th:if="${#fields.hasErrors('eMail')}" th:errors="*{eMail}">-->
+                                                    <!--</small>-->
+                                                <!--</h3>-->
                                                 <label for="exampleInputEmail1">Work e-mail </label>
                                                 <input type="email" class="form-control"
                                                        id="exampleInputEmail1"/>
@@ -213,11 +213,11 @@
                                                 </div>
                                             </div>
                                             <div class="form-group has-feedback">
-                                                <h3>
-                                                    <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
-                                                           th:if="${#fields.hasErrors('eMail')}" th:errors="*{eMail}">
-                                                    </small>
-                                                </h3>
+                                                <!--<h3>-->
+                                                    <!--<small style="color: #a31515;font-family: Times, serif; font-weight: bold;"-->
+                                                           <!--th:if="${#fields.hasErrors('eMail')}" th:errors="*{eMail}">-->
+                                                    <!--</small>-->
+                                                <!--</h3>-->
                                                 <label for="exampleInputEmail1">Private e-mail </label>
                                                 <input type="email" class="form-control"
                                                        id="exampleInputEmail1"/>

@@ -31,44 +31,38 @@ public class UserDTO implements Serializable{
     private long position;
     private long qualification;
     private long projectRole;
+    private long userContact;
 
     public String getUserName() {return userName;}
-
     public void setUserName(String userName) {this.userName = userName;}
 
     public String getUserSurname() {return userSurname;}
-
     public void setUserSurname(String userSurname) {this.userSurname = userSurname;}
 
     public String geteMail() {return eMail;}
-
     public void seteMail(String eMail) {this.eMail = eMail;}
 
     public String getLogin() {return login;}
-
     public void setLogin(String login) {this.login = login;}
 
     public String getPassword() {return password;}
-
     public void setPassword(String password) {this.password = password;}
 
     public long getProject() {return project;}
-
     public void setProject(long project) {this.project = project;}
 
     public long getPosition() {return position;}
-
     public void setPosition(long position) {this.position = position;}
 
     public long getQualification() {return qualification;}
-
     public void setQualification(long qualification) {this.qualification = qualification;}
 
     public long getProjectRole() {return projectRole;}
-
     public void setProjectRole(long projectRole) {this.projectRole = projectRole;}
 
     public long getUserRole() {return userRole;}
-
     public void setUserRole(long userRole) {this.userRole = userRole;}
+
+    public long getUserContact() {return userContact;}
+    public void setUserContact(long userContact) {this.userContact = userContact;}
 }

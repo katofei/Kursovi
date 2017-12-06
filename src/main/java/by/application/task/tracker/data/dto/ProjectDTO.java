@@ -15,6 +15,8 @@ public class ProjectDTO {
     @NotBlank(message = "Main aim is required")
     private String mainAim;
 
+    private long porjectContact;
+
     public String getProjectName() {return projectName;}
     public void setProjectName(String projectName) {this.projectName = projectName;}
 
@@ -26,4 +28,7 @@ public class ProjectDTO {
 
     public String getMainAim() {return mainAim;}
     public void setMainAim(String mainAim) {this.mainAim = mainAim;}
+
+    public long getPorjectContact() {return porjectContact;}
+    public void setPorjectContact(long porjectContact) {this.porjectContact = porjectContact;}
 }

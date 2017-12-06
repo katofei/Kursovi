@@ -15,7 +15,6 @@ public class Project {
         this.description = projectDTO.getDescription();
         this.projectName = projectDTO.getProjectName();
         this.mainAim = projectDTO.getMainAim();
-        this.projectCountry = projectDTO.getProjectCountry();
     }
 
     @Id
@@ -25,9 +24,6 @@ public class Project {
 
     @Column(name = "project_name")
     private String projectName;
-
-    @Column(name = "project_country")
-    private String projectCountry;
 
     @Lob
     private String description;
@@ -47,7 +43,6 @@ public class Project {
     public Long getProjectId() {
         return projectId;
     }
-
     public void setProjectId(Long projectId) {
         this.projectId = projectId;
     }
@@ -55,36 +50,20 @@ public class Project {
     public String getProjectName() {
         return projectName;
     }
-
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
-
-    public String getProjectCountry() {
-        return projectCountry;
-    }
-
-    public void setProjectCountry(String projectCountry) {
-        this.projectCountry = projectCountry;
-    }
+    public void setProjectName(String projectName) {this.projectName = projectName;}
 
     public List<User> getUsers() {return users;}
-
     public void setUsers(List<User> users) {this.users = users;}
 
     public List<Task> getTasks() {return tasks;}
-
     public void setTasks(List<Task> tasks) {this.tasks = tasks;}
 
     public String getDescription() {return description;}
-
     public void setDescription(String description) {this.description = description;}
 
     public String getMainAim() {return mainAim;}
-
     public void setMainAim(String mainAim) {this.mainAim = mainAim;}
 
     public ProjectContact getProjectContact() {return projectContact;}
-
     public void setProjectContact(ProjectContact projectContact) {this.projectContact = projectContact;}
 }

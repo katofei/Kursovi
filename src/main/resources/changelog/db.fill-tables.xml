@@ -239,56 +239,104 @@
         </createIndex>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-29">
-        <addForeignKeyConstraint baseColumnNames="task_priority_priority_id" baseTableName="tasks" constraintName="FK1txbuwm7iaeju7m0yw5129io5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="priority_id" referencedTableName="priorities"/>
+        <addForeignKeyConstraint baseColumnNames="task_priority_priority_id" baseTableName="tasks"
+                                 constraintName="FK1txbuwm7iaeju7m0yw5129io5" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="priority_id" referencedTableName="priorities"/>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-30">
-        <addForeignKeyConstraint baseColumnNames="executor_user_id" baseTableName="tasks" constraintName="FK2lhfsxcxxbn7odacysl07jjxf" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="users"/>
+        <addForeignKeyConstraint baseColumnNames="executor_user_id" baseTableName="tasks"
+                                 constraintName="FK2lhfsxcxxbn7odacysl07jjxf" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="user_id" referencedTableName="users"/>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-31">
-        <addForeignKeyConstraint baseColumnNames="project_location_location_id" baseTableName="project_contact" constraintName="FK3gilccrpr71n09dlarscw4adm" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="location_id" referencedTableName="location"/>
+        <addForeignKeyConstraint baseColumnNames="project_location_location_id" baseTableName="project_contact"
+                                 constraintName="FK3gilccrpr71n09dlarscw4adm" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="location_id" referencedTableName="location"/>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-32">
-        <addForeignKeyConstraint baseColumnNames="position_position_id" baseTableName="users" constraintName="FK45g8qgbd8onnqru6dqd28jvg2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="position_id" referencedTableName="positions"/>
+        <addForeignKeyConstraint baseColumnNames="position_position_id" baseTableName="users"
+                                 constraintName="FK45g8qgbd8onnqru6dqd28jvg2" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="position_id" referencedTableName="positions"/>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-33">
-        <addForeignKeyConstraint baseColumnNames="task_type_type_id" baseTableName="tasks" constraintName="FK4b56n6r621d3cjw3vvqxc6ien" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="type_id" referencedTableName="types"/>
+        <addForeignKeyConstraint baseColumnNames="task_type_type_id" baseTableName="tasks"
+                                 constraintName="FK4b56n6r621d3cjw3vvqxc6ien" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="type_id" referencedTableName="types"/>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-34">
-        <addForeignKeyConstraint baseColumnNames="project_contact_id" baseTableName="projects" constraintName="FK51qyoa6hl7m9ufteapqvh2pg4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_contact"/>
+        <addForeignKeyConstraint baseColumnNames="project_contact_id" baseTableName="projects"
+                                 constraintName="FK51qyoa6hl7m9ufteapqvh2pg4" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="project_contact"/>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-35">
-        <addForeignKeyConstraint baseColumnNames="user_contact_id" baseTableName="users" constraintName="FK5nr58sst09l2msbg6r9xud7ow" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user_contact"/>
+        <addForeignKeyConstraint baseColumnNames="user_contact_id" baseTableName="users"
+                                 constraintName="FK5nr58sst09l2msbg6r9xud7ow" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="user_contact"/>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-36">
-        <addForeignKeyConstraint baseColumnNames="project_role_project_role_id" baseTableName="users" constraintName="FK76i604w0g03q2mgbcya77xaii" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_role_id" referencedTableName="project_roles"/>
+        <addForeignKeyConstraint baseColumnNames="project_role_project_role_id" baseTableName="users"
+                                 constraintName="FK76i604w0g03q2mgbcya77xaii" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="project_role_id" referencedTableName="project_roles"/>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-37">
-        <addForeignKeyConstraint baseColumnNames="project_project_id" baseTableName="users" constraintName="FK79jo1tntcfow8r9bobgamf3n0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_id" referencedTableName="projects"/>
+        <addForeignKeyConstraint baseColumnNames="project_project_id" baseTableName="users"
+                                 constraintName="FK79jo1tntcfow8r9bobgamf3n0" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="project_id" referencedTableName="projects"/>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-38">
-        <addForeignKeyConstraint baseColumnNames="user_location_location_id" baseTableName="user_contact" constraintName="FKb5s5p1c64lrsasr71st74g0ib" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="location_id" referencedTableName="location"/>
+        <addForeignKeyConstraint baseColumnNames="user_location_location_id" baseTableName="user_contact"
+                                 constraintName="FKb5s5p1c64lrsasr71st74g0ib" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="location_id" referencedTableName="location"/>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-39">
-        <addForeignKeyConstraint baseColumnNames="user_role_role_id" baseTableName="users" constraintName="FKbjpqawr5fb8qr7qtb5sx86nic" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="role_id" referencedTableName="roles"/>
+        <addForeignKeyConstraint baseColumnNames="user_role_role_id" baseTableName="users"
+                                 constraintName="FKbjpqawr5fb8qr7qtb5sx86nic" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="role_id" referencedTableName="roles"/>
     </changeSet>
     <changeSet author="yekr0717 (generated)" id="1512545550145-42">
-        <addForeignKeyConstraint baseColumnNames="user_status_status_id" baseTableName="users" constraintName="FKe1qtxblpfsavk5tc1uio5lj83" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="status_id" referencedTableName="user_status"/>
+        <addForeignKeyConstraint baseColumnNames="user_status_status_id" baseTableName="users"
+                                 constraintName="FKe1qtxblpfsavk5tc1uio5lj83" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="status_id" referencedTableName="user_status"/>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-40">
-        <addForeignKeyConstraint baseColumnNames="project_project_id" baseTableName="tasks" constraintName="FKigthsww3hccygu9ax5o8of6j4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_id" referencedTableName="projects"/>
+        <addForeignKeyConstraint baseColumnNames="project_project_id" baseTableName="tasks"
+                                 constraintName="FKigthsww3hccygu9ax5o8of6j4" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="project_id" referencedTableName="projects"/>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-41">
-        <addForeignKeyConstraint baseColumnNames="task_status_status_id" baseTableName="tasks" constraintName="FKmr19rpmsbd23betc4hsyn7spv" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="status_id" referencedTableName="statuses"/>
+        <addForeignKeyConstraint baseColumnNames="task_status_status_id" baseTableName="tasks"
+                                 constraintName="FKmr19rpmsbd23betc4hsyn7spv" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="status_id" referencedTableName="statuses"/>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-42">
-        <addForeignKeyConstraint baseColumnNames="creator_user_id" baseTableName="tasks" constraintName="FKnb2ma7q9p8210byu0u3een0hj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="users"/>
+        <addForeignKeyConstraint baseColumnNames="creator_user_id" baseTableName="tasks"
+                                 constraintName="FKnb2ma7q9p8210byu0u3een0hj" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="user_id" referencedTableName="users"/>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-43">
-        <addForeignKeyConstraint baseColumnNames="qualification_qualification_id" baseTableName="users" constraintName="FKteiw5vxjuk1mhv4m2fxmuoufi" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="qualification_id" referencedTableName="qualifications"/>
+        <addForeignKeyConstraint baseColumnNames="qualification_qualification_id" baseTableName="users"
+                                 constraintName="FKteiw5vxjuk1mhv4m2fxmuoufi" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="qualification_id" referencedTableName="qualifications"/>
     </changeSet>
 
 
-    <changeSet id="insert-into-tables-1" author="lenovo">
+    <changeSet id="insert-locations-1" author="Johny">
 
         <insert tableName="location">
             <column name="location_id">12</column>
@@ -354,60 +402,60 @@
             <column name="house_number">4</column>
         </insert>
         <insert tableName="location">
-             <column name="location_id">21</column>
-             <column name="country">Philippines</column>
-             <column name="city">Bacnotan</column>
-             <column name="street">Granby</column>
-             <column name="house_number">74</column>
+            <column name="location_id">21</column>
+            <column name="country">Philippines</column>
+            <column name="city">Bacnotan</column>
+            <column name="street">Granby</column>
+            <column name="house_number">74</column>
         </insert>
         <insert tableName="location">
-             <column name="location_id">22</column>
-             <column name="country">South Africa</column>
-             <column name="city">Midrand</column>
-             <column name="street">Monterey</column>
-             <column name="house_number">93</column>
+            <column name="location_id">22</column>
+            <column name="country">South Africa</column>
+            <column name="city">Midrand</column>
+            <column name="street">Monterey</column>
+            <column name="house_number">93</column>
         </insert>
         <insert tableName="location">
-             <column name="location_id">23</column>
-             <column name="country">Philippines</column>
-             <column name="city">Balabag</column>
-             <column name="street">Summit</column>
-             <column name="house_number">88</column>
+            <column name="location_id">23</column>
+            <column name="country">Philippines</column>
+            <column name="city">Balabag</column>
+            <column name="street">Summit</column>
+            <column name="house_number">88</column>
         </insert>
         <insert tableName="location">
-             <column name="location_id">24</column>
-             <column name="country">Brazil</column>
-             <column name="city">Jacobina</column>
-             <column name="street">Messerschmidt</column>
-             <column name="house_number">39218</column>
+            <column name="location_id">24</column>
+            <column name="country">Brazil</column>
+            <column name="city">Jacobina</column>
+            <column name="street">Messerschmidt</column>
+            <column name="house_number">39218</column>
         </insert>
         <insert tableName="location">
-             <column name="location_id">25</column>
-             <column name="country">China</column>
-             <column name="city">Yanjiao</column>
-             <column name="street">Duke</column>
-             <column name="house_number">1195</column>
+            <column name="location_id">25</column>
+            <column name="country">China</column>
+            <column name="city">Yanjiao</column>
+            <column name="street">Duke</column>
+            <column name="house_number">1195</column>
         </insert>
         <insert tableName="location">
-             <column name="location_id">26</column>
+            <column name="location_id">26</column>
             <column name="country">Francia</column>
-             <column name="city">Teresa</column>
-             <column name="street">Brown</column>
-             <column name="house_number">94291</column>
+            <column name="city">Teresa</column>
+            <column name="street">Brown</column>
+            <column name="house_number">94291</column>
         </insert>
         <insert tableName="location">
-             <column name="location_id">27</column>
-             <column name="country">Germany</column>
-             <column name="city">Hannover</column>
-             <column name="street">Kenwood</column>
-             <column name="house_number">83813</column>
+            <column name="location_id">27</column>
+            <column name="country">Germany</column>
+            <column name="city">Hannover</column>
+            <column name="street">Kenwood</column>
+            <column name="house_number">83813</column>
         </insert>
         <insert tableName="location">
-             <column name="location_id">28</column>
-             <column name="country">China</column>
-             <column name="city">Huadian</column>
-             <column name="street">Forest Run</column>
-             <column name="house_number">8</column>
+            <column name="location_id">28</column>
+            <column name="country">China</column>
+            <column name="city">Huadian</column>
+            <column name="street">Forest Run</column>
+            <column name="house_number">8</column>
         </insert>
         <insert tableName="location">
             <column name="location_id">29</column>
@@ -423,7 +471,8 @@
             <column name="street">Bluestem</column>
             <column name="house_number">6</column>
         </insert>
-
+    </changeSet>
+    <changeSet id="insert_into_tables-1" author="Johny">
         <insert tableName="roles">
             <column name="role_name">ADMIN</column>
         </insert>
@@ -527,7 +576,6 @@
             <column name="type_name">Ba task</column>
         </insert>
 
-
         <insert tableName="priorities">
             <column name="priority_name">Low</column>
         </insert>
@@ -550,10 +598,62 @@
             <column name="priority_name">Fire</column>
         </insert>
 
+    </changeSet>
+    <changeSet id="insert-contact-info-1" author="Johny">
+        <insert tableName="user_contact">
+            <column name="fax">7777 777 777</column>
+            <column name="private_email">vasya_pup@gmail.com</column>
+            <column name="private_phone">375 22 478 85 85</column>
+            <column name="work_email">rabota@gmail.com</column>
+            <column name="work_phone">4452</column>
+            <column name="user_location_location_id">14</column>
+        </insert>
+
+        <insert tableName="user_contact">
+            <column name="fax">8888 888 888</column>
+            <column name="private_email">liza_kura@gmail.com</column>
+            <column name="private_phone">469 78 447 23 14</column>
+            <column name="work_email">rabota@gmail.com</column>
+            <column name="work_phone">9867</column>
+            <column name="user_location_location_id">22</column>
+        </insert>
+
+        <insert tableName="user_contact">
+            <column name="fax">1414 444 445</column>
+            <column name="private_email">pety_i@gmail.com</column>
+            <column name="private_phone">799 25 789 22 14</column>
+            <column name="work_email">rabota@gmail.com</column>
+            <column name="work_phone">4355</column>
+            <column name="user_location_location_id">12</column>
+        </insert>
+
+        <insert tableName="project_contact">
+            <column name="fax">7777 777 777</column>
+            <column name="office_email">odnoklassniki@gmail.com</column>
+            <column name="office_phone">4452</column>
+            <column name="project_location_location_id">17</column>
+        </insert>
+
+        <insert tableName="project_contact">
+            <column name="fax">8888 888 888</column>
+            <column name="office_email">gogle@gmail.com</column>
+            <column name="office_phone">9867</column>
+            <column name="project_location_location_id">25</column>
+        </insert>
+
+        <insert tableName="project_contact">
+            <column name="fax">1414 444 445</column>
+            <column name="office_email">yandex@gmail.com</column>
+            <column name="office_phone">4355</column>
+            <column name="project_location_location_id">28</column>
+        </insert>
+    </changeSet>
+    <changeSet id="create-entities-1" author="Johny">
         <insert tableName="projects">
             <column name="project_id">189784</column>
             <column name="project_country">Belarus</column>
             <column name="project_name">Support the system</column>
+            <column name="project_contact_id">1</column>
             <column name="main_aim">Ensure the user experience and security of the system as a whole</column>
         </insert>
 
@@ -561,13 +661,16 @@
             <column name="project_id">121347</column>
             <column name="project_country">Russia</column>
             <column name="project_name">Protect the "Telegramm"</column>
-            <column name="main_aim">We want to help Pavel Durov save his child and protect him from stupid officials</column>
+            <column name="project_contact_id">2</column>
+            <column name="main_aim">We want to help Pavel Durov save his child and protect him from stupid officials
+            </column>
         </insert>
 
         <insert tableName="projects">
             <column name="project_id">146874</column>
             <column name="project_country">Ukraine</column>
             <column name="project_name">War "For Freedom and Fat"</column>
+            <column name="project_contact_id">3</column>
             <column name="main_aim">We want to win the damned war and make Donbass the capital of Ukraine</column>
         </insert>
 
@@ -576,11 +679,14 @@
             <column name="e_mail">g14.katya@gmail.com</column>
             <column name="login">admin</column>
             <column name="password">$2a$10$B8D0ifMmcnKQus1VafyPpOoTQQII6gxrpGylcMAOsw1KWB4boO9si</column>
-            <column name="position_position_id" valueComputed ="(SELECT position_id from positions WHERE position_name = 'System administrator')"/>
-            <column name="qualification_qualification_id" valueComputed ="(SELECT qualification_id from qualifications WHERE qualification_name = 'Senior')"/>
+            <column name="position_position_id"
+                    valueComputed="(SELECT position_id from positions WHERE position_name = 'System administrator')"/>
+            <column name="qualification_qualification_id"
+                    valueComputed="(SELECT qualification_id from qualifications WHERE qualification_name = 'Senior')"/>
             <column name="user_name">Johny</column>
             <column name="user_surname">Depp</column>
             <column name="enabled">1</column>
+            <column name="user_contact_id">1</column>
             <column name="project_project_id"
                     valueComputed="(SELECT project_id FROM projects WHERE project_name = 'Support the system')"/>
             <column name="user_role_role_id" valueComputed="(SELECT role_id FROM roles WHERE role_name = 'ADMIN')"/>
@@ -591,15 +697,17 @@
             <column name="e_mail">g14.katya@gmail.com</column>
             <column name="login">user</column>
             <column name="password">$2a$10$p5CnYpFsCUKfmbdFj8gx4.4OzWcAGrwnx/kdoxE/A.h5WjUF0Sapa</column>
-            <column name="position_position_id" valueComputed ="(SELECT position_id from positions WHERE position_name = 'Java developer')"/>
-            <column name="qualification_qualification_id" valueComputed ="(SELECT qualification_id from qualifications WHERE qualification_name = 'Junior')"/>
+            <column name="position_position_id"
+                    valueComputed="(SELECT position_id from positions WHERE position_name = 'Java developer')"/>
+            <column name="qualification_qualification_id"
+                    valueComputed="(SELECT qualification_id from qualifications WHERE qualification_name = 'Junior')"/>
             <column name="user_name">Robert</column>
             <column name="user_surname">Dauni</column>
             <column name="enabled">1</column>
+            <column name="user_contact_id">3</column>
             <column name="project_project_id"
                     valueComputed="(SELECT project_id FROM projects WHERE project_name = 'Support the system')"/>
             <column name="user_role_role_id" valueComputed="(SELECT role_id FROM roles WHERE role_name = 'USER')"/>
         </insert>
-
     </changeSet>
 </databaseChangeLog>
