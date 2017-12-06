@@ -40,7 +40,8 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a th:href="@{profile/{id}(id=${currentUser.userId})}" class="btn btn-default btn-flat">My profile</a>
+                                    <a th:href="@{profile/{id}(id=${currentUser.userId})}"
+                                       class="btn btn-default btn-flat">My profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a th:href="@{/login}" class="btn btn-default btn-flat">Sign out</a>
@@ -86,99 +87,176 @@
     <div class="content-wrapper">
         <section class="content-header">
             <section class="content container-fluid">
-                <div class="box box-primary">
+                <div class="box box-primary" style="width:950px">
                     <div class="box-header with-border">
                         <h3 class="box-title">User edition</h3>
                     </div>
                     <form role="form" th:action="@{/user-edition}" th:object="${user}" method="post">
                         <div class="box-body">
-                            <div class="form-group has-feedback">
-                                <label>User name</label>
-                                <h3>
-                                    <small style="color:#a31515; font-family: Times, serif; font-weight:bold;"
-                                           th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">
-                                    </small></h3>
-                                <input type="text" class="form-control" th:field="*{userName}"
-                                       th:text="${user.userName}">
+                            <table style="height: 588px;" width="862">
+                                <tbody>
+                                <tr>
+                                    <td style="width: 350px;">&nbsp;
+                                        <div class="form-group has-feedback">
+                                            <label>User name</label>
+                                            <h3>
+                                                <small style="color:#a31515; font-family: Times, serif; font-weight:bold;"
+                                                       th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">
+                                                </small>
+                                            </h3>
+                                            <input type="text" class="form-control" th:field="*{userName}"/>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label>User surname</label>
+                                            <h3>
+                                                <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
+                                                       th:if="${#fields.hasErrors('userSurname')}"
+                                                       th:errors="*{userSurname}">
+                                                </small>
+                                            </h3>
+                                            <input type="text" class="form-control" th:field="*{userSurname}"/>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label>Enter login:</label>
+                                            <h3>
+                                                <small style="color: #a31515;font-family: Times, serif; font-weight: bold; "
+                                                       th:if="${#fields.hasErrors('login')}" th:errors="*{login}">
+                                                </small>
+                                            </h3>
+                                            <input type="text" class="form-control" th:field="*{login}"/>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label for="exampleInputPassword1">Password</label>
+                                            <h3>
+                                                <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
+                                                       th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                                                </small>
+                                            </h3>
+                                            <input type="password" th:field="*{password}" class="form-control"
+                                                   id="exampleInputPassword1"
+                                                   placeholder="Enter password"/>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label>Project name</label>
+                                            <select th:field="*{project}" class="form-control select2"
+                                                    style="width: 100%;">
+                                                <option th:each="projectId:${projects}"
+                                                        th:value="${projectId.projectId}"
+                                                        th:text="${projectId.projectName}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label>Position</label>
+                                            <select th:field="*{position}" class="form-control select2"
+                                                    style="width: 100%;">
+                                                <option th:each="position:${positions}"
+                                                        th:value="${position.positionId}"
+                                                        th:text="${position.positionName}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label>Qualification</label>
+                                            <select th:field="*{qualification}" class="form-control select2"
+                                                    style="width: 100%;">
+                                                <option th:each="qualification:${qualifications}"
+                                                        th:value="${qualification.qualificationId}"
+                                                        th:text="${qualification.qualificationName}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label>Project role</label>
+                                            <select th:field="*{projectRole}" class="form-control select2"
+                                                    style="width: 100%;">
+                                                <option th:value="0"></option>
+                                                <option th:each="projectRole:${projectRoles}"
+                                                        th:value="${projectRole.projectRoleId}"
+                                                        th:text="${projectRole.projectRoleName}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td style="width: 70px;"></td>
+                                    <td style="width: 300px; vertical-align: top">&nbsp;
+                                        <div class="form-group has-feedback" style="high:400px">
+                                            <h3 class="box-title">Contact information</h3>
+                                            <div class="form-group has-feedback">
+                                                <label>Work phone:</label>
+                                                <input type="text" class="form-control"/>
+                                                <span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <h3>
+                                                    <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
+                                                           th:if="${#fields.hasErrors('eMail')}" th:errors="*{eMail}">
+                                                    </small>
+                                                </h3>
+                                                <label for="exampleInputEmail1">Work e-mail </label>
+                                                <input type="email" class="form-control"
+                                                       id="exampleInputEmail1"/>
+                                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <div class="form-group">
+                                                    <label>Fax:</label>
+                                                    <input type="text" class="form-control"/>
+                                                    <span class="glyphicon glyphicon-print form-control-feedback"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <div class="form-group">
+                                                    <label>Private phone:</label>
+                                                    <input type="text" class="form-control"/>
+                                                    <span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <h3>
+                                                    <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
+                                                           th:if="${#fields.hasErrors('eMail')}" th:errors="*{eMail}">
+                                                    </small>
+                                                </h3>
+                                                <label for="exampleInputEmail1">Private e-mail </label>
+                                                <input type="email" class="form-control"
+                                                       id="exampleInputEmail1"/>
+                                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="width: 70px;"></td>
+                                    <td style="width: 300px; vertical-align: top">&nbsp;
+                                        <div class="form-group has-feedback" style="high:400px">
+                                            <h3 class="box-title">Location</h3>
+                                            <div class="form-group has-feedback">
+                                                <label>Country</label>
+                                                <input type="text"  class="form-control"/>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <label>City</label>
+                                                <input type="text"  class="form-control"/>
+                                                <span class="glyphicon glyphicon-map-marker form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <label >Street</label>
+                                                <input type="text" class="form-control"/>
+                                                <span class=" 	glyphicon glyphicon-road form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <label>House number</label>
+                                                <input type="text" class="form-control"/>
+                                                <span class="glyphicon glyphicon-home form-control-feedback"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <p>&nbsp;</p>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
-                            <div class="form-group has-feedback">
-                                <label>User surname</label>
-                                <h3><small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
-                                           th:if="${#fields.hasErrors('userSurname')}" th:errors="*{userSurname}">
-                                </small>
-                                </h3>
-                                <input type="text" class="form-control" th:field="*{userSurname}"
-                                       th:text="${user.userSurname}">
-                            </div>
-                            <div class="form-group has-feedback">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <h3>
-                                    <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
-                                           th:if="${#fields.hasErrors('eMail')}" th:errors="*{eMail}">
-                                    </small>
-                                </h3>
-                                <input type="email" th:field="*{eMail}" class="form-control" id="exampleInputEmail1"
-                                       th:text="${user.eMail}"/>
-                            </div>
-                            <div class="form-group has-feedback">
-                                <label>Enter login:</label>
-                                <h3>
-                                    <small style="color: #a31515;font-family: Times, serif; font-weight: bold; "
-                                           th:if="${#fields.hasErrors('login')}" th:errors="*{login}">
-                                    </small>
-                                </h3>
-                                <input type="text" class="form-control" th:field="*{login}"
-                                       th:text="${user.login}"/>
-                            </div>
-                            <div class="form-group has-feedback">
-                                <label for="exampleInputPassword1">Password</label>
-                                <h3><small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
-                                           th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
-                                </small></h3>
-                                <input type="password" th:field="*{password}" class="form-control"
-                                       id="exampleInputPassword1"
-                                       placeholder="Enter password"/>
-                            </div>
-                            <div class="form-group has-feedback">
-                                <label>Project name</label>
-                                <select th:field="*{projectId}" class="form-control select2" style="width: 100%;">
-                                    <option th:each="projectId:${projects}"
-                                            th:value="${projectId.projectId}"
-                                            th:text="${projectId.projectName}">
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group has-feedback">
-                                <label>Position</label>
-                                <select th:field="*{position}" class="form-control select2" style="width: 100%;">
-                                    <option th:each="position:${positions}"
-                                            th:value="${position.positionId}"
-                                            th:text="${position.positionName}">
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group has-feedback">
-                                <label>Qualification</label>
-                                <select th:field="*{qualification}" class="form-control select2" style="width: 100%;">
-                                    <option th:each="qualification:${qualifications}"
-                                            th:value="${qualification.qualificationId}"
-                                            th:text="${qualification.qualificationName}">
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group has-feedback">
-                                <label>Project role</label>
-                                <select th:field="*{projectRole}" class="form-control select2" style="width: 100%;">
-                                    <option th:value="0"></option>
-                                    <option th:each="projectRole:${projectRoles}"
-                                            th:value="${projectRole.projectRoleId}"
-                                            th:text="${projectRole.projectRoleName}">
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>

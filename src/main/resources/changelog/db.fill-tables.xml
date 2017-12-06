@@ -130,6 +130,14 @@
             <column name="user_location_location_id" type="BIGINT"/>
         </createTable>
     </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1512545550145-13">
+        <createTable tableName="user_status">
+            <column autoIncrement="true" name="status_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="status_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-13">
         <createTable tableName="users">
             <column autoIncrement="true" name="user_id" type="BIGINT">
@@ -147,6 +155,7 @@
             <column name="qualification_qualification_id" type="BIGINT"/>
             <column name="user_contact_id" type="BIGINT"/>
             <column name="user_role_role_id" type="BIGINT"/>
+            <column name="user_status_status_id" type="BIGINT"/>
         </createTable>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-14">
@@ -204,6 +213,11 @@
             <column name="user_role_role_id"/>
         </createIndex>
     </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1512545550145-26">
+        <createIndex indexName="FKe1qtxblpfsavk5tc1uio5lj83" tableName="users">
+            <column name="user_status_status_id"/>
+        </createIndex>
+    </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-25">
         <createIndex indexName="FKigthsww3hccygu9ax5o8of6j4" tableName="tasks">
             <column name="project_project_id"/>
@@ -256,6 +270,9 @@
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-39">
         <addForeignKeyConstraint baseColumnNames="user_role_role_id" baseTableName="users" constraintName="FKbjpqawr5fb8qr7qtb5sx86nic" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="role_id" referencedTableName="roles"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1512545550145-42">
+        <addForeignKeyConstraint baseColumnNames="user_status_status_id" baseTableName="users" constraintName="FKe1qtxblpfsavk5tc1uio5lj83" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="status_id" referencedTableName="user_status"/>
     </changeSet>
     <changeSet author="lenovo (generated)" id="1510855711941-40">
         <addForeignKeyConstraint baseColumnNames="project_project_id" baseTableName="tasks" constraintName="FKigthsww3hccygu9ax5o8of6j4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_id" referencedTableName="projects"/>
@@ -412,6 +429,13 @@
         </insert>
         <insert tableName="roles">
             <column name="role_name">USER</column>
+        </insert>
+
+        <insert tableName="user_status">
+            <column name="status_name">Assigned</column>
+        </insert>
+        <insert tableName="user_status">
+            <column name="status_name">Not assigned</column>
         </insert>
 
         <insert tableName="qualifications">

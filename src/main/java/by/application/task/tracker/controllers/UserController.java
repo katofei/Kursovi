@@ -1,14 +1,17 @@
 package by.application.task.tracker.controllers;
 
+import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -86,4 +89,46 @@ public class UserController {
         return new ModelAndView("allUsers");
     }
 
+    @RequestMapping(value = "/user-edition/{id}", method = RequestMethod.GET)
+    public ModelAndView getUserEdition(@PathVariable("id") long id) {
+        ModelAndView view = new ModelAndView("editUserPage");
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+
+        view.addObject("positions",positionService.getAllPositions());
+        view.addObject("projects", projectService.getAllProjects());
+        view.addObject("qualifications",qualificationService.getAllQualifications());
+        view.addObject("projectRoles", projectRoleService.getAllProjectRoles());
+        view.addObject("user", userService.findUserById(id));
+      //  UserDTO userForEdition = new UserDTO();
+       // view.addObject("user", userForEdition);
+        return view;
+    }
+
+    @RequestMapping(value = "/user-edition/{id}", method = RequestMethod.POST)
+    public ModelAndView editUser(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result) {
+        ModelAndView view = new ModelAndView();
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        if (result.hasErrors()) {
+            view.setViewName("editUserPage");{
+                view.addObject("currentUser", currentUser);
+                view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
+                view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
+                view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+                view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification()
+                        .getQualificationId()));
+                view.addObject("positions",positionService.getAllPositions());
+                view.addObject("projects", projectService.getAllProjects());
+                view.addObject("qualifications",qualificationService.getAllQualifications());
+                view.addObject("projectRoles", projectRoleService.getAllProjectRoles());
+                return view;
+            }
+        }
+        view.setViewName("redirect:/allUsers");
+        //userService.editUser(userDTO);
+        return view;
+    }
 }

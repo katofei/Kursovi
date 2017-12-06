@@ -40,7 +40,8 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a th:href="@{profile/{id}(id=${currentUser.userId})}" class="btn btn-default btn-flat">My profile</a>
+                                    <a th:href="@{profile/{id}(id=${currentUser.userId})}"
+                                       class="btn btn-default btn-flat">My profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a th:href="@{/login}" class="btn btn-default btn-flat">Sign out</a>
@@ -86,7 +87,7 @@
     <div class="content-wrapper">
         <section class="content-header">
             <section class="content container-fluid">
-                <div class="box box-primary">
+                <div class="box box-primary" style="width:950px">
                     <div class="box-header with-border">
                         <h3 class="box-title">User Registration</h3>
                     </div>
@@ -97,47 +98,53 @@
                                 <h3>
                                     <small style="color:#a31515; font-family: Times, serif; font-weight:bold;"
                                            th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">
-                                </small></h3>
+                                    </small>
+                                </h3>
                                 <input type="text" class="form-control" th:field="*{userName}"
                                        placeholder="Enter name"/>
                             </div>
                             <div class="form-group has-feedback">
                                 <label>User surname</label>
-                                <h3><small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
+                                <h3>
+                                    <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
                                            th:if="${#fields.hasErrors('userSurname')}" th:errors="*{userSurname}">
-                                </small>
+                                    </small>
                                 </h3>
                                 <input type="text" class="form-control" th:field="*{userSurname}"
                                        placeholder="Enter surname"/>
                             </div>
                             <div class="form-group has-feedback">
-                                <label for="exampleInputEmail1">Email address</label>
                                 <h3>
                                     <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
                                            th:if="${#fields.hasErrors('eMail')}" th:errors="*{eMail}">
                                     </small>
                                 </h3>
+                                <label for="exampleInputEmail1">Email address</label>
                                 <input type="email" th:field="*{eMail}" class="form-control" id="exampleInputEmail1"
                                        placeholder="Enter email"/>
+                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                             </div>
                             <div class="form-group has-feedback">
-                                <label>Enter login:</label>
                                 <h3>
                                     <small style="color: #a31515;font-family: Times, serif; font-weight: bold; "
                                            th:if="${#fields.hasErrors('login')}" th:errors="*{login}">
                                     </small>
                                 </h3>
-                                    <input type="text" class="form-control" th:field="*{login}"
-                                           placeholder="Enter login"/>
+                                <label>Enter login</label>
+                                <input type="text" class="form-control" th:field="*{login}"
+                                       placeholder="Enter login"/>
                             </div>
                             <div class="form-group has-feedback">
-                                <label for="exampleInputPassword1">Password</label>
-                                <h3><small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
+                                <h3>
+                                    <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
                                            th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
-                                </small></h3>
+                                    </small>
+                                </h3>
+                                <label for="exampleInputPassword1">Password</label>
                                 <input type="password" th:field="*{password}" class="form-control"
                                        id="exampleInputPassword1"
                                        placeholder="Enter password"/>
+                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                             </div>
                             <div class="form-group has-feedback">
                                 <label>Project name</label>
