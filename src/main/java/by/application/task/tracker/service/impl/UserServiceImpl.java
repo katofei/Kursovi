@@ -29,6 +29,8 @@ public class UserServiceImpl implements UserService {
     private UserRoleService roleService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserStatusService userStatusService;
 
 
     @Override
@@ -39,6 +41,9 @@ public class UserServiceImpl implements UserService {
         createdUser.setProject(projectService.findByProjectId(userDTO.getProject()));
         createdUser.setProjectRole(projectRoleService.findProjectRoleById(userDTO.getProjectRole()));
         createdUser.setPosition(positionService.findPositionById(userDTO.getPosition()));
+        if (userDTO.getProject()== 0) {
+            createdUser.setUserStatus(userStatusService.findByStatusName("Not assigned"));
+        }
         createdUser.setQualification(qualificationService.findQualificationById(userDTO.getQualification()));
         return userRepository.save(createdUser);
     }

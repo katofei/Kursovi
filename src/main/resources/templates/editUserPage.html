@@ -90,7 +90,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">User edition</h3>
                     </div>
-                    <form role="form" th:action="@{/registration}" th:object="${user}" method="post">
+                    <form role="form" th:action="@{/user-edition}" th:object="${user}" method="post">
                         <div class="box-body">
                             <div class="form-group has-feedback">
                                 <label>User name</label>
@@ -99,7 +99,7 @@
                                            th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">
                                     </small></h3>
                                 <input type="text" class="form-control" th:field="*{userName}"
-                                       placeholder="Enter name"/>
+                                       th:text="${user.userName}">
                             </div>
                             <div class="form-group has-feedback">
                                 <label>User surname</label>
@@ -108,7 +108,7 @@
                                 </small>
                                 </h3>
                                 <input type="text" class="form-control" th:field="*{userSurname}"
-                                       placeholder="Enter surname"/>
+                                       th:text="${user.userSurname}">
                             </div>
                             <div class="form-group has-feedback">
                                 <label for="exampleInputEmail1">Email address</label>
@@ -118,7 +118,7 @@
                                     </small>
                                 </h3>
                                 <input type="email" th:field="*{eMail}" class="form-control" id="exampleInputEmail1"
-                                       placeholder="Enter email"/>
+                                       th:text="${user.eMail}"/>
                             </div>
                             <div class="form-group has-feedback">
                                 <label>Enter login:</label>
@@ -128,7 +128,7 @@
                                     </small>
                                 </h3>
                                 <input type="text" class="form-control" th:field="*{login}"
-                                       placeholder="Enter login"/>
+                                       th:text="${user.login}"/>
                             </div>
                             <div class="form-group has-feedback">
                                 <label for="exampleInputPassword1">Password</label>
@@ -153,7 +153,7 @@
                                 <select th:field="*{position}" class="form-control select2" style="width: 100%;">
                                     <option th:each="position:${positions}"
                                             th:value="${position.positionId}"
-                                            th:text="${position.positionName}" selected="selected">Java developer
+                                            th:text="${position.positionName}">
                                     </option>
                                 </select>
                             </div>
@@ -162,7 +162,7 @@
                                 <select th:field="*{qualification}" class="form-control select2" style="width: 100%;">
                                     <option th:each="qualification:${qualifications}"
                                             th:value="${qualification.qualificationId}"
-                                            th:text="${qualification.qualificationName}" selected="selected">Junior
+                                            th:text="${qualification.qualificationName}">
                                     </option>
                                 </select>
                             </div>
@@ -172,7 +172,7 @@
                                     <option th:value="0"></option>
                                     <option th:each="projectRole:${projectRoles}"
                                             th:value="${projectRole.projectRoleId}"
-                                            th:text="${projectRole.projectRoleName}" selected="selected">Project Manager
+                                            th:text="${projectRole.projectRoleName}">
                                     </option>
                                 </select>
                             </div>
