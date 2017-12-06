@@ -54,8 +54,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User editUser(User user) {
-        return userRepository.save(user);
+    public User editUser(UserDTO userDTO,User editedUser) {
+        editedUser.setUserRole(roleService.findByRoleName(USER_ROLE));
+        editedUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        editedUser.setProject(projectService.findByProjectId(userDTO.getProject()));
+        editedUser.setProjectRole(projectRoleService.findProjectRoleById(userDTO.getProjectRole()));
+        editedUser.setPosition(positionService.findPositionById(userDTO.getPosition()));
+        return userRepository.save(editedUser);
     }
 
     @Override

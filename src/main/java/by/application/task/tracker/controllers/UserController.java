@@ -4,11 +4,13 @@ import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -46,9 +48,10 @@ public class UserController {
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
         view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
-        //  view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
+        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
         view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification()
                 .getQualificationId()));
+
 
         List<User> userList = userService.getAllUsers();
         view.addObject("userList", userList);
@@ -98,11 +101,12 @@ public class UserController {
         view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
         view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
 
+        User editingUser = userService.findUserById(id);
         view.addObject("positions",positionService.getAllPositions());
         view.addObject("projects", projectService.getAllProjects());
         view.addObject("qualifications",qualificationService.getAllQualifications());
         view.addObject("projectRoles", projectRoleService.getAllProjectRoles());
-        view.addObject("user", userService.findUserById(id));
+        view.addObject("user", editingUser);
       //  UserDTO userForEdition = new UserDTO();
        // view.addObject("user", userForEdition);
         return view;
@@ -128,7 +132,7 @@ public class UserController {
             }
         }
         view.setViewName("redirect:/allUsers");
-        //userService.editUser(userDTO);
+      //  userService.editUser(userDTO);
         return view;
     }
 }

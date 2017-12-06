@@ -25,7 +25,12 @@ public class ProjectServiceImpl implements ProjectService{
     public void deleteProject(Long projectId) { projectRepository.delete(projectId);}
 
     @Override
-    public Project editProject(Project project) {return projectRepository.save(project);}
+    public Project editProject(ProjectDTO projectDTO, Project editedProject) {
+        editedProject.setDescription(projectDTO.getDescription());
+        editedProject.setMainAim(projectDTO.getMainAim());
+        editedProject.setProjectName(projectDTO.getProjectName());
+        return projectRepository.save(editedProject);
+    }
 
     @Override
     public Project findByProjectId(Long projectId) {return projectRepository.findOne(projectId);}

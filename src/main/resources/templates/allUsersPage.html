@@ -110,7 +110,8 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Surname</th>
-                                        <th>E-mail</th>
+                                        <th>Status</th>
+                                        <th>Project</th>
                                         <th>Post</th>
                                         <th></th>
                                         <th></th>
@@ -121,7 +122,8 @@
                                     <tr th:each="user:${userList}">
                                         <th th:text="${user.userName}" style="font-weight: normal"></th>
                                         <th th:text="${user.userSurname}" style="font-weight: normal"></th>
-                                        <th th:text="${user.eMail}" style="font-weight: normal"></th>
+                                        <th th:text="${user.userStatus.statusName}" style="font-weight: normal"></th>
+                                        <th th:text="${user.project.projectName}" style="font-weight: normal"></th>
                                         <th th:text="${user.qualification.qualificationName}+' '+${user.position.positionName}"
                                             style="font-weight: normal"></th>
                                         <th width="100">
@@ -136,9 +138,8 @@
                                                 <span>Delete</span>
                                             </button>
                                         </th>
-                                        <th  width="100">
-                                            <button type="button" class="btn btn-primary btn-md">
-                                                <a th:href="@{profile/{id}(id=${user.userId})}"></a>
+                                        <th width="100">
+                                            <button type="button" class="btn btn-primary btn-md" th:onclick="|window.location.href='/profile/${user.userId}'|">
                                                 <span class="glyphicon glyphicon-info-sign"></span>
                                                 <span>Info</span>
                                             </button>
@@ -164,6 +165,8 @@
             });
         });
     });
+
+
 </script>
 <script>
   $(function () {
@@ -172,10 +175,12 @@
       "lengthChange": false,
       "searching": true,
       "ordering": true,
-      "info": true,
-      "autoWidth": false
+      "info": false,
+      "autoWidth": true
     });
   });
+
+
 </script>
 </body>
 </html>

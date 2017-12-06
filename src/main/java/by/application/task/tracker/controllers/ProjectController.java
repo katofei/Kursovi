@@ -1,6 +1,7 @@
 package by.application.task.tracker.controllers;
 
 import by.application.task.tracker.data.dto.ProjectDTO;
+import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.Project;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.PositionService;
@@ -89,7 +90,38 @@ public class ProjectController {
         return view;
     }
 
-    @RequestMapping(value = "/project-deletion/{id}", method = RequestMethod.DELETE)
+
+    @RequestMapping(value = "/project-edition/{id}", method = RequestMethod.GET)
+    public ModelAndView getProjectEdition(@PathVariable("id") long id) {
+        ModelAndView view = new ModelAndView("project");
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+
+        projectService.deleteProject(id);
+        return new ModelAndView("allProjects");
+    }
+
+    @RequestMapping(value = "/project-edition/{id}", method = RequestMethod.POST)
+    public ModelAndView editProject(@Valid @ModelAttribute("project") ProjectDTO projectDTO, BindingResult result) {
+        ModelAndView view = new ModelAndView();
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        if (result.hasErrors()) {
+            view.setViewName("editProjectPage");
+            view.addObject("currentUser", currentUser);
+            view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
+            view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
+            view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+            view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+            return view;
+        }
+        view.setViewName("redirect:/allProjects");
+        //  projectService.editProject(projectDTO);
+        return view;
+    }
+
+    @RequestMapping(value = "/project-edition/{id}", method = RequestMethod.DELETE)
     public ModelAndView deleteProject(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("project");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());

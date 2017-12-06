@@ -107,9 +107,9 @@
                                     <table id="example1" class="table  table-hover">
                                         <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Country</th>
-                                            <th>Main aim</th>
+                                            <th width="300">Name</th>
+                                            <th width="300">Country</th>
+                                            <th width="600">Main aim</th>
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -117,9 +117,9 @@
                                         </thead>
                                         <tbody id="myTable">
                                         <tr th:each="project:${projectList}">
-                                            <th th:text="${project.projectName}" style="font-weight: normal"></th>
-                                            <th th:text="${project.projectCountry}" style="font-weight: normal"></th>
-                                            <th th:text="${project.mainAim}" style="font-weight: normal"></th>
+                                            <th width="300" th:text="${project.projectName}" style="font-weight: normal"></th>
+                                            <th width="300" th:text="${project.projectCountry}" style="font-weight: normal"></th>
+                                            <th width="600" th:text="${project.mainAim}" style="font-weight: normal"></th>
                                             <th width="100">
                                                 <button type="button" class="btn btn-primary btn-md">
                                                     <span class="glyphicon glyphicon-pencil"></span>
@@ -134,7 +134,7 @@
                                             </th>
                                             <th width="100">
                                                 <button type="button" class="btn btn-primary btn-md">
-                                                    <a th:href="@{project/{id}(id=${project.projectId})}"></a>
+                                                    <a th:href="@{/project/{id}(id=${project.projectId})}"></a>
                                                     <span class="glyphicon glyphicon-info-sign"></span>
                                                     <span>Info</span>
                                                 </button>

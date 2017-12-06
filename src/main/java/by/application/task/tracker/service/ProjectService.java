@@ -9,7 +9,7 @@ public interface ProjectService {
 
     Project createProject(ProjectDTO projectDTO);
     void deleteProject(Long projectId);
-    Project editProject(Project project);
+    Project editProject(ProjectDTO projectDTO, Project project);
     Project findByProjectId(Long projectId);
     List<Project> getAllProjects();
 }
