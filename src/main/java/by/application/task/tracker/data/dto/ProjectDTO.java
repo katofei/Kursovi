@@ -17,9 +17,12 @@ public class ProjectDTO {
     private String mainAim;
 
     private long porjectContact;
+
     @ValidEmail
     @NotBlank(message = "E-mail can not be empty")
     private String officeEmail;
+
+    @NotBlank(message = "E-mail can not be empty")
     private String officePhone;
     private String fax;
     private String country;
@@ -27,100 +30,40 @@ public class ProjectDTO {
     private String street;
     private int houseNumber;
 
-    public String getCountry() {
-        return country;
-    }
+    public String getCountry() {return country;}
+    public void setCountry(String country) {this.country = country;}
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+    public String getCity() {return city;}
+    public void setCity(String city) {this.city = city;}
 
-    public String getCity() {
-        return city;
-    }
+    public String getStreet() {return street;}
+    public void setStreet(String street) {this.street = street;}
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+    public int getHouseNumber() {return houseNumber;}
+    public void setHouseNumber(int houseNumber) {this.houseNumber = houseNumber;}
 
-    public String getStreet() {
-        return street;
-    }
+    public String getProjectName() {return projectName;}
+    public void setProjectName(String projectName) {this.projectName = projectName;}
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
+    public String getProjectCountry() {return projectCountry;}
+    public void setProjectCountry(String projectCountry) {this.projectCountry = projectCountry;}
 
-    public int getHouseNumber() {
-        return houseNumber;
-    }
+    public String getDescription() {return description;}
+    public void setDescription(String description) {this.description = description;}
 
-    public void setHouseNumber(int houseNumber) {
-        this.houseNumber = houseNumber;
-    }
+    public String getMainAim() {return mainAim;}
+    public void setMainAim(String mainAim) {this.mainAim = mainAim;}
 
-    public String getProjectName() {
-        return projectName;
-    }
+    public long getPorjectContact() {return porjectContact;}
+    public void setPorjectContact(long porjectContact) {this.porjectContact = porjectContact;}
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
+    public String getOfficeEmail() {return officeEmail;}
+    public void setOfficeEmail(String officeEmail) {this.officeEmail = officeEmail;}
 
-    public String getProjectCountry() {
-        return projectCountry;
-    }
+    public String getOfficePhone() {return officePhone;}
+    public void setOfficePhone(String officePhone) {this.officePhone = officePhone;}
 
-    public void setProjectCountry(String projectCountry) {
-        this.projectCountry = projectCountry;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getMainAim() {
-        return mainAim;
-    }
-
-    public void setMainAim(String mainAim) {
-        this.mainAim = mainAim;
-    }
-
-    public long getPorjectContact() {
-        return porjectContact;
-    }
-
-    public void setPorjectContact(long porjectContact) {
-        this.porjectContact = porjectContact;
-    }
-
-    public String getOfficeEmail() {
-        return officeEmail;
-    }
-
-    public void setOfficeEmail(String officeEmail) {
-        this.officeEmail = officeEmail;
-    }
-
-    public String getOfficePhone() {
-        return officePhone;
-    }
-
-    public void setOfficePhone(String officePhone) {
-        this.officePhone = officePhone;
-    }
-
-    public String getFax() {
-        return fax;
-    }
-
-    public void setFax(String fax) {
-        this.fax = fax;
-    }
+    public String getFax() {return fax;}
+    public void setFax(String fax) {this.fax = fax;}
 
 }

@@ -38,7 +38,10 @@ public class UserDTO implements Serializable {
     @ValidEmail
     @NotBlank(message = "E-mail can not be empty")
     private String workEmail;
+
+    @NotBlank(message = "Prone can not be empty")
     private String workPhone;
+
     private String privateEmail;
     private String privatePhone;
     private String fax;
@@ -46,7 +49,6 @@ public class UserDTO implements Serializable {
     public String getUserName() {
         return userName;
     }
-
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -54,7 +56,6 @@ public class UserDTO implements Serializable {
     public String getUserSurname() {
         return userSurname;
     }
-
     public void setUserSurname(String userSurname) {
         this.userSurname = userSurname;
     }
@@ -62,7 +63,6 @@ public class UserDTO implements Serializable {
     public String getLogin() {
         return login;
     }
-
     public void setLogin(String login) {
         this.login = login;
     }
@@ -70,7 +70,6 @@ public class UserDTO implements Serializable {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -78,7 +77,6 @@ public class UserDTO implements Serializable {
     public long getProject() {
         return project;
     }
-
     public void setProject(long project) {
         this.project = project;
     }
@@ -86,7 +84,6 @@ public class UserDTO implements Serializable {
     public long getPosition() {
         return position;
     }
-
     public void setPosition(long position) {
         this.position = position;
     }
@@ -94,7 +91,6 @@ public class UserDTO implements Serializable {
     public long getQualification() {
         return qualification;
     }
-
     public void setQualification(long qualification) {
         this.qualification = qualification;
     }
@@ -102,7 +98,6 @@ public class UserDTO implements Serializable {
     public long getProjectRole() {
         return projectRole;
     }
-
     public void setProjectRole(long projectRole) {
         this.projectRole = projectRole;
     }
@@ -110,7 +105,6 @@ public class UserDTO implements Serializable {
     public long getUserRole() {
         return userRole;
     }
-
     public void setUserRole(long userRole) {
         this.userRole = userRole;
     }
@@ -118,7 +112,6 @@ public class UserDTO implements Serializable {
     public long getUserContact() {
         return userContact;
     }
-
     public void setUserContact(long userContact) {
         this.userContact = userContact;
     }
@@ -126,7 +119,6 @@ public class UserDTO implements Serializable {
     public String getCountry() {
         return country;
     }
-
     public void setCountry(String country) {
         this.country = country;
     }
@@ -134,7 +126,6 @@ public class UserDTO implements Serializable {
     public String getCity() {
         return city;
     }
-
     public void setCity(String city) {
         this.city = city;
     }
@@ -142,7 +133,6 @@ public class UserDTO implements Serializable {
     public String getStreet() {
         return street;
     }
-
     public void setStreet(String street) {
         this.street = street;
     }
@@ -150,15 +140,11 @@ public class UserDTO implements Serializable {
     public int getHouseNumber() {
         return houseNumber;
     }
-
-    public void setHouseNumber(int houseNumber) {
-        this.houseNumber = houseNumber;
-    }
+    public void setHouseNumber(int houseNumber) {this.houseNumber = houseNumber;}
 
     public String getPrivateEmail() {
         return privateEmail;
     }
-
     public void setPrivateEmail(String privateEmail) {
         this.privateEmail = privateEmail;
     }
@@ -166,7 +152,6 @@ public class UserDTO implements Serializable {
     public String getPrivatePhone() {
         return privatePhone;
     }
-
     public void setPrivatePhone(String privatePhone) {
         this.privatePhone = privatePhone;
     }
@@ -174,7 +159,6 @@ public class UserDTO implements Serializable {
     public String getWorkEmail() {
         return workEmail;
     }
-
     public void setWorkEmail(String workEmail) {
         this.workEmail = workEmail;
     }
@@ -182,7 +166,6 @@ public class UserDTO implements Serializable {
     public String getWorkPhone() {
         return workPhone;
     }
-
     public void setWorkPhone(String workPhone) {
         this.workPhone = workPhone;
     }
@@ -190,7 +173,6 @@ public class UserDTO implements Serializable {
     public String getFax() {
         return fax;
     }
-
     public void setFax(String fax) {
         this.fax = fax;
     }

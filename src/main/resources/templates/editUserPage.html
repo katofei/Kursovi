@@ -183,6 +183,11 @@
                                         <div class="form-group has-feedback" style="high:400px">
                                             <h3 class="box-title">Contact information</h3>
                                             <div class="form-group has-feedback">
+                                                <h3>
+                                                    <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
+                                                           th:if="${#fields.hasErrors('userContact.workPhone')}" th:errors="*{userContact.workPhone}">
+                                                    </small>
+                                                </h3>
                                                 <label>Work phone:</label>
                                                 <input type="text" class="form-control" th:field="*{userContact.workPhone}"/>
                                                 <span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>
@@ -190,7 +195,7 @@
                                             <div class="form-group has-feedback">
                                                 <h3>
                                                     <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
-                                                           th:if="${#fields.hasErrors('eMail')}" th:errors="*{workEmail}">
+                                                           th:if="${#fields.hasErrors('userContact.workEmail')}" th:errors="*{userContact.workEmail}">
                                                     </small>
                                                 </h3>
                                                 <label for="exampleInputEmail1">Work e-mail </label>
@@ -213,6 +218,11 @@
                                                 </div>
                                             </div>
                                             <div class="form-group has-feedback">
+                                                <h3>
+                                                    <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
+                                                           th:if="${#fields.hasErrors('userContact.privateEmail')}" th:errors="*{userContact.privateEmail}">
+                                                    </small>
+                                                </h3>
                                                 <label for="exampleInputEmail1">Private e-mail </label>
                                                 <input type="email" class="form-control" th:field="*{userContact.privateEmail}"
                                                        id="exampleInputEmail1"/>
@@ -226,21 +236,21 @@
                                             <h3 class="box-title">Location</h3>
                                             <div class="form-group has-feedback">
                                                 <label>Country</label>
-                                                <input type="text" class="form-control" th:field="*{country}"/>
+                                                <input type="text" class="form-control" th:field="*{userContact.country}"/>
                                             </div>
                                             <div class="form-group has-feedback">
                                                 <label>City</label>
-                                                <input type="text"  class="form-control"  th:field="*{location.city}"/>
+                                                <input type="text"  class="form-control"  th:field="*{userContact.city}"/>
                                                 <span class="glyphicon glyphicon-map-marker form-control-feedback"></span>
                                             </div>
                                             <div class="form-group has-feedback">
                                                 <label >Street</label>
-                                                <input type="text" class="form-control" th:field="*{location.street}"/>
+                                                <input type="text" class="form-control" th:field="*{userContact.street}"/>
                                                 <span class=" 	glyphicon glyphicon-road form-control-feedback"></span>
                                             </div>
                                             <div class="form-group has-feedback">
                                                 <label>House number</label>
-                                                <input type="text" class="form-control" th:field="*{location.houseNumber}"/>
+                                                <input type="text" class="form-control" th:field="*{userContact.houseNumber}"/>
                                                 <span class="glyphicon glyphicon-home form-control-feedback"></span>
                                             </div>
                                         </div>
