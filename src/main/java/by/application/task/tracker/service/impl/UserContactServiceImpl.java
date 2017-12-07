@@ -1,5 +1,6 @@
 package by.application.task.tracker.service.impl;
 
+import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.UserContact;
 import by.application.task.tracker.repositories.UserContactRepository;
 import by.application.task.tracker.service.UserContactService;
@@ -15,6 +16,22 @@ public class UserContactServiceImpl implements UserContactService{
     @Autowired
     private UserContactRepository contactRepository;
 
+
+    @Override
+    public UserContact createContact(UserDTO contactDTO) {
+        UserContact contact = new UserContact(contactDTO);
+        return contactRepository.save(contact);
+    }
+
+    @Override
+    public void deleteContact(Long contactId) {
+        contactRepository.delete(contactId);
+    }
+
+    @Override
+    public UserContact editContact(UserDTO contactDTO, long id) {
+        return null;
+    }
 
     @Override
     public UserContact findByContactId(Long contactId) {

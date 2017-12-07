@@ -18,7 +18,6 @@ public class User implements Serializable {
     public User(UserDTO userDTO) {
         this.userName = userDTO.getUserName();
         this.userSurname = userDTO.getUserSurname();
-        this.eMail = userDTO.geteMail();
         this.login = userDTO.getLogin();
     }
 
@@ -40,9 +39,6 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "e_mail")
-    private String eMail;
-
     @ManyToOne
     private Position position;
 
@@ -58,7 +54,7 @@ public class User implements Serializable {
     @ManyToOne
     private Project project;
 
-    @ManyToOne
+    @OneToOne
     private UserContact userContact;
 
     @ManyToOne
@@ -106,13 +102,6 @@ public class User implements Serializable {
     }
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String geteMail() {
-        return eMail;
-    }
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
     }
 
     public Position getPosition() {

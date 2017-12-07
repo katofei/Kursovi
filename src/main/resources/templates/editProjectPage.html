@@ -141,11 +141,11 @@
                                                 </div>
                                             </div>
                                             <div class="form-group has-feedback">
-                                                <!--<h3>
+                                                <h3>
                                                     <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
-                                                           th:if="${#fields.hasErrors('eMail')}" th:errors="*{eMail}">
+                                                           th:if="${#fields.hasErrors('eMail')}" th:errors="*{workEmail}">
                                                     </small>
-                                                </h3>-->
+                                                </h3>
                                                 <label for="exampleInputEmail1">Office e-mail </label>
                                                 <input type="email" class="form-control"
                                                        id="exampleInputEmail1"/>
@@ -161,7 +161,7 @@
                                                 <label>Country</label>
                                                 <h3>
                                                     <small style="color: #a31515; font-family: Times, serif; font-weight:bold;"
-                                                           th:if="${#fields.hasErrors('projectCountry')}"
+                                                           th:if="${#fields.hasErrors('projectLocation.country')}"
                                                            th:errors="*{projectCountry}">
                                                     </small>
                                                 </h3>

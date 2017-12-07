@@ -30,7 +30,11 @@ public class UserController {
     @Autowired
     private ProjectService projectService;
     @Autowired
-    private UserContactService contactService;
+    private UserContactService userContactService;
+    @Autowired
+    private UserStatusService userStatusService;
+    @Autowired
+    private ProjectContactService projectContactService;
 
     @RequestMapping(path = "/userPage", method = RequestMethod.GET)
     public ModelAndView getUserStartPage() {
@@ -65,24 +69,39 @@ public class UserController {
         ModelAndView view = new ModelAndView("profile");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
-        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
-        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
-        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification()
-                .getQualificationId()));
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
 
-        view.addObject("user", userService.findUserById(id));
-        view.addObject("userPosition", positionService.findPositionById(userService.findUserById(id)
-                .getPosition().getPositionId()));
-        view.addObject("userQualification", qualificationService.findQualificationById(userService.findUserById(id)
-                .getQualification().getQualificationId()));
-        view.addObject("projectRole", projectRoleService.findProjectRoleById(userService.findUserById(id)
-                .getProjectRole().getProjectRoleId()));
+        User user = userService.findUserById(id);
+        view.addObject("user", user);
+        view.addObject("userPosition",user.getPosition());
+        view.addObject("userQualification",user.getQualification());
+        if (user.getProjectRole() != null) {
+            view.addObject("projectRole",user.getProjectRole());
+        }
+        else view.addObject("projectRole", "");
+        view.addObject("userContact", user.getUserContact());
+
         return view;
     }
 
 
     @RequestMapping(value = "/user-deletion/{id}", method = RequestMethod.DELETE)
-    public ModelAndView deleteUserProfile(@PathVariable("id") long id) {
+    public ModelAndView deleteUser(@PathVariable("id") long id) {
+        ModelAndView view = new ModelAndView("profile");
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
+        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+
+        userService.deleteUser(id);
+        return new ModelAndView("allUsers");
+    }
+
+    @RequestMapping(value = "/user-deletion/{id}", method = RequestMethod.GET)
+    public ModelAndView getUserDeletion(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("profile");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -99,17 +118,18 @@ public class UserController {
         ModelAndView view = new ModelAndView("editUserPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
-        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
-        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
-        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+        view.addObject("position",currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
 
         User user = userService.findUserById(id);
-        view.addObject("positions",positionService.getAllPositions());
-        view.addObject("projects", projectService.getAllProjects());
-        view.addObject("qualifications",qualificationService.getAllQualifications());
-        view.addObject("projectRoles", projectRoleService.getAllProjectRoles());
-        view.addObject("userContact", contactService.findByContactId(user.getUserContact().getContacId()));
         view.addObject("user", user);
+        view.addObject("positions", positionService.getAllPositions());
+        view.addObject("projects", projectService.getAllProjects());
+        view.addObject("qualifications", qualificationService.getAllQualifications());
+        view.addObject("projectRoles", projectRoleService.getAllProjectRoles());
+
+        view.addObject("userContact", user.getUserContact());
         view.addObject("userDTO", new UserDTO());
         return view;
     }
@@ -117,22 +137,19 @@ public class UserController {
     @RequestMapping(value = "/user-edition/{id}", method = RequestMethod.POST)
     public ModelAndView editUser(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, @PathVariable("id") long id) {
         ModelAndView view = new ModelAndView();
+        User user = userService.findUserById(id);
         if (result.hasErrors()) {
             User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-            view.setViewName("editUserPage");{
-                view.addObject("currentUser", currentUser);
-                view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
-                view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
-                view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification()
-                        .getQualificationId()));
+            view.setViewName("editUserPage");
+            view.addObject("currentUser", currentUser);
 
-                view.addObject("positions",positionService.getAllPositions());
-                view.addObject("projects", projectService.getAllProjects());
-                view.addObject("qualifications",qualificationService.getAllQualifications());
-                view.addObject("projectRoles", projectRoleService.getAllProjectRoles());
-              //  view.addObject("userContact", contactService.findByContactId(user.getUserContact().getContacId()));
-                return view;
-            }
+            view.addObject("positions", positionService.getAllPositions());
+            view.addObject("projects", projectService.getAllProjects());
+            view.addObject("qualifications", qualificationService.getAllQualifications());
+            view.addObject("projectRoles", projectRoleService.getAllProjectRoles());
+
+            view.addObject("userContact", user.getUserContact());
+            return view;
         }
         view.setViewName("redirect:/allUsers");
         userService.editUser(userDTO, id);

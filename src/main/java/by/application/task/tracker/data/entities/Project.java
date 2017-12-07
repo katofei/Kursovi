@@ -31,7 +31,7 @@ public class Project {
     @Lob
     private String mainAim;
 
-    @ManyToOne
+    @OneToOne
     private ProjectContact projectContact;
 
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)

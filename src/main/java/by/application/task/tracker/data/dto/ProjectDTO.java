@@ -1,5 +1,6 @@
 package by.application.task.tracker.data.dto;
 
+import by.application.task.tracker.validation.ValidEmail;
 import org.hibernate.validator.constraints.NotBlank;
 
 public class ProjectDTO {
@@ -16,19 +17,110 @@ public class ProjectDTO {
     private String mainAim;
 
     private long porjectContact;
+    @ValidEmail
+    @NotBlank(message = "E-mail can not be empty")
+    private String officeEmail;
+    private String officePhone;
+    private String fax;
+    private String country;
+    private String city;
+    private String street;
+    private int houseNumber;
 
-    public String getProjectName() {return projectName;}
-    public void setProjectName(String projectName) {this.projectName = projectName;}
+    public String getCountry() {
+        return country;
+    }
 
-    public String getProjectCountry() {return projectCountry;}
-    public void setProjectCountry(String projectCountry) {this.projectCountry = projectCountry;}
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-    public String getDescription() {return description;}
-    public void setDescription(String description) {this.description = description;}
+    public String getCity() {
+        return city;
+    }
 
-    public String getMainAim() {return mainAim;}
-    public void setMainAim(String mainAim) {this.mainAim = mainAim;}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-    public long getPorjectContact() {return porjectContact;}
-    public void setPorjectContact(long porjectContact) {this.porjectContact = porjectContact;}
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public int getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(int houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public String getProjectCountry() {
+        return projectCountry;
+    }
+
+    public void setProjectCountry(String projectCountry) {
+        this.projectCountry = projectCountry;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getMainAim() {
+        return mainAim;
+    }
+
+    public void setMainAim(String mainAim) {
+        this.mainAim = mainAim;
+    }
+
+    public long getPorjectContact() {
+        return porjectContact;
+    }
+
+    public void setPorjectContact(long porjectContact) {
+        this.porjectContact = porjectContact;
+    }
+
+    public String getOfficeEmail() {
+        return officeEmail;
+    }
+
+    public void setOfficeEmail(String officeEmail) {
+        this.officeEmail = officeEmail;
+    }
+
+    public String getOfficePhone() {
+        return officePhone;
+    }
+
+    public void setOfficePhone(String officePhone) {
+        this.officePhone = officePhone;
+    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
 }
