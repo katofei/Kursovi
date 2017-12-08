@@ -46,7 +46,7 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a th:href="@{profile/{id}(id=${currentUser.userId})}"
+                                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
                                        class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">

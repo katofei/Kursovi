@@ -96,8 +96,8 @@ public class ProjectController {
         ModelAndView view = new ModelAndView("editProjectPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition().getPositionId());
-        view.addObject("qualification",currentUser.getQualification().getQualificationId());
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("qualification",currentUser.getQualification());
 
         Project editingProject = projectService.findByProjectId(id);
         view.addObject("project",editingProject);
@@ -131,8 +131,8 @@ public class ProjectController {
         ModelAndView view = new ModelAndView("allProjects");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
-        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
-        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("qualification", currentUser.getQualification());
 
         return new ModelAndView("allProjects");
     }

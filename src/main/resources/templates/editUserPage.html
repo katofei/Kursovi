@@ -40,7 +40,7 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a th:href="@{profile/{id}(id=${currentUser.userId})}"
+                                    <a  th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
                                        class="btn btn-default btn-flat">My profile</a>
                                 </div>
                                 <div class="pull-right">
@@ -67,14 +67,14 @@
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/allUsersPage}">
+                    <a th:href="@{/allUsers}">
                         <i class="fa fa-dashboard"></i>
                         <span>Profiles</span>
                         <span class="pull-right-container"></span>
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/allProjectsPage}">
+                    <a th:href="@{/allProjects}">
                         <i class="fa fa-dashboard"></i>
                         <span>Projects</span>
                         <span class="pull-right-container"></span>

@@ -45,7 +45,7 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a th:href="@{profile/{id}(id=${currentUser.userId})}"
+                                    <a  th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
                                        class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
@@ -98,34 +98,37 @@
                             <div class="box-header">
                                 <h3 class="box-title">All projects</h3>
                             </div>
-                                <div class="box-body table-responsive no-padding">
-                                    <table id="example1" class="table  table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th width="300">Name</th>
-                                            <th width="600">Main aim</th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="myTable">
-                                        <tr th:each="project:${projectList}">
-                                            <th width="300" th:text="${project.projectName}" style="font-weight: normal"></th>
-                                            <th width="600" th:text="${project.mainAim}" style="font-weight: normal"></th>
-                                            <th width="100">
-                                                <button type="button" class="btn btn-primary btn-md">
-                                                    <span class="glyphicon glyphicon-pencil"></span>
-                                                    <span>Edit</span>
-                                                </button>
-                                            </th>
-                                            <th width="120">
-                                                <a href="#myModal" class="btn btn-primary btn-md " data-toggle="modal">
-                                                    <span class="glyphicon glyphicon-trash"></span>
-                                                    <span>Delete</span>
-                                                </a>
-                                                <div id="myModal" class="modal fade">
-                                                    <div class="modal-dialog">
+                            <div class="box-body table-responsive no-padding">
+                                <table id="example1" class="table  table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th width="300">Name</th>
+                                        <th width="600">Main aim</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="myTable">
+                                    <tr th:each="project:${projectList}">
+                                        <th width="300" th:text="${project.projectName}"
+                                            style="font-weight: normal"></th>
+                                        <th width="600" th:text="${project.mainAim}" style="font-weight: normal"></th>
+                                        <th width="100">
+                                            <button type="button" class="btn btn-primary btn-md"
+                                                    th:onclick="|window.location.href='/project-edition/${project.projectId}'|">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                                <span>Edit</span>
+                                            </button>
+                                        </th>
+                                        <th width="120">
+                                            <a href="#myModal" class="btn btn-primary btn-md " data-toggle="modal">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                                <span>Delete</span>
+                                            </a>
+                                            <div id="myModal" class="modal fade">
+                                                <div class="modal modal-danger">
+                                                <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <button type="button" class="close" data-dismiss="modal"
@@ -148,21 +151,22 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </th>
-                                            <th width="100">
-                                                <button type="button" class="btn btn-primary btn-md">
-                                                    <a th:href="@{/project/{id}(id=${project.projectId})}"></a>
-                                                    <span class="glyphicon glyphicon-info-sign"></span>
-                                                    <span>Info</span>
-                                                </button>
-                                            </th>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            </div>
+                                        </th>
+                                        <th width="100">
+                                            <button type="button" class="btn btn-primary btn-md"
+                                                    th:onclick="|window.location.href='/project/${project.projectId}'|">
+                                                <span class="glyphicon glyphicon-info-sign"></span>
+                                                <span>Info</span>
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
+                </div>
             </section>
         </section>
     </div>
@@ -176,6 +180,7 @@
             });
         });
     });
+
 </script>
 <script>
   $(function () {
@@ -188,6 +193,7 @@
       "autoWidth": false
     });
   });
+
 </script>
 
 </body>
