@@ -2,6 +2,7 @@ package by.application.task.tracker.service.impl;
 
 import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.User;
+import by.application.task.tracker.data.entities.UserContact;
 import by.application.task.tracker.repositories.UserRepository;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserStatusService userStatusService;
     @Autowired
-    private UserContactService contactService;
+    private UserContactService userContactService;
 
     @Override
     public User createUser(UserDTO userDTO) {
@@ -44,11 +45,12 @@ public class UserServiceImpl implements UserService {
         createdUser.setPosition(positionService.findPositionById(userDTO.getPosition()));
         if (userDTO.getProject() == 0) {
             createdUser.setUserStatus(userStatusService.findByStatusName("Not assigned"));
-        }
-        else{
+        } else {
             createdUser.setUserStatus(userStatusService.findByStatusName("Assigned"));
         }
         createdUser.setQualification(qualificationService.findQualificationById(userDTO.getQualification()));
+
+        createdUser.setUserContact(userContactService.createContact(userDTO));
         return userRepository.save(createdUser);
     }
 
@@ -67,7 +69,11 @@ public class UserServiceImpl implements UserService {
         editedUser.setProject(projectService.findByProjectId(userDTO.getProject()));
         editedUser.setProjectRole(projectRoleService.findProjectRoleById(userDTO.getProjectRole()));
         editedUser.setPosition(positionService.findPositionById(userDTO.getPosition()));
-        editedUser.setUserContact(contactService.findByContactId(userDTO.getUserContact()));
+
+        UserContact userContact = userContactService.findByContactId(editedUser.getUserContact().getContactId());
+        userContactService.editContact(userDTO, editedUser.getUserContact().getContactId());
+
+        editedUser.setUserContact(userContact);
         return userRepository.save(editedUser);
     }
 

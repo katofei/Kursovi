@@ -77,7 +77,8 @@ public class UserController {
         view.addObject("user", user);
         view.addObject("userPosition",user.getPosition());
         view.addObject("userQualification",user.getQualification());
-        if (user.getProjectRole() != null) {
+        if (user.getProjectRole() != null)
+        {
             view.addObject("projectRole",user.getProjectRole());
         }
         else view.addObject("projectRole", "");
@@ -142,6 +143,8 @@ public class UserController {
             User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
             view.setViewName("editUserPage");
             view.addObject("currentUser", currentUser);
+            view.addObject("qualification", currentUser.getQualification());
+            view.addObject("position",currentUser.getPosition());
 
             view.addObject("positions", positionService.getAllPositions());
             view.addObject("projects", projectService.getAllProjects());

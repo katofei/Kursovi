@@ -1,6 +1,5 @@
 package by.application.task.tracker.data.dto;
 
-import by.application.task.tracker.validation.ValidEmail;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Size;
@@ -35,7 +34,6 @@ public class UserDTO implements Serializable {
     private String street;
     private int houseNumber;
 
-    @ValidEmail
     @NotBlank(message = "E-mail can not be empty")
     private String workEmail;
 

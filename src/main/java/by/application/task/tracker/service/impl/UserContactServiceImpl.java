@@ -29,8 +29,18 @@ public class UserContactServiceImpl implements UserContactService{
     }
 
     @Override
-    public UserContact editContact(UserDTO contactDTO, long id) {
-        return null;
+    public UserContact editContact(UserDTO userDTO, long id) {
+        UserContact userContact = contactRepository.findByContactId(id);
+        userContact.setFax(userDTO.getFax());
+        userContact.setPrivateEmail(userDTO.getPrivateEmail());
+        userContact.setWorkEmail(userDTO.getWorkEmail());
+        userContact.setWorkPhone(userDTO.getWorkPhone());
+        userContact.setPrivatePhone(userDTO.getPrivatePhone());
+        userContact.setCountry(userDTO.getCountry());
+        userContact.setCity(userDTO.getCity());
+        userContact.setStreet(userDTO.getCity());
+        userContact.setHouseNumber(userDTO.getHouseNumber());
+        return contactRepository.save(userContact);
     }
 
     @Override

@@ -18,7 +18,6 @@ public class ProjectDTO {
 
     private long porjectContact;
 
-    @ValidEmail
     @NotBlank(message = "E-mail can not be empty")
     private String officeEmail;
 
