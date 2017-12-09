@@ -64,7 +64,7 @@ public class User implements Serializable {
     private Boolean enabled = true;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Task> createdTasks;
 
     @JsonIgnore

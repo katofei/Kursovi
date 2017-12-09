@@ -41,10 +41,9 @@ public class UserController {
         ModelAndView view = new ModelAndView("userStartPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
-        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
-        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
-        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification()
-                .getQualificationId()));
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         return view;
     }
 
@@ -53,11 +52,9 @@ public class UserController {
         ModelAndView view = new ModelAndView("allUsersPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
-        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
-        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
-        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification()
-                .getQualificationId()));
-
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project",currentUser.getProject());
+        view.addObject("qualification",currentUser.getQualification());
 
         List<User> userList = userService.getAllUsers();
         view.addObject("userList", userList);
@@ -90,28 +87,30 @@ public class UserController {
 
     @RequestMapping(value = "/user-deletion/{id}", method = RequestMethod.DELETE)
     public ModelAndView deleteUser(@PathVariable("id") long id) {
-        ModelAndView view = new ModelAndView("profile");
+        ModelAndView view = new ModelAndView();
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
-        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
-        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
-        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
 
         userService.deleteUser(id);
-        return new ModelAndView("allUsers");
+        view.setViewName("redirect:/allUsers");
+        return view;
     }
 
     @RequestMapping(value = "/user-deletion/{id}", method = RequestMethod.GET)
     public ModelAndView getUserDeletion(@PathVariable("id") long id) {
-        ModelAndView view = new ModelAndView("profile");
+        ModelAndView view = new ModelAndView("allUsers");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
-        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
-        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
-        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
 
         userService.deleteUser(id);
-        return new ModelAndView("allUsers");
+        view.setViewName("redirect:/allUsers");
+        return view;
     }
 
     @RequestMapping(value = "/user-edition/{id}", method = RequestMethod.GET)

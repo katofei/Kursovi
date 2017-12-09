@@ -1,6 +1,5 @@
 package by.application.task.tracker.data.dto;
 
-import by.application.task.tracker.validation.ValidEmail;
 import org.hibernate.validator.constraints.NotBlank;
 
 public class ProjectDTO {
@@ -8,20 +7,17 @@ public class ProjectDTO {
     @NotBlank(message = "Project name is required")
     private String projectName;
 
-    @NotBlank(message = "Project country is required")
-    private String projectCountry;
-
     private String description;
 
     @NotBlank(message = "Main aim is required")
     private String mainAim;
 
-    private long porjectContact;
+    private long projectContact;
 
     @NotBlank(message = "E-mail can not be empty")
     private String officeEmail;
 
-    @NotBlank(message = "E-mail can not be empty")
+    @NotBlank(message = "Phone can not be empty")
     private String officePhone;
     private String fax;
     private String country;
@@ -44,17 +40,15 @@ public class ProjectDTO {
     public String getProjectName() {return projectName;}
     public void setProjectName(String projectName) {this.projectName = projectName;}
 
-    public String getProjectCountry() {return projectCountry;}
-    public void setProjectCountry(String projectCountry) {this.projectCountry = projectCountry;}
-
     public String getDescription() {return description;}
     public void setDescription(String description) {this.description = description;}
 
     public String getMainAim() {return mainAim;}
     public void setMainAim(String mainAim) {this.mainAim = mainAim;}
 
-    public long getPorjectContact() {return porjectContact;}
-    public void setPorjectContact(long porjectContact) {this.porjectContact = porjectContact;}
+    public long getProjectContact() {return projectContact;}
+
+    public void setProjectContact(long projectContact) {this.projectContact = projectContact;}
 
     public String getOfficeEmail() {return officeEmail;}
     public void setOfficeEmail(String officeEmail) {this.officeEmail = officeEmail;}

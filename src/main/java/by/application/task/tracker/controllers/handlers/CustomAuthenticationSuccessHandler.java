@@ -64,7 +64,7 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
             return "/adminPage";
         }
         else {
-            return "errorPage";
+            return "/accessDenied";
         }
     }
 

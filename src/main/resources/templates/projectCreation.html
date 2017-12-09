@@ -48,7 +48,7 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a  th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
+                                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
                                        class="btn btn-default btn-flat">My profile</a>
                                 </div>
                                 <div class="pull-right">
@@ -74,19 +74,29 @@
                         <span class="pull-right-container"></span>
                     </a>
                 </li>
-                <li>
-                    <a th:href="@{/allUsersPage}">
+                <li class="treeview">
+                    <a th:href="@{/allUsers}">
                         <i class="fa fa-dashboard"></i>
                         <span>Profiles</span>
-                        <span class="pull-right-container"></span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                     </a>
+                    <ul class="treeview-menu">
+                        <li><a th:href="@{/registration}"><i class="fa fa-circle-o"></i>Register new</a></li>
+                    </ul>
                 </li>
-                <li>
-                    <a th:href="@{/allProjectsPage}">
+                <li class="treeview">
+                    <a th:href="@{/allProjects}">
                         <i class="fa fa-dashboard"></i>
                         <span>Projects</span>
-                        <span class="pull-right-container"></span>
+                        <span class="pull-right-container">
+                           <i class="fa fa-angle-left pull-right"></i>
+                         </span>
                     </a>
+                    <ul class="treeview-menu">
+                        <li><a th:href="@{#}"><i class="fa fa-circle-o"></i>Create new</a></li>
+                    </ul>
                 </li>
             </ul>
         </section>
@@ -99,7 +109,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Project creation</h3>
                     </div>
-                    <form role="form" th:action="@{/projectCreation}" th:object="${project}" method="post">
+                    <form role="form" th:action="@{/project-creation}" th:object="${project}" method="post">
                         <div class="box-body">
                             <div class="form-group has-feedback">
                                 <label>Project name</label>
@@ -110,16 +120,6 @@
                                 </h3>
                                 <input type="text" th:field="*{projectName}" class="form-control"
                                        placeholder="Enter name"/>
-                            </div>
-                            <div class="form-group has-feedback">
-                                <label>Country</label>
-                                <h3>
-                                    <small style="color: #a31515; font-family: Times, serif; font-weight:bold;"
-                                           th:if="${#fields.hasErrors('projectCountry')}" th:errors="*{projectCountry}">
-                                    </small>
-                                </h3>
-                                <input type="text" th:field="*{projectCountry}"
-                                       class="form-control" placeholder="Choose the country"/>
                             </div>
                             <div class="form-group has-feedback">
                                 <label>Main aim</label>
@@ -136,9 +136,55 @@
                                 <input type="text" th:field="*{description}"
                                        class="form-control" placeholder="Write description, please"/>
                             </div>
-                            <div class="box-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+
+                            <h3 class="box-title">Contact information</h3>
+                            <div class="form-group has-feedback">
+                                <label>Office phone:</label>
+                                <input type="text" class="form-control" th:field="*{officePhone}"/>
+                                <span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>
                             </div>
+                            <div class="form-group has-feedback">
+                                <h3>
+                                    <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
+                                           th:if="${#fields.hasErrors('officeEmail')}"
+                                           th:errors="*{officeEmail}">
+                                    </small>
+                                </h3>
+                                <label for="exampleInputEmail1">Office e-mail </label>
+                                <input type="email" class="form-control" th:field="*{officeEmail}"
+                                       id="exampleInputEmail1"/>
+                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <div class="form-group">
+                                    <label>Fax:</label>
+                                    <input type="text" class="form-control" th:field="*{fax}"/>
+                                    <span class="glyphicon glyphicon-print form-control-feedback"></span>
+                                </div>
+                            </div>
+                            <h3 class="box-title">Location</h3>
+                            <div class="form-group has-feedback">
+                                <label>Country</label>
+                                <input type="text" class="form-control" th:field="*{country}"/>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label>City</label>
+                                <input type="text" class="form-control" th:field="*{city}"/>
+                                <span class="glyphicon glyphicon-map-marker form-control-feedback"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label>Street</label>
+                                <input type="text" class="form-control" th:field="*{street}"/>
+                                <span class="glyphicon glyphicon-road form-control-feedback"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label>House number</label>
+                                <input type="text" class="form-control" th:field="*{houseNumber}"/>
+                                <span class="glyphicon glyphicon-home form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -146,7 +192,6 @@
         </section>
     </div>
 </div>
-
 
 </body>
 </html>

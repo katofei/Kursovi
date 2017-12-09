@@ -122,7 +122,8 @@
                                         <th th:text="${task.estimation}" style="font-weight: normal"></th>
                                         <th th:text="${task.taskStatus.statusName}" style="font-weight: normal"></th>
                                         <th width="100">
-                                            <button type="button" class="btn btn-primary btn-md">
+                                            <button type="button" class="btn btn-primary btn-md"
+                                                    th:onclick="|window.location.href='/task-edition/${task.id}'|">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                                 <span>Edit</span>
                                             </button>
@@ -149,7 +150,7 @@
                                                                     data-dismiss="modal">Close
                                                             </button>
                                                             <button type="button" class="btn btn-primary"
-                                                                    th:onclick="|window.location.href='/task-deletion/${task.userId}'|">
+                                                                    th:onclick="|window.location.href='/task-deletion/${task.id}'|">
                                                                 Save changes
                                                             </button>
                                                         </div>
@@ -158,8 +159,8 @@
                                             </div>
                                         </th>
                                         <th width="100">
-                                            <button type="button" class="btn btn-primary btn-md">
-                                                <a th:href="@{task/{id}(id=${task.id})}"></a>
+                                            <button type="button" class="btn btn-primary btn-md"
+                                                    th:onclick="|window.location.href='/task/${task.id}'|">
                                                 <span class="glyphicon glyphicon-info-sign"></span>
                                                 <span>Info</span>
                                             </button>

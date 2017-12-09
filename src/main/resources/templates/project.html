@@ -85,103 +85,128 @@
 
     <div class="content-wrapper">
         <section class="content-header">
-            <section class="content container-fluid">
-                <div class="box box-primary" style="width:950px">
+            <h1>
+                Project profile
+            </h1>
+        </section>
+
+
+        <section class="content">
+            <div class="col-md-9">
+                <div class="box box-solid">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Project profile</h3>
-                    </div>
-                    <form role="form" th:object="${project}" method="post">
-                        <div class="box-body">
-                            <table style="height:450px;" width="862">
-                                <tbody>
-                                <tr>
-                                    <td style="width: 350px; vertical-align: top">&nbsp;
-                                        <div class="form-group has-feedback">
-                                            <label>Project name</label>
-                                            <textarea type="text" th:field="*{projectName}"
-                                                      class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group has-feedback">
-                                            <label>Main aim</label>
-                                            <textarea th:field="*{mainAim}" class="form-control"
-                                                      style="height: 150px; white-space: normal">
-                                            </textarea>
-                                        </div>
-                                        <div class="form-group has-feedback">
-                                            <label>Description</label>
-                                            <textarea th:field="*{description}" class="form-control"
-                                                      style="height: 150px; white-space: normal">
-                                            </textarea>
-                                        </div>
-                                    </td>
-                                    <td style="width: 70px;"></td>
-                                    <td style="width: 300px; vertical-align: top">&nbsp;
-                                        <div class="form-group has-feedback" style="high:400px">
-                                            <h3 class="box-title">Contact information</h3>
-                                            <div class="form-group has-feedback">
-                                                <label>Office phone:</label>
-                                                <input type="text" class="form-control"
-                                                       th:field="*{projectContact.officePhone}"/>
-                                                <span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>
-                                            </div>
-                                            <div class="form-group has-feedback">
-                                                <label for="exampleInputEmail1">Office e-mail </label>
-                                                <input type="email" class="form-control"
-                                                       th:field="*{projectContact.officeEmail}"
-                                                       id="exampleInputEmail1"/>
-                                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                                            </div>
-                                            <div class="form-group has-feedback">
-                                                <div class="form-group">
-                                                    <label>Fax:</label>
-                                                    <input type="text" class="form-control"
-                                                           th:field="*{projectContact.fax}"/>
-                                                    <span class="glyphicon glyphicon-print form-control-feedback"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td style="width: 70px;"></td>
-                                    <td style="width: 300px; vertical-align: top">&nbsp;
-                                        <div class="form-group has-feedback" style="high:400px">
-                                            <table style="height: 229px; width: 416px;">
+                        <i class="fa fa-text-width"></i>
+                        <div class="box box-primary">
+                            <div class="box-body box-profile">
+                                <h3 class="box-title" th:text="${project.projectName}"></h3>
+                                <table style="height: 341px; width: 852px;">
+                                    <tbody>
+                                    <tr style="height: 125px;">
+                                        <td style="width: 312px; height: 125px;">
+                                            <table style="height: 143px; width: 322px;">
                                                 <tbody>
-                                                <tr style="height: 5px;">
-                                                    <td style="width: 406px; height: 5px;" colspan="2">Contact
-                                                        information
+                                                <tr style="height: 14px;">
+                                                    <td style="width: 312px;  height: 27px;"><strong><i
+                                                            class="fa fa-book margin-r-5"></i>Main aim:</strong></td>
+                                                </tr>
+                                                <tr style="height: 29px;">
+                                                    <td style="width: 312px; height: 29px;vertical-align: top"
+                                                        th:text="${project.mainAim}">
+                                                        &nbsp;</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td style="width: 398px; height: 125px;">
+                                            <table style="height: 139px; width: 412px;">
+                                                <tbody>
+                                                <tr style="height: 34.75px;">
+                                                    <td style="width: 395px; height: 34.75px;" colspan="2">
+                                                        Contact information
                                                     </td>
                                                 </tr>
-                                                <tr style="height: 11px;">
-                                                    <td style="width: 141.767px; height: 11px;"><strong><i
-                                                            class="fa fa-book margin-r-5"></i>Work phone:</strong></td>
-                                                    <td style="width: 258.233px; height: 11px;"
+                                                <tr style="height: 27px;">
+                                                    <td style="width: 122.833px; height: 27px;"><strong><i
+                                                            class="fa fa-book margin-r-5"></i>Office e-mail:</strong></td>
+                                                    <td style="width: 272.167px; height: 27px;"
+                                                        th:text="${projectContact.officeEmail}">
+                                                     &nbsp;</td>
+                                                </tr>
+                                                <tr style="height: 27px;">
+                                                    <td style="width: 122.833px; height: 27px;"><strong><i
+                                                            class="fa fa-book margin-r-5"></i>Office phone:</strong></td>
+                                                    <td style="width: 272.167px; height: 27px;"
                                                         th:text="${projectContact.officePhone}">&nbsp;</td>
                                                 </tr>
-                                                <tr style="height: 24px;">
-                                                    <td style="width: 141.767px; height: 24px;"><strong><i
-                                                            class="fa fa-book margin-r-5"></i>Work e-mail:</strong></td>
-                                                    <td style="width: 258.233px; height: 24px;"
-                                                        th:text="${projectContact.officeEmail}">&nbsp;</td>
-                                                </tr>
-                                                <tr style="height: 24px;">
-                                                    <td style="width: 141.767px; height: 24px;"><strong><i
+                                                <tr style="height: 27px;">
+                                                    <td style="width: 122.83 px; height: 27px;"><strong><i
                                                             class="fa fa-book margin-r-5"></i>Fax:</strong></td>
-                                                    <td style="width: 258.233px; height: 24px;"
+                                                    <td style="width: 272.167 px; height: 27px;"
                                                         th:text="${projectContact.fax}">&nbsp;</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 81px;">
+                                        <td style="width: 312px; height: 81px;">
+                                            <table style="height: 131px;" width="323">
+                                                <tbody>
+                                                <tr style="height: 38px;">
+                                                    <td style="width: 313px; height: 27px;"><strong><i
+                                                            class="fa fa-book margin-r-5"></i>Description:</strong></td>
+                                                </tr>
+                                                <tr style="height: 48.5px;">
+                                                    <td style="width: 313px; height: 48.5px; vertical-align: top"
+                                                        th:text="${project.description}">
+                                                        &nbsp;</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td style="width: 398px; height: 81px;">
+                                            <table style="height: 127px;" width="413">
+                                                <tbody>
+                                                <tr style="height: 36px;">
+                                                    <td style="width: 403px; height: 30px;">Location</td>
+                                                </tr>
+                                                <tr style="height: 34px;">
+                                                    <td style="width: 403px; height: 30px;"
+                                                        th:text="${projectContact.country}+' '+${projectContact.city}"></td>
+                                                </tr>
+                                                <tr style="height: 37px;">
+                                                    <td style="width: 403px; height: 30px;"
+                                                        th:text="${projectContact.street}+' '+${projectContact.houseNumber}"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr style="height: 208px;">
+                                        <td style="width: 710px; height: 208px;" colspan="2">
+                                            <table style="height: 209px;" width="673">
+                                                <tbody>
+                                                <tr style="height: 23.75px;">
+                                                    <td style="width: 663px; height: 30px;">People</td>
+                                                </tr>
+                                                <tr style="height: 96px;">
+                                                    <td style="width: 663px; height: 96px;">&nbsp;</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <p>&nbsp;</p>
+                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </section>
+            </div>
         </section>
     </div>
 </div>
 </body>
 </html>
+

@@ -14,34 +14,43 @@ import java.util.List;
 public class ProjectContactRepositoryImpl implements ProjectContactService {
 
     @Autowired
-    private ProjectContactRepository contactRepository;
+    private ProjectContactRepository projectContactRepository;
 
 
     @Override
     public ProjectContact createContact(ProjectDTO contactDTO) {
         ProjectContact contact = new ProjectContact(contactDTO);
-        return contactRepository.save(contact);
+        return projectContactRepository.save(contact);
     }
 
     @Override
     public void deleteContact(Long contactId) {
-        contactRepository.delete(contactId);
+        projectContactRepository.delete(contactId);
     }
 
     @Override
     public ProjectContact editContact(ProjectDTO contactDTO, long id) {
-        return null;
+        ProjectContact projectContact = projectContactRepository.findByContactId(id);
+        projectContact.setFax(contactDTO.getFax());
+        projectContact.setOfficeEmail(contactDTO.getOfficeEmail());
+        projectContact.setOfficePhone(contactDTO.getOfficePhone());
+        projectContact.setCountry(contactDTO.getCountry());
+        projectContact.setCity(contactDTO.getCity());
+        projectContact.setStreet(contactDTO.getCity());
+        projectContact.setHouseNumber(contactDTO.getHouseNumber());
+        return projectContactRepository.save(projectContact);
+
     }
 
     @Override
     public ProjectContact findByContactId(Long contactId) {
-        return contactRepository.findOne(contactId);
+        return projectContactRepository.findOne(contactId);
     }
 
     @Override
     public List<ProjectContact> getAllUserContacts() {
         List<ProjectContact> contacts = new ArrayList<>();
-        contactRepository.findAll().forEach(contacts::add);
+        projectContactRepository.findAll().forEach(contacts::add);
         return contacts;
     }
 }

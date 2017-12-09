@@ -14,7 +14,7 @@ public class ProjectContact {
         this.fax = projectDTO.getFax();
         this.officeEmail = projectDTO.getOfficeEmail();
         this.officePhone = projectDTO.getOfficePhone();
-        this.country = projectDTO.getProjectCountry();
+        this.country = projectDTO.getCountry();
         this.city = projectDTO.getCity();
         this.street = projectDTO.getCity();
         this.houseNumber = projectDTO.getHouseNumber();

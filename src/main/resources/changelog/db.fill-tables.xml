@@ -422,7 +422,7 @@
         <insert tableName="user_contact">
             <column name="id">783</column>
             <column name="fax">1414 444 445</column>
-            <column name="private_email">pety_i@gmail.com</column>
+            <column name="private_email">petya_i@gmail.com</column>
             <column name="private_phone">799 25 789 22 14</column>
             <column name="work_email">rabota@gmail.com</column>
             <column name="work_phone">4355</column>
@@ -430,6 +430,19 @@
             <column name="city">Santa Rosa</column>
             <column name="street">Lunder</column>
             <column name="house_number">4</column>
+        </insert>
+
+        <insert tableName="user_contact">
+            <column name="id">478</column>
+            <column name="fax">5555 555 555</column>
+            <column name="private_email">skarlet@gmail.com</column>
+            <column name="private_phone">452 23 175 89 40</column>
+            <column name="work_email">rabota@gmail.com</column>
+            <column name="work_phone">9863</column>
+            <column name="country">United states of America</column>
+            <column name="city">New York</column>
+            <column name="street">Mulenruje</column>
+            <column name="house_number">17</column>
         </insert>
 
         <insert tableName="project_contact">
@@ -489,7 +502,7 @@
         </insert>
 
         <insert tableName="users">
-            <column name="user_id">127497326</column>
+            <column name="user_id">127497</column>
             <column name="login">admin</column>
             <column name="password">$2a$10$B8D0ifMmcnKQus1VafyPpOoTQQII6gxrpGylcMAOsw1KWB4boO9si</column>
             <column name="position_position_id"
@@ -508,13 +521,13 @@
         </insert>
 
         <insert tableName="users">
-            <column name="user_id">174121921</column>
+            <column name="user_id">121921</column>
             <column name="login">user</column>
             <column name="password">$2a$10$p5CnYpFsCUKfmbdFj8gx4.4OzWcAGrwnx/kdoxE/A.h5WjUF0Sapa</column>
             <column name="position_position_id"
                     valueComputed="(SELECT position_id from positions WHERE position_name = 'Java developer')"/>
             <column name="qualification_qualification_id"
-                    valueComputed="(SELECT qualification_id from qualifications WHERE qualification_name = 'Junior')"/>
+                    valueComputed="(SELECT qualification_id from qualifications WHERE qualification_name = 'Senior')"/>
             <column name="user_name">Robert</column>
             <column name="user_surname">Dauni</column>
             <column name="enabled">1</column>
@@ -523,6 +536,42 @@
             <column name="project_role_project_role_id">1</column>
             <column name="project_project_id"
                     valueComputed="(SELECT project_id FROM projects WHERE project_name = 'Support the system')"/>
+            <column name="user_role_role_id" valueComputed="(SELECT role_id FROM roles WHERE role_name = 'USER')"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="user_id">134521</column>
+            <column name="login">skarlet</column>
+            <column name="password">$2y$10$gw79.tIfHDXd1JT8gwdGz.EUmsgoYOBVPu87BGBUOPmjhjcdZN4y6</column>
+            <column name="position_position_id"
+                    valueComputed="(SELECT position_id from positions WHERE position_name = 'Front end developer')"/>
+            <column name="qualification_qualification_id"
+                    valueComputed="(SELECT qualification_id from qualifications WHERE qualification_name = 'Middle')"/>
+            <column name="user_name">Skarlet</column>
+            <column name="user_surname">Yohansen</column>
+            <column name="enabled">1</column>
+            <column name="user_status_status_id">1</column>
+            <column name="user_contact_id">478</column>
+            <column name="project_role_project_role_id">1</column>
+            <column name="project_project_id">121347</column>
+            <column name="user_role_role_id" valueComputed="(SELECT role_id FROM roles WHERE role_name = 'USER')"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="user_id">184319</column>
+            <column name="login">kuznetsov</column>
+            <column name="password">$2y$10$gw79.tIfHDXd1JT8gwdGz.EUmsgoYOBVPu87BGBUOPmjhjcdZN4y6</column>
+            <column name="position_position_id"
+                    valueComputed="(SELECT position_id from positions WHERE position_name = 'Software engineer')"/>
+            <column name="qualification_qualification_id"
+                    valueComputed="(SELECT qualification_id from qualifications WHERE qualification_name = 'Junior')"/>
+            <column name="user_name">Ernest</column>
+            <column name="user_surname">Kuznetsov</column>
+            <column name="enabled">1</column>
+            <column name="user_status_status_id">1</column>
+            <column name="user_contact_id">279</column>
+            <column name="project_role_project_role_id">2</column>
+            <column name="project_project_id">146874</column>
             <column name="user_role_role_id" valueComputed="(SELECT role_id FROM roles WHERE role_name = 'USER')"/>
         </insert>
     </changeSet>

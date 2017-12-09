@@ -31,7 +31,7 @@ public class ProjectController {
     @Autowired
     private ProjectContactService projectContactService;
 
-    @RequestMapping(path = "/projectCreation", method = RequestMethod.GET)
+    @RequestMapping(path = "/project-creation", method = RequestMethod.GET)
     public ModelAndView getProjectCreationPage() {
         ModelAndView view = new ModelAndView("projectCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -45,7 +45,7 @@ public class ProjectController {
         return view;
     }
 
-    @RequestMapping(path = "/projectCreation", method = RequestMethod.POST)
+    @RequestMapping(path = "/project-creation", method = RequestMethod.POST)
     public ModelAndView createProject(@Valid @ModelAttribute("project") ProjectDTO projectDTO, BindingResult result) {
         ModelAndView view = new ModelAndView("projectCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -54,10 +54,10 @@ public class ProjectController {
         view.addObject("qualification",currentUser.getQualification());
 
         if (result.hasErrors()) {
-            view.setViewName("projectCreation");
+            view.setViewName("project-creation");
             return view;
         }
-        view.setViewName("project");
+        view.setViewName("redirect:/allProjects");
         projectService.createProject(projectDTO);
         return view;
     }
@@ -86,7 +86,9 @@ public class ProjectController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-        view.addObject("project", projectService.findByProjectId(id));
+        Project project = projectService.findByProjectId(id);
+        view.addObject("project", project);
+        view.addObject("projectContact", project.getProjectContact());
         return view;
     }
 
@@ -102,6 +104,7 @@ public class ProjectController {
         Project editingProject = projectService.findByProjectId(id);
         view.addObject("project",editingProject);
         view.addObject("projectContact", editingProject.getProjectContact());
+        view.addObject("projectDTO", new ProjectDTO());
 
         return view;
     }
@@ -142,6 +145,6 @@ public class ProjectController {
     public ModelAndView deleteProject(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("allProjects");
         projectService.deleteProject(id);
-        return new ModelAndView("allProjects");
+        return  view;
     }
 }

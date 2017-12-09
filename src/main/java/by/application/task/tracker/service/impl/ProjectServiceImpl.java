@@ -22,6 +22,7 @@ public class ProjectServiceImpl implements ProjectService{
     @Override
     public Project createProject(ProjectDTO projectDTO) {
         Project createdProject = new Project(projectDTO);
+        createdProject.setProjectContact( contactService.createContact(projectDTO));
         return projectRepository.save(createdProject);}
 
     @Override
@@ -33,7 +34,7 @@ public class ProjectServiceImpl implements ProjectService{
         editedProject.setDescription(projectDTO.getDescription());
         editedProject.setMainAim(projectDTO.getMainAim());
         editedProject.setProjectName(projectDTO.getProjectName());
-        editedProject.setProjectContact(contactService.findByContactId(projectDTO.getPorjectContact()));
+        editedProject.setProjectContact(contactService.findByContactId(projectDTO.getProjectContact()));
         return projectRepository.save(editedProject);
     }
 
