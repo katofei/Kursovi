@@ -67,27 +67,29 @@
                     </a>
                 </li>
                 <li class="treeview">
-                    <a th:href="@{/allUsers}">
+                    <a href="#">
                         <i class="fa fa-dashboard"></i>
-                        <span>Profiles</span>
+                        <span>Manage users</span>
                         <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
+                          <i class="fa fa-angle-left pull-right-container"></i>
+                    </span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a th:href="@{/registration}"><i class="fa fa-circle-o"></i>Register new</a></li>
+                        <li><a th:href="@{/allUsers}"><i class="fa fa-circle-o"></i>View all</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a th:href="@{/allProjects}">
+                    <a href="#">
                         <i class="fa fa-dashboard"></i>
-                        <span>Projects</span>
+                        <span>Manage projects</span>
                         <span class="pull-right-container">
-                           <i class="fa fa-angle-left pull-right"></i>
-                         </span>
+                          <i class="fa fa-angle-left pull-right-container"></i>
+                        </span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a th:href="@{/project-creation}"><i class="fa fa-circle-o"></i>Create new</a></li>
+                        <li><a th:href="@{/allProjects}"><i class="fa fa-circle-o"></i>View all</a></li>
                     </ul>
                 </li>
             </ul>
@@ -111,44 +113,44 @@
                                             <label>User name</label>
                                             <h3>
                                                 <small style="color:#a31515; font-family: Times, serif; font-weight:bold;"
-                                                       th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">
+                                                       th:if="${#fields.hasErrors('user.userName')}" th:errors="*{user.userName}">
                                                 </small>
                                             </h3>
-                                            <input type="text" class="form-control" th:field="*{userName}"/>
+                                            <input type="text" class="form-control" th:field="*{user.userName}"/>
                                         </div>
                                         <div class="form-group has-feedback">
                                             <label>User surname</label>
                                             <h3>
                                                 <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
-                                                       th:if="${#fields.hasErrors('userSurname')}"
-                                                       th:errors="*{userSurname}">
+                                                       th:if="${#fields.hasErrors('user.userSurname')}"
+                                                       th:errors="*{user.userSurname}">
                                                 </small>
                                             </h3>
-                                            <input type="text" class="form-control" th:field="*{userSurname}"/>
+                                            <input type="text" class="form-control" th:field="*{user.userSurname}"/>
                                         </div>
                                         <div class="form-group has-feedback">
                                             <label>Enter login:</label>
                                             <h3>
                                                 <small style="color: #a31515;font-family: Times, serif; font-weight: bold; "
-                                                       th:if="${#fields.hasErrors('login')}" th:errors="*{login}">
+                                                       th:if="${#fields.hasErrors('user.login')}" th:errors="*{user.login}">
                                                 </small>
                                             </h3>
-                                            <input type="text" class="form-control" th:field="*{login}"/>
+                                            <input type="text" class="form-control" th:field="*{user.login}"/>
                                         </div>
                                         <div class="form-group has-feedback">
                                             <label for="exampleInputPassword1">Password</label>
                                             <h3>
                                                 <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
-                                                       th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                                                       th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}">
                                                 </small>
                                             </h3>
-                                            <input type="password" th:field="*{password}" class="form-control"
+                                            <input type="password" th:field="*{user.password}" class="form-control"
                                                    id="exampleInputPassword1"
                                                    placeholder="Enter password"/>
                                         </div>
                                         <div class="form-group has-feedback">
                                             <label>Project name</label>
-                                            <select th:field="*{project}" class="form-control select2"
+                                            <select th:field="*{user.project}" class="form-control select2"
                                                     style="width: 100%;">
                                                 <option th:each="projectId:${projects}"
                                                         th:value="${projectId.projectId}"
@@ -158,7 +160,7 @@
                                         </div>
                                         <div class="form-group has-feedback">
                                             <label>Position</label>
-                                            <select th:field="*{position}" class="form-control select2"
+                                            <select th:field="*{user.position}" class="form-control select2"
                                                     style="width: 100%;">
                                                 <option th:each="position:${positions}"
                                                         th:value="${position.positionId}"
@@ -168,7 +170,7 @@
                                         </div>
                                         <div class="form-group has-feedback">
                                             <label>Qualification</label>
-                                            <select th:field="*{qualification}" class="form-control select2"
+                                            <select th:field="*{user.qualification}" class="form-control select2"
                                                     style="width: 100%;">
                                                 <option th:each="qualification:${qualifications}"
                                                         th:value="${qualification.qualificationId}"
@@ -178,9 +180,8 @@
                                         </div>
                                         <div class="form-group has-feedback">
                                             <label>Project role</label>
-                                            <select th:field="*{projectRole}" class="form-control select2"
+                                            <select th:field="*{user.projectRole}" class="form-control select2"
                                                     style="width: 100%;">
-                                                <option th:value="0"></option>
                                                 <option th:each="projectRole:${projectRoles}"
                                                         th:value="${projectRole.projectRoleId}"
                                                         th:text="${projectRole.projectRoleName}">
@@ -188,7 +189,12 @@
                                             </select>
                                         </div>
                                     </td>
-                                    <td style="width: 70px;"></td>
+                                    <td style="width: 70px;">
+                                        <input type="hidden" th:field="*{user.userId}"/>
+                                        <input type="hidden" th:field="*{user.userStatus.statusId}"/>
+                                        <input type="hidden" th:field="*{user.userRole.roleId}"/>
+                                        <input type="hidden" th:field="*{userContact.contactId}"/>
+                                    </td>
                                     <td style="width: 300px; vertical-align: top">&nbsp;
                                         <div class="form-group has-feedback" style="high:400px">
                                             <h3 class="box-title">Contact information</h3>

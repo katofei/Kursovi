@@ -2,7 +2,7 @@ package by.application.task.tracker.service.impl;
 
 import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.User;
-import by.application.task.tracker.data.entities.UserContact;
+import by.application.task.tracker.data.wrapper.UserInfoWrapper;
 import by.application.task.tracker.repositories.UserRepository;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,20 +60,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User editUser(UserDTO userDTO, long id) {
-        User editedUser = userRepository.findOne(id);
-        editedUser.setUserName(userDTO.getUserName());
-        editedUser.setUserSurname(userDTO.getUserSurname());
-        editedUser.setLogin(userDTO.getLogin());
-        editedUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        editedUser.setProject(projectService.findByProjectId(userDTO.getProject()));
+    public User editUser(UserInfoWrapper userInfoWrapper) {
+        User editedUser = userInfoWrapper.getUser();
+        editedUser.setPassword(passwordEncoder.encode(editedUser.getPassword()));
+      /*  editedUser.setProject(projectService.findByProjectId(userDTO.getProject()));
         editedUser.setProjectRole(projectRoleService.findProjectRoleById(userDTO.getProjectRole()));
-        editedUser.setPosition(positionService.findPositionById(userDTO.getPosition()));
+        editedUser.setPosition(positionService.findPositionById(userDTO.getPosition()));*/
 
-        UserContact userContact = userContactService.findByContactId(editedUser.getUserContact().getContactId());
-        userContactService.editContact(userDTO, editedUser.getUserContact().getContactId());
-
-        editedUser.setUserContact(userContact);
+        editedUser.setUserContact(userInfoWrapper.getUserContact());
         return userRepository.save(editedUser);
     }
 

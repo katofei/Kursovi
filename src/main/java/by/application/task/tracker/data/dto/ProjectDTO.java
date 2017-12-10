@@ -12,8 +12,6 @@ public class ProjectDTO {
     @NotBlank(message = "Main aim is required")
     private String mainAim;
 
-    private long projectContact;
-
     @NotBlank(message = "E-mail can not be empty")
     private String officeEmail;
 
@@ -45,10 +43,6 @@ public class ProjectDTO {
 
     public String getMainAim() {return mainAim;}
     public void setMainAim(String mainAim) {this.mainAim = mainAim;}
-
-    public long getProjectContact() {return projectContact;}
-
-    public void setProjectContact(long projectContact) {this.projectContact = projectContact;}
 
     public String getOfficeEmail() {return officeEmail;}
     public void setOfficeEmail(String officeEmail) {this.officeEmail = officeEmail;}

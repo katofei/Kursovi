@@ -1,6 +1,7 @@
 package by.application.task.tracker.controllers;
 
 import by.application.task.tracker.data.dto.ProjectDTO;
+import by.application.task.tracker.data.wrapper.ProjectInfoWrapper;
 import by.application.task.tracker.data.entities.Project;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
@@ -102,15 +103,13 @@ public class ProjectController {
         view.addObject("qualification",currentUser.getQualification());
 
         Project editingProject = projectService.findByProjectId(id);
-        view.addObject("project",editingProject);
-        view.addObject("projectContact", editingProject.getProjectContact());
-        view.addObject("projectDTO", new ProjectDTO());
-
+        ProjectInfoWrapper projectInfoWrapper = new ProjectInfoWrapper(editingProject, editingProject.getProjectContact());
+        view.addObject("project",projectInfoWrapper);
         return view;
     }
 
     @RequestMapping(value = "/project-edition/{id}", method = RequestMethod.POST)
-    public ModelAndView editProject(@Valid @ModelAttribute("project") ProjectDTO projectDTO, BindingResult result, @PathVariable("id") long id) {
+    public ModelAndView editProject(@Valid @ModelAttribute("project") ProjectInfoWrapper projectInfoWrapper, BindingResult result, @PathVariable("id") long id) {
         ModelAndView view = new ModelAndView();
         if (result.hasErrors()) {
             view.setViewName("editProjectPage");
@@ -124,7 +123,9 @@ public class ProjectController {
             return view;
         }
         view.setViewName("redirect:/allProjects");
-        projectService.editProject(projectDTO, id);
+
+        editProject(projectInfoWrapper);
+
         return view;
     }
 
@@ -146,5 +147,10 @@ public class ProjectController {
         ModelAndView view = new ModelAndView("allProjects");
         projectService.deleteProject(id);
         return  view;
+    }
+
+    private void editProject(ProjectInfoWrapper projectInfoWrapper){
+        projectService.editProject(projectInfoWrapper);
+        projectContactService.editContact(projectInfoWrapper);
     }
 }

@@ -109,8 +109,9 @@
                                                 th:text="${user.userName}+' '+${user.userSurname}"></h3>
                                             <p class="text-muted text-center"
                                                th:text="${userQualification.qualificationName}+' '+${userPosition.positionName}"></p>
-                                            <p class="text-muted text-center"
-                                               th:text="${projectRole.projectRoleName}"></p></td>
+                                              <p class="text-muted text-center"
+                                                 th:text="${projectRole.projectRoleName}"></p>
+                                        </td>
                                         <td style="width: 385px; height: 34px;" rowspan="2">&nbsp;&nbsp;
                                             <table style="height: 229px; width: 416px;">
                                                 <tbody>
@@ -153,7 +154,7 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                        </td>
+                                    </td>
                                     </tr>
                                     <tr style="height: 147px;">
                                         <td style="width: 451px; height: 147px;">&nbsp;
@@ -164,7 +165,8 @@
                                                     Knoxville
                                                 </p>
                                                 <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-                                                <p class="text-muted">Malibu, California</p>
+                                                <p class="text-muted" th:text="${userContact.country}+', '+${userContact.city}"></p>
+                                                <p class="text-muted" th:text="${userContact.street}+', '+${userContact.houseNumber}"></p>
                                             </div>
                                         </td>
                                     </tr>

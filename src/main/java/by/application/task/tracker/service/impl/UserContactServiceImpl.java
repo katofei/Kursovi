@@ -2,6 +2,7 @@ package by.application.task.tracker.service.impl;
 
 import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.UserContact;
+import by.application.task.tracker.data.wrapper.UserInfoWrapper;
 import by.application.task.tracker.repositories.UserContactRepository;
 import by.application.task.tracker.service.UserContactService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +30,8 @@ public class UserContactServiceImpl implements UserContactService{
     }
 
     @Override
-    public UserContact editContact(UserDTO userDTO, long id) {
-        UserContact userContact = contactRepository.findByContactId(id);
-        userContact.setFax(userDTO.getFax());
-        userContact.setPrivateEmail(userDTO.getPrivateEmail());
-        userContact.setWorkEmail(userDTO.getWorkEmail());
-        userContact.setWorkPhone(userDTO.getWorkPhone());
-        userContact.setPrivatePhone(userDTO.getPrivatePhone());
-        userContact.setCountry(userDTO.getCountry());
-        userContact.setCity(userDTO.getCity());
-        userContact.setStreet(userDTO.getCity());
-        userContact.setHouseNumber(userDTO.getHouseNumber());
-        return contactRepository.save(userContact);
+    public UserContact editContact(UserInfoWrapper userInfoWrapper) {
+        return contactRepository.save(userInfoWrapper.getUserContact());
     }
 
     @Override

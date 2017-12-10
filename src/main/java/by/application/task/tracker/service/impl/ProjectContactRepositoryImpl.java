@@ -1,6 +1,7 @@
 package by.application.task.tracker.service.impl;
 
 import by.application.task.tracker.data.dto.ProjectDTO;
+import by.application.task.tracker.data.wrapper.ProjectInfoWrapper;
 import by.application.task.tracker.data.entities.ProjectContact;
 import by.application.task.tracker.repositories.ProjectContactRepository;
 import by.application.task.tracker.service.ProjectContactService;
@@ -29,16 +30,8 @@ public class ProjectContactRepositoryImpl implements ProjectContactService {
     }
 
     @Override
-    public ProjectContact editContact(ProjectDTO contactDTO, long id) {
-        ProjectContact projectContact = projectContactRepository.findByContactId(id);
-        projectContact.setFax(contactDTO.getFax());
-        projectContact.setOfficeEmail(contactDTO.getOfficeEmail());
-        projectContact.setOfficePhone(contactDTO.getOfficePhone());
-        projectContact.setCountry(contactDTO.getCountry());
-        projectContact.setCity(contactDTO.getCity());
-        projectContact.setStreet(contactDTO.getCity());
-        projectContact.setHouseNumber(contactDTO.getHouseNumber());
-        return projectContactRepository.save(projectContact);
+    public ProjectContact editContact(ProjectInfoWrapper projectInfoWrapper) {
+        return projectContactRepository.save(projectInfoWrapper.getProjectContact());
 
     }
 

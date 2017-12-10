@@ -1,7 +1,7 @@
 package by.application.task.tracker.controllers;
 
-import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.User;
+import by.application.task.tracker.data.wrapper.UserInfoWrapper;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,8 +53,8 @@ public class UserController {
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
         view.addObject("position", currentUser.getPosition());
-        view.addObject("project",currentUser.getProject());
-        view.addObject("qualification",currentUser.getQualification());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
 
         List<User> userList = userService.getAllUsers();
         view.addObject("userList", userList);
@@ -72,13 +72,10 @@ public class UserController {
 
         User user = userService.findUserById(id);
         view.addObject("user", user);
-        view.addObject("userPosition",user.getPosition());
-        view.addObject("userQualification",user.getQualification());
-        if (user.getProjectRole() != null)
-        {
-            view.addObject("projectRole",user.getProjectRole());
-        }
-        else view.addObject("projectRole", "");
+        view.addObject("userPosition", user.getPosition());
+        view.addObject("userQualification", user.getQualification());
+        view.addObject("projectRole", user.getProjectRole());
+
         view.addObject("userContact", user.getUserContact());
 
         return view;
@@ -118,24 +115,25 @@ public class UserController {
         ModelAndView view = new ModelAndView("editUserPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
-        view.addObject("position",currentUser.getPosition());
+        view.addObject("position", currentUser.getPosition());
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
         User user = userService.findUserById(id);
-        view.addObject("user", user);
+        UserInfoWrapper userInfoWrapper = new UserInfoWrapper(user, user.getUserContact());
+        view.addObject("user", userInfoWrapper);
+
         view.addObject("positions", positionService.getAllPositions());
         view.addObject("projects", projectService.getAllProjects());
         view.addObject("qualifications", qualificationService.getAllQualifications());
         view.addObject("projectRoles", projectRoleService.getAllProjectRoles());
 
-        view.addObject("userContact", user.getUserContact());
-        view.addObject("userDTO", new UserDTO());
+
         return view;
     }
 
     @RequestMapping(value = "/user-edition/{id}", method = RequestMethod.POST)
-    public ModelAndView editUser(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, @PathVariable("id") long id) {
+    public ModelAndView editUser(@Valid @ModelAttribute("user") UserInfoWrapper userInfoWrapper, BindingResult result, @PathVariable("id") long id) {
         ModelAndView view = new ModelAndView();
         User user = userService.findUserById(id);
         if (result.hasErrors()) {
@@ -143,7 +141,7 @@ public class UserController {
             view.setViewName("editUserPage");
             view.addObject("currentUser", currentUser);
             view.addObject("qualification", currentUser.getQualification());
-            view.addObject("position",currentUser.getPosition());
+            view.addObject("position", currentUser.getPosition());
 
             view.addObject("positions", positionService.getAllPositions());
             view.addObject("projects", projectService.getAllProjects());
@@ -154,7 +152,12 @@ public class UserController {
             return view;
         }
         view.setViewName("redirect:/allUsers");
-        userService.editUser(userDTO, id);
+        editUser(userInfoWrapper);
         return view;
+    }
+
+    private void editUser(UserInfoWrapper userInfoWrapper) {
+        userContactService.editContact(userInfoWrapper);
+        userService.editUser(userInfoWrapper);
     }
 }

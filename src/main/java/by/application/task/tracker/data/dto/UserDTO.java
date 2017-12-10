@@ -27,7 +27,6 @@ public class UserDTO implements Serializable {
     private long position;
     private long qualification;
     private long projectRole;
-    private long userContact;
 
     private String country;
     private String city;
@@ -61,9 +60,7 @@ public class UserDTO implements Serializable {
     public String getLogin() {
         return login;
     }
-    public void setLogin(String login) {
-        this.login = login;
-    }
+    public void setLogin(String login) {this.login = login;}
 
     public String getPassword() {
         return password;
@@ -105,13 +102,6 @@ public class UserDTO implements Serializable {
     }
     public void setUserRole(long userRole) {
         this.userRole = userRole;
-    }
-
-    public long getUserContact() {
-        return userContact;
-    }
-    public void setUserContact(long userContact) {
-        this.userContact = userContact;
     }
 
     public String getCountry() {

@@ -14,6 +14,14 @@
     <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
+
+    <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/dist/js/adminlte.min.js}"></script>
+    <script th:src="@{/dist/js/demo.js}"></script>
+    <script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
+    <script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -67,27 +75,29 @@
                     </a>
                 </li>
                 <li class="treeview">
-                    <a th:href="@{/allUsers}">
-                        <i class="fa fa-dashboard"></i>
-                        <span>Profiles</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
+                    <a href="#">
+                    <i class="fa fa-dashboard"></i>
+                    <span>Manage users</span>
+                    <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right-container"></i>
+                    </span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a th:href="@{/registration}"><i class="fa fa-circle-o"></i>Register new</a></li>
+                        <li><a th:href="@{/allUsers}"><i class="fa fa-circle-o"></i>View all</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a th:href="@{/allProjects}">
+                    <a href="#">
                         <i class="fa fa-dashboard"></i>
-                        <span>Projects</span>
+                        <span>Manage projects</span>
                         <span class="pull-right-container">
-                           <i class="fa fa-angle-left pull-right"></i>
-                         </span>
+                          <i class="fa fa-angle-left pull-right-container"></i>
+                        </span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a th:href="@{/project-creation}"><i class="fa fa-circle-o"></i>Create new</a></li>
+                        <li><a th:href="@{/allProjects}"><i class="fa fa-circle-o"></i>View all</a></li>
                     </ul>
                 </li>
             </ul>
@@ -164,13 +174,6 @@
         </section>
     </div>
 </div>
-
-<script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
-<script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
-<script th:src="@{/dist/js/adminlte.min.js}"></script>
-<script th:src="@{/dist/js/demo.js}"></script>
-<script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
-<script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
 
 </body>
 </html>
