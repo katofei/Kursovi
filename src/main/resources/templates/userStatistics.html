@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">MAIN NAVIGATION</li>
+            <li>
+                <a th:href="@{/homePage}">
+                    <i class="fa fa-dashboard"></i>
+                    <span>Dashboard</span>
+                    <span class="pull-right-container"></span>
+                </a>
+            </li>
+            <li>
+                <a th:onclick="|window.location.href='/project/${currentUser.project.projectId}'|">
+                    <i class="fa fa-share"></i> <span>My Project</span>
+                </a>
+            </li>
+            <li>
+                <a th:onclick="|window.location.href='/profile/${currentUser.userId}/team'|">
+                    <i class="fa fa-share"></i> <span>My team</span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
+                    <i class="fa fa-share"></i> <span>My tasks</span>
+                </a>
+                <ul class="treeview-menu">
+                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
+                        <i class="fa fa-share"></i> <span>Create new</span>
+                    </a>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a>
+                    <i class="fa fa-table"></i> <span>Statistics</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/team-statistics'|">
+                            <i class="fa fa-share"></i> <span>Team statistics</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/user-statistics'|">
+                            <i class="fa fa-share"></i> <span>My statistics</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+</aside>
+
+
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -45,7 +45,7 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a  th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
+                                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
                                        class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
@@ -59,7 +59,6 @@
         </nav>
     </header>
 
-
     <aside class="main-sidebar">
         <section class="sidebar">
             <ul class="sidebar-menu" data-widget="tree">
@@ -72,7 +71,7 @@
                     </a>
                 </li>
                 <li class="treeview">
-                    <a href="#">
+                    <a>
                         <i class="fa fa-dashboard"></i>
                         <span>Manage users</span>
                         <span class="pull-right-container">
@@ -85,7 +84,7 @@
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#">
+                    <a>
                         <i class="fa fa-dashboard"></i>
                         <span>Manage projects</span>
                         <span class="pull-right-container">
@@ -140,7 +139,7 @@
                                             </a>
                                             <div id="myModal" class="modal fade">
                                                 <div class="modal modal-danger">
-                                                <div class="modal-dialog">
+                                                    <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <button type="button" class="close" data-dismiss="modal"
@@ -183,28 +182,18 @@
         </section>
     </div>
 </div>
+
 <script>
-    $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
+    $(function () {
+        $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
         });
     });
-
-</script>
-<script>
-  $(function () {
-    $('#example1').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
-    });
-  });
 
 </script>
 

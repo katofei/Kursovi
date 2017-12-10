@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -75,10 +75,10 @@
                     </a>
                 </li>
                 <li class="treeview">
-                    <a href="#">
-                    <i class="fa fa-dashboard"></i>
-                    <span>Manage users</span>
-                    <span class="pull-right-container">
+                    <a>
+                        <i class="fa fa-dashboard"></i>
+                        <span>Manage users</span>
+                        <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right-container"></i>
                     </span>
                     </a>
@@ -88,7 +88,7 @@
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#">
+                    <a>
                         <i class="fa fa-dashboard"></i>
                         <span>Manage projects</span>
                         <span class="pull-right-container">

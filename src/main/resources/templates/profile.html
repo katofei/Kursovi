@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -14,6 +14,11 @@
     <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
+    <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/dist/js/adminlte.min.js}"></script>
+    <script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
+    <script th:src="@{/dist/js/demo.js}"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -41,7 +46,7 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a  th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
+                                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
                                        class="btn btn-default btn-flat">My profile</a>
                                 </div>
                                 <div class="pull-right">
@@ -55,35 +60,103 @@
         </nav>
     </header>
 
-    <aside class="main-sidebar">
-        <section class="sidebar">
-            <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">MAIN NAVIGATION</li>
-                <li>
-                    <a th:href="@{/homePage}">
-                        <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span>
-                        <span class="pull-right-container"></span>
-                    </a>
-                </li>
-                <li class="treeview">
-                    <a th:thref="@{project/{id}(id=${currentUser.userName})}">
-                        <i class="fa fa-share"></i> <span>My Project</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    //TODO add this staff
-                    <ul class="treeview-menu">
-                        <li>
-                            <a th:href="@{/myTasks}"><i class="fa fa-circle-o"></i>My tasks
-                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+    <div sec:authorize="hasRole('ROLE_USER')">
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li>
+                        <a th:href="@{/homePage}">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                            <span class="pull-right-container"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:onclick="|window.location.href='/project/${currentUser.project.projectId}'|">
+                            <i class="fa fa-share"></i> <span>My Project</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/team'|">
+                            <i class="fa fa-share"></i> <span>My team</span>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
+                            <i class="fa fa-share"></i> <span>My tasks</span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
+                                <i class="fa fa-share"></i> <span>Create new</span>
                             </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </section>
-    </aside>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a>
+                            <i class="fa fa-table"></i> <span>Statistics</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a th:onclick="|window.location.href='/profile/${currentUser.userId}/team-statistics'|">
+                                    <i class="fa fa-share"></i> <span>Team statistics</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:onclick="|window.location.href='/profile/${currentUser.userId}/user-statistics'|">
+                                    <i class="fa fa-share"></i> <span>My statistics</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+    </div>
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li>
+                        <a th:href="@{/homePage}">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                            <span class="pull-right-container"></span>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Manage users</span>
+                            <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right-container"></i>
+                    </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a th:href="@{/registration}"><i class="fa fa-circle-o"></i>Register new</a></li>
+                            <li><a th:href="@{/allUsers}"><i class="fa fa-circle-o"></i>View all</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Manage projects</span>
+                            <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right-container"></i>
+                        </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a th:href="@{/project-creation}"><i class="fa fa-circle-o"></i>Create new</a></li>
+                            <li><a th:href="@{/allProjects}"><i class="fa fa-circle-o"></i>View all</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+    </div>
 
     <div class="content-wrapper">
         <section class="content-header">
@@ -182,11 +255,5 @@
     </div>
 </div>
 
-
-<script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
-<script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
-<script th:src="@{/dist/js/adminlte.min.js}"></script>
-<script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
-<script th:src="@{/dist/js/demo.js}"></script>
 </body>
 </html>

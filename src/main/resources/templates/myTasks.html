@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -14,6 +14,10 @@
     <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
+    <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -41,7 +45,8 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a th:href="@{profile/{id}(id=${currentUser.userId})}" class="btn btn-default btn-flat">My profile</a>
+                                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
+                                       class="btn btn-default btn-flat">My profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a th:href="@{/login}" class="btn btn-default btn-flat">Sign out</a>
@@ -66,13 +71,43 @@
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/allUsers}">
-                        <i class="fa fa-dashboard"></i>
-                        <span>Profiles</span>
-                        <span class="pull-right-container"></span>
+                    <a th:onclick="|window.location.href='/project/${currentUser.project.projectId}'|">
+                        <i class="fa fa-share"></i> <span>My Project</span>
                     </a>
                 </li>
-
+                <li>
+                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}/team'|">
+                        <i class="fa fa-share"></i> <span>My team</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
+                        <i class="fa fa-share"></i> <span>My tasks</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
+                            <i class="fa fa-share"></i> <span>Create new</span>
+                        </a>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a>
+                        <i class="fa fa-table"></i> <span>Statistics</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/team-statistics'|">
+                                <i class="fa fa-share"></i> <span>Team statistics</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/user-statistics'|">
+                                <i class="fa fa-share"></i> <span>My statistics</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </section>
     </aside>
@@ -84,45 +119,91 @@
                     <div class="col-xs-12">
                         <div class="box">
                             <div class="box-header">
-                                <h3>
-                                    <small style="color:#a31515; font-family: Times, serif; font-weight:bold;"
-                                           th:if="${taskList.isEmpty()}" th:errors="*{taskList}">
-                                    </small></h3>
-                                <h3 class="box-title">All tasks</h3>
-                                <div class="box-tools">
-                                    <div class="input-group input-group-sm" style="width: 300px;">
-                                        <input type="text" name="table_search" class="form-control pull-right"
-                                               placeholder="Search"/>
-                                        <div class="input-group-btn">
-                                            <button type="submit" class="btn btn-default"><i
-                                                    class="fa fa-search"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <table style="height: 53px;" width="657">
+                                    <tbody>
+                                    <tr>
+                                        <td style="width: 211.667px;">
+                                            <h3 class="box-title">My tasks</h3>
+                                        </td>
+                                        <td style="width: 211.667px;">
+                                            <div class="form-group has-feedback">
+                                                <label>Priority</label>
+                                                <select th:field="*{taskPriority}" class="form-control select2" style="width: 100%;">
+                                                    <option th:each="taskPriority:${taskPriorities}"
+                                                            th:value="${taskPriority.priorityId}"
+                                                            th:text="${taskPriority.priorityName}" selected="selected">Low
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        // it does not work because there is NO object
+                                        <td style="width: 211.667px;">
+                                            <div class="form-group has-feedback">
+                                                <label>Status</label>
+                                                <select th:field="*{taskStatus}" class="form-control select2" style="width: 100%;">
+                                                    <option th:each="taskStatus:${taskStatuses}"
+                                                            th:value="${taskStatus.statusName}"
+                                                            th:text="${taskStatus.statusId}" >
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 211.667px;">&nbsp;</td>
+                                        <td style="width: 211.667px;">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox"/>
+                                                    Created by me
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td style="width: 211.667px;">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox"/>Assigned to me
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <p>&nbsp;</p>
                             </div>
                             <div class="box-body table-responsive no-padding">
-                                <table class="table table-hover">
+                                <table id="example1" class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>№</th>
                                         <th>Name</th>
-                                        <th>Creator</th>
-                                        <th>Executor</th>
                                         <th>Estimation date</th>
+                                        <th>Priority</th>
                                         <th>Status</th>
+                                        <th></th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr class="clickableRow"  th:each="task:${taskList}"
-                                        th:href="@{task/{id}(id=${task.taskId})}">
-                                        <th th:text="${task.id}"  style="font-weight: normal"></th>
-                                        <th th:text="${task.taskName}"  style="font-weight: normal"></th>
-                                        <th th:text="${task.creator.userName}+' '+${task.creator.userSurname}"
-                                            style="font-weight: normal"></th>
-                                        <th th:text="${task.executor.userName}+' '+${task.executor.userSurname}"
-                                            style="font-weight: normal"></th>
+                                    <tbody id="myTable">
+                                    <tr th:each="task:${taskList}">
+                                        <th th:text="${task.id}" style="font-weight: normal"></th>
+                                        <th th:text="${task.taskName}" style="font-weight: normal"></th>
                                         <th th:text="${task.estimation}" style="font-weight: normal"></th>
+                                        <th th:text="${task.taskPriority.priorityName}" style="font-weight: normal"></th>
                                         <th th:text="${task.taskStatus.statusName}" style="font-weight: normal"></th>
+                                      <!--  <th width="100">
+                                            <button type="button" class="btn btn-primary btn-md"
+                                                    th:onclick="|window.location.href='/task-edition/${task.id}'|">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                                <span>Edit</span>
+                                            </button>
+                                        </th>-->
+                                        <th width="100">
+                                            <button type="button" class="btn btn-primary btn-md"
+                                                    th:onclick="|window.location.href='/task/${task.id}'|">
+                                                <span class="glyphicon glyphicon-info-sign"></span>
+                                                <span>Info</span>
+                                            </button>
+                                        </th>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -135,22 +216,24 @@
     </div>
 </div>
 
-<script th:src="@{jquery-3.2.1.min.js}"></script>
-<script>
-    jQuery(document).ready(function($) {
-        $(".clickableRow").click(function() {
-            window.location = $(this).attr("href");
-        });
-    });
-</script>>
 
-<script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
 <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
 <script th:src="@{/dist/js/adminlte.min.js}"></script>
 <script th:src="@{/dist/js/demo.js}"></script>
 <script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
 <script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
 
-
+<script>
+    $(function () {
+        $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+    });
+</script>
 </body>
 </html>

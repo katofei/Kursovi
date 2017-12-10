@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -41,7 +41,8 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a  th:onclick="|window.location.href='/profile/${currentUser.userId}'|" class="btn btn-default btn-flat">My profile</a>
+                                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
+                                       class="btn btn-default btn-flat">My profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a th:href="@{/login}" class="btn btn-default btn-flat">Sign out</a>
@@ -53,7 +54,6 @@
             </div>
         </nav>
     </header>
-
 
     <aside class="main-sidebar">
         <section class="sidebar">
@@ -67,14 +67,47 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fa fa-th"></i> <span>My tasks</span>
-                        <span class="pull-right-container"></span>
+                    <a th:onclick="|window.location.href='/project/${currentUser.project.projectId}'|">
+                        <i class="fa fa-share"></i> <span>My Project</span>
                     </a>
+                </li>
+                <li>
+                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}/team'|">
+                        <i class="fa fa-share"></i> <span>My team</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
+                        <i class="fa fa-share"></i> <span>My tasks</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
+                            <i class="fa fa-share"></i> <span>Create new</span>
+                        </a>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a>
+                        <i class="fa fa-table"></i> <span>Statistics</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/team-statistics'|">
+                                <i class="fa fa-share"></i> <span>Team statistics</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/user-statistics'|">
+                                <i class="fa fa-share"></i> <span>My statistics</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </section>
     </aside>
+
 
     <div class="content-wrapper">
         <section class="content-header">

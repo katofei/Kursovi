@@ -1,5 +1,6 @@
 package by.application.task.tracker.controllers;
 
+import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.data.wrapper.UserInfoWrapper;
 import by.application.task.tracker.service.*;
@@ -7,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -28,13 +26,19 @@ public class UserController {
     @Autowired
     private ProjectRoleService projectRoleService;
     @Autowired
+    private TaskStatusService taskStatusService;
+    @Autowired
+    private TaskPriorityService taskPriorityService;
+    @Autowired
     private ProjectService projectService;
     @Autowired
     private UserContactService userContactService;
-    @Autowired
+    /*@Autowired
     private UserStatusService userStatusService;
     @Autowired
-    private ProjectContactService projectContactService;
+    private ProjectContactService projectContactService;*/
+    @Autowired
+    private TaskService taskService;
 
     @RequestMapping(path = "/userPage", method = RequestMethod.GET)
     public ModelAndView getUserStartPage() {
@@ -127,8 +131,6 @@ public class UserController {
         view.addObject("projects", projectService.getAllProjects());
         view.addObject("qualifications", qualificationService.getAllQualifications());
         view.addObject("projectRoles", projectRoleService.getAllProjectRoles());
-
-
         return view;
     }
 
@@ -156,8 +158,35 @@ public class UserController {
         return view;
     }
 
+
+    @RequestMapping(value = "/profile/{id}/my-tasks", method = RequestMethod.GET)
+    public ModelAndView getMyTasks(@PathVariable("id") long id) {
+        ModelAndView view = new ModelAndView("myTasks");
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
+
+        view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
+        view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
+        List<Task> taskList = taskService.getAllTasks();
+        view.addObject("taskList", taskList);
+        return view;
+    }
+
     private void editUser(UserInfoWrapper userInfoWrapper) {
         userContactService.editContact(userInfoWrapper);
         userService.editUser(userInfoWrapper);
     }
+
+    //TODO need to add function for mappings :
+    //  /profile/${currentUser.userId}/team - use allUsersPage, + filter by project
+
+    //  /profile/${currentUser.userId}/my-tasks - use "myTasks" page, + filter by user ( as creator and as executor)
+    //  this stuff started
+
+    //  /profile/${currentUser.userId}/team-statistics - use page with name "userStatistics"
+    //  /profile/${currentUser.userId}/team-statistics - use page with name "teamStatistics"
+
 }

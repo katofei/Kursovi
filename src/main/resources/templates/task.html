@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -21,8 +21,7 @@
     <header class="main-header">
         <a href="#" class="logo">
             <span class="logo-lg"><b>Dash</b>Bord</span>
-        </a>l
-
+        </a>
         <nav class="navbar navbar-static-top" role="navigation">
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"></a>
             <div class="navbar-custom-menu">
@@ -41,7 +40,7 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a  th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
+                                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
                                        class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
@@ -66,6 +65,44 @@
                         <span class="pull-right-container"></span>
                     </a>
                 </li>
+                <li>
+                    <a th:onclick="|window.location.href='/project/${currentUser.project.projectId}'|">
+                        <i class="fa fa-share"></i> <span>My Project</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}/team'|">
+                        <i class="fa fa-share"></i> <span>My team</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
+                        <i class="fa fa-share"></i> <span>My tasks</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
+                            <i class="fa fa-share"></i> <span>Create new</span>
+                        </a>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a>
+                        <i class="fa fa-table"></i> <span>Statistics</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/team-statistics'|">
+                                <i class="fa fa-share"></i> <span>Team statistics</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/user-statistics'|">
+                                <i class="fa fa-share"></i> <span>My statistics</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </section>
     </aside>
@@ -80,7 +117,29 @@
                         <h3 class="box-title">Task description</h3>
                     </div>
                     <section class="content">
-                        <h3 class="box-title" th:text="${task.taskName}"></h3>
+                        <table style="height: 41px; width:91%;">
+                            <tbody>
+                            <tr>
+                                <td style="width: 450px;" >
+                                    <h3 class="box-title" th:text="${task.taskName}"></h3>
+                                </td>
+                                <td style="width: 89px;">
+                                    <button type="button" class="btn btn-info">Assign another user</button></td>
+                                <td style="width: 10px;">&nbsp;</td>
+                                <td style="width: 89px;">
+                                    <button type="button" class="btn btn-danger">Change priority</button></td>
+                                <td style="width: 10px;">&nbsp;</td>
+                                <td style="width: 89px;">
+                                    <button type="button" class="btn btn-warning">Change status</button>
+                                </td>
+                                <td style="width: 10px;">&nbsp;</td>
+                                <td style="width: 89px;">
+                                    <button type="button" class="btn btn-success">Log time</button></td>
+                                <td style="width: 10px;">&nbsp;</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p>&nbsp;</p>
                         <table style="height: 171px; width: 948px;">
                             <tbody>
                             <tr style="height: 30px;">
@@ -88,7 +147,8 @@
                                     <table style="height: 36px; width: 461px;">
                                         <tbody>
                                         <tr style="height: 33px;">
-                                            <td style="width: 132.8px; height: 33px;"><strong><i class="fa fa-book margin-r-5"></i>Project:</strong></td>
+                                            <td style="width: 132.8px; height: 33px;"><strong><i
+                                                    class="fa fa-book margin-r-5"></i>Project:</strong></td>
                                             <td style="width: 310.2px; height: 33px;"
                                                 th:text="${taskProject.projectName}">&nbsp;
                                             </td>
@@ -103,13 +163,15 @@
                                     <table style="height: 78px; width: 461px;">
                                         <tbody>
                                         <tr style="height: 19.9px;">
-                                            <td style="width: 133.267px; height: 19.9px;"><strong><i class="fa fa-book margin-r-5"></i>Creator:</strong></td>
+                                            <td style="width: 133.267px; height: 19.9px;"><strong><i
+                                                    class="fa fa-book margin-r-5"></i>Creator:</strong></td>
                                             <td style="width: 311.733px; height: 19.9px;"
                                                 th:text="${creator.userName} +' '+${creator.userSurname}">&nbsp;
                                             </td>
                                         </tr>
                                         <tr style="height: 12px;">
-                                            <td style="width: 133.267px; height: 12px;"><strong><i class="fa fa-book margin-r-5"></i>Executor:</strong></td>
+                                            <td style="width: 133.267px; height: 12px;"><strong><i
+                                                    class="fa fa-book margin-r-5"></i>Executor:</strong></td>
                                             <td style="width: 311.733px; height: 12px;"
                                                 th:text="${executor.userName} +' '+${executor.userSurname}">&nbsp;
                                             </td>
@@ -121,19 +183,23 @@
                                     <table style="height: 144px; width: 382px;">
                                         <tbody>
                                         <tr>
-                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Created:</strong></td>
+                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Created:</strong>
+                                            </td>
                                             <td style="width: 230.867px;" th:text="${task.created}">&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Updated:</strong></td>
+                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Updated:</strong>
+                                            </td>
                                             <td style="width: 230.867px;" th:text="${task.updated}">&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Resolved:</strong></td>
+                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Resolved:</strong>
+                                            </td>
                                             <td style="width: 230.867px;" th:text="${task.resolved}">&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Estimation:</strong></td>
+                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Estimation:</strong>
+                                            </td>
                                             <td style="width: 230.867px;" th:text="${task.estimation}">&nbsp;</td>
                                         </tr>
                                         </tbody>
@@ -145,19 +211,22 @@
                                     <table style="height: 108px; width: 459px;">
                                         <tbody>
                                         <tr style="height: 34.2px;">
-                                            <td style="width: 133.25px; height: 34.2px;"><strong><i class="fa fa-book margin-r-5"></i>Priority:</strong></td>
+                                            <td style="width: 133.25px; height: 34.2px;"><strong><i
+                                                    class="fa fa-book margin-r-5"></i>Priority:</strong></td>
                                             <td style="width: 305.75px; height: 34.2px;"
                                                 th:text="${taskPriority.priorityName}">&nbsp;
                                             </td>
                                         </tr>
                                         <tr style="height: 37px;">
-                                            <td style="width: 133.25px; height: 37px;"><strong><i class="fa fa-book margin-r-5"></i>Type:</strong></td>
+                                            <td style="width: 133.25px; height: 37px;"><strong><i
+                                                    class="fa fa-book margin-r-5"></i>Type:</strong></td>
                                             <td style="width: 305.75px; height: 37px;" th:text="${taskType.typeName}">
                                                 &nbsp;
                                             </td>
                                         </tr>
                                         <tr style="height: 35px;">
-                                            <td style="width: 133.25px; height: 35px;"><strong><i class="fa fa-book margin-r-5"></i>Status:</strong></td>
+                                            <td style="width: 133.25px; height: 35px;"><strong><i
+                                                    class="fa fa-book margin-r-5"></i>Status:</strong></td>
                                             <td style="width: 305.75px; height: 35px;"
                                                 th:text="${taskStatus.statusName}">&nbsp;
                                             </td>
@@ -170,12 +239,14 @@
                                         <tbody>
                                         <tr>
                                             <td style="width: 135.5px;">&nbsp;
-                                                <strong><i class="fa fa-book margin-r-5"></i>Time spent, h:</strong></td>
+                                                <strong>Time spent, h:</strong>
+                                            </td>
                                             <td style="width: 320.5px;" th:text="${task.timeSpent}">&nbsp;</td>
                                         </tr>
                                         <tr>
                                             <td style="width: 135.5px;">&nbsp;
-                                                <strong><i class="fa fa-book margin-r-5"></i>Persentage, %:</strong></td>
+                                                <strong>Persentage, %:</strong>
+                                            </td>
                                             <td style="width: 320.5px;" th:text="${task.percentage}">&nbsp;</td>
                                         </tr>
                                         </tbody>
@@ -184,16 +255,17 @@
                             </tr>
                             <tr style="height: 33px;">
                                 <td style="width: 456px; height: 33px;">&nbsp;
-                                    <strong><i class="fa fa-book margin-r-5"></i>Description</strong></td>
+                                    <strong>Description</strong></td>
                                 <td style="width: 471px; height: 33px;">&nbsp;</td>
                             </tr>
                             <tr style="height: 184px;">
-                                <td style="width: 927px; height: 184px;" colspan="2">&nbsp;</td>
+                                <td style="width: 927px;height: 184px;vertical-align:top" colspan="2" th:text="${task.description}">
+                                    &nbsp;</td>
                             </tr>
                             </tbody>
                         </table>
                         <p>&nbsp;</p>
-                 </section>
+                    </section>
                 </div>
             </div>
         </section>
