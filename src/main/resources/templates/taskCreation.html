@@ -116,7 +116,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Task creation</h3>
                     </div>
-                    <form role="form" th:action="@{/taskCreation}" th:object="${task}" method="post">
+                    <form role="form" th:action="@{/profile/{id}(id=${currentUser.userId})/task-creation}" th:object="${task}" method="post">
                         <div class="box-body">
                             <div class="form-group has-feedback">
                                 <label>Task name</label>
@@ -168,8 +168,6 @@
                                 </select>
                             </div>
                             <div class="form-group has-feedback">
-                                <label>Description</label>
-                                <div class="form-group">
                                     <div class="form-group">
                                         <label>Description</label>
                                         <textarea class="form-control" th:field="*{description}"
@@ -192,13 +190,13 @@
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
-                        </div>
                     </form>
                 </div>
             </section>
         </section>
     </div>
 </div>
+
 
 <script>
     $(function () {
