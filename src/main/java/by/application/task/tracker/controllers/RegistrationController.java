@@ -4,6 +4,8 @@ package by.application.task.tracker.controllers;
 import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
+import by.application.task.tracker.validation.exception.WorkEmailExistsException;
+import by.application.task.tracker.validation.exception.LoginExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -67,7 +69,17 @@ public class RegistrationController {
         }
 
         view.setViewName("redirect:/allUsers");
-        userService.createUser(userDTO);
+        createUserAccount(userDTO, result);
         return view;
+    }
+
+    private void createUserAccount(UserDTO userDto, BindingResult result) {
+        try {
+            userService.createUser(userDto);
+        } catch (LoginExistsException e) {
+            result.rejectValue("userName", "message", "Username already exists");
+        } catch (WorkEmailExistsException e) {
+            result.rejectValue("email", "message", "Email already exists");
+        }
     }
 }

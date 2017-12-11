@@ -2,9 +2,13 @@ package by.application.task.tracker.service.impl;
 
 import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.User;
+import by.application.task.tracker.data.entities.UserContact;
 import by.application.task.tracker.data.wrapper.UserInfoWrapper;
+import by.application.task.tracker.repositories.UserContactRepository;
 import by.application.task.tracker.repositories.UserRepository;
 import by.application.task.tracker.service.*;
+import by.application.task.tracker.validation.exception.WorkEmailExistsException;
+import by.application.task.tracker.validation.exception.LoginExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +22,8 @@ public class UserServiceImpl implements UserService {
     public static final String USER_ROLE = "USER";
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserContactRepository userContactRepository;
     @Autowired
     private PositionService positionService;
     @Autowired
@@ -36,7 +42,16 @@ public class UserServiceImpl implements UserService {
     private UserContactService userContactService;
 
     @Override
-    public User createUser(UserDTO userDTO) {
+    public User createUser(UserDTO userDTO) throws LoginExistsException, WorkEmailExistsException {
+
+        if (loginExists(userDTO.getUserName())) {
+            throw new LoginExistsException("There is an account with that Login: "  + userDTO.getLogin());
+        }
+
+        if (emailExist(userDTO.getWorkEmail())) {
+            throw new WorkEmailExistsException("There is an account with that email address: "  + userDTO.getWorkEmail());
+        }
+
         User createdUser = new User(userDTO);
         createdUser.setUserRole(roleService.findByRoleName(USER_ROLE));
         createdUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
@@ -91,6 +106,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByLogin(String login) {
         return userRepository.findByLogin(login);
+    }
+
+    private boolean loginExists(String login) {
+        User user = userRepository.findByLogin(login);
+        return user != null;
+    }
+
+    private boolean emailExist(String email) {
+        UserContact userContact = userContactRepository.findByWorkEmail(email);
+        return userContact != null;
     }
 
 }

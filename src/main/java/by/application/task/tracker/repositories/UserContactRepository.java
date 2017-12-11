@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserContactRepository extends CrudRepository<UserContact, Long> {
     UserContact findByContactId(long id);
+    UserContact findByWorkEmail(String workEmail);
 }
