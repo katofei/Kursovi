@@ -37,7 +37,7 @@ public class TaskController {
     @Autowired
     private ProjectRoleService projectRoleService;
 
-    @RequestMapping(path = "/task-creation", method = RequestMethod.GET)
+    @RequestMapping(path = "/profile/{id}/task-creation", method = RequestMethod.GET)
     public ModelAndView getTaskCreationPage() {
         ModelAndView view = new ModelAndView("taskCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -55,7 +55,7 @@ public class TaskController {
         return view;
     }
 
-    @RequestMapping(path = "/task-creation", method = RequestMethod.POST)
+    @RequestMapping(path = "/profile/{id}/task-creation", method = RequestMethod.POST)
     public ModelAndView createTask(@Valid @ModelAttribute("task") TaskDTO taskDTO, BindingResult result) {
         ModelAndView view = new ModelAndView("taskCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -73,7 +73,7 @@ public class TaskController {
             view.setViewName("taskCreation");
             return view;
         }
-        view.setViewName("redirect:/allTasks");
+        view.setViewName("redirect:/profile/{id}/my-tasks");
         taskService.createTask(taskDTO);
         return view;
     }

@@ -193,42 +193,60 @@
                                         <th th:text="${task.id}" style="font-weight: normal"></th>
                                         <th th:text="${task.taskName}" style="font-weight: normal"></th>
                                         <th th:text="${task.estimation}" style="font-weight: normal"></th>
-                                        <th th:text="${task.taskPriority.priorityName}" style="font-weight: normal"></th>
+                                        <th th:text="${task.taskPriority.priorityName}"
+                                            style="font-weight: normal"></th>
                                         <th th:switch="${task.taskStatus.statusName}" style="font-weight: normal">
-                                             <div th:case="'Open'"><span class="label label-primary" th:text="${task.taskStatus.statusName}"></span></div>
-                                             <div th:case="'Reopen'"><span class="label label-danger" th:text="${task.taskStatus.statusName}"></span></div>
-                                             <div th:case="'On hold'"><span class="label label-warning" th:text="${task.taskStatus.statusName}"></span></div>
-                                             <div th:case="'In progress'"><span class="label label-warning" th:text="${task.taskStatus.statusName}"></span></div>
-                                             <div th:case="'Closed'"><span class="label label-success" th:text="${task.taskStatus.statusName}"></span></div>
-                                             <div th:case="'Implemented'"><span class="label label-success" th:text="${task.taskStatus.statusName}"></span></div>
-                                             <div th:case="'Ready for testing'"><span class="label label-success" th:text="${task.taskStatus.statusName}"></span></div>
+                                            <div th:case="'Open'"><span class="label label-primary"
+                                                                        th:text="${task.taskStatus.statusName}"></span>
+                                            </div>
+                                            <div th:case="'Reopen'"><span class="label label-danger"
+                                                                          th:text="${task.taskStatus.statusName}"></span>
+                                            </div>
+                                            <div th:case="'On hold'"><span class="label label-warning"
+                                                                           th:text="${task.taskStatus.statusName}"></span>
+                                            </div>
+                                            <div th:case="'In progress'"><span class="label label-warning"
+                                                                               th:text="${task.taskStatus.statusName}"></span>
+                                            </div>
+                                            <div th:case="'Closed'"><span class="label label-success"
+                                                                          th:text="${task.taskStatus.statusName}"></span>
+                                            </div>
+                                            <div th:case="'Implemented'"><span class="label label-success"
+                                                                               th:text="${task.taskStatus.statusName}"></span>
+                                            </div>
+                                            <div th:case="'Ready for testing'"><span class="label label-success"
+                                                                                     th:text="${task.taskStatus.statusName}"></span>
+                                            </div>
                                         </th>
-                                        <th style="font-weight: normal"></th>
-                                        <div th:if="${task.percentage} == 0"><span class="badge bg-red">0%</span></div>
-                                        <div th:if="${task.percentage} < 30">
+                                        <th style="font-weight: normal" th:text="${task.percentage}">
+                                       <!-- <div th:if="${task.percentage} == 0">
+                                            <span class="badge bg-red">0%</span>
+                                        </div>
+                                       <div th:if="${task.percentage} &le; 30">
                                             <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
+                                                <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
                                                 <span class="badge bg-light-blue" th:text="${task.percentage}"></span>
                                             </div>
                                         </div>
-                                        <div th:if="${task.percentage} > 30 && < 50">
+                                        <div th:if="${task.percentage} &le; 30 AND ${task.percentage} &ge; 50">
                                             <div class="progress progress-xs">
                                                 <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
                                                 <span class="badge bg-red" th:text="${task.percentage}"></span>
                                             </div>
                                         </div>
-                                        <div th:if="${task.percentage} > 50 && < 70">
+                                        <div th:if="${task.percentage &le;50 AND task.percentage &ge;70}">
                                             <div class="progress progress-xs">
                                                 <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
                                                 <span class="badge bg-yellow" th:text="${task.percentage}"></span>
                                             </div>
                                         </div>
-                                        <div th:if="${task.percentage} > 70">
+                                        <div th:if="${task.percentage}&ge;70">
                                             <div class="progress progress-xs">
                                                 <div class="progress-bar progress-bar-success" style="width: 90%"></div>
                                                 <span class="badge bg-green" th:text="${task.percentage}"></span>
                                             </div>
-                                        </div>
+                                        </div> -->
+                                        </th>
                                         <th width="100">
                                             <button type="button" class="btn btn-primary btn-md"
                                                     th:onclick="|window.location.href='/task-edition/${task.id}'|">
@@ -273,6 +291,7 @@
             "autoWidth": false
         });
     });
+
 </script>
 </body>
 </html>
