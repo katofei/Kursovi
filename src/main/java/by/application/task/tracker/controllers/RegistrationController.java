@@ -55,6 +55,8 @@ public class RegistrationController {
         ModelAndView view = new ModelAndView();
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
 
+        createUserAccount(userDTO, result);
+
         if (result.hasErrors()) {
             view.setViewName("registration");
             view.addObject("currentUser", currentUser);
@@ -69,7 +71,6 @@ public class RegistrationController {
         }
 
         view.setViewName("redirect:/allUsers");
-        createUserAccount(userDTO, result);
         return view;
     }
 
@@ -77,9 +78,9 @@ public class RegistrationController {
         try {
             userService.createUser(userDto);
         } catch (LoginExistsException e) {
-            result.rejectValue("userName", "message", "Username already exists");
+            result.rejectValue("login", "message", "Username already exists");
         } catch (WorkEmailExistsException e) {
-            result.rejectValue("email", "message", "Email already exists");
+            result.rejectValue("workEmail", "message", "Email already exists");
         }
     }
 }

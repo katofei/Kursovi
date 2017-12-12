@@ -178,7 +178,6 @@
                             <div class="form-group has-feedback">
                                 <label>Project role</label>
                                 <select th:field="*{projectRole}" class="form-control select2" style="width: 100%;">
-                                    <option th:value="0"></option>
                                     <option th:each="projectRole:${projectRoles}"
                                             th:value="${projectRole.projectRoleId}"
                                             th:text="${projectRole.projectRoleName}" selected="selected">Project Manager
@@ -187,6 +186,12 @@
                             </div>
                             <h3 class="box-title">Contact information</h3>
                             <div class="form-group has-feedback">
+                                <h3>
+                                    <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
+                                           th:if="${#fields.hasErrors('workPhone')}"
+                                           th:errors="*{workPhone}">
+                                    </small>
+                                </h3>
                                 <label>Work phone:</label>
                                 <input type="text" class="form-control" th:field="*{workPhone}"/>
                                 <span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>

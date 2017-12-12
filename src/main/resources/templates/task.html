@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -16,6 +17,82 @@
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+
+<form role="form" id="assignAnotherUserForm" th:action="@{/assignAnotherUser}" th:object="${userDTO}" method="post">
+    <div id="assignAnotherUser" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Assign another user</h4>
+                </div>
+                <div class="modal-body">
+                    <label>User Name</label>
+                    <input id="userName" type="text" class="form-control" th:field="*{userName}"/>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a id="btn-confirm" class="btn btn-primary pull-right">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div th:fragment="confirm">
+    <div id="changePriority" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change priority</h4>
+                </div>
+                <div class="modal-body">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <a id="btn-confirm" class="btn btn-primary pull-right">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="confirm">
+    <div id="changeStatus" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change status</h4>
+                </div>
+                <div class="modal-body">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <a id="btn-confirm" class="btn btn-primary pull-right">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="confirm">
+    <div id="logTime" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Log time</h4>
+                </div>
+                <div class="modal-body">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <a id="btn-confirm" class="btn btn-primary pull-right">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="wrapper">
 
     <header class="main-header">
@@ -124,17 +201,17 @@
                                     <h3 class="box-title" th:text="${task.taskName}"></h3>
                                 </td>
                                 <td style="width: 89px;">
-                                    <button type="button" class="btn btn-info">Assign another user</button></td>
+                                    <button data-toggle="modal" data-target="#assignAnotherUser" type="button" class="btn btn-info">Assign another user</button></td>
                                 <td style="width: 10px;">&nbsp;</td>
                                 <td style="width: 89px;">
-                                    <button type="button" class="btn btn-danger">Change priority</button></td>
+                                    <button data-toggle="modal" data-target="#changePriority" type="button" class="btn btn-danger">Change priority</button></td>
                                 <td style="width: 10px;">&nbsp;</td>
                                 <td style="width: 89px;">
-                                    <button type="button" class="btn btn-warning">Change status</button>
+                                    <button data-toggle="modal" data-target="#changeStatus" type="button" class="btn btn-warning">Change status</button>
                                 </td>
                                 <td style="width: 10px;">&nbsp;</td>
                                 <td style="width: 89px;">
-                                    <button type="button" class="btn btn-success">Log time</button></td>
+                                    <button data-toggle="modal" data-target="#logTime" type="button" class="btn btn-success">Log time</button></td>
                                 <td style="width: 10px;">&nbsp;</td>
                             </tr>
                             </tbody>
@@ -276,6 +353,7 @@
 <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
 <script th:src="@{/dist/js/adminlte.min.js}"></script>
 <script th:src="@{/dist/js/demo.js}"></script>
+<script th:src="@{/pashaJs/assignUser.js}"></script>
 
 </body>
 </html>

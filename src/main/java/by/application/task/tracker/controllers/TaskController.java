@@ -1,6 +1,7 @@
 package by.application.task.tracker.controllers;
 
 import by.application.task.tracker.data.dto.TaskDTO;
+import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
@@ -109,6 +110,9 @@ public class TaskController {
         view.addObject("creator", task.getCreator());
         view.addObject("executor", task.getExecutor());
         view.addObject("task", task);
+
+
+        view.addObject("userDTO", new UserDTO());
         return view;
     }
 

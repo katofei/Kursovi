@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(UserDTO userDTO) throws LoginExistsException, WorkEmailExistsException {
 
-        if (loginExists(userDTO.getUserName())) {
+        if (loginExists(userDTO.getLogin())) {
             throw new LoginExistsException("There is an account with that Login: "  + userDTO.getLogin());
         }
 
