@@ -72,19 +72,45 @@
                         </a>
                     </li>
                     <li>
-                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/team'|">
+                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-team'|">
                             <i class="fa fa-share"></i> <span>My team</span>
                         </a>
                     </li>
-                    <li>
-                        <a th:onclick="|window.location.href='/project/${currentUser.userId}/tasks'|">
-                            <i class="fa fa-share"></i> <span>My tasks</span>
+                    <li class="treeview">
+                        <a>
+                            <i class="fa fa-share"></i> <span>Manage tasks</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                         </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
+                                    <i class="fa fa-share"></i> <span>Create new</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
+                                    <i class="fa fa-share"></i> <span>My tasks</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a th:onclick="|window.location.href='/project/${currentUser.userId}/statistics'|">
-                            <i class="fa fa-share"></i> <span>My statistics</span>
+                    <li class="treeview">
+                        <a>
+                            <i class="fa fa-table"></i> <span>Statistics</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                         </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a th:onclick="|window.location.href='/profile/${currentUser.userId}/team-statistics'|">
+                                    <i class="fa fa-share"></i> <span>Team statistics</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:onclick="|window.location.href='/profile/${currentUser.userId}/user-statistics'|">
+                                    <i class="fa fa-share"></i> <span>My statistics</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </section>
@@ -241,7 +267,37 @@
                                                     <td style="width: 663px; height: 30px;">People</td>
                                                 </tr>
                                                 <tr style="height: 96px;">
-                                                    <td style="width: 663px; height: 96px;">&nbsp;</td>
+                                                    <td style="width: 663px; height: 96px;">&nbsp;
+                                                        <div class="box-body table-responsive no-padding">
+                                                            <table id="example1" class="table table-hover">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Name</th>
+                                                                    <th>Surname</th>
+                                                                    <th>Post</th>
+                                                                    <th>Location</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr th:each="user:${userList}">
+                                                                    <th th:text="${user.userName}" style="font-weight: normal"></th>
+                                                                    <th th:text="${user.userSurname}" style="font-weight: normal"></th>
+                                                                    <th th:text="${user.qualification.qualificationName}+' '+${user.position.positionName}"
+                                                                        style="font-weight: normal"></th>
+                                                                    <th th:text="${user.userContact.country}+' '+${user.userContact.city}" style="font-weight: normal"></th>
+                                                                    <th width="100">
+                                                                        <button type="button" class="btn btn-primary btn-md"
+                                                                                th:onclick="|window.location.href='/profile/${user.userId}'|">
+                                                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                                                            <span>Info</span>
+                                                                        </button>
+                                                                    </th>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                                 </tbody>
                                             </table>

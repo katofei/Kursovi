@@ -77,7 +77,7 @@
                         </a>
                     </li>
                     <li>
-                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/team'|">
+                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-team'|">
                             <i class="fa fa-share"></i> <span>My team</span>
                         </a>
                     </li>
@@ -189,12 +189,19 @@
                                         <th>Status</th>
                                         <th>Project</th>
                                         <th>Post</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <th>Project role</th>
+                                        <div sec:authorize="hasRole('ROLE_ADMIN')">
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </div>
+                                        <div sec:authorize="hasRole('ROLE_USER')">
+                                            <th>Country</th>
+                                            <th>City</th>
+                                        </div>
                                     </tr>
                                     </thead>
-                                    <tbody id="myTable">
+                                    <tbody>
                                     <tr th:each="user:${userList}">
                                         <th th:text="${user.userName}" style="font-weight: normal"></th>
                                         <th th:text="${user.userSurname}" style="font-weight: normal"></th>
@@ -202,50 +209,57 @@
                                         <th th:text="${user.project.projectName}" style="font-weight: normal"></th>
                                         <th th:text="${user.qualification.qualificationName}+' '+${user.position.positionName}"
                                             style="font-weight: normal"></th>
-                                        <th width="100">
-                                            <button type="button" class="btn btn-primary btn-md"
-                                                    th:onclick="|window.location.href='/user-edition/${user.userId}'|">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                                <span>Edit</span>
-                                            </button>
-                                        </th>
-                                        <th width="120">
-                                            <a href="#myModal" class="btn btn-primary btn-md " data-toggle="modal">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                                <span>Delete</span>
-                                            </a>
-                                            <div id="myModal" class="modal fade">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-hidden="true">×
-                                                            </button>
-                                                            <h4 class="modal-title">Confirm you action</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Do you want delete user?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default"
-                                                                    data-dismiss="modal">Close
-                                                            </button>
-                                                            <button type="button" class="btn btn-primary"
-                                                                    th:onclick="|window.location.href='/user-deletion/${user.userId}'|">
-                                                                Save changes
-                                                            </button>
+                                        <th style="font-weight: normal" th:text="${user.projectRole.projectRoleName}"></th>
+                                        <div sec:authorize="hasRole('ROLE_ADMIN')">
+                                            <th width="100">
+                                                <button type="button" class="btn btn-primary btn-md"
+                                                        th:onclick="|window.location.href='/user-edition/${user.userId}'|">
+                                                    <span class="glyphicon glyphicon-pencil"></span>
+                                                    <span>Edit</span>
+                                                </button>
+                                            </th>
+                                            <th width="120">
+                                                <a href="#myModal" class="btn btn-primary btn-md " data-toggle="modal">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                    <span>Delete</span>
+                                                </a>
+                                                <div id="myModal" class="modal fade">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">×
+                                                                </button>
+                                                                <h4 class="modal-title">Confirm you action</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Do you want delete user?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
+                                                                <button type="button" class="btn btn-primary"
+                                                                        th:onclick="|window.location.href='/user-deletion/${user.userId}'|">
+                                                                    Save changes
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </th>
-                                        <th width="100">
-                                            <button type="button" class="btn btn-primary btn-md"
-                                                    th:onclick="|window.location.href='/profile/${user.userId}'|">
-                                                <span class="glyphicon glyphicon-info-sign"></span>
-                                                <span>Info</span>
-                                            </button>
-                                        </th>
+                                            </th>
+                                            <th width="100">
+                                                <button type="button" class="btn btn-primary btn-md"
+                                                        th:onclick="|window.location.href='/profile/${user.userId}'|">
+                                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                                    <span>Info</span>
+                                                </button>
+                                            </th>
+                                        </div>
+                                        <div sec:authorize="hasRole('ROLE_USER')">
+                                            <th style="font-weight: normal" th:text="${user.userContact.country}"></th>
+                                            <th style="font-weight: normal" th:text="${user.userContact.city}"></th>
+                                        </div>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -270,6 +284,7 @@
       "autoWidth": true
     });
   });
+
 
 </script>
 </body>

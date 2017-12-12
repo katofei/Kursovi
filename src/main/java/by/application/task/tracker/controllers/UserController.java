@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -174,6 +175,22 @@ public class UserController {
         view.addObject("taskList", taskList);
         return view;
     }
+
+    @RequestMapping(value = "/profile/{id}/my-team", method = RequestMethod.GET)
+    public ModelAndView getMyTeamPage(@PathVariable("id") long id) {
+        ModelAndView view = new ModelAndView("allUsersPage");
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
+
+        List<User> userList= userService.getAllUsers().stream().filter(user -> currentUser.getProject() == user.getProject()).collect(Collectors.toList());
+        view.addObject("userList", userList);
+
+        return view;
+    }
+
 
     private void editUser(UserInfoWrapper userInfoWrapper) {
         userContactService.editContact(userInfoWrapper);

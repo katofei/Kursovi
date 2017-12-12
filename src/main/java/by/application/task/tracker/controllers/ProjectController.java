@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ProjectController {
@@ -90,6 +91,8 @@ public class ProjectController {
         Project project = projectService.findByProjectId(id);
         view.addObject("project", project);
         view.addObject("projectContact", project.getProjectContact());
+        List<User> userList= userService.getAllUsers().stream().filter(user -> project == user.getProject()).collect(Collectors.toList());
+        view.addObject("userList", userList);
         return view;
     }
 
