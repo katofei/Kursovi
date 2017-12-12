@@ -15,7 +15,7 @@ $( document ).ready(function() {
         var formData;
 
         formData = {
-            userName : $("#userName").val()
+            executor : $("#executorId").val()
         };
 
         $.ajax({

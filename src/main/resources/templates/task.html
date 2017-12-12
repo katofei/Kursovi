@@ -36,7 +36,7 @@
                                th:if="${userList.isEmpty()}" th:errors="*{userList}">
                         </small>
                     </h3>
-                    <select th:field="*{executor}" class="form-control select2" style="width: 100%;">
+                    <select id="executorId" th:field="*{executor}" class="form-control select2" style="width: 100%;">
                         <option th:each="executor:${userList}"
                                 th:value="${executor.userId}"
                                 th:text="${executor.userName}+' '+${executor.userSurname}">

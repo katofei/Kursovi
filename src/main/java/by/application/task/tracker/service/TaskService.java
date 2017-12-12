@@ -6,6 +6,7 @@ import by.application.task.tracker.data.entities.Task;
 import java.util.List;
 
 public interface TaskService {
+    Task assignAnotherUser(TaskDTO taskDTO, long id);
     Task createTask(TaskDTO taskDTO);
     void deleteTask(Long taskId);
     Task editTask(TaskDTO taskDTO, long id);
