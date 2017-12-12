@@ -81,13 +81,21 @@
                     </a>
                 </li>
                 <li class="treeview">
-                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
-                        <i class="fa fa-share"></i> <span>My tasks</span>
+                    <a>
+                        <i class="fa fa-share"></i> <span>Manage tasks</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
-                            <i class="fa fa-share"></i> <span>Create new</span>
-                        </a>
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
+                                <i class="fa fa-share"></i> <span>Create new</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
+                                <i class="fa fa-share"></i> <span>My tasks</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -260,14 +268,14 @@
                                         </th>
                                         <th width="100">
                                             <button type="button" class="btn btn-primary btn-md"
-                                                    th:onclick="|window.location.href='/task-edition/${task.id}'|">
+                                                    th:onclick="|window.location.href='/profile/${currentUser.userId}/task-edition/${task.id}'|">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                                 <span>Edit</span>
                                             </button>
                                         </th>
                                         <th width="100">
                                             <button type="button" class="btn btn-primary btn-md"
-                                                    th:onclick="|window.location.href='/task/${task.id}'|">
+                                                    th:onclick="|window.location.href='/profile/${currentUser.userId}/task/${task.id}'|">
                                                 <span class="glyphicon glyphicon-info-sign"></span>
                                                 <span>Info</span>
                                             </button>

@@ -93,7 +93,7 @@ public class TaskController {
         return view;
     }
 
-    @RequestMapping(path = "/task/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/profile/{id}/task/{id}", method = RequestMethod.GET)
     public ModelAndView getTaskPage(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("task");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -111,12 +111,18 @@ public class TaskController {
         view.addObject("executor", task.getExecutor());
         view.addObject("task", task);
 
+        List<User> userList = userService.getAllUsers();
+        view.addObject("userList", userList);
+        view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
+        view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
+
 
         view.addObject("userDTO", new UserDTO());
+        view.addObject("taskDTO", new TaskDTO());
         return view;
     }
 
-    @RequestMapping(value = "/task-deletion/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/profile/{id}/task-deletion/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView deleteProject(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("task");
@@ -127,5 +133,33 @@ public class TaskController {
 
         projectService.deleteProject(id);
         return new ModelAndView("allTasks");
+    }
+
+    @RequestMapping(value = "/profile/{id}/task-edition/{id}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public ModelAndView getTaskeditionPage(@PathVariable("id") long id) {
+        ModelAndView view = new ModelAndView("editTaskPage");
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
+
+        Task task = taskService.findTaskById(id);
+        view.addObject("taskType", task.getTaskType());
+        view.addObject("taskProject",task.getProject());
+        view.addObject("taskPriority", task.getTaskPriority());
+        view.addObject("taskStatus", task.getTaskStatus());
+        view.addObject("creator", task.getCreator());
+        view.addObject("executor", task.getExecutor());
+        view.addObject("task", task);
+
+        List<User> userList = userService.getAllUsers();
+        view.addObject("userList", userList);
+        view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
+        view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
+
+
+        return view;
     }
 }

@@ -31,13 +31,21 @@
                 </a>
             </li>
             <li class="treeview">
-                <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
-                    <i class="fa fa-share"></i> <span>My tasks</span>
+                <a>
+                    <i class="fa fa-share"></i> <span>Manage tasks</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
-                        <i class="fa fa-share"></i> <span>Create new</span>
-                    </a>
+                    <li>
+                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
+                            <i class="fa fa-share"></i> <span>Create new</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
+                            <i class="fa fa-share"></i> <span>My tasks</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="treeview">

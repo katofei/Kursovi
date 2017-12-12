@@ -18,7 +18,9 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
-<form role="form" id="assignAnotherUserForm" th:action="@{/assignAnotherUser}" th:object="${userDTO}" method="post">
+
+//may be taskDTO?
+<form role="form" id="assignAnotherUserForm" th:action="@{/assignAnotherUser}" th:object="${taskDTO}" method="post">
     <div id="assignAnotherUser" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -28,8 +30,19 @@
                     <h4 class="modal-title">Assign another user</h4>
                 </div>
                 <div class="modal-body">
-                    <label>User Name</label>
-                    <input id="userName" type="text" class="form-control" th:field="*{userName}"/>
+                    <label>User</label>
+                    <h3>
+                        <small style="color:#a31515; font-family: Times, serif; font-weight:bold;"
+                               th:if="${userList.isEmpty()}" th:errors="*{userList}">
+                        </small>
+                    </h3>
+                    <select th:field="*{executor}" class="form-control select2" style="width: 100%;">
+                        <option th:each="executor:${userList}"
+                                th:value="${executor.userId}"
+                                th:text="${executor.userName}+' '+${executor.userSurname}">
+                        </option>
+                    </select>
+                    <p></p>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <a id="btn-confirm" class="btn btn-primary pull-right">Confirm</a>
@@ -49,6 +62,15 @@
                     <h4 class="modal-title">Change priority</h4>
                 </div>
                 <div class="modal-body">
+
+                    <label>Priority</label>
+                    <select th:field="*{taskPriority}" class="form-control select2" style="width: 100%;">
+                        <option th:each="taskPriority:${taskPriorities}"
+                                th:value="${taskPriority.priorityId}"
+                                th:text="${taskPriority.priorityName}" selected="selected">Low
+                        </option>
+                    </select>
+                    <p></p>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     <a id="btn-confirm" class="btn btn-primary pull-right">Confirm</a>
                 </div>
@@ -67,6 +89,14 @@
                     <h4 class="modal-title">Change status</h4>
                 </div>
                 <div class="modal-body">
+                    <label>Status</label>
+                    <select th:field="*{taskStatus}" class="form-control select2" style="width: 100%;">
+                        <option th:each="taskStatus:${taskStatuses}"
+                                th:value="${taskStatus.statusId}"
+                                th:text="${taskStatus.statusName}">
+                        </option>
+                    </select>
+                    <p></p>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     <a id="btn-confirm" class="btn btn-primary pull-right">Confirm</a>
                 </div>
@@ -85,6 +115,12 @@
                     <h4 class="modal-title">Log time</h4>
                 </div>
                 <div class="modal-body">
+                    <label>Time spent, h</label>
+                    <input th:filed="*{timeSpent}"/>
+                    <p></p>
+                    <label>Percentage, %</label>
+                    <input th:filed="*{percentage}"/>
+                    <p></p>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     <a id="btn-confirm" class="btn btn-primary pull-right">Confirm</a>
                 </div>
@@ -153,13 +189,21 @@
                     </a>
                 </li>
                 <li class="treeview">
-                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
-                        <i class="fa fa-share"></i> <span>My tasks</span>
+                    <a>
+                        <i class="fa fa-share"></i> <span>Manage tasks</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
-                            <i class="fa fa-share"></i> <span>Create new</span>
-                        </a>
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
+                                <i class="fa fa-share"></i> <span>Create new</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
+                                <i class="fa fa-share"></i> <span>My tasks</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -197,21 +241,32 @@
                         <table style="height: 41px; width:91%;">
                             <tbody>
                             <tr>
-                                <td style="width: 450px;" >
+                                <td style="width: 450px;">
                                     <h3 class="box-title" th:text="${task.taskName}"></h3>
                                 </td>
                                 <td style="width: 89px;">
-                                    <button data-toggle="modal" data-target="#assignAnotherUser" type="button" class="btn btn-info">Assign another user</button></td>
-                                <td style="width: 10px;">&nbsp;</td>
-                                <td style="width: 89px;">
-                                    <button data-toggle="modal" data-target="#changePriority" type="button" class="btn btn-danger">Change priority</button></td>
-                                <td style="width: 10px;">&nbsp;</td>
-                                <td style="width: 89px;">
-                                    <button data-toggle="modal" data-target="#changeStatus" type="button" class="btn btn-warning">Change status</button>
+                                    <button data-toggle="modal" data-target="#assignAnotherUser" type="button"
+                                            class="btn btn-info">Assign another user
+                                    </button>
                                 </td>
                                 <td style="width: 10px;">&nbsp;</td>
                                 <td style="width: 89px;">
-                                    <button data-toggle="modal" data-target="#logTime" type="button" class="btn btn-success">Log time</button></td>
+                                    <button data-toggle="modal" data-target="#changePriority" type="button"
+                                            class="btn btn-danger">Change priority
+                                    </button>
+                                </td>
+                                <td style="width: 10px;">&nbsp;</td>
+                                <td style="width: 89px;">
+                                    <button data-toggle="modal" data-target="#changeStatus" type="button"
+                                            class="btn btn-warning">Change status
+                                    </button>
+                                </td>
+                                <td style="width: 10px;">&nbsp;</td>
+                                <td style="width: 89px;">
+                                    <button data-toggle="modal" data-target="#logTime" type="button"
+                                            class="btn btn-success">Log time
+                                    </button>
+                                </td>
                                 <td style="width: 10px;">&nbsp;</td>
                             </tr>
                             </tbody>
@@ -336,8 +391,10 @@
                                 <td style="width: 471px; height: 33px;">&nbsp;</td>
                             </tr>
                             <tr style="height: 184px;">
-                                <td style="width: 927px;height: 184px;vertical-align:top" colspan="2" th:text="${task.description}">
-                                    &nbsp;</td>
+                                <td style="width: 927px;height: 184px;vertical-align:top" colspan="2"
+                                    th:text="${task.description}">
+                                    &nbsp;
+                                </td>
                             </tr>
                             </tbody>
                         </table>
