@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Task</title>
+    <title>Statistics</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/font_awesome/css/font_awesome.min.css}"/>
@@ -15,6 +15,15 @@
     <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
+
+
+    <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/dist/js/adminlte.min.js}"></script>
+    <script th:src="@{/dist/js/demo.js}"></script>
+    <script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
+    <script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -120,14 +129,70 @@
 
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>
+            <h3>
                 Team statistics
-            </h1>
+            </h3>
+            <div class="box-body table-responsive no-padding">
+                <table id="example1" class="table table-hover">
+                    <td>
+                        <div class="box box-danger">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Latest Members</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                            class="fa fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                            class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="box-body no-padding">
+                                <ul class="users-list clearfix" th:each="user:${userList}">
+                                    <li>
+                                        <img th:src="@{dist/img/user1-128x128.jpg}"/>
+                                        <a class="users-list-name"
+                                           th:text="${user.userName}+' '+ ${user.userSurname}"></a>
+                                        <span class="users-list-date">Today</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box-footer text-center">
+                                <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-team'|"
+                                   class="uppercase">View All Users</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="box box-success">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Visitors Report</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                            class="fa fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                            class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="box-body no-padding">
+                                <div class="row">
+                                    <div>
+                                        <div class="pad">
+                                            <div id="world-map-markers" style="height: 325px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </table>
+            </div>
         </section>
-
-
     </div>
-
 </div>
+
 </body>
 </html>

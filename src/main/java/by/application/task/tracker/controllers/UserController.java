@@ -171,6 +171,7 @@ public class UserController {
 
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
+        // todo add logic for filtering
         List<Task> taskList = taskService.getAllTasks();
         view.addObject("taskList", taskList);
         return view;
@@ -192,18 +193,33 @@ public class UserController {
     }
 
 
+    @RequestMapping(value = "/profile/{id}/team-statistics", method = RequestMethod.GET)
+    public ModelAndView getTeamStatisticsPage(@PathVariable("id") long id) {
+        ModelAndView view = new ModelAndView("teamStatistics");
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
+
+        List<User> userList= userService.getAllUsers().stream().filter(user -> currentUser.getProject() == user.getProject()).collect(Collectors.toList());
+        view.addObject("userList", userList);
+
+        return view;
+    }
+
+
     private void editUser(UserInfoWrapper userInfoWrapper) {
         userContactService.editContact(userInfoWrapper);
         userService.editUser(userInfoWrapper);
     }
 
     //TODO need to add function for mappings :
-    //  /profile/${currentUser.userId}/team - use allUsersPage, + filter by project
 
     //  /profile/${currentUser.userId}/my-tasks - use "myTasks" page, + filter by user ( as creator and as executor)
     //  this stuff started
 
-    //  /profile/${currentUser.userId}/team-statistics - use page with name "userStatistics"
+    //  /profile/${currentUser.userId}/user-statistics - use page with name "userStatistics"
     //  /profile/${currentUser.userId}/team-statistics - use page with name "teamStatistics"
 
 }
