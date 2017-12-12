@@ -82,31 +82,34 @@
     </div>
 </form>
 
-<div th:fragment="confirm">
-    <div id="changeStatus" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Change status</h4>
-                </div>
-                <div class="modal-body">
-                    <label>Status</label>
-                    <select th:field="*{taskStatus}" class="form-control select2" style="width: 100%;">
-                        <option th:each="taskStatus:${taskStatuses}"
-                                th:value="${taskStatus.statusId}"
-                                th:text="${taskStatus.statusName}">
-                        </option>
-                    </select>
-                    <p></p>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    <a id="btn-confirm" class="btn btn-primary pull-right">Confirm</a>
+<form role="form" id="changeStatusForm" th:action="@{/changeStatus}" th:object="${taskDTO}" method="post">
+    <div th:fragment="confirm">
+        <div id="changeStatus" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Change status</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label>Status</label>
+                        <select id="statusId" th:field="*{taskStatus}" class="form-control select2" style="width: 100%;">
+                            <option th:each="taskStatus:${taskStatuses}"
+                                    th:value="${taskStatus.statusId}"
+                                    th:text="${taskStatus.statusName}">
+                            </option>
+                        </select>
+                        <p></p>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a id="btn-confirm" class="btn btn-primary pull-right">Confirm</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 
 <div th:fragment="confirm">
     <div id="logTime" class="modal fade" role="dialog">
@@ -415,6 +418,7 @@
 <script th:src="@{/dist/js/demo.js}"></script>
 <script th:src="@{/pashaJs/assignUser.js}"></script>
 <script th:src="@{/pashaJs/changePriority.js}"></script>
+<script th:src="@{/pashaJs/changeStatus.js}"></script>
 
 </body>
 </html>
