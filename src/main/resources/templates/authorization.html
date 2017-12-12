@@ -22,7 +22,7 @@
     <div class="login-box-body">
         <form th:action="@{/login}" method="POST">
             <div th:if="${param.error!=null}">
-                <div class="alert alert-danger alert-dismissible">
+                <div class="alert alert-danger">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <h4><i class="icon fa fa-ban"></i>Login error</h4>
                     <p th:text="${error}"></p>
