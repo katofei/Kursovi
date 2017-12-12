@@ -30,9 +30,9 @@ public class TaskRestController {
         return new ResponseEntity<>(taskDTO, HttpStatus.OK);
     }
     @RequestMapping(value = "/logTime", method = RequestMethod.POST)
-    public ResponseEntity<TaskDTO> logTime(@RequestBody TaskDTO userDTO) {
-        System.out.println(userDTO.getExecutor());
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    public ResponseEntity<TaskDTO> logTime(@PathVariable("id") long id, @RequestBody TaskDTO taskDTO) {
+        logTime(taskDTO, id);
+        return new ResponseEntity<>(taskDTO, HttpStatus.OK);
     }
 
     private void assignAnotherUser(TaskDTO taskDTO, long id){
@@ -43,5 +43,8 @@ public class TaskRestController {
     }
     private void changeStatus(TaskDTO taskDTO, long id){
         taskService.changeStatus(taskDTO, id);
+    }
+    private void logTime(TaskDTO taskDTO, long id){
+        taskService.logTime(taskDTO, id);
     }
 }

@@ -59,6 +59,14 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public Task logTime(TaskDTO taskDTO, long id) {
+        Task task = taskRepository.findOne(id);
+        task.setPercentage(taskDTO.getPercentage());
+        task.setTimeSpent(taskDTO.getTimeSpent());
+        return taskRepository.save(task);
+    }
+
+    @Override
     public Task createTask(TaskDTO taskDTO) {
         Task createdTask = new Task(taskDTO);
         Date today = new Date();
