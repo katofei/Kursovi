@@ -136,14 +136,14 @@
                                         <td style="width: 211px;">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"/>Created by me
+                                                    <input type="checkbox" id="creator"/>Created by me
                                                 </label>
                                             </div>
                                         </td>
                                         <td style="width: 211px;">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"/>Assigned to me
+                                                    <input type="checkbox" id="assignee"/>Assigned to me
                                                 </label>
                                             </div>
                                         </td>
@@ -199,6 +199,8 @@
                                     <tbody id="myTable">
                                     <tr th:each="task:${taskList}">
                                         <th th:text="${task.id}" style="font-weight: normal"></th>
+                                        <input type="hidden" id="creatorId" th:value="*{task.executor.userId}"/>
+                                        <input type="hidden" id="executorId" th:value="*{task.creator.userId}"/>
                                         <th th:text="${task.taskName}" style="font-weight: normal"></th>
                                         <th th:text="${task.estimation}" style="font-weight: normal"></th>
                                         <th th:text="${task.taskPriority.priorityName}"
@@ -313,7 +315,14 @@
             "autoWidth": false
         });
     });
+</script>
 
+<script>
+    $(function () {
+        $('#creator').checked({
+
+        });
+    });
 </script>
 </body>
 </html>

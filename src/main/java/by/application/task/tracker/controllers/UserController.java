@@ -156,6 +156,7 @@ public class UserController {
 
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
+
         // todo add logic for filtering
         List<Task> taskList = taskService.getAllTasks();
         view.addObject("taskList", taskList);
