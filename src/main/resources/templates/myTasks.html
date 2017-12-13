@@ -15,6 +15,7 @@
     <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
     <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/pashaJs/filterPriority.js}"></script>
     <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
     <script th:src="@{/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
     <script th:src="@{/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
@@ -136,21 +137,22 @@
                                         <td style="width: 211px;">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="creator"/>Created by me
+                                                    <input type="checkbox" name="checkme" id="creatorCheckBox"/>Created by me
                                                 </label>
                                             </div>
                                         </td>
                                         <td style="width: 211px;">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="assignee"/>Assigned to me
+                                                    <input type="checkbox" id="assigneeCheckBox"/>Assigned to me
                                                 </label>
                                             </div>
                                         </td>
                                         <td style="width: 211px;">
                                             <div class="form-group has-feedback">
                                                 <label>Priority</label>
-                                                <select class="form-control select2" style="width: 100%;">
+                                                <select id="prioritySelector" class="form-control select2" style="width: 100%;">
+                                                    <option value="0"></option>
                                                     <option>Low</option>
                                                     <option>Normal</option>
                                                     <option>High</option>
@@ -165,7 +167,8 @@
                                         <td style="width: 211px;">
                                             <div class="form-group has-feedback">
                                                 <label>Status</label>
-                                                <select class="form-control select2" style="width: 100%;">
+                                                <select id="statusSelector" class="form-control select2" style="width: 100%;">
+                                                    <option value="0"></option>
                                                     <option>Open</option>
                                                     <option>Reopen</option>
                                                     <option>On hold</option>
@@ -273,7 +276,7 @@
                                         </th>
                                         <th width="100">
                                             <button type="button" class="btn btn-primary btn-md"
-                                                    th:onclick="|window.location.href='/profile/${currentUser.userId}/task-edition/${task.id}'|">
+                                                    th:onclick="|window.location.href='/profile/task-edition/${currentUser.userId}/${task.id}'|">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                                 <span>Edit</span>
                                             </button>

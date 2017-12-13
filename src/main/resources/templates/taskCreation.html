@@ -84,12 +84,12 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
+                            <a th:onclick="|window.location.href='/profile/task-creation/${currentUser.userId}'|">
                                 <i class="fa fa-share"></i> <span>Create new</span>
                             </a>
                         </li>
                         <li>
-                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
+                            <a th:onclick="|window.location.href='/profile/my-tasks/${currentUser.userId}'|">
                                 <i class="fa fa-share"></i> <span>My tasks</span>
                             </a>
                         </li>
@@ -124,7 +124,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Task creation</h3>
                     </div>
-                    <form role="form" th:action="@{/profile/{id}(id=${currentUser.userId})/task-creation}" th:object="${task}" method="post">
+                    <form role="form" th:action="@{/profile/task-creation/{id}(id=${currentUser.userId})}" th:object="${task}" method="post">
                         <div class="box-body">
                             <div class="form-group has-feedback">
                                 <label>Task name</label>

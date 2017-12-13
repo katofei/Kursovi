@@ -145,7 +145,7 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "/profile/{id}/my-tasks", method = RequestMethod.GET)
+    @RequestMapping(value = "/profile/my-tasks/{id}", method = RequestMethod.GET)
     public ModelAndView getMyTasks(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("myTasks");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -158,7 +158,8 @@ public class UserController {
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
 
         // todo add logic for filtering
-        List<Task> taskList = taskService.getAllTasks();
+        List<Task> taskList = taskService.getAllTasks().stream()
+                .filter(task -> task.getProject() == currentUser.getProject()).collect(Collectors.toList());
         view.addObject("taskList", taskList);
         return view;
     }

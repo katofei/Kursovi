@@ -15,6 +15,17 @@
     <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
+
+    <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/dist/js/adminlte.min.js}"></script>
+    <script th:src="@{/dist/js/demo.js}"></script>
+    <script th:src="@{/pashaJs/assignUser.js}"></script>
+    <script th:src="@{/pashaJs/changePriority.js}"></script>
+    <script th:src="@{/pashaJs/changeStatus.js}"></script>
+    <script th:src="@{/pashaJs/logTime.js}"></script>
+
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
@@ -198,12 +209,12 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
+                            <a th:onclick="|window.location.href='/profile/task-creation/${currentUser.userId}'|">
                                 <i class="fa fa-share"></i> <span>Create new</span>
                             </a>
                         </li>
                         <li>
-                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
+                            <a th:onclick="|window.location.href='/profile/my-tasks/${currentUser.userId}'|">
                                 <i class="fa fa-share"></i> <span>My tasks</span>
                             </a>
                         </li>
@@ -456,15 +467,6 @@
         </section>
     </div>
 </div>
-
-<script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
-<script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
-<script th:src="@{/dist/js/adminlte.min.js}"></script>
-<script th:src="@{/dist/js/demo.js}"></script>
-<script th:src="@{/pashaJs/assignUser.js}"></script>
-<script th:src="@{/pashaJs/changePriority.js}"></script>
-<script th:src="@{/pashaJs/changeStatus.js}"></script>
-<script th:src="@{/pashaJs/logTime.js}"></script>
 
 </body>
 </html>
