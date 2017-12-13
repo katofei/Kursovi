@@ -22,7 +22,8 @@ $( document ).ready(function() {
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: window.location + "/logTime",
+            url: window.location + "/logTime" +
+            "",
             data: JSON.stringify(formData),
             dataType: 'json',
             success: function (data) {

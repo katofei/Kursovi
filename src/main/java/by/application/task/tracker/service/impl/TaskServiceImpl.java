@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -39,6 +40,9 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findOne(id);
         User user = userService.findUserById(taskDTO.getExecutor());
         task.setExecutor(user);
+        Date today = new Date();
+        LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        task.setUpdated(date.format(DateTimeFormatter.ISO_DATE));
         return taskRepository.save(task);
     }
 
@@ -47,6 +51,9 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findOne(id);
         TaskPriority taskPriority = taskPriorityService.findTaskByPriorityId(taskDTO.getTaskPriority());
         task.setTaskPriority(taskPriority);
+        Date today = new Date();
+        LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        task.setUpdated(date.format(DateTimeFormatter.ISO_DATE));
         return taskRepository.save(task);
     }
 
@@ -55,6 +62,12 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findOne(id);
         TaskStatus taskStatus = taskStatusService.findTaskStatusById(taskDTO.getTaskStatus());
         task.setTaskStatus(taskStatus);
+        Date today = new Date();
+        LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        task.setUpdated(date.format(DateTimeFormatter.ISO_DATE));
+        if(Objects.equals(taskStatus.getStatusName(), "Resolved")){
+            task.setResolved(date.format(DateTimeFormatter.ISO_DATE));
+        }
         return taskRepository.save(task);
     }
 
@@ -63,6 +76,9 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findOne(id);
         task.setPercentage(taskDTO.getPercentage());
         task.setTimeSpent(taskDTO.getTimeSpent());
+        Date today = new Date();
+        LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        task.setUpdated(date.format(DateTimeFormatter.ISO_DATE));
         return taskRepository.save(task);
     }
 

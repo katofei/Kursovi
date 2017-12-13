@@ -225,6 +225,10 @@
                                             <div th:case="'Ready for testing'"><span class="label label-success"
                                                                                      th:text="${task.taskStatus.statusName}"></span>
                                             </div>
+                                            <div th:case="'Resolved'">
+                                                    <span class="label label-success" style="height: 40px; width: 150px"
+                                                          th:text="${task.taskStatus.statusName}"></span>
+                                            </div>
                                         </th>
                                         <th>
                                        <div th:if="${task.percentage &lt; 30 AND task.percentage &gt;10}">

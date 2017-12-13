@@ -18,28 +18,15 @@ import java.util.stream.Collectors;
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private PositionService positionService;
-    @Autowired
-    private QualificationService qualificationService;
-    @Autowired
-    private ProjectRoleService projectRoleService;
-    @Autowired
-    private TaskStatusService taskStatusService;
-    @Autowired
-    private TaskPriorityService taskPriorityService;
-    @Autowired
-    private ProjectService projectService;
-    @Autowired
-    private UserContactService userContactService;
-    /*@Autowired
-    private UserStatusService userStatusService;
-    @Autowired
-    private ProjectContactService projectContactService;*/
-    @Autowired
-    private TaskService taskService;
+    @Autowired private UserService userService;
+    @Autowired private PositionService positionService;
+    @Autowired private QualificationService qualificationService;
+    @Autowired private ProjectRoleService projectRoleService;
+    @Autowired private TaskStatusService taskStatusService;
+    @Autowired private TaskPriorityService taskPriorityService;
+    @Autowired private ProjectService projectService;
+    @Autowired private UserContactService userContactService;
+    @Autowired private TaskService taskService;
 
     @RequestMapping(path = "/userPage", method = RequestMethod.GET)
     public ModelAndView getUserStartPage() {
@@ -85,7 +72,6 @@ public class UserController {
 
         return view;
     }
-
 
     @RequestMapping(value = "/user-deletion/{id}", method = RequestMethod.DELETE)
     public ModelAndView deleteUser(@PathVariable("id") long id) {
@@ -159,7 +145,6 @@ public class UserController {
         return view;
     }
 
-
     @RequestMapping(value = "/profile/{id}/my-tasks", method = RequestMethod.GET)
     public ModelAndView getMyTasks(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("myTasks");
@@ -192,7 +177,6 @@ public class UserController {
         return view;
     }
 
-
     @RequestMapping(value = "/profile/{id}/team-statistics", method = RequestMethod.GET)
     public ModelAndView getTeamStatisticsPage(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("teamStatistics");
@@ -207,7 +191,6 @@ public class UserController {
 
         return view;
     }
-
 
     private void editUser(UserInfoWrapper userInfoWrapper) {
         userContactService.editContact(userInfoWrapper);
