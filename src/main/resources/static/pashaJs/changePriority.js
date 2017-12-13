@@ -1,7 +1,7 @@
 $( document ).ready(function() {
 
     // SUBMIT FORM
-    $("#assignAnotherUserForm").submit(function(event) {
+    $("#changePriorityForm").submit(function(event) {
         // Prevent the form from submitting via the browser.
         event.preventDefault();
         ajaxPost();
@@ -15,17 +15,17 @@ $( document ).ready(function() {
         var formData;
 
         formData = {
-            executor : $("#executorId").val()
+            taskPriority : $("#priorityId").val()
         };
 
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: window.location + "/assignAnotherUser",
+            url: window.location + "/changePriority",
             data: JSON.stringify(formData),
             dataType: 'json',
             success: function (data) {
-                $('#assignAnotherUser').modal('hide');
+                $('#changePriority').modal('hide');
                 console.log(data);
             },
             error: function (e) {

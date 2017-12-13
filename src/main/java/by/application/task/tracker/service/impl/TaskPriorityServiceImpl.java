@@ -15,7 +15,6 @@ public class TaskPriorityServiceImpl implements TaskPriorityService {
     @Autowired
     private TaskPriorityRepository taskPriorityRepository;
 
-
     @Override
     public TaskPriority findTaskByPriorityId(Long taskPriorityId) {
         return taskPriorityRepository.findOne(taskPriorityId);

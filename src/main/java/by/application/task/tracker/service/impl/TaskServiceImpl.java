@@ -2,6 +2,9 @@ package by.application.task.tracker.service.impl;
 
 import by.application.task.tracker.data.dto.TaskDTO;
 import by.application.task.tracker.data.entities.Task;
+import by.application.task.tracker.data.entities.TaskPriority;
+import by.application.task.tracker.data.entities.TaskStatus;
+import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.repositories.TaskRepository;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,38 @@ public class TaskServiceImpl implements TaskService {
     private UserService userService;
     @Autowired
     private ProjectService projectService;
+
+    @Override
+    public Task assignAnotherUser(TaskDTO taskDTO, long id) {
+        Task task = taskRepository.findOne(id);
+        User user = userService.findUserById(taskDTO.getExecutor());
+        task.setExecutor(user);
+        return taskRepository.save(task);
+    }
+
+    @Override
+    public Task changePriority(TaskDTO taskDTO, long id) {
+        Task task = taskRepository.findOne(id);
+        TaskPriority taskPriority = taskPriorityService.findTaskByPriorityId(taskDTO.getTaskPriority());
+        task.setTaskPriority(taskPriority);
+        return taskRepository.save(task);
+    }
+
+    @Override
+    public Task changeStatus(TaskDTO taskDTO, long id) {
+        Task task = taskRepository.findOne(id);
+        TaskStatus taskStatus = taskStatusService.findTaskStatusById(taskDTO.getTaskStatus());
+        task.setTaskStatus(taskStatus);
+        return taskRepository.save(task);
+    }
+
+    @Override
+    public Task logTime(TaskDTO taskDTO, long id) {
+        Task task = taskRepository.findOne(id);
+        task.setPercentage(taskDTO.getPercentage());
+        task.setTimeSpent(taskDTO.getTimeSpent());
+        return taskRepository.save(task);
+    }
 
     @Override
     public Task createTask(TaskDTO taskDTO) {

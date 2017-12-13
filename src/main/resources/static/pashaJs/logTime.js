@@ -1,7 +1,7 @@
 $( document ).ready(function() {
 
     // SUBMIT FORM
-    $("#assignAnotherUserForm").submit(function(event) {
+    $("#logTimeForm").submit(function(event) {
         // Prevent the form from submitting via the browser.
         event.preventDefault();
         ajaxPost();
@@ -15,17 +15,18 @@ $( document ).ready(function() {
         var formData;
 
         formData = {
-            executor : $("#executorId").val()
+            timeSpent : $("#timeSpentId").val(),
+            percentage : $("#percentageId").val()
         };
 
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: window.location + "/assignAnotherUser",
+            url: window.location + "/logTime",
             data: JSON.stringify(formData),
             dataType: 'json',
             success: function (data) {
-                $('#assignAnotherUser').modal('hide');
+                $('#logTime').modal('hide');
                 console.log(data);
             },
             error: function (e) {

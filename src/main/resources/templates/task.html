@@ -36,7 +36,7 @@
                                th:if="${userList.isEmpty()}" th:errors="*{userList}">
                         </small>
                     </h3>
-                    <select th:field="*{executor}" class="form-control select2" style="width: 100%;">
+                    <select id="executorId" th:field="*{executor}" class="form-control select2" style="width: 100%;">
                         <option th:each="executor:${userList}"
                                 th:value="${executor.userId}"
                                 th:text="${executor.userName}+' '+${executor.userSurname}">
@@ -44,90 +44,95 @@
                     </select>
                     <p></p>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <a id="btn-confirm" class="btn btn-primary pull-right">Confirm</a>
+                    <button id="btn-confirm" type="submit" class="btn btn-primary pull-right">Confirm</button>
                 </div>
             </div>
         </div>
     </div>
 </form>
 
-<div th:fragment="confirm">
-    <div id="changePriority" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Change priority</h4>
-                </div>
-                <div class="modal-body">
+<form role="form" id="changePriorityForm" th:action="@{/changePriority}" th:object="${taskDTO}" method="post">
+    <div th:fragment="confirm">
+        <div id="changePriority" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Change priority</h4>
+                    </div>
+                    <div class="modal-body">
 
-                    <label>Priority</label>
-                    <select th:field="*{taskPriority}" class="form-control select2" style="width: 100%;">
-                        <option th:each="taskPriority:${taskPriorities}"
-                                th:value="${taskPriority.priorityId}"
-                                th:text="${taskPriority.priorityName}" selected="selected">Low
-                        </option>
-                    </select>
-                    <p></p>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    <a id="btn-confirm" class="btn btn-primary pull-right">Confirm</a>
+                        <label>Priority</label>
+                        <select id="priorityId" th:field="*{taskPriority}" class="form-control select2" style="width: 100%;">
+                            <option th:each="taskPriority:${taskPriorities}"
+                                    th:value="${taskPriority.priorityId}"
+                                    th:text="${taskPriority.priorityName}" selected="selected">Low
+                            </option>
+                        </select>
+                        <p></p>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button id="btn-confirm" type="submit" class="btn btn-primary pull-right">Confirm</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 
-<div th:fragment="confirm">
-    <div id="changeStatus" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Change status</h4>
-                </div>
-                <div class="modal-body">
-                    <label>Status</label>
-                    <select th:field="*{taskStatus}" class="form-control select2" style="width: 100%;">
-                        <option th:each="taskStatus:${taskStatuses}"
-                                th:value="${taskStatus.statusId}"
-                                th:text="${taskStatus.statusName}">
-                        </option>
-                    </select>
-                    <p></p>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    <a id="btn-confirm" class="btn btn-primary pull-right">Confirm</a>
+<form role="form" id="changeStatusForm" th:action="@{/changeStatus}" th:object="${taskDTO}" method="post">
+    <div th:fragment="confirm">
+        <div id="changeStatus" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Change status</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label>Status</label>
+                        <select id="statusId" th:field="*{taskStatus}" class="form-control select2" style="width: 100%;">
+                            <option th:each="taskStatus:${taskStatuses}"
+                                    th:value="${taskStatus.statusId}"
+                                    th:text="${taskStatus.statusName}">
+                            </option>
+                        </select>
+                        <p></p>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button id="btn-confirm" type="submit" class="btn btn-primary pull-right">Confirm</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 
-<div th:fragment="confirm">
-    <div id="logTime" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Log time</h4>
-                </div>
-                <div class="modal-body">
-                    <label>Time spent, h</label>
-                    <input th:filed="*{timeSpent}"/>
-                    <p></p>
-                    <label>Percentage, %</label>
-                    <input th:filed="*{percentage}"/>
-                    <p></p>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    <a id="btn-confirm" class="btn btn-primary pull-right">Confirm</a>
+<form role="form" id="logTimeForm" th:action="@{/logTime}" th:object="${taskDTO}" method="post">
+    <div th:fragment="confirm">
+        <div id="logTime" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Log time</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label>Time spent, h</label>
+                        <input id="timeSpentId" th:filed="*{timeSpent}"/>
+                        <p></p>
+                        <label>Percentage, %</label>
+                        <input id="percentageId" th:filed="*{percentage}"/>
+                        <p></p>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button id="btn-confirm" type="submit" class="btn btn-primary pull-right">Confirm</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 
 <div class="wrapper">
 
@@ -411,6 +416,9 @@
 <script th:src="@{/dist/js/adminlte.min.js}"></script>
 <script th:src="@{/dist/js/demo.js}"></script>
 <script th:src="@{/pashaJs/assignUser.js}"></script>
+<script th:src="@{/pashaJs/changePriority.js}"></script>
+<script th:src="@{/pashaJs/changeStatus.js}"></script>
+<script th:src="@{/pashaJs/logTime.js}"></script>
 
 </body>
 </html>
