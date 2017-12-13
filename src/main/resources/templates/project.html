@@ -249,11 +249,11 @@
                                                 </tr>
                                                 <tr style="height: 34px;">
                                                     <td style="width: 403px; height: 30px;"
-                                                        th:text="${projectContact.country}+' '+${projectContact.city}"></td>
+                                                        th:text="${projectContact.country}+', '+${projectContact.city}"></td>
                                                 </tr>
                                                 <tr style="height: 37px;">
                                                     <td style="width: 403px; height: 30px;"
-                                                        th:text="${projectContact.street}+' '+${projectContact.houseNumber}"></td>
+                                                        th:text="${projectContact.street}+',  '+${projectContact.houseNumber}"></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -285,7 +285,7 @@
                                                                     <th th:text="${user.userSurname}" style="font-weight: normal"></th>
                                                                     <th th:text="${user.qualification.qualificationName}+' '+${user.position.positionName}"
                                                                         style="font-weight: normal"></th>
-                                                                    <th th:text="${user.userContact.country}+' '+${user.userContact.city}" style="font-weight: normal"></th>
+                                                                    <th th:text="${user.userContact.country}+', '+${user.userContact.city}" style="font-weight: normal"></th>
                                                                     <th width="100">
                                                                         <button type="button" class="btn btn-primary btn-md"
                                                                                 th:onclick="|window.location.href='/profile/${user.userId}'|">
