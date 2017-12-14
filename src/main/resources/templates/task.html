@@ -73,7 +73,8 @@
                     <div class="modal-body">
 
                         <label>Priority</label>
-                        <select id="priorityId" th:field="*{taskPriority}" class="form-control select2" style="width: 100%;">
+                        <select id="priorityId" th:field="*{taskPriority}" class="form-control select2"
+                                style="width: 100%;">
                             <option th:each="taskPriority:${taskPriorities}"
                                     th:value="${taskPriority.priorityId}"
                                     th:text="${taskPriority.priorityName}" selected="selected">Low
@@ -101,7 +102,8 @@
                     </div>
                     <div class="modal-body">
                         <label>Status</label>
-                        <select id="statusId" th:field="*{taskStatus}" class="form-control select2" style="width: 100%;">
+                        <select id="statusId" th:field="*{taskStatus}" class="form-control select2"
+                                style="width: 100%;">
                             <option th:each="taskStatus:${taskStatuses}"
                                     th:value="${taskStatus.statusId}"
                                     th:text="${taskStatus.statusName}">
@@ -285,7 +287,6 @@
                             </tr>
                             </tbody>
                         </table>
-                        <p>&nbsp;</p>
                         <table style="height: 171px; width: 948px;">
                             <tbody>
                             <tr style="height: 30px;">
@@ -343,7 +344,14 @@
                                             </td>
                                             <td style="width: 230.867px;" th:text="${task.resolved}">&nbsp;</td>
                                         </tr>
-                                        <tr>
+                                       <tr>
+                                            <div th:if="${task.estimation} eq ${currentDate}">
+                                                <div class="alert alert-warning">
+                                                    <strong>Warning!</strong> You estimation date is Today! Hurry up!
+                                                </div>
+                                            </div>
+                                        </tr>
+                                        <tr th:if="${task.estimation} eq ${currentDate}">
                                             <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Estimation:</strong>
                                             </td>
                                             <td style="width: 230.867px;" th:text="${task.estimation}">&nbsp;</td>
@@ -380,15 +388,15 @@
                                                           th:text="${task.taskStatus.statusName}"></span>
                                                 </div>
                                                 <div th:case="'Reopen'">
-                                                    <span class="label label-danger"  style="height: 40px; width: 150px"
+                                                    <span class="label label-danger" style="height: 40px; width: 150px"
                                                           th:text="${task.taskStatus.statusName}"></span>
                                                 </div>
                                                 <div th:case="'On hold'">
-                                                    <span class="label label-warning"  style="height: 40px; width: 150px"
+                                                    <span class="label label-warning" style="height: 40px; width: 150px"
                                                           th:text="${task.taskStatus.statusName}"></span>
                                                 </div>
                                                 <div th:case="'In progress'">
-                                                    <span class="label label-warning"  style="height: 40px; width: 150px"
+                                                    <span class="label label-warning" style="height: 40px; width: 150px"
                                                           th:text="${task.taskStatus.statusName}"></span>
                                                 </div>
                                                 <div th:case="'Closed'">
@@ -406,7 +414,8 @@
                                                 <div th:case="'Ready for testing'">
                                                     <span class="label label-success" style="height: 40px; width: 150px"
                                                           th:text="${task.taskStatus.statusName}"></span>
-                                                </div>&nbsp;
+                                                </div>
+                                                &nbsp;
                                             </td>
                                         </tr>
                                         </tbody>
@@ -430,17 +439,22 @@
                                                     <span class="badge bg-red">0%</span>
                                                 </div>
                                                 <div th:if="${task.percentage &lt; 30 AND task.percentage &gt;10}">
-                                                    <span class="badge bg-light-blue" th:text="${task.percentage}+', %'"></span>
+                                                    <span class="badge bg-light-blue"
+                                                          th:text="${task.percentage}+', %'"></span>
                                                 </div>
                                                 <div th:if="${task.percentage &lt; 50 AND task.percentage &gt;30}">
-                                                    <span class="badge bg-red" th:text="${task.percentage}+', %'"></span>
+                                                    <span class="badge bg-red"
+                                                          th:text="${task.percentage}+', %'"></span>
                                                 </div>
                                                 <div th:if="${task.percentage &lt; 70 AND task.percentage &gt; 50}">
-                                                    <span class="badge bg-yellow" th:text="${task.percentage}+', %'"></span>
+                                                    <span class="badge bg-yellow"
+                                                          th:text="${task.percentage}+', %'"></span>
                                                 </div>
                                                 <div th:if="${task.percentage&gt;70}">
-                                                    <span class="badge bg-green" th:text="${task.percentage}+', %'"></span>
-                                                </div>&nbsp;
+                                                    <span class="badge bg-green"
+                                                          th:text="${task.percentage}+', %'"></span>
+                                                </div>
+                                                &nbsp;
                                             </td>
                                         </tr>
                                         </tbody>
