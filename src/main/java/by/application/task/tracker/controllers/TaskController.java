@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -102,6 +105,9 @@ public class TaskController {
         view.addObject("executor", task.getExecutor());
         view.addObject("task", task);
 
+        Date today = new Date();
+        LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        view.addObject("currentDate", date.toString());
         List<User> userList= userService.getAllUsers()
                 .stream().filter(user -> user.getProject() == currentUser.getProject()).collect(Collectors.toList());
         view.addObject("userList", userList);
