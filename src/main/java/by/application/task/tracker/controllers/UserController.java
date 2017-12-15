@@ -194,6 +194,18 @@ public class UserController {
         return view;
     }
 
+    @RequestMapping(value = "/profile/{id}/user-statistics", method = RequestMethod.GET)
+    public ModelAndView getUserStatisticsPage(@PathVariable("id") long id) {
+        ModelAndView view = new ModelAndView("userStatistics");
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
+
+        return view;
+    }
+
     private void editUser(UserInfoWrapper userInfoWrapper) {
         userContactService.editContact(userInfoWrapper);
         userService.editUser(userInfoWrapper);

@@ -65,77 +65,129 @@
         </nav>
     </header>
 
-<aside class="main-sidebar">
-    <section class="sidebar">
-        <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">MAIN NAVIGATION</li>
-            <li>
-                <a th:href="@{/homePage}">
-                    <i class="fa fa-dashboard"></i>
-                    <span>Dashboard</span>
-                    <span class="pull-right-container"></span>
-                </a>
-            </li>
-            <li>
-                <a th:onclick="|window.location.href='/project/${currentUser.project.projectId}'|">
-                    <i class="fa fa-share"></i> <span>My Project</span>
-                </a>
-            </li>
-            <li>
-                <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-team'|">
-                    <i class="fa fa-share"></i> <span>My team</span>
-                </a>
-            </li>
-            <li class="treeview">
-                <a>
-                    <i class="fa fa-share"></i> <span>Manage tasks</span>
-                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                </a>
-                <ul class="treeview-menu">
-                    <li>
-                        <a th:onclick="|window.location.href='/profile/task-creation/${currentUser.userId}'|">
-                            <i class="fa fa-share"></i> <span>Create new</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a th:onclick="|window.location.href='/profile/my-tasks/${currentUser.userId}'|">
-                            <i class="fa fa-share"></i> <span>My tasks</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a>
-                    <i class="fa fa-table"></i> <span>Statistics</span>
-                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                </a>
-                <ul class="treeview-menu">
-                    <li>
-                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/team-statistics'|">
-                            <i class="fa fa-share"></i> <span>Team statistics</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/user-statistics'|">
-                            <i class="fa fa-share"></i> <span>My statistics</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </section>
-</aside>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">MAIN NAVIGATION</li>
+                <li>
+                    <a th:href="@{/homePage}">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                        <span class="pull-right-container"></span>
+                    </a>
+                </li>
+                <li>
+                    <a th:onclick="|window.location.href='/project/${currentUser.project.projectId}'|">
+                        <i class="fa fa-share"></i> <span>My Project</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-team'|">
+                        <i class="fa fa-share"></i> <span>My team</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a>
+                        <i class="fa fa-share"></i> <span>Manage tasks</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/task-creation/${currentUser.userId}'|">
+                                <i class="fa fa-share"></i> <span>Create new</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/my-tasks/${currentUser.userId}'|">
+                                <i class="fa fa-share"></i> <span>My tasks</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a>
+                        <i class="fa fa-table"></i> <span>Statistics</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/team-statistics'|">
+                                <i class="fa fa-share"></i> <span>Team statistics</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/user-statistics'|">
+                                <i class="fa fa-share"></i> <span>My statistics</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
 
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>
-                User statistics
-            </h1>
+            <h3>
+                My statistics
+            </h3>
+            <table>
+                <td>
+                    <div class="box-body table-responsive no-padding">
+                        <script src="https://www.google.com/jsapi"></script>
+                        <script>
+   google.load("visualization", "1", {packages:["corechart"]});
+   google.setOnLoadCallback(drawChart);
+   function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+     ['Status', 'Tasks amount'],
+     ['In progress',    3],
+     ['On hold', 1],
+     ['Resolved',    2],
+     ['Closed',   4],
+     ['open',    2]
+     ]);
+    var options = {
+     title: 'Task statuses',
+     is3D: true,
+     pieResidueSliceLabel: 'Other'
+    };
+    var chart = new google.visualization.PieChart(document.getElementById('air'));
+     chart.draw(data, options);
+   }
+                        </script>
+                        <div id="air" style="width: 500px; height: 400px;"></div>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="box-body table-responsive no-padding">
+                        <script src="https://www.google.com/jsapi"></script>
+                        <script>
+   google.load("visualization", "1", {packages:["corechart"]});
+   google.setOnLoadCallback(drawChart);
+   function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+     ['Priority', 'Tasks amount'],
+     ['Normal',   2],
+     ['Critical', 1],
+     ['Low',    3],
+     ['Major',   4]
+     ]);
+    var options = {
+     title: 'Task priorities',
+     is3D: true,
+     pieResidueSliceLabel: 'Other'
+    };
+    var chart = new google.visualization.PieChart(document.getElementById('priority'));
+     chart.draw(data, options);
+   }  </script>
+                        <div id="priority" style="width: 500px; height: 400px;"></div>
+                    </div>
+
+                </td>
+            </table>
         </section>
-
-
-
-
     </div>
 </div>
 
