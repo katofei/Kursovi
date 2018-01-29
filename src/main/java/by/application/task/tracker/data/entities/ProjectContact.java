@@ -8,9 +8,10 @@ import javax.persistence.*;
 @Table(name = "project_contact")
 public class ProjectContact {
 
-    public ProjectContact(){}
+    public ProjectContact() {
+    }
 
-    public ProjectContact(ProjectDTO projectDTO){
+    public ProjectContact(ProjectDTO projectDTO) {
         this.fax = projectDTO.getFax();
         this.officeEmail = projectDTO.getOfficeEmail();
         this.officePhone = projectDTO.getOfficePhone();
@@ -30,8 +31,11 @@ public class ProjectContact {
     @Column(name = "fax")
     private String fax;
 
-     @OneToOne(mappedBy = "projectContact", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "projectContact", fetch = FetchType.LAZY)
     private Project project;
+
+    @ManyToOne
+    private Location location;
 
     public Long getContactId() {return contactId;}
     public void setContactId(Long contact_id) {this.contactId = contact_id;}
@@ -48,8 +52,10 @@ public class ProjectContact {
     public Project getProject() {
         return project;
     }
-
     public void setProject(Project project) {
         this.project = project;
     }
+
+    public Location getLocation() {return location;}
+    public void setLocation(Location location) {this.location = location;}
 }

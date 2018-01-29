@@ -18,6 +18,9 @@ public class Country {
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
     private List<City> cityList;
 
+    @OneToMany(mappedBy = "country")
+    private List<Location> locations;
+
     public Long getCountryId() {
         return countryId;
     }

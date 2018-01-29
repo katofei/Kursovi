@@ -71,6 +71,10 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "executor", fetch = FetchType.LAZY)
     private List<Task> executingTasks;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private List<Comment> commentList;
+
     public Long getUserId() {return userId;}
     public void setUserId(Long userId) {
         this.userId = userId;
@@ -165,4 +169,7 @@ public class User implements Serializable {
 
     public UserStatus getUserStatus() {return userStatus;}
     public void setUserStatus(UserStatus userStatus) {this.userStatus = userStatus;}
+
+    public List<Comment> getCommentList() {return commentList;}
+    public void setCommentList(List<Comment> commentList) {this.commentList = commentList;}
 }

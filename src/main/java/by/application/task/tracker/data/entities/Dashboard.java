@@ -32,9 +32,6 @@ public class Dashboard {
     @Column(name = "time_spent")
     private double timeSpent;
 
-    @Column(name = "percentage")
-    private Double percentage;
-
     @ManyToOne
     private Project project;
 
@@ -73,9 +70,6 @@ public class Dashboard {
 
     public double getTimeSpent() {return timeSpent;}
     public void setTimeSpent(double timeSpent) {this.timeSpent = timeSpent;}
-
-    public Double getPercentage() {return percentage;}
-    public void setPercentage(Double percentage) {this.percentage = percentage;}
 
     public User getCreator() {return creator;}
     public void setCreator(User creator) {this.creator = creator;}

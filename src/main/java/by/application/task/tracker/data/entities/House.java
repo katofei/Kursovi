@@ -1,6 +1,7 @@
 package by.application.task.tracker.data.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "houses")
@@ -16,6 +17,9 @@ public class House {
 
     @ManyToOne
     private Street street;
+
+    @OneToMany(mappedBy = "house")
+    private List<Location> locations;
 
     public Long getHouseId() {
         return houseId;

@@ -8,7 +8,8 @@ import javax.persistence.*;
 @Table(name = "user_contact")
 public class UserContact {
 
-    public UserContact() {}
+    public UserContact() {
+    }
 
     public UserContact(UserDTO userDTO) {
         this.fax = userDTO.getFax();
@@ -40,6 +41,9 @@ public class UserContact {
 
     @OneToOne(mappedBy = "userContact", fetch = FetchType.LAZY)
     private User user;
+
+    @ManyToOne
+    private Location location;
 
     public Long getContactId() {
         return contactId;
@@ -79,7 +83,11 @@ public class UserContact {
     public String getFax() {
         return fax;
     }
-    public void setFax(String fax) {
-        this.fax = fax;
-    }
+    public void setFax(String fax) {this.fax = fax;}
+
+    public Location getLocation() {return location;}
+    public void setLocation(Location location) {this.location = location;}
+
+    public User getUser() {return user;}
+    public void setUser(User user) {this.user = user;}
 }

@@ -21,6 +21,9 @@ public class City {
     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
     private List<Street> streetList;
 
+    @OneToMany(mappedBy = "city")
+    private List<Location> locations;
+
     public Long getCityId() {
         return cityId;
     }
