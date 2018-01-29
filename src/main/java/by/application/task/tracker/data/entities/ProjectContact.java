@@ -14,10 +14,6 @@ public class ProjectContact {
         this.fax = projectDTO.getFax();
         this.officeEmail = projectDTO.getOfficeEmail();
         this.officePhone = projectDTO.getOfficePhone();
-        this.country = projectDTO.getCountry();
-        this.city = projectDTO.getCity();
-        this.street = projectDTO.getCity();
-        this.houseNumber = projectDTO.getHouseNumber();
     }
 
     @Id
@@ -34,19 +30,7 @@ public class ProjectContact {
     @Column(name = "fax")
     private String fax;
 
-    @Column(name = "country")
-    private String country;
-
-    @Column(name = "city")
-    private String city;
-
-    @Column(name="street")
-    private String street;
-
-    @Column(name = "house_number")
-    private int houseNumber;
-
-    @OneToOne(mappedBy = "projectContact", fetch = FetchType.LAZY)
+     @OneToOne(mappedBy = "projectContact", fetch = FetchType.LAZY)
     private Project project;
 
     public Long getContactId() {return contactId;}
@@ -61,18 +45,11 @@ public class ProjectContact {
     public String getFax() {return fax;}
     public void setFax(String fax) {this.fax = fax;}
 
-    public String getCountry() {return country;}
-    public void setCountry(String country) {this.country = country;}
+    public Project getProject() {
+        return project;
+    }
 
-    public String getCity() {return city;}
-    public void setCity(String city) {this.city = city;}
-
-    public String getStreet() {return street;}
-    public void setStreet(String street) {this.street = street;}
-
-    public int getHouseNumber() {return houseNumber;}
-    public void setHouseNumber(int houseNumber) {this.houseNumber = houseNumber;}
-
-    public Project getProject() {return project;}
-    public void setProject(Project project) {this.project = project;}
+    public void setProject(Project project) {
+        this.project = project;
+    }
 }

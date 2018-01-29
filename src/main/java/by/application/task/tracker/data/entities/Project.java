@@ -35,10 +35,13 @@ public class Project {
     private ProjectContact projectContact;
 
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
-    private List<User> users;
+    private List<User> userList;
+
+    @ManyToOne
+    private ProjectStrategy projectStrategy;
 
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
-    private List<Task> tasks;
+    private List<Dashboard> dashboardList;
 
     public Long getProjectId() {
         return projectId;
@@ -52,11 +55,11 @@ public class Project {
     }
     public void setProjectName(String projectName) {this.projectName = projectName;}
 
-    public List<User> getUsers() {return users;}
-    public void setUsers(List<User> users) {this.users = users;}
+    public List<User> getUserList() {return userList;}
+    public void setUserList(List<User> userList) {this.userList = userList;}
 
-    public List<Task> getTasks() {return tasks;}
-    public void setTasks(List<Task> tasks) {this.tasks = tasks;}
+    public List<Dashboard> getDashboardList() {return dashboardList;}
+    public void setDashboardList(List<Dashboard> dashboardList) {this.dashboardList = dashboardList;}
 
     public String getDescription() {return description;}
     public void setDescription(String description) {this.description = description;}

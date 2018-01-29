@@ -98,7 +98,7 @@ public class TaskController {
 
         Task task = taskService.findTaskById(id);
         view.addObject("taskType", task.getTaskType());
-        view.addObject("taskProject",task.getProject());
+       // view.addObject("taskProject",task.getProject());
         view.addObject("taskPriority", task.getTaskPriority());
         view.addObject("taskStatus", task.getTaskStatus());
         view.addObject("creator", task.getCreator());
@@ -163,7 +163,7 @@ public class TaskController {
 
         Task task = taskService.findTaskById(taskId);
         view.addObject("taskType", task.getTaskType());
-        view.addObject("taskProject",task.getProject());
+      //  view.addObject("taskProject",task.getProject());
         view.addObject("taskPriority", task.getTaskPriority());
         view.addObject("taskStatus", task.getTaskStatus());
         view.addObject("creator", task.getCreator());

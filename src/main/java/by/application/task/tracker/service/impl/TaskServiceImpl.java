@@ -97,7 +97,7 @@ public class TaskServiceImpl implements TaskService {
         createdTask.setTaskStatus(taskStatusService.findTaskByStatusName("Open"));
         createdTask.setTaskPriority(taskPriorityService.findTaskByPriorityId(taskDTO.getTaskPriority()));
         createdTask.setTaskType(taskTypeService.findTaskByTypeId(taskDTO.getTaskType()));
-        createdTask.setProject(projectService.findByProjectId(taskDTO.getProject()));
+      //  createdTask.setProject(projectService.findByProjectId(taskDTO.getProject()));
         createdTask.setCreator(userService.findUserById(taskDTO.getCreator()));
         createdTask.setExecutor(userService.findUserById(taskDTO.getExecutor()));
         return taskRepository.save(createdTask);

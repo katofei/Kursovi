@@ -158,9 +158,9 @@ public class UserController {
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
 
         // todo add logic for filtering
-        List<Task> taskList = taskService.getAllTasks().stream()
-                .filter(task -> task.getProject() == currentUser.getProject()).collect(Collectors.toList());
-        view.addObject("taskList", taskList);
+       /* List<Task> taskList = taskService.getAllTasks().stream()
+                .filter(task -> task.getProject() == currentUser.getProject()).collect(Collectors.toList());*/
+       /* view.addObject("taskList", taskList);*/
         return view;
     }
 

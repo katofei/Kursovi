@@ -1,28 +1,18 @@
 package by.application.task.tracker.data.entities;
 
-import by.application.task.tracker.data.dto.TaskDTO;
-
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
-@Table(name = "tasks")
-public class Task {
-
-    public Task() {}
-
-    public Task(TaskDTO taskDTO){
-        this.taskName = taskDTO.getTaskName();
-        this.description = taskDTO.getDescription();
-    }
+@Table(name = "dashboard")
+public class Dashboard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", length = 5, nullable = false)
-    private Long id;
+    @Column(name = "dashboard_id", length = 5, nullable = false)
+    private Long dashboardId;
 
-    @Column(name = "task_name")
-    private String taskName;
+    @Column(name = "dashboard_name")
+    private String  dashboardName;
 
     @Column(name = "created")
     private String created;
@@ -46,34 +36,25 @@ public class Task {
     private Double percentage;
 
     @ManyToOne
+    private Project project;
+
+    @ManyToOne
     private User creator;
 
     @ManyToOne
     private User executor;
 
     @ManyToOne
-    private TaskStatus taskStatus;
+    private DashboardStatus status;
 
     @ManyToOne
-    private TaskPriority taskPriority;
+    private DashboardPriority priority;
 
-    @ManyToOne
-    private TaskType taskType;
+    public Long getDashboardId() {return dashboardId;}
+    public void setDashboardId(Long dashboardId) {this.dashboardId = dashboardId;}
 
-    @ManyToOne
-    private Dashboard dashboard;
-
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTaskName() {
-        return taskName;
-    }
-    public void setTaskName(String taskName) {this.taskName = taskName;}
+    public String getDashboardName() {return dashboardName;}
+    public void setDashboardName(String dashboardName) {this.dashboardName = dashboardName;}
 
     public String getCreated() {return created;}
     public void setCreated(String created) {this.created = created;}
@@ -102,21 +83,12 @@ public class Task {
     public User getExecutor() {return executor;}
     public void setExecutor(User executor) {this.executor = executor;}
 
-    public TaskStatus getTaskStatus() {return taskStatus;}
-    public void setTaskStatus(TaskStatus taskStatus) {this.taskStatus = taskStatus;}
+    public DashboardStatus getStatus() {return status;}
+    public void setStatus(DashboardStatus status) {this.status = status;}
 
-    public TaskPriority getTaskPriority() {
-        return taskPriority;
-    }
-    public void setTaskPriority(TaskPriority taskPriority) {this.taskPriority = taskPriority;}
+    public DashboardPriority getPriority() {return priority;}
+    public void setPriority(DashboardPriority priority) {this.priority = priority;}
 
-    public TaskType getTaskType() {return taskType;}
-    public void setTaskType(TaskType taskType) {this.taskType = taskType;}
-
-    public Dashboard getDashboard() {return dashboard;}
-    public void setDashboard(Dashboard dashboard) {this.dashboard = dashboard;}
+    public Project getProject() {return project;}
+    public void setProject(Project project) {this.project = project;}
 }
-
-
-
-

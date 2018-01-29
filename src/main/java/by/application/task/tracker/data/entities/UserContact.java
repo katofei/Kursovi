@@ -16,10 +16,6 @@ public class UserContact {
         this.workEmail = userDTO.getWorkEmail();
         this.workPhone = userDTO.getWorkPhone();
         this.privatePhone = userDTO.getPrivatePhone();
-        this.country = userDTO.getCountry();
-        this.city = userDTO.getCity();
-        this.street = userDTO.getCity();
-        this.houseNumber = userDTO.getHouseNumber();
     }
 
     @Id
@@ -41,18 +37,6 @@ public class UserContact {
 
     @Column(name = "fax")
     private String fax;
-
-    @Column(name = "country")
-    private String country;
-
-    @Column(name = "city")
-    private String city;
-
-    @Column(name="street")
-    private String street;
-
-    @Column(name = "house_number")
-    private int houseNumber;
 
     @OneToOne(mappedBy = "userContact", fetch = FetchType.LAZY)
     private User user;
@@ -97,24 +81,5 @@ public class UserContact {
     }
     public void setFax(String fax) {
         this.fax = fax;
-    }
-
-    public String getCountry() {return country;}
-    public void setCountry(String country) {this.country = country;}
-
-    public String getCity() {return city;}
-    public void setCity(String city) {this.city = city;}
-
-    public String getStreet() {return street;}
-    public void setStreet(String street) {this.street = street;}
-
-    public int getHouseNumber() {return houseNumber;}
-    public void setHouseNumber(int houseNumber) {this.houseNumber = houseNumber;}
-
-    public User getUsers() {
-        return user;
-    }
-    public void setUsers(User users) {
-        this.user = users;
     }
 }

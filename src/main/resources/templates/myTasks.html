@@ -136,23 +136,10 @@
                                             <h3 class="box-title">My tasks</h3>
                                         </td>
                                         <td style="width: 211px;">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="checkMe" id="creatorCheckBox"/>Created by me
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td style="width: 211px;">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" id="assigneeCheckBox"/>Assigned to me
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td style="width: 211px;">
                                             <div class="form-group has-feedback">
                                                 <label>Priority</label>
-                                                <select id="prioritySelector" class="form-control select2" style="width: 100%;">
+                                                <select id="prioritySelector" class="form-control select2"
+                                                        style="width: 100%;">
                                                     <option value="0"></option>
                                                     <option>Low</option>
                                                     <option>Normal</option>
@@ -168,7 +155,8 @@
                                         <td style="width: 211px;">
                                             <div class="form-group has-feedback">
                                                 <label>Status</label>
-                                                <select id="statusSelector" class="form-control select2" style="width: 100%;">
+                                                <select id="statusSelector" class="form-control select2"
+                                                        style="width: 100%;">
                                                     <option value="0"></option>
                                                     <option>Open</option>
                                                     <option>Reopen</option>
@@ -192,6 +180,7 @@
                                         <th>№</th>
                                         <th>Name</th>
                                         <th>Estimation date</th>
+                                        <th></th>
                                         <th>Priority</th>
                                         <th>Status</th>
                                         <th>Progress</th>
@@ -203,10 +192,37 @@
                                     <tbody id="myTable">
                                     <tr th:each="task:${taskList}">
                                         <th th:text="${task.id}" style="font-weight: normal"></th>
-                                        <input type="hidden" id="creatorId" th:value="*{task.executor.userId}"/>
-                                        <input type="hidden" id="executorId" th:value="*{task.creator.userId}"/>
                                         <th th:text="${task.taskName}" style="font-weight: normal"></th>
                                         <th th:text="${task.estimation}" style="font-weight: normal"></th>
+                                        <th th:switch="${task.taskPriority.priorityName}">
+                                            <div th:case="'Normal'">
+                                                <span class="glyphicon glyphicon-unchecked"
+                                                      style="color:darkgreen"></span>
+                                            </div>
+                                            <div th:case="'Critical'">
+                                                <span class="glyphicon glyphicon-circle-arrow-up"
+                                                      style="color:red;"></span>
+                                            </div>
+                                            <div th:case="'Minor'">
+                                                <span class="glyphicons glyphicons-disk-save" style="color: limegreen;"></span>
+                                            </div>
+                                            <div th:case="'Major'">
+                                                <span class="glyphicons glyphicons-electricity"
+                                                      style="color:orange;"></span>
+                                            </div>
+                                            <div th:case="'Fire'">
+                                                    <span class="glyphicon glyphicon-fire"
+                                                          style="color:#aa1111;"></span>
+                                            </div>
+                                            <div th:case="'Low'">
+                                                <span class="glyphicon glyphicon-circle-arrow-down"
+                                                      style="color:#0b58a2"></span>
+                                            </div>
+                                            <div th:case="'High'">
+                                                    <span class="glyphicon glyphicon-arrow-up"
+                                                          style="color:#660e7a;"></span>
+                                            </div>
+                                        </th>
                                         <th th:text="${task.taskPriority.priorityName}"
                                             style="font-weight: normal"></th>
                                         <th th:switch="${task.taskStatus.statusName}" style="font-weight: normal">
@@ -237,47 +253,51 @@
                                             </div>
                                         </th>
                                         <th>
-                                       <div th:if="${task.percentage &lt; 30 AND task.percentage &gt;10}">
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-primary" style="width: 20%"></div>
+                                            <div th:if="${task.percentage &lt; 30 AND task.percentage &gt;10}">
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-primary"
+                                                         style="width: 20%"></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div th:if="${task.percentage &lt; 50 AND task.percentage &gt;30}">
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
+                                            <div th:if="${task.percentage &lt; 50 AND task.percentage &gt;30}">
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-danger"
+                                                         style="width: 50%"></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div th:if="${task.percentage &lt; 70 AND task.percentage &gt; 50}">
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
+                                            <div th:if="${task.percentage &lt; 70 AND task.percentage &gt; 50}">
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-yellow"
+                                                         style="width: 70%"></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div th:if="${task.percentage&gt;70}">
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-success" style="width: 90%"></div>
+                                            <div th:if="${task.percentage&gt;70}">
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-success"
+                                                         style="width: 90%"></div>
+                                                </div>
                                             </div>
-                                        </div>
                                         </th>
                                         <th>
-                                        <div th:if="${task.percentage == 0}">
-                                            <span class="badge bg-red">0%</span>
-                                        </div>
-                                        <div th:if="${task.percentage &lt; 30 AND task.percentage &gt;10}">
-                                            <span class="badge bg-light-blue" th:text="${task.percentage}"></span>
-                                        </div>
-                                        <div th:if="${task.percentage &lt; 50 AND task.percentage &gt;30}">
+                                            <div th:if="${task.percentage == 0}">
+                                                <span class="badge bg-red">0%</span>
+                                            </div>
+                                            <div th:if="${task.percentage &lt; 30 AND task.percentage &gt;10}">
+                                                <span class="badge bg-light-blue" th:text="${task.percentage}"></span>
+                                            </div>
+                                            <div th:if="${task.percentage &lt; 50 AND task.percentage &gt;30}">
                                                 <span class="badge bg-red" th:text="${task.percentage}"></span>
-                                        </div>
-                                        <div th:if="${task.percentage &lt; 70 AND task.percentage &gt; 50}">
+                                            </div>
+                                            <div th:if="${task.percentage &lt; 70 AND task.percentage &gt; 50}">
                                                 <span class="badge bg-yellow" th:text="${task.percentage}"></span>
-                                        </div>
-                                        <div th:if="${task.percentage&gt;70}">
+                                            </div>
+                                            <div th:if="${task.percentage&gt;70}">
                                                 <span class="badge bg-green" th:text="${task.percentage}"></span>
-                                        </div>
+                                            </div>
                                         </th>
                                         <th width="100">
                                             <button type="button" class="btn btn-primary btn-md"
-                                                    th:onclick="|window.location.href='/profile/task-edition/${currentUser.userId}/${task.id}'|">
+                                                    th:onclick="|window.location.href='/profile/task-edition/${task.id}'|">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                                 <span>Edit</span>
                                             </button>
@@ -308,25 +328,6 @@
 <script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
 <script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
 
-<!--<script>
-    $(function () {
-        $('#example1').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": true,
-            "info": false,
-            "autoWidth": false
-        });
-    });
-</script>-->
 
-<!--<script>
-    $(function () {
-        $('#creator').checked({
-
-        });
-    });
-</script>-->
 </body>
 </html>

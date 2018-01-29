@@ -287,6 +287,12 @@
                             </tr>
                             </tbody>
                         </table>
+                        <div th:if="${task.estimation} eq ${currentDate}">
+                            <div class="alert alert-warning alert-dismissible" style="height:50px;">
+                                <span class="glyphicon glyphicon-warning-sign"><strong>Warning!!!</strong></span>
+                                You estimation date is Today! Hurry up!
+                            </div>
+                        </div>
                         <table style="height: 171px; width: 948px;">
                             <tbody>
                             <tr style="height: 30px;">
@@ -317,9 +323,9 @@
                                             </td>
                                         </tr>
                                         <tr style="height: 12px;">
-                                            <td style="width: 133.267px; height: 12px;"><strong><i
-                                                    class="fa fa-book margin-r-5"></i>Executor:</strong></td>
-                                            <td style="width: 311.733px; height: 12px;"
+                                            <td style="width: 133px; height: 12px;"><strong>
+                                                <i class="fa fa-book margin-r-5"></i>Executor:</strong></td>
+                                            <td style="width: 311px; height: 12px;"
                                                 th:text="${executor.userName} +' '+${executor.userSurname}">&nbsp;
                                             </td>
                                         </tr>
@@ -344,17 +350,10 @@
                                             </td>
                                             <td style="width: 230.867px;" th:text="${task.resolved}">&nbsp;</td>
                                         </tr>
-                                       <tr>
-                                            <div th:if="${task.estimation} eq ${currentDate}">
-                                                <div class="alert alert-warning">
-                                                    <strong>Warning!</strong> You estimation date is Today! Hurry up!
-                                                </div>
-                                            </div>
-                                        </tr>
-                                        <tr th:if="${task.estimation} eq ${currentDate}">
-                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Estimation:</strong>
+                                        <tr>
+                                            <td style="width: 134px;"><strong><i class="fa fa-book margin-r-5"></i>Estimation:</strong>
                                             </td>
-                                            <td style="width: 230.867px;" th:text="${task.estimation}">&nbsp;</td>
+                                            <td style="width: 230px;" th:text="${task.estimation}">&nbsp;</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -365,10 +364,294 @@
                                     <table style="height: 108px; width: 459px;">
                                         <tbody>
                                         <tr style="height: 34.2px;">
-                                            <td style="width: 133.25px; height: 34.2px;"><strong><i
-                                                    class="fa fa-book margin-r-5"></i>Priority:</strong></td>
-                                            <td style="width: 305.75px; height: 34.2px;"
-                                                th:text="${taskPriority.priorityName}">&nbsp;
+                                            <td style="width: 133.25px; height: 34.2px;"><strong>
+                                                <i class="fa fa-book margin-r-5"></i>Priority:</strong></td>
+                                            <td style="width: 25px; height: 34.2px;"
+                                                th:switch="${task.taskPriority.priorityName}">
+                                                <div th:case="'Normal'" style="width:30px;">
+                                                    <span class="glyphicon glyphicon-unchecked" style="color:darkgreen">
+                                                        <strong th:text="${taskPriority.priorityName}"></strong>
+                                                    </span>
+                                                </div>
+                                                <div th:case="'Critical'" style="width:30px;">
+                                                    <span class="glyphicon glyphicon-circle-arrow-up" style="color:red;">
+                                                        <strong th:text="${taskPriority.priorityName}"></strong>
+                                                    </span>
+                                                </div>
+                                                <div th:case="'Minor'"  style="width:30px;">
+                                                    <span  class="glyphicons glyphicons-disk-save" style="color: limegreen;">
+                                                        <strong th:text="${taskPriority.priorityName}"></strong>
+                                                    </span>
+                                                </div>
+                                                <div th:case="'Major'"  style="width:30px;">
+                                                    <span class="glyphicons glyphicons-electricity" style="color:orange;">
+                                                        <strong th:text="${taskPriority.priorityName}"></strong></span>
+                                                </div>
+                                                <div th:case="'Fire'"  style="width:30px;">
+                                                    <span class="glyphicon glyphicon-fire" style="color:#aa1111;">
+                                                        <strong th:text="${taskPriority.priorityName}"></strong>
+                                                    </span>
+                                                </div>
+                                                <div th:case="'Low'" style="width:30px;">
+                                                    <span class="glyphicon glyphicon-circle-arrow-down" style="color: #0b58a2">
+                                                        <strong th:text="${taskPriority.priorityName}"></strong>
+                                                    </span>
+                                                </div>
+                                                <div th:case="'High'" style="width:30px;">
+                                                    <span class="glyphicon glyphicon-arrow-up" style="color:#660e7a;">
+                                                        <strong th:text="${taskPriority.priorityName}"></strong></span>
+                                                </div>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 37px;">
+                                            <td style="width: 133px; height: 37px;"><strong><i
+                                                    class="fa fa-book margin-r-5"></i>Type:</strong></td>
+                                            <td style="width: 305px; height: 37px;" th:text="${taskType.typeName}">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 35px;">
+                                            <td style="width: 133px; height: 35px;"><strong><i
+                                                    class="fa fa-book margin-r-5"></i>Status:</strong></td>
+                                            <td style="width: 305px; height:40px; font-weight: normal"
+                                                th:switch="${task.taskStatus.statusName}">
+                                                <div th:case="'Open'">
+                                                    <span class="label label-primary" style="height: 40px; width: 150px"
+                                                          th:text="${task.taskStatus.statusName}"></span>
+                                                </div>
+                                                <div th:case="'Reopen'">
+                                                    <span class="label label-danger" style="height: 40px; width: 150px"
+                                                          th:text="${task.taskStatus.statusName}"></span>
+                                                </div>
+                                                <div th:case="'On hold'">
+                                                    <span class="label label-warning" style="height: 40px; width: 150px"
+                                                          th:text="${task.taskStatus.statusName}"></span>
+                                                </div>
+                                                <div th:case="'In progress'">
+                                                    <span class="label label-warning" style="height: 40px; width: 150px"
+                                                          th:text="${task.taskStatus.statusName}"></span>
+                                                </div>
+                                                <div th:case="'Closed'">
+                                                    <span class="label label-success" style="height: 40px; width: 150px"
+                                                          th:text="${task.taskStatus.statusName}"></span>
+                                                </div>
+                                                <div th:case="'Resolved'">
+                                                    <span class="label label-success" style="height: 40px; width: 150px"
+                                                          th:text="${task.taskStatus.statusName}"></span>
+                                                </div>
+                                                <div th:case="'Implemented'">
+                                                    <span class="label label-success" style="height: 40px; width: 150px"
+                                                          th:text="${task.taskStatus.statusName}"></span>
+                                                </div>
+                                                <div th:case="'Ready for testing'">
+                                                    <span class="label label-success" style="height: 40px; width: 150px"
+                                                          th:text="${task.taskStatus.statusName}"></span>
+                                                </div>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td style="width: 471px; height: 125.117px;">
+                                    <table style="height: 92px; width: 473px;">
+                                        <tbody>
+                                        <tr>
+                                            <td style="width: 135.5px;">&nbsp;
+                                                <strong>Time spent, h:</strong>
+                                            </td>
+                                            <td style="width: 320.5px;" th:text="${task.timeSpent}">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 135.5px;">&nbsp;
+                                                <strong>Persentage, %:</strong>
+                                            </td>
+                                            <td style="width: 320.5px;">
+                                                <div th:if="${task.percentage == 0}">
+                                                    <span class="badge bg-red">0%</span>
+                                                </div>
+                                                <div th:if="${task.percentage &lt; 30 AND task.percentage &gt;10}">
+                                                    <span class="badge bg-light-blue"
+                                                          th:text="${task.percentage}+', %'"></span>
+                                                </div>
+                                                <div th:if="${task.percentage &lt; 50 AND task.percentage &gt;30}">
+                                                    <span class="badge bg-red"
+                                                          th:text="${task.percentage}+', %'"></span>
+                                                </div>
+                                                <div th:if="${task.percentage &lt; 70 AND task.percentage &gt; 50}">
+                                                    <span class="badge bg-yellow"
+                                                          th:text="${task.percentage}+', %'"></span>
+                                                </div>
+                                                <div th:if="${task.percentage&gt;70}">
+                                                    <span class="badge bg-green"
+                                                          th:text="${task.percentage}+', %'"></span>
+                                                </div>
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr style="height: 33px;">
+                                <td style="width: 456px; height: 33px;">&nbsp;
+                                    <strong>Description</strong></td>
+                                <td style="width: 471px; height: 33px;">&nbsp;</td>
+                            </tr>
+                            <tr style="height: 184px;">
+                                <td style="width: 927px;height: 184px;vertical-align:top" colspan="2"
+                                    th:text="${task.description}">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            </tbody><tbody>
+                        <tr>
+                            <td style="width: 450px;">
+                                <h3 class="box-title" th:text="${task.taskName}"></h3>
+                            </td>
+                            <td style="width: 89px;">
+                                <button data-toggle="modal" data-target="#assignAnotherUser" type="button"
+                                        class="btn btn-info">Assign another user
+                                </button>
+                            </td>
+                            <td style="width: 10px;">&nbsp;</td>
+                            <td style="width: 89px;">
+                                <button data-toggle="modal" data-target="#changePriority" type="button"
+                                        class="btn btn-danger">Change priority
+                                </button>
+                            </td>
+                            <td style="width: 10px;">&nbsp;</td>
+                            <td style="width: 89px;">
+                                <button data-toggle="modal" data-target="#changeStatus" type="button"
+                                        class="btn btn-warning">Change status
+                                </button>
+                            </td>
+                            <td style="width: 10px;">&nbsp;</td>
+                            <td style="width: 89px;">
+                                <button data-toggle="modal" data-target="#logTime" type="button"
+                                        class="btn btn-success">Log time
+                                </button>
+                            </td>
+                            <td style="width: 10px;">&nbsp;</td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        <div th:if="${task.estimation} eq ${currentDate}">
+                            <div class="alert alert-warning alert-dismissible" style="height:50px;">
+                                <span class="glyphicon glyphicon-warning-sign"><strong>Warning!!!</strong></span>
+                                You estimation date is Today! Hurry up!
+                            </div>
+                        </div>
+                        <table style="height: 171px; width: 948px;">
+                            <tbody>
+                            <tr style="height: 30px;">
+                                <td style="width: 456px; height: 30px;">
+                                    <table style="height: 36px; width: 461px;">
+                                        <tbody>
+                                        <tr style="height: 33px;">
+                                            <td style="width: 132.8px; height: 33px;"><strong><i
+                                                    class="fa fa-book margin-r-5"></i>Project:</strong></td>
+                                            <td style="width: 310.2px; height: 33px;"
+                                                th:text="${taskProject.projectName}">&nbsp;
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td style="width: 471px; height: 30px;">&nbsp;</td>
+                            </tr>
+                            <tr style="height: 68px;">
+                                <td style="width: 456px; height: 68px;">
+                                    <table style="height: 78px; width: 461px;">
+                                        <tbody>
+                                        <tr style="height: 19.9px;">
+                                            <td style="width: 133.267px; height: 19.9px;"><strong><i
+                                                    class="fa fa-book margin-r-5"></i>Creator:</strong></td>
+                                            <td style="width: 311.733px; height: 19.9px;"
+                                                th:text="${creator.userName} +' '+${creator.userSurname}">&nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr style="height: 12px;">
+                                            <td style="width: 133px; height: 12px;"><strong>
+                                                <i class="fa fa-book margin-r-5"></i>Executor:</strong></td>
+                                            <td style="width: 311px; height: 12px;"
+                                                th:text="${executor.userName} +' '+${executor.userSurname}">&nbsp;
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td style="width: 471px; height: 68px;">
+                                    <table style="height: 144px; width: 382px;">
+                                        <tbody>
+                                        <tr>
+                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Created:</strong>
+                                            </td>
+                                            <td style="width: 230.867px;" th:text="${task.created}">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Updated:</strong>
+                                            </td>
+                                            <td style="width: 230.867px;" th:text="${task.updated}">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 134.133px;"><strong><i class="fa fa-book margin-r-5"></i>Resolved:</strong>
+                                            </td>
+                                            <td style="width: 230.867px;" th:text="${task.resolved}">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 134px;"><strong><i class="fa fa-book margin-r-5"></i>Estimation:</strong>
+                                            </td>
+                                            <td style="width: 230px;" th:text="${task.estimation}">&nbsp;</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr style="height: 125.117px;">
+                                <td style="width: 456px; height: 125.117px;">&nbsp;
+                                    <table style="height: 108px; width: 459px;">
+                                        <tbody>
+                                        <tr style="height: 34.2px;">
+                                            <td style="width: 133.25px; height: 34.2px;"><strong>
+                                                <i class="fa fa-book margin-r-5"></i>Priority:</strong></td>
+                                            <td style="width: 25px; height: 34.2px;"
+                                                th:switch="${task.taskPriority.priorityName}">
+                                                <div th:case="'Normal'" style="width:30px;">
+                                                    <span class="glyphicon glyphicon-unchecked" style="color:darkgreen">
+                                                        <strong th:text="${taskPriority.priorityName}"></strong>
+                                                    </span>
+                                                </div>
+                                                <div th:case="'Critical'" style="width:30px;">
+                                                    <span class="glyphicon glyphicon-circle-arrow-up" style="color:red;">
+                                                        <strong th:text="${taskPriority.priorityName}"></strong>
+                                                    </span>
+                                                </div>
+                                                <div th:case="'Minor'"  style="width:30px;">
+                                                    <span  class="glyphicons glyphicons-disk-save" style="color: limegreen;">
+                                                        <strong th:text="${taskPriority.priorityName}"></strong>
+                                                    </span>
+                                                </div>
+                                                <div th:case="'Major'"  style="width:30px;">
+                                                    <span class="glyphicons glyphicons-electricity" style="color:orange;">
+                                                        <strong th:text="${taskPriority.priorityName}"></strong></span>
+                                                </div>
+                                                <div th:case="'Fire'"  style="width:30px;">
+                                                    <span class="glyphicon glyphicon-fire" style="color:#aa1111;">
+                                                        <strong th:text="${taskPriority.priorityName}"></strong>
+                                                    </span>
+                                                </div>
+                                                <div th:case="'Low'" style="width:30px;">
+                                                    <span class="glyphicon glyphicon-circle-arrow-down" style="color: #0b58a2">
+                                                        <strong th:text="${taskPriority.priorityName}"></strong>
+                                                    </span>
+                                                </div>
+                                                <div th:case="'High'" style="width:30px;">
+                                                    <span class="glyphicon glyphicon-arrow-up" style="color:#660e7a;">
+                                                        <strong th:text="${taskPriority.priorityName}"></strong></span>
+                                                </div>
+                                                &nbsp;
                                             </td>
                                         </tr>
                                         <tr style="height: 37px;">
