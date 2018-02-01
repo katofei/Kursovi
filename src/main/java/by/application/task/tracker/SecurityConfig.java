@@ -39,7 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/login").permitAll()
+                .antMatchers("/registration").permitAll()
+                .antMatchers("/confirmation").permitAll()
                 .and().csrf().disable()
                 .formLogin()
                     .loginPage("/login")

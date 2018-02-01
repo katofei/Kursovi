@@ -16,5 +16,9 @@ public interface UserService {
     List<User> getAllUsers();
     User findByUserName(String name);
     User findByLogin(String login);
+  //  User findByWorkEmail(String email);
+    User findByConfirmationToken(String confirmationToken);
+    void saveUser(User user);
+
 }
 

@@ -45,26 +45,28 @@ public class UserServiceImpl implements UserService {
     public User createUser(UserDTO userDTO) throws LoginExistsException, WorkEmailExistsException {
 
         if (loginExists(userDTO.getLogin())) {
-            throw new LoginExistsException("There is an account with that Login: "  + userDTO.getLogin());
+            throw new LoginExistsException("There is an account with that Login: " + userDTO.getLogin());
         }
 
         if (emailExist(userDTO.getWorkEmail())) {
-            throw new WorkEmailExistsException("There is an account with that email address: "  + userDTO.getWorkEmail());
+            throw new WorkEmailExistsException("There is an account with that email address: " + userDTO.getWorkEmail());
         }
 
         User createdUser = new User(userDTO);
         createdUser.setUserRole(roleService.findByRoleName(USER_ROLE));
-        createdUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        createdUser.setProject(projectService.findByProjectId(userDTO.getProject()));
+
         createdUser.setProjectRole(projectRoleService.findProjectRoleById(userDTO.getProjectRole()));
         createdUser.setPosition(positionService.findPositionById(userDTO.getPosition()));
+
+        createdUser.setProject(projectService.findByProjectId(userDTO.getProject()));
         if (userDTO.getProject() == 0) {
             createdUser.setUserStatus(userStatusService.findByStatusName("Not assigned"));
         } else {
             createdUser.setUserStatus(userStatusService.findByStatusName("Assigned"));
         }
         createdUser.setQualification(qualificationService.findQualificationById(userDTO.getQualification()));
-
+        createdUser.setEnabled(userDTO.isEnabled());
+        createdUser.setConfirmationToken(userDTO.getConfirmationToken());
         createdUser.setUserContact(userContactService.createContact(userDTO));
         return userRepository.save(createdUser);
     }
@@ -81,7 +83,6 @@ public class UserServiceImpl implements UserService {
       /*  editedUser.setProject(projectService.findByProjectId(userDTO.getProject()));
         editedUser.setProjectRole(projectRoleService.findProjectRoleById(userDTO.getProjectRole()));
         editedUser.setPosition(positionService.findPositionById(userDTO.getPosition()));*/
-
         editedUser.setUserContact(userInfoWrapper.getUserContact());
         return userRepository.save(editedUser);
     }
@@ -108,6 +109,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByLogin(login);
     }
 
+
+    public User findByConfirmationToken(String confirmationToken) {
+        return userRepository.findByConfirmationToken(confirmationToken);
+    }
+
     private boolean loginExists(String login) {
         User user = userRepository.findByLogin(login);
         return user != null;
@@ -116,6 +122,10 @@ public class UserServiceImpl implements UserService {
     private boolean emailExist(String email) {
         UserContact userContact = userContactRepository.findByWorkEmail(email);
         return userContact != null;
+    }
+
+    public void saveUser(User user) {
+        userRepository.save(user);
     }
 
 }

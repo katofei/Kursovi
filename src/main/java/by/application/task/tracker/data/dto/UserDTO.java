@@ -7,20 +7,18 @@ import java.io.Serializable;
 
 public class UserDTO implements Serializable {
 
-    public UserDTO() {
-    }
+    public UserDTO() {}
 
-    @NotBlank(message = "User name is required")
     private String userName;
-
-    @NotBlank(message = "User surname is required")
     private String userSurname;
 
     @Size(min = 6, message = "Login is too short: 6 symbols are required")
     private String login;
 
-    @Size(min = 6, message = "Password is too short: 6 symbols are required")
     private String password;
+    private String confirmationPassword;
+    private String confirmationToken;
+    private boolean enabled;
 
     private long userRole;
     private long project;
@@ -33,10 +31,10 @@ public class UserDTO implements Serializable {
     private String street;
     private int houseNumber;
 
-    @NotBlank(message = "E-mail can not be empty")
+    //@NotBlank(message = "E-mail can not be empty")
     private String workEmail;
 
-    @NotBlank(message = "Prone can not be empty")
+   // @NotBlank(message = "Prone can not be empty")
     private String workPhone;
 
     private String privateEmail;
@@ -165,4 +163,12 @@ public class UserDTO implements Serializable {
         this.fax = fax;
     }
 
+    public String getConfirmationPassword() {return confirmationPassword;}
+    public void setConfirmationPassword(String confirmationPassword) {this.confirmationPassword = confirmationPassword;}
+
+    public String getConfirmationToken() {return confirmationToken;}
+    public void setConfirmationToken(String confirmationToken) {this.confirmationToken = confirmationToken;}
+
+    public boolean isEnabled() {return enabled;}
+    public void setEnabled(boolean enabled) {this.enabled = enabled;}
 }

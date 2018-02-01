@@ -1,6 +1,8 @@
 package by.application.task.tracker.data.entities;
 
 import by.application.task.tracker.data.dto.UserDTO;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 
@@ -30,7 +32,9 @@ public class UserContact {
     @Column(name = "private_phone")
     private String privatePhone;
 
-    @Column(name = "work_Email")
+    @Column(name = "work_Email", nullable = false, unique = true)
+    @Email(message = "Please provide a valid e-mail")
+    @NotEmpty(message = "Please provide an e-mail")
     private String workEmail;
 
     @Column(name = "private_Email")

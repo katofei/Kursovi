@@ -28,9 +28,10 @@ public class AdminController {
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         ModelAndView view = new ModelAndView("adminStartPage");
         view.addObject("currentUser", currentUser);
+        /*
         view.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
         view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
-        view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));
+        view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));*/
         return view;
     }
 

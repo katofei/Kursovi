@@ -4,6 +4,7 @@ package by.application.task.tracker.data.entities;
 import by.application.task.tracker.data.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,8 +19,7 @@ public class User implements Serializable {
     public User(UserDTO userDTO) {
         this.userName = userDTO.getUserName();
         this.userSurname = userDTO.getUserSurname();
-        this.login = userDTO.getLogin();
-    }
+        this.login = userDTO.getLogin();}
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,12 +27,14 @@ public class User implements Serializable {
     private Long userId;
 
     @Column(name = "user_name")
+    @NotEmpty(message = "Please provide your first name")
     private String userName;
 
     @Column(name = "user_surname")
+    @NotEmpty(message = "Please provide your last name")
     private String userSurname;
 
-    @Column(name = "login")
+    @Column(name = "login", nullable = false, unique = true)
     private String login;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -74,6 +76,12 @@ public class User implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Comment> commentList;
+
+    @Column(name = "confirmation_token")
+    private String confirmationToken;
+
+    public String getConfirmationToken() {return confirmationToken;}
+    public void setConfirmationToken(String confirmationToken) {this.confirmationToken = confirmationToken;}
 
     public Long getUserId() {return userId;}
     public void setUserId(Long userId) {

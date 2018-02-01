@@ -33,11 +33,11 @@
                                   th:text="${currentUser.userName}+' '+${currentUser.userSurname}"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="user-header">
+                           <!-- <li class="user-header">
                                 <img src="/dist/img/user2-160x160.jpg" class="img-circle"/>
                                 <p th:text="${currentUser.userName}+' '+${currentUser.userSurname}"></p>
                                 <p th:text="${qualification.qualificationName}+' '+${position.positionName}"></p>
-                            </li>
+                            </li>-->
                             <li class="user-footer">
                                 <div class="pull-left">
                                     <a  th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
@@ -106,24 +106,24 @@
                     <form role="form" th:action="@{/registration}" th:object="${user}" method="post">
                         <div class="box-body">
                             <div class="form-group has-feedback">
-                                <label>User name</label>
+                                <label>User first name</label>
                                 <h3>
                                     <small style="color:#a31515; font-family: Times, serif; font-weight:bold;"
                                            th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">
                                     </small>
                                 </h3>
                                 <input type="text" class="form-control" th:field="*{userName}"
-                                       placeholder="Enter name"/>
+                                       placeholder="Enter first name"/>
                             </div>
                             <div class="form-group has-feedback">
-                                <label>User surname</label>
+                                <label>User last name</label>
                                 <h3>
                                     <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
                                            th:if="${#fields.hasErrors('userSurname')}" th:errors="*{userSurname}">
                                     </small>
                                 </h3>
                                 <input type="text" class="form-control" th:field="*{userSurname}"
-                                       placeholder="Enter surname"/>
+                                       placeholder="Enter last name"/>
                             </div>
                             <div class="form-group has-feedback">
                                 <h3>
@@ -135,7 +135,7 @@
                                 <input type="text" class="form-control" th:field="*{login}"
                                        placeholder="Enter login"/>
                             </div>
-                            <div class="form-group has-feedback">
+                         <!--   <div class="form-group has-feedback">
                                 <h3>
                                     <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
                                            th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
@@ -146,8 +146,8 @@
                                        id="exampleInputPassword1"
                                        placeholder="Enter password"/>
                                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                            </div>
-                            <div class="form-group has-feedback">
+                            </div>-->
+                          <!--  <div class="form-group has-feedback">
                                 <label>Project name</label>
                                 <select th:field="*{project}" class="form-control select2" style="width: 100%;">
                                     <option th:value="0"></option>
@@ -183,9 +183,9 @@
                                             th:text="${projectRole.projectRoleName}" selected="selected">Project Manager
                                     </option>
                                 </select>
-                            </div>
+                            </div>-->
                             <h3 class="box-title">Contact information</h3>
-                            <div class="form-group has-feedback">
+                           <!-- <div class="form-group has-feedback">
                                 <h3>
                                     <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
                                            th:if="${#fields.hasErrors('workPhone')}"
@@ -195,7 +195,7 @@
                                 <label>Work phone:</label>
                                 <input type="text" class="form-control" th:field="*{workPhone}"/>
                                 <span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>
-                            </div>
+                            </div>-->
                             <div class="form-group has-feedback">
                                 <h3>
                                     <small style="color: #a31515;font-family: Times, serif; font-weight: bold;"
@@ -208,7 +208,7 @@
                                        id="exampleInputEmail1"/>
                                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                             </div>
-                            <div class="form-group has-feedback">
+                           <!-- <div class="form-group has-feedback">
                                 <div class="form-group">
                                     <label>Fax:</label>
                                     <input type="text" class="form-control" th:field="*{fax}"/>
@@ -233,8 +233,8 @@
                                 <input type="email" class="form-control" th:field="*{privateEmail}"
                                        id="exampleInputEmail1"/>
                                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                            </div>
-                            <h3 class="box-title">Location</h3>
+                            </div>-->
+                      <!--      <h3 class="box-title">Location</h3>
                             <div class="form-group has-feedback">
                                 <label>Country</label>
                                 <input type="text" class="form-control" th:field="*{country}"/>
@@ -253,7 +253,7 @@
                                 <label>House number</label>
                                 <input type="text" class="form-control" th:field="*{houseNumber}"/>
                                 <span class="glyphicon glyphicon-home form-control-feedback"></span>
-                            </div>
+                            </div>-->
                         </div>
 
                         <div class="box-footer">
