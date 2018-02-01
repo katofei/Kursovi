@@ -86,13 +86,13 @@ public class RegistrationController {
             userDTO.setConfirmationToken(UUID.randomUUID().toString());
             createUserAccount(userDTO, result);
 
-            String appUrl = request.getScheme() + "://" + request.getServerName();
+            String appUrl = request.getScheme() + "://" + request.getServerName()+ request.getServerPort();
 
             SimpleMailMessage registrationEmail = new SimpleMailMessage();
             registrationEmail.setTo(userDTO.getWorkEmail());
             registrationEmail.setSubject("Registration Confirmation");
             registrationEmail.setText("To confirm your e-mail address, please click the link below:\n"
-                    + appUrl + "/confirm?token=" + userDTO.getConfirmationToken());
+                    + appUrl + "/confirmation?token=" + userDTO.getConfirmationToken());
             registrationEmail.setFrom(currentUser.getUserContact().getWorkEmail());
 
             emailService.sendEmail(registrationEmail);
@@ -125,16 +125,16 @@ public class RegistrationController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/confirmation", method = RequestMethod.POST)
+    @RequestMapping(value="/confirm", method = RequestMethod.POST)
     public ModelAndView processConfirmationForm(ModelAndView modelAndView, BindingResult bindingResult, @RequestParam Map requestParams, RedirectAttributes redir) {
-        modelAndView.setViewName("confirm");
+        modelAndView.setViewName("confirmation");
         Zxcvbn passwordCheck = new Zxcvbn();
         Strength strength = passwordCheck.measure((String) requestParams.get("password"));
 
         if (strength.getScore() < 3) {
             bindingResult.reject("password");
             redir.addFlashAttribute("errorMessage", "Your password is too weak.  Choose a stronger one.");
-            modelAndView.setViewName("redirect:confirm?token=" + requestParams.get("token"));
+            modelAndView.setViewName("redirect:confirmation?token=" + requestParams.get("token"));
             System.out.println(requestParams.get("token"));
             return modelAndView;
         }
