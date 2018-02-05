@@ -86,7 +86,7 @@ public class RegistrationController {
             userDTO.setConfirmationToken(UUID.randomUUID().toString());
             createUserAccount(userDTO, result);
 
-            String appUrl = request.getScheme() + "://" + request.getServerName()+ request.getServerPort();
+            String appUrl = request.getScheme() + "://" + request.getServerName()+ ":" + request.getServerPort();
 
             SimpleMailMessage registrationEmail = new SimpleMailMessage();
             registrationEmail.setTo(userDTO.getWorkEmail());
