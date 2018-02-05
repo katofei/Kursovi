@@ -74,7 +74,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
 <script th:src="@{js/fv.min.js}"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#passwordForm').formValidation({
             framework: 'bootstrap',
             icon: {
@@ -83,24 +83,21 @@
                 validating: 'glyphicon glyphicon-refresh'
             },
             fields: {
-
                 password: {
                     validators: {
                         notEmpty: {
                             message: 'The password is required'
                         },
                         callback: {
-                            callback: function (value, validator, $field) {
+                            callback: function(value, validator, $field) {
                                 var password = $field.val();
                                 if (password == '') {
                                     return true;
                                 }
-
-                                var result = zxcvbn(password),
-                                    score = result.score,
+                                var result  = zxcvbn(password),
+                                    score   = result.score,
                                     message = result.feedback.warning || 'The password is weak';
 
-                                // Update the progress bar width and add alert class
                                 var $bar = $('#strengthBar');
                                 switch (score) {
                                     case 0:
@@ -124,15 +121,12 @@
                                             .css('width', '100%');
                                         break;
                                 }
-
-                                // We will treat the password as an invalid one if the score is less than 3
                                 if (score < 3) {
                                     return {
                                         valid: false,
                                         message: message
                                     }
                                 }
-
                                 return true;
                             }
                         }

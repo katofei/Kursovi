@@ -82,6 +82,7 @@ public class RegistrationController {
             view.addObject("projectRoles", projectRoleService.getAllProjectRoles());*/
         }
         else {
+            view.addObject("currentUser", currentUser);
             userDTO.setEnabled(false);
             userDTO.setConfirmationToken(UUID.randomUUID().toString());
             createUserAccount(userDTO, result);
@@ -103,16 +104,6 @@ public class RegistrationController {
         return view;
     }
 
-    private void createUserAccount(UserDTO userDto, BindingResult result) {
-        try {
-            userService.createUser(userDto);
-        } catch (LoginExistsException e) {
-            result.rejectValue("login", "message", "Username already exists");
-        } catch (WorkEmailExistsException e) {
-            result.rejectValue("workEmail", "message", "Email already exists");
-        }
-    }
-
     @RequestMapping(value="/confirmation", method = RequestMethod.GET)
     public ModelAndView showConfirmationPage(ModelAndView modelAndView, @RequestParam("token") String token) {
         User user = userService.findByConfirmationToken(token);
@@ -130,7 +121,6 @@ public class RegistrationController {
         modelAndView.setViewName("confirmation");
         Zxcvbn passwordCheck = new Zxcvbn();
         Strength strength = passwordCheck.measure((String) requestParams.get("password"));
-
         if (strength.getScore() < 3) {
             bindingResult.reject("password");
             redir.addFlashAttribute("errorMessage", "Your password is too weak.  Choose a stronger one.");
@@ -138,14 +128,22 @@ public class RegistrationController {
             System.out.println(requestParams.get("token"));
             return modelAndView;
         }
-
         User user = userService.findByConfirmationToken((String) requestParams.get("token"));
         user.setPassword(bCryptPasswordEncoder.encode((CharSequence) requestParams.get("password")));
         user.setEnabled(true);
         userService.saveUser(user);
-
         modelAndView.addObject("successMessage", "Your password has been set!");
         return modelAndView;
+    }
+
+    private void createUserAccount(UserDTO userDto, BindingResult result) {
+        try {
+            userService.createUser(userDto);
+        } catch (LoginExistsException e) {
+            result.rejectValue("login", "message", "Username already exists");
+        } catch (WorkEmailExistsException e) {
+            result.rejectValue("workEmail", "message", "Email already exists");
+        }
     }
 
 }

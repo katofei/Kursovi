@@ -103,7 +103,10 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">User Registration</h3>
                     </div>
+
                     <form role="form" th:action="@{/registration}" th:object="${user}" method="post">
+                        <div th:if="${confirmationMessage}" class="alert alert-success"
+                             role="alert" th:text="${confirmationMessage}"></div>
                         <div class="box-body">
                             <div class="form-group has-feedback">
                                 <label>User first name</label>
