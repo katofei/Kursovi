@@ -10,16 +10,19 @@ import by.application.task.tracker.service.*;
 import by.application.task.tracker.validation.exception.WorkEmailExistsException;
 import by.application.task.tracker.validation.exception.LoginExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static by.application.task.tracker.Constants.*;
+
 @Service
 public class UserServiceImpl implements UserService {
 
-    public static final String USER_ROLE = "USER";
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -45,25 +48,17 @@ public class UserServiceImpl implements UserService {
     public User createUser(UserDTO userDTO) throws LoginExistsException, WorkEmailExistsException {
 
         if (loginExists(userDTO.getLogin())) {
-            throw new LoginExistsException("There is an account with that Login: " + userDTO.getLogin());
+            throw new LoginExistsException("Account with such login already exists!");
         }
-
         if (emailExist(userDTO.getWorkEmail())) {
-            throw new WorkEmailExistsException("There is an account with that email address: " + userDTO.getWorkEmail());
+            throw new WorkEmailExistsException("Account with such email address already exists!");
         }
-
         User createdUser = new User(userDTO);
         createdUser.setUserRole(roleService.findByRoleName(USER_ROLE));
-
         createdUser.setProjectRole(projectRoleService.findProjectRoleById(userDTO.getProjectRole()));
         createdUser.setPosition(positionService.findPositionById(userDTO.getPosition()));
-
         createdUser.setProject(projectService.findByProjectId(userDTO.getProject()));
-        if (userDTO.getProject() == 0) {
-            createdUser.setUserStatus(userStatusService.findByStatusName("Not assigned"));
-        } else {
-            createdUser.setUserStatus(userStatusService.findByStatusName("Assigned"));
-        }
+        createdUser.setUserStatus(userStatusService.findByStatusName(USER_NOT_ACTIVATED));
         createdUser.setQualification(qualificationService.findQualificationById(userDTO.getQualification()));
         createdUser.setEnabled(userDTO.isEnabled());
         createdUser.setConfirmationToken(userDTO.getConfirmationToken());
@@ -80,9 +75,9 @@ public class UserServiceImpl implements UserService {
     public User editUser(UserInfoWrapper userInfoWrapper) {
         User editedUser = userInfoWrapper.getUser();
         editedUser.setPassword(passwordEncoder.encode(editedUser.getPassword()));
-      /*  editedUser.setProject(projectService.findByProjectId(userDTO.getProject()));
-        editedUser.setProjectRole(projectRoleService.findProjectRoleById(userDTO.getProjectRole()));
-        editedUser.setPosition(positionService.findPositionById(userDTO.getPosition()));*/
+        editedUser.setProject(projectService.findByProjectId(editedUser.getProject().getProjectId()));
+        editedUser.setProjectRole(projectRoleService.findProjectRoleById(editedUser.getProjectRole().getProjectRoleId()));
+        editedUser.setPosition(positionService.findPositionById(editedUser.getPosition().getPositionId()));
         editedUser.setUserContact(userInfoWrapper.getUserContact());
         return userRepository.save(editedUser);
     }
@@ -90,13 +85,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserById(Long id) {
         return userRepository.findOne(id);
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        List<User> users = new ArrayList<>();
-        userRepository.findAll().forEach(users::add);
-        return users;
     }
 
     @Override
@@ -128,4 +116,10 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Override
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        userRepository.findAll().forEach(users::add);
+        return users;
+    }
 }

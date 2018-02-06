@@ -9,7 +9,11 @@ import by.application.task.tracker.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,6 +27,9 @@ public class ProjectServiceImpl implements ProjectService{
     @Override
     public Project createProject(ProjectDTO projectDTO) {
         Project createdProject = new Project(projectDTO);
+        Date today = new Date();
+        LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        createdProject.setCreated(date.format(DateTimeFormatter.ISO_DATE));
         createdProject.setProjectContact( contactService.createContact(projectDTO));
         return projectRepository.save(createdProject);}
 

@@ -15,6 +15,7 @@ public class Project {
         this.description = projectDTO.getDescription();
         this.projectName = projectDTO.getProjectName();
         this.mainAim = projectDTO.getMainAim();
+        this.deadLine = projectDTO.getDeadLine();
     }
 
     @Id
@@ -37,8 +38,14 @@ public class Project {
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
     private List<User> userList;
 
+    @Column(name = "created")
+    private String created;
+
+    @Column(name = "deadline")
+    private String deadLine;
+/*
     @ManyToOne
-    private ProjectStrategy projectStrategy;
+    private ProjectStrategy projectStrategy;*/
 
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
     private List<Dashboard> dashboardList;
@@ -69,4 +76,10 @@ public class Project {
 
     public ProjectContact getProjectContact() {return projectContact;}
     public void setProjectContact(ProjectContact projectContact) {this.projectContact = projectContact;}
+
+    public String getCreated() {return created;}
+    public void setCreated(String created) {this.created = created;}
+
+    public String getDeadLine() {return deadLine;}
+    public void setDeadLine(String deadLine) {this.deadLine = deadLine;}
 }

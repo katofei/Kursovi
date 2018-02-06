@@ -1,14 +1,18 @@
 package by.application.task.tracker.controllers;
 
-import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.data.wrapper.UserInfoWrapper;
 import by.application.task.tracker.service.*;
+import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -27,6 +31,7 @@ public class UserController {
     @Autowired private ProjectService projectService;
     @Autowired private UserContactService userContactService;
     @Autowired private TaskService taskService;
+    @Autowired private EmailService emailService;
 
     @RequestMapping(path = "/userPage", method = RequestMethod.GET)
     public ModelAndView getUserStartPage() {
@@ -81,6 +86,14 @@ public class UserController {
         view.addObject("position", currentUser.getPosition());
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
+
+        SimpleMailMessage registrationEmail = new SimpleMailMessage();
+        registrationEmail.setTo(userService.findUserById(id).getUserContact().getWorkEmail());
+        registrationEmail.setSubject("Deletion notification");
+        registrationEmail.setText("Dear user, be informed that you deleted from system:\n"
+               +"You don't have permission to log in anymore");
+        registrationEmail.setFrom(currentUser.getUserContact().getWorkEmail());
+        emailService.sendEmail(registrationEmail);
 
         userService.deleteUser(id);
         view.setViewName("redirect:/allUsers");
@@ -219,4 +232,14 @@ public class UserController {
     //  /profile/${currentUser.userId}/user-statistics - use page with name "userStatistics"
     //  /profile/${currentUser.userId}/team-statistics - use page with name "teamStatistics"
 
+
+
+
+    //TODO :
+    // Вопрос - как хранить assign? как сущность либо просто полями в юзере
+    //1. необходимо добавить кварц. считать дни до конца проекта
+    //2. необходимо добавить кварц. считать дни до дедлайна проекта
+    //3. подумать, нужно ли добавлять кварц для task-ok
+
+    //4. Сделать создание дашбордов и тасок ПОД ними
 }

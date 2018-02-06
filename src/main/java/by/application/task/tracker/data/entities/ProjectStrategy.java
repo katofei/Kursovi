@@ -1,3 +1,4 @@
+/*
 package by.application.task.tracker.data.entities;
 
 import javax.persistence.*;
@@ -42,3 +43,4 @@ public class ProjectStrategy {
         this.projectList = projectList;
     }
 }
+*/

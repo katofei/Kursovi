@@ -9,6 +9,8 @@ public class ProjectDTO {
 
     private String description;
 
+    private String deadLine;
+
     @NotBlank(message = "Main aim is required")
     private String mainAim;
 
@@ -53,4 +55,6 @@ public class ProjectDTO {
     public String getFax() {return fax;}
     public void setFax(String fax) {this.fax = fax;}
 
+    public String getDeadLine() {return deadLine;}
+    public void setDeadLine(String deadLine) {this.deadLine = deadLine;}
 }

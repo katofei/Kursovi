@@ -12,5 +12,4 @@ public interface UserContactService {
     void deleteContact(Long contactId);
     UserContact editContact(UserInfoWrapper userInfoWrapper);
     UserContact findByContactId(Long contactId);
-    List<UserContact> getAllUserContacts();
 }

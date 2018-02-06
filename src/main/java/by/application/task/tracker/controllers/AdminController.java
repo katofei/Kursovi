@@ -34,7 +34,4 @@ public class AdminController {
         view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));*/
         return view;
     }
-
-
-
 }
