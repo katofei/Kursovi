@@ -15,10 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -46,8 +43,11 @@ public class RegistrationController {
     private EmailService emailService;
 
     @RequestMapping(path = "/registration", method = RequestMethod.GET)
-    public ModelAndView getRegistrationPage() {
+    public ModelAndView getRegistrationPage(@RequestParam(value = "isRegistred", required = false) String isRegistred) {
         ModelAndView view = new ModelAndView("registration");
+        if (isRegistred != null) {
+            view.addObject("confirmationMessage", "A confirmation e-mail has been sent.");
+        }
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
        /* view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
@@ -65,7 +65,8 @@ public class RegistrationController {
     }
 
     @RequestMapping(path = "/registration", method = RequestMethod.POST)
-    public ModelAndView registerUser(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, HttpServletRequest request) {
+    public ModelAndView registerUser(@RequestParam(value = "isRegistred", required = false) String isRegistred,
+                                     @Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, HttpServletRequest request) {
         ModelAndView view = new ModelAndView();
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
 
@@ -98,8 +99,8 @@ public class RegistrationController {
 
             emailService.sendEmail(registrationEmail);
 
-            view.addObject("confirmationMessage", "A confirmation e-mail has been sent to " + userDTO.getWorkEmail());
-            view.setViewName("registration");
+            view.setViewName("redirect:/registration?isRegistred=true");
+
         }
         return view;
     }
@@ -116,7 +117,7 @@ public class RegistrationController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/confirm", method = RequestMethod.POST)
+    @RequestMapping(value="/confirmation", method = RequestMethod.POST)
     public ModelAndView processConfirmationForm(ModelAndView modelAndView, BindingResult bindingResult, @RequestParam Map requestParams, RedirectAttributes redir) {
         modelAndView.setViewName("confirmation");
         Zxcvbn passwordCheck = new Zxcvbn();
