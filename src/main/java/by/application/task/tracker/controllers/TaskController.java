@@ -41,7 +41,7 @@ public class TaskController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-        view.addObject("allUsers", userService.getAllUsers());
+        view.addObject("allUsers", userService.getAllUsers(currentUser.getProject().getProjectId()));
         view.addObject("taskTypes", taskTypeService.getAllTaskTypes());
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
@@ -59,7 +59,7 @@ public class TaskController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-        view.addObject("allUsers", userService.getAllUsers());
+        view.addObject("allUsers", userService.getAllUsers(currentUser.getProject().getProjectId()));
         view.addObject("taskTypes", taskTypeService.getAllTaskTypes());
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
@@ -73,8 +73,8 @@ public class TaskController {
         return view;
     }
 
-    @RequestMapping(path = "/allTasks", method = RequestMethod.GET)
-    public ModelAndView getAllTasks() {
+    @RequestMapping(path = "dashboard/{id}/allTasks", method = RequestMethod.GET)
+    public ModelAndView getAllTasks(@PathVariable("id") long dashboardId) {
         ModelAndView view = new ModelAndView("allTasksPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -82,7 +82,7 @@ public class TaskController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-        List<Task> taskList = taskService.getAllTasks();
+        List<Task> taskList = taskService.getAllTasks(dashboardId);
         view.addObject("taskList", taskList);
         return view;
     }
@@ -108,7 +108,7 @@ public class TaskController {
         Date today = new Date();
         LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         view.addObject("currentDate", date.toString());
-        List<User> userList= userService.getAllUsers()
+        List<User> userList= userService.getAllUsers(currentUser.getProject().getProjectId())
                 .stream().filter(user -> user.getProject() == currentUser.getProject()).collect(Collectors.toList());
         view.addObject("userList", userList);
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
@@ -144,7 +144,7 @@ public class TaskController {
         Task task = taskService.findTaskById(taskId);
         view.addObject("task", task);
 
-        List<User> userList = userService.getAllUsers();
+        List<User> userList = userService.getAllUsers(currentUser.getProject().getProjectId());
         view.addObject("userList", userList);
         view.addObject("taskDTO", new TaskDTO());
         view.addObject("taskTypes", taskTypeService.getAllTaskTypes());
@@ -170,7 +170,7 @@ public class TaskController {
         view.addObject("executor", task.getExecutor());
         view.addObject("task", task);
 
-        List<User> userList = userService.getAllUsers();
+        List<User> userList = userService.getAllUsers(currentUser.getProject().getProjectId());
         view.addObject("userList", userList);
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
