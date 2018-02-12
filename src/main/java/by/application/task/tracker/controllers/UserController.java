@@ -218,7 +218,6 @@ public class UserController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-
        // todo add logic for filtering
         return view;
     }
@@ -227,24 +226,4 @@ public class UserController {
         userContactService.editContact(userInfoWrapper);
         userService.editUser(userInfoWrapper);
     }
-
-    //TODO need to add function for mappings :
-
-    //  /profile/${currentUser.userId}/my-tasks - use "myTasks" page, + filter by user ( as creator and as executor)
-    //  this stuff started
-
-    //  /profile/${currentUser.userId}/user-statistics - use page with name "userStatistics"
-    //  /profile/${currentUser.userId}/team-statistics - use page with name "teamStatistics"
-
-
-
-
-    //TODO :
-    // Вопрос - как хранить assign? как сущность либо просто полями в юзере
-    //1. необходимо добавить кварц. считать дни до конца assign
-    //2. необходимо добавить кварц. считать дни до дедлайна проекта
-    //3. подумать, нужно ли добавлять кварц для task-ok
-
-    //4. Сделать создание дашбордов и тасок ПОД ними
-                 // в процессе
 }
