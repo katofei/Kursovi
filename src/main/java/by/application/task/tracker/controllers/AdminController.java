@@ -34,4 +34,10 @@ public class AdminController {
         view.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification().getQualificationId()));*/
         return view;
     }
+
+
+    @RequestMapping(path = "/homePage", method = RequestMethod.GET)
+    public ModelAndView getHomePage() {
+        return new ModelAndView("homePage");
+    }
 }

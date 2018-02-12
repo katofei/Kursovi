@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @RequestMapping(path = "/allUsers", method = RequestMethod.GET)
-    public ModelAndView getAllUsers() {
+    public ModelAndView getAllUsers(@PathVariable("id") long projectId) {
         ModelAndView view = new ModelAndView("allUsersPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -53,7 +53,7 @@ public class UserController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-        List<User> userList = userService.getAllUsers();
+        List<User> userList = userService.getAllUsers(projectId);
         view.addObject("userList", userList);
         return view;
     }
@@ -186,8 +186,9 @@ public class UserController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-        List<User> userList= userService.getAllUsers().stream().filter(user -> currentUser.getProject() == user.getProject()).collect(Collectors.toList());
-        view.addObject("userList", userList);
+        // todo add logic for filtering
+       // List<User> userList= userService.getAllUsers().stream().filter(user -> currentUser.getProject() == user.getProject()).collect(Collectors.toList());
+       // view.addObject("userList", userList);
 
         return view;
     }
@@ -201,13 +202,14 @@ public class UserController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-        List<User> userList= userService.getAllUsers().stream().filter(user -> currentUser.getProject() == user.getProject()).collect(Collectors.toList());
-        view.addObject("userList", userList);
+        // todo add logic for filtering
+      //  List<User> userList= userService.getAllUsers();
+      //  view.addObject("userList", userList);
 
         return view;
     }
 
-    @RequestMapping(value = "/profile/{id}/user-statistics", method = RequestMethod.GET)
+   @RequestMapping(value = "/profile/{id}/user-statistics", method = RequestMethod.GET)
     public ModelAndView getUserStatisticsPage(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("userStatistics");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -216,6 +218,8 @@ public class UserController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
+
+       // todo add logic for filtering
         return view;
     }
 
@@ -237,9 +241,10 @@ public class UserController {
 
     //TODO :
     // Вопрос - как хранить assign? как сущность либо просто полями в юзере
-    //1. необходимо добавить кварц. считать дни до конца проекта
+    //1. необходимо добавить кварц. считать дни до конца assign
     //2. необходимо добавить кварц. считать дни до дедлайна проекта
     //3. подумать, нужно ли добавлять кварц для task-ok
 
     //4. Сделать создание дашбордов и тасок ПОД ними
+                 // в процессе
 }

@@ -14,5 +14,5 @@ public interface TaskService {
     void deleteTask(Long taskId);
     Task editTask(TaskDTO taskDTO, long id);
     Task findTaskById(Long taskId);
-    List<Task> getAllTasks();
+    List<Task> getAllTasks(long dashboardId);
 }

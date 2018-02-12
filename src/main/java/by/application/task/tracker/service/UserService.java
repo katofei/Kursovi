@@ -13,7 +13,7 @@ public interface UserService {
     void deleteUser(Long userId);
     User editUser(UserInfoWrapper userInfoWrapper);
     User findUserById(Long userId);
-    List<User> getAllUsers();
+    List<User> getAllUsers(long projectId);
     User findByUserName(String name);
     User findByLogin(String login);
     User findByConfirmationToken(String confirmationToken);

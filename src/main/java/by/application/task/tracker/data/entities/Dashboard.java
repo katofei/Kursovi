@@ -1,10 +1,16 @@
 package by.application.task.tracker.data.entities;
 
+import by.application.task.tracker.data.dto.DashboardDTO;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "dashboard")
 public class Dashboard {
+
+   public Dashboard(DashboardDTO dashboardDTO){
+        this.dashboardName = dashboardDTO.getDashboardName();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,7 +45,7 @@ public class Dashboard {
     private User creator;
 
     @ManyToOne
-    private User executor;
+    private User reporter;
 
     @ManyToOne
     private DashboardStatus status;
@@ -74,8 +80,8 @@ public class Dashboard {
     public User getCreator() {return creator;}
     public void setCreator(User creator) {this.creator = creator;}
 
-    public User getExecutor() {return executor;}
-    public void setExecutor(User executor) {this.executor = executor;}
+    public User getReporter() {return reporter;}
+    public void setReporter(User reporter) {this.reporter = reporter;}
 
     public DashboardStatus getStatus() {return status;}
     public void setStatus(DashboardStatus status) {this.status = status;}

@@ -21,19 +21,13 @@ import java.util.Objects;
 @Service
 public class TaskServiceImpl implements TaskService {
 
-    @Autowired
-    private TaskRepository taskRepository;
-
-    @Autowired
-    private TaskPriorityService taskPriorityService;
-    @Autowired
-    private TaskStatusService taskStatusService;
-    @Autowired
-    private TaskTypeService taskTypeService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private ProjectService projectService;
+    @Autowired private TaskRepository taskRepository;
+    @Autowired private TaskPriorityService taskPriorityService;
+    @Autowired private TaskStatusService taskStatusService;
+    @Autowired private TaskTypeService taskTypeService;
+    @Autowired private UserService userService;
+    @Autowired private DashboardService dashboardService;
+    @Autowired private ProjectService projectService;
 
     @Override
     public Task assignAnotherUser(TaskDTO taskDTO, long id) {
@@ -89,7 +83,7 @@ public class TaskServiceImpl implements TaskService {
         LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         createdTask.setCreated(date.format(DateTimeFormatter.ISO_DATE));
         if(taskDTO.getEstimation().isEmpty()){
-            createdTask.setEstimation(null);
+            createdTask.setEstimation("Not specified");
         }
         else {
             createdTask.setEstimation(taskDTO.getEstimation());
@@ -117,7 +111,7 @@ public class TaskServiceImpl implements TaskService {
         editingTask.setTaskStatus(taskStatusService.findTaskStatusById(taskDTO.getTaskStatus()));
         editingTask.setTaskPriority(taskPriorityService.findTaskByPriorityId(taskDTO.getTaskPriority()));
         if(taskDTO.getEstimation().isEmpty()){
-            editingTask.setEstimation(null);
+            editingTask.setEstimation("Not specified");
         }
         else {
             editingTask.setEstimation(taskDTO.getEstimation());
@@ -137,9 +131,13 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getAllTasks() {
-        List<Task> tasks = new ArrayList<>();
-        taskRepository.findAll().forEach(tasks::add);
-        return tasks;
+    public List<Task> getAllTasks(long dashboardId) {
+        List<Task> taskList = new ArrayList<>();
+        taskRepository.findAll().forEach(task -> {
+            if(task.getDashboard() == dashboardService.findByDashboardById(dashboardId)){
+                taskList.add(task);
+            }
+        });
+        return taskList;
     }
 }

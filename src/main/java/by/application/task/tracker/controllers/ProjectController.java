@@ -22,16 +22,11 @@ import java.util.stream.Collectors;
 @Controller
 public class ProjectController {
 
-    @Autowired
-    private ProjectService projectService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private PositionService positionService;
-    @Autowired
-    private QualificationService qualificationService;
-    @Autowired
-    private ProjectContactService projectContactService;
+    @Autowired private ProjectService projectService;
+    @Autowired private UserService userService;
+    @Autowired private PositionService positionService;
+    @Autowired private QualificationService qualificationService;
+    @Autowired private ProjectContactService projectContactService;
 
     @RequestMapping(path = "/project-creation", method = RequestMethod.GET)
     public ModelAndView getProjectCreationPage() {

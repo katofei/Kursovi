@@ -1,6 +1,7 @@
 package by.application.task.tracker.service.impl;
 
 import by.application.task.tracker.data.dto.ProjectDTO;
+import by.application.task.tracker.data.entities.Dashboard;
 import by.application.task.tracker.data.wrapper.ProjectInfoWrapper;
 import by.application.task.tracker.data.entities.Project;
 import by.application.task.tracker.repositories.ProjectRepository;
@@ -31,6 +32,12 @@ public class ProjectServiceImpl implements ProjectService{
         LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         createdProject.setCreated(date.format(DateTimeFormatter.ISO_DATE));
         createdProject.setProjectContact( contactService.createContact(projectDTO));
+        if(projectDTO.getDeadLine().isEmpty()){
+            createdProject.setDeadLine("Not specified");
+        }
+        else {
+            createdProject.setDeadLine(projectDTO.getDeadLine());
+        }
         return projectRepository.save(createdProject);}
 
     @Override

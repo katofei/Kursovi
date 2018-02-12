@@ -43,9 +43,6 @@ public class Project {
 
     @Column(name = "deadline")
     private String deadLine;
-/*
-    @ManyToOne
-    private ProjectStrategy projectStrategy;*/
 
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
     private List<Dashboard> dashboardList;

@@ -23,26 +23,16 @@ import static by.application.task.tracker.Constants.*;
 public class UserServiceImpl implements UserService {
 
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserContactRepository userContactRepository;
-    @Autowired
-    private PositionService positionService;
-    @Autowired
-    private ProjectService projectService;
-    @Autowired
-    private ProjectRoleService projectRoleService;
-    @Autowired
-    private QualificationService qualificationService;
-    @Autowired
-    private UserRoleService roleService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserStatusService userStatusService;
-    @Autowired
-    private UserContactService userContactService;
+    @Autowired private UserRepository userRepository;
+    @Autowired private UserContactRepository userContactRepository;
+    @Autowired private PositionService positionService;
+    @Autowired private ProjectService projectService;
+    @Autowired private ProjectRoleService projectRoleService;
+    @Autowired private QualificationService qualificationService;
+    @Autowired private UserRoleService roleService;
+    @Autowired private PasswordEncoder passwordEncoder;
+    @Autowired private UserStatusService userStatusService;
+    @Autowired private UserContactService userContactService;
 
     @Override
     public User createUser(UserDTO userDTO) throws LoginExistsException, WorkEmailExistsException {
@@ -117,9 +107,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
-        List<User> users = new ArrayList<>();
-        userRepository.findAll().forEach(users::add);
-        return users;
+    public List<User> getAllUsers(long projectId) {
+        List<User> userList = new ArrayList<>();
+        userRepository.findAll().forEach(user -> {
+            if(user.getProject() == projectService.findByProjectId(projectId)){
+                userList.add(user);
+            }
+        });
+        return userList;
     }
 }
