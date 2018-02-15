@@ -16,4 +16,6 @@ public interface TaskService {
     Task findTaskById(Long taskId);
     List<Task> getAllDashboardTasks(long dashboardId);
     List<Task> getAllUserTasks(long userId);
+    List<Task> getAllTasks();
+
 }

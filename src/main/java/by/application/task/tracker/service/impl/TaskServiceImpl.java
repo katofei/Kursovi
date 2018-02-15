@@ -10,11 +10,7 @@ import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,15 +24,14 @@ public class TaskServiceImpl implements TaskService {
     @Autowired private UserService userService;
     @Autowired private DashboardService dashboardService;
     @Autowired private ProjectService projectService;
+    @Autowired private DataConverterService dataConverterService;
 
     @Override
     public Task assignAnotherUser(TaskDTO taskDTO, long id) {
         Task task = taskRepository.findOne(id);
         User user = userService.findUserById(taskDTO.getExecutor());
         task.setExecutor(user);
-        Date today = new Date();
-        LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        task.setUpdated(date.format(DateTimeFormatter.ISO_DATE));
+        task.setUpdated(dataConverterService.generateTodayStringDay());
         return taskRepository.save(task);
     }
 
@@ -45,9 +40,7 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findOne(id);
         TaskPriority taskPriority = taskPriorityService.findTaskByPriorityId(taskDTO.getTaskPriority());
         task.setTaskPriority(taskPriority);
-        Date today = new Date();
-        LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        task.setUpdated(date.format(DateTimeFormatter.ISO_DATE));
+        task.setUpdated(dataConverterService.generateTodayStringDay());
         return taskRepository.save(task);
     }
 
@@ -56,11 +49,9 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findOne(id);
         TaskStatus taskStatus = taskStatusService.findTaskStatusById(taskDTO.getTaskStatus());
         task.setTaskStatus(taskStatus);
-        Date today = new Date();
-        LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        task.setUpdated(date.format(DateTimeFormatter.ISO_DATE));
-        if(Objects.equals(taskStatus.getStatusName(), "Resolved")){
-            task.setResolved(date.format(DateTimeFormatter.ISO_DATE));
+        task.setUpdated(dataConverterService.generateTodayStringDay());
+        if (Objects.equals(taskStatus.getStatusName(), "Resolved")) {
+            task.setResolved(dataConverterService.generateTodayStringDay());
         }
         return taskRepository.save(task);
     }
@@ -70,28 +61,28 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findOne(id);
         task.setPercentage(taskDTO.getPercentage());
         task.setTimeSpent(taskDTO.getTimeSpent());
-        Date today = new Date();
-        LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        task.setUpdated(date.format(DateTimeFormatter.ISO_DATE));
+        task.setUpdated(dataConverterService.generateTodayStringDay());
         return taskRepository.save(task);
     }
 
     @Override
     public Task createTask(TaskDTO taskDTO) {
         Task createdTask = new Task(taskDTO);
-        Date today = new Date();
-        LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        createdTask.setCreated(date.format(DateTimeFormatter.ISO_DATE));
-        if(taskDTO.getEstimation().isEmpty()){
-            createdTask.setEstimation("Not specified");
+        createdTask.setCreated(dataConverterService.generateTodayStringDay());
+        if (taskDTO.getDueDate()!= null) {
+            createdTask.setDueDate("Not specified");
+        } else {
+            createdTask.setDueDate(taskDTO.getDueDate());
         }
-        else {
+        if (taskDTO.getEstimation()== 0.0) {
+            createdTask.setEstimation(0.0);
+        } else {
             createdTask.setEstimation(taskDTO.getEstimation());
         }
         createdTask.setTaskStatus(taskStatusService.findTaskByStatusName("Open"));
         createdTask.setTaskPriority(taskPriorityService.findTaskByPriorityId(taskDTO.getTaskPriority()));
         createdTask.setTaskType(taskTypeService.findTaskByTypeId(taskDTO.getTaskType()));
-      //  createdTask.setProject(projectService.findByProjectId(taskDTO.getProject()));
+        //  createdTask.setProject(projectService.findByProjectId(taskDTO.getProject()));
         createdTask.setCreator(userService.findUserById(taskDTO.getCreator()));
         createdTask.setExecutor(userService.findUserById(taskDTO.getExecutor()));
         return taskRepository.save(createdTask);
@@ -110,15 +101,17 @@ public class TaskServiceImpl implements TaskService {
         editingTask.setTaskType(taskTypeService.findTaskByTypeId(taskDTO.getTaskType()));
         editingTask.setTaskStatus(taskStatusService.findTaskStatusById(taskDTO.getTaskStatus()));
         editingTask.setTaskPriority(taskPriorityService.findTaskByPriorityId(taskDTO.getTaskPriority()));
-        if(taskDTO.getEstimation().isEmpty()){
-            editingTask.setEstimation("Not specified");
+        if (taskDTO.getDueDate()!= null) {
+            editingTask.setDueDate("Not specified");
+        } else {
+            editingTask.setDueDate(taskDTO.getDueDate());
         }
-        else {
+        if (taskDTO.getEstimation()== 0.0) {
+            editingTask.setEstimation(0.0);
+        } else {
             editingTask.setEstimation(taskDTO.getEstimation());
         }
-        Date today = new Date();
-        LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        editingTask.setUpdated(date.format(DateTimeFormatter.ISO_DATE));
+        editingTask.setUpdated(dataConverterService.generateTodayStringDay());
         editingTask.setDescription(taskDTO.getDescription());
         editingTask.setPercentage(taskDTO.getPercentage());
         editingTask.setTimeSpent(taskDTO.getTimeSpent());
@@ -134,7 +127,7 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> getAllDashboardTasks(long dashboardId) {
         List<Task> taskList = new ArrayList<>();
         taskRepository.findAll().forEach(task -> {
-            if(task.getDashboard() == dashboardService.findByDashboardById(dashboardId)){
+            if (task.getDashboard() == dashboardService.findByDashboardById(dashboardId)) {
                 taskList.add(task);
             }
         });
@@ -145,10 +138,18 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> getAllUserTasks(long userId) {
         List<Task> taskList = new ArrayList<>();
         taskRepository.findAll().forEach(task -> {
-            if(task.getExecutor() == userService.findUserById(userId)){
+            if (task.getExecutor() == userService.findUserById(userId)) {
                 taskList.add(task);
             }
         });
         return taskList;
     }
+
+    @Override
+    public List<Task> getAllTasks() {
+        List<Task> tasks = new ArrayList<>();
+        taskRepository.findAll().forEach(tasks::add);
+        return tasks;
+    }
+
 }

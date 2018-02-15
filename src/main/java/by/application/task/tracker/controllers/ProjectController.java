@@ -74,8 +74,8 @@ public class ProjectController {
         return view;
     }
 
-    @RequestMapping(value = "/project/{id}", method = RequestMethod.GET)
-    public ModelAndView getProject(@PathVariable("id") long id) {
+    @RequestMapping(value = "/project/{projectId}", method = RequestMethod.GET)
+    public ModelAndView getProject(@PathVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("project");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -83,31 +83,32 @@ public class ProjectController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-        Project project = projectService.findByProjectId(id);
+        Project project = projectService.findByProjectId(projectId);
         view.addObject("project", project);
         view.addObject("projectContact", project.getProjectContact());
-        List<User> userList= userService.getAllUsers().stream().filter(user -> project == user.getProject()).collect(Collectors.toList());
+        List<User> userList= userService.getAllUsers(projectId);
         view.addObject("userList", userList);
         return view;
     }
 
 
-    @RequestMapping(value = "/project-edition/{id}", method = RequestMethod.GET)
-    public ModelAndView getProjectEdition(@PathVariable("id") long id) {
+    @RequestMapping(value = "/project-edition/{projectId}", method = RequestMethod.GET)
+    public ModelAndView getProjectEdition(@PathVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("editProjectPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
         view.addObject("position", currentUser.getPosition());
         view.addObject("qualification",currentUser.getQualification());
 
-        Project editingProject = projectService.findByProjectId(id);
+        Project editingProject = projectService.findByProjectId(projectId);
         ProjectInfoWrapper projectInfoWrapper = new ProjectInfoWrapper(editingProject, editingProject.getProjectContact());
         view.addObject("project",projectInfoWrapper);
         return view;
     }
 
-    @RequestMapping(value = "/project-edition/{id}", method = RequestMethod.POST)
-    public ModelAndView editProject(@Valid @ModelAttribute("project") ProjectInfoWrapper projectInfoWrapper, BindingResult result, @PathVariable("id") long id) {
+    @RequestMapping(value = "/project-edition/{projectId}", method = RequestMethod.POST)
+    public ModelAndView editProject(@Valid @ModelAttribute("project") ProjectInfoWrapper projectInfoWrapper, BindingResult result,
+                                    @PathVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView();
         if (result.hasErrors()) {
             view.setViewName("editProjectPage");
@@ -116,7 +117,7 @@ public class ProjectController {
             view.addObject("position",currentUser.getPosition());
             view.addObject("qualification", currentUser.getQualification());
 
-            Project editingProject = projectService.findByProjectId(id);
+            Project editingProject = projectService.findByProjectId(projectId);
             view.addObject("projectContact", editingProject.getProjectContact());
             return view;
         }
@@ -129,7 +130,7 @@ public class ProjectController {
 
 
     @RequestMapping(value = "/project-deletion/{id}", method = RequestMethod.GET)
-    public ModelAndView getProjectDeletion(@PathVariable("id") long id) {
+    public ModelAndView getProjectDeletion(@PathVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("allProjects");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -140,10 +141,10 @@ public class ProjectController {
     }
 
 
-   @RequestMapping(value = "/project-deletion/{id}", method = RequestMethod.DELETE)
-    public ModelAndView deleteProject(@PathVariable("id") long id) {
+   @RequestMapping(value = "/project-deletion/{projectId}", method = RequestMethod.DELETE)
+    public ModelAndView deleteProject(@PathVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("allProjects");
-        projectService.deleteProject(id);
+        projectService.deleteProject(projectId);
         return  view;
     }
 

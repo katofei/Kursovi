@@ -19,7 +19,8 @@ public class User implements Serializable {
     public User(UserDTO userDTO) {
         this.userName = userDTO.getUserName();
         this.userSurname = userDTO.getUserSurname();
-        this.login = userDTO.getLogin();}
+        this.login = userDTO.getLogin();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -61,6 +62,9 @@ public class User implements Serializable {
 
     @ManyToOne
     private UserStatus userStatus;
+
+    @Column(name = "estimation")
+    private String  estimation;
 
     @Column(name = "enabled")
     private Boolean enabled = true;
@@ -180,4 +184,7 @@ public class User implements Serializable {
 
     public List<Comment> getCommentList() {return commentList;}
     public void setCommentList(List<Comment> commentList) {this.commentList = commentList;}
+
+    public String getEstimation() { return estimation; }
+    public void setEstimation(String estimation) { this.estimation = estimation; }
 }

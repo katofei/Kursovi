@@ -13,7 +13,8 @@ public class TaskDTO implements Serializable{
 
     private String resolved;
     private String updated;
-    private String estimation;
+    private String dueDate;
+    private double estimation;
     private String description;
     private long taskType;
     private long taskPriority;
@@ -35,55 +36,32 @@ public class TaskDTO implements Serializable{
     public String getUpdated() {return updated;}
     public void setUpdated(String updated) {this.updated = updated;}
 
-    public String getEstimation() {return estimation;}
-    public void setEstimation(String estimation) {this.estimation = estimation;}
+    public double getEstimation() {return estimation;}
+    public void setEstimation(double estimation) {this.estimation = estimation;}
 
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public String getDueDate() { return dueDate; }
+    public void setDueDate(String dueDate) { this.dueDate = dueDate; }
 
-    public long getTaskType() {
-        return taskType;
-    }
-    public void setTaskType(long taskType) {
-        this.taskType = taskType;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public long getTaskPriority() {
-        return taskPriority;
-    }
-    public void setTaskPriority(long taskPriority) {
-        this.taskPriority = taskPriority;
-    }
+    public long getTaskType() { return taskType; }
+    public void setTaskType(long taskType) { this.taskType = taskType; }
 
-    public long getExecutor() {
-        return executor;
-    }
-    public void setExecutor(long executor) {
-        this.executor = executor;
-    }
+    public long getTaskPriority() { return taskPriority; }
+    public void setTaskPriority(long taskPriority) { this.taskPriority = taskPriority; }
+
+    public long getExecutor() { return executor; }
+    public void setExecutor(long executor) { this.executor = executor; }
 
     public long getCreator() {return creator;}
-    public void setCreator(long creator) {
-        this.creator = creator;
-    }
+    public void setCreator(long creator) { this.creator = creator; }
 
-    public long getTaskStatus() {
-        return taskStatus;
-    }
-    public void setTaskStatus(long taskStatus) {
-        this.taskStatus = taskStatus;
-    }
+    public long getTaskStatus() { return taskStatus; }
+    public void setTaskStatus(long taskStatus) { this.taskStatus = taskStatus; }
 
-    public long getProject() {
-        return project;
-    }
-    public void setProject(long project) {
-        this.project = project;
-    }
+    public long getProject() { return project; }
+    public void setProject(long project) { this.project = project; }
 
     public double getPercentage() {return percentage;}
     public void setPercentage(double percentage) {this.percentage = percentage;}

@@ -40,135 +40,75 @@ public class UserDTO implements Serializable {
     private String privateEmail;
     private String privatePhone;
     private String fax;
+    private String dueDate;
 
-    public String getUserName() {
-        return userName;
-    }
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
 
-    public String getUserSurname() {
-        return userSurname;
-    }
-    public void setUserSurname(String userSurname) {
-        this.userSurname = userSurname;
-    }
+    public String getUserSurname() { return userSurname; }
+    public void setUserSurname(String userSurname) { this.userSurname = userSurname; }
 
-    public String getLogin() {
-        return login;
-    }
-    public void setLogin(String login) {this.login = login;}
+    public String getLogin() { return login; }
+    public void setLogin(String login) { this.login = login; }
 
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public long getProject() {
-        return project;
-    }
-    public void setProject(long project) {
-        this.project = project;
-    }
+    public long getProject() { return project; }
+    public void setProject(long project) { this.project = project; }
 
-    public long getPosition() {
-        return position;
-    }
-    public void setPosition(long position) {
-        this.position = position;
-    }
+    public long getPosition() { return position; }
+    public void setPosition(long position) { this.position = position; }
 
-    public long getQualification() {
-        return qualification;
-    }
-    public void setQualification(long qualification) {
-        this.qualification = qualification;
-    }
+    public long getQualification() { return qualification; }
+    public void setQualification(long qualification) { this.qualification = qualification; }
 
-    public long getProjectRole() {
-        return projectRole;
-    }
-    public void setProjectRole(long projectRole) {
-        this.projectRole = projectRole;
-    }
+    public long getProjectRole() { return projectRole; }
+    public void setProjectRole(long projectRole) { this.projectRole = projectRole; }
 
-    public long getUserRole() {
-        return userRole;
-    }
-    public void setUserRole(long userRole) {
-        this.userRole = userRole;
-    }
+    public long getUserRole() { return userRole; }
+    public void setUserRole(long userRole) { this.userRole = userRole; }
 
-    public String getCountry() {
-        return country;
-    }
-    public void setCountry(String country) {
-        this.country = country;
+    public String getCountry() { return country; }
+    public void setCountry(String country) { this.country = country; }
+
+    public String getCity() { return city; }
+    public void setCity(String city) { this.city = city; }
+
+    public String getStreet() { return street; }
+    public void setStreet(String street) { this.street = street; }
+
+    public int getHouseNumber() { return houseNumber; }
+    public void setHouseNumber(int houseNumber) { this.houseNumber = houseNumber; }
+
+    public String getPrivateEmail() { return privateEmail; }
+    public void setPrivateEmail(String privateEmail) { this.privateEmail = privateEmail; }
+
+    public String getPrivatePhone() { return privatePhone; }
+    public void setPrivatePhone(String privatePhone) { this.privatePhone = privatePhone; }
+
+    public String getWorkEmail() { return workEmail; }
+    public void setWorkEmail(String workEmail) { this.workEmail = workEmail; }
+
+    public String getWorkPhone() { return workPhone; }
+    public void setWorkPhone(String workPhone) { this.workPhone = workPhone; }
+
+    public String getFax() { return fax; }
+    public void setFax(String fax) { this.fax = fax; }
+
+    public String getConfirmationPassword() { return confirmationPassword; }
+    public void setConfirmationPassword(String confirmationPassword) {
+        this.confirmationPassword = confirmationPassword;
     }
 
-    public String getCity() {
-        return city;
-    }
-    public void setCity(String city) {
-        this.city = city;
+    public String getConfirmationToken() { return confirmationToken; }
+    public void setConfirmationToken(String confirmationToken) {
+        this.confirmationToken = confirmationToken;
     }
 
-    public String getStreet() {
-        return street;
-    }
-    public void setStreet(String street) {
-        this.street = street;
-    }
+    public boolean isEnabled() { return enabled; }
+    public void setEnabled(boolean enabled) { this.enabled = enabled; }
 
-    public int getHouseNumber() {
-        return houseNumber;
-    }
-    public void setHouseNumber(int houseNumber) {this.houseNumber = houseNumber;}
-
-    public String getPrivateEmail() {
-        return privateEmail;
-    }
-    public void setPrivateEmail(String privateEmail) {
-        this.privateEmail = privateEmail;
-    }
-
-    public String getPrivatePhone() {
-        return privatePhone;
-    }
-    public void setPrivatePhone(String privatePhone) {
-        this.privatePhone = privatePhone;
-    }
-
-    public String getWorkEmail() {
-        return workEmail;
-    }
-    public void setWorkEmail(String workEmail) {
-        this.workEmail = workEmail;
-    }
-
-    public String getWorkPhone() {
-        return workPhone;
-    }
-    public void setWorkPhone(String workPhone) {
-        this.workPhone = workPhone;
-    }
-
-    public String getFax() {
-        return fax;
-    }
-    public void setFax(String fax) {
-        this.fax = fax;
-    }
-
-    public String getConfirmationPassword() {return confirmationPassword;}
-    public void setConfirmationPassword(String confirmationPassword) {this.confirmationPassword = confirmationPassword;}
-
-    public String getConfirmationToken() {return confirmationToken;}
-    public void setConfirmationToken(String confirmationToken) {this.confirmationToken = confirmationToken;}
-
-    public boolean isEnabled() {return enabled;}
-    public void setEnabled(boolean enabled) {this.enabled = enabled;}
+    public String getEstimation() { return dueDate; }
+    public void setEstimation(String dueDate) { this.dueDate = dueDate; }
 }

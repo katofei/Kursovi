@@ -20,7 +20,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class TaskController {
@@ -108,8 +107,7 @@ public class TaskController {
         Date today = new Date();
         LocalDate date  = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         view.addObject("currentDate", date.toString());
-        List<User> userList= userService.getAllUsers(currentUser.getProject().getProjectId())
-                .stream().filter(user -> user.getProject() == currentUser.getProject()).collect(Collectors.toList());
+        List<User> userList= userService.getAllUsers(currentUser.getProject().getProjectId());
         view.addObject("userList", userList);
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
@@ -153,7 +151,8 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/dashboard/{id}/task-edition/{taskId}", method = RequestMethod.POST)
-    public ModelAndView editTask(@Valid @ModelAttribute("task") TaskDTO taskDTO, BindingResult result,@PathVariable("taskId") long taskId) {
+    public ModelAndView editTask(@Valid @ModelAttribute("task") TaskDTO taskDTO, BindingResult result,
+                                 @PathVariable("taskId") long taskId) {
         ModelAndView view = new ModelAndView("editTaskPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);

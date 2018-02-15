@@ -5,11 +5,12 @@ import org.hibernate.validator.constraints.NotBlank;
 public class DashboardDTO {
 
     @NotBlank(message = "Task name is required")
-    private String  dashboardName;
+    private String dashboardName;
     private String created;
     private String updated;
     private String resolved;
-    private String estimation;
+    private double estimation;
+    private String dueDate;
     private String description;
     private double timeSpent;
     private long project;
@@ -50,11 +51,11 @@ public class DashboardDTO {
         this.resolved = resolved;
     }
 
-    public String getEstimation() {
+    public double getEstimation() {
         return estimation;
     }
 
-    public void setEstimation(String estimation) {
+    public void setEstimation(double estimation) {
         this.estimation = estimation;
     }
 
@@ -113,4 +114,8 @@ public class DashboardDTO {
     public void setPriority(long priority) {
         this.priority = priority;
     }
+
+    public String getDueDate() { return dueDate; }
+
+    public void setDueDate(String dueDate) { this.dueDate = dueDate; }
 }

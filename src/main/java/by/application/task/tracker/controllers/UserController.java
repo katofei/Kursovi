@@ -1,10 +1,10 @@
 package by.application.task.tracker.controllers;
 
+import by.application.task.tracker.Constants;
 import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.data.wrapper.UserInfoWrapper;
 import by.application.task.tracker.service.*;
-import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,31 +15,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static by.application.task.tracker.Constants.USER_DELETION_NOTIFICATION;
 
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private PositionService positionService;
-    @Autowired
-    private QualificationService qualificationService;
-    @Autowired
-    private ProjectRoleService projectRoleService;
-    @Autowired
-    private TaskStatusService taskStatusService;
-    @Autowired
-    private TaskPriorityService taskPriorityService;
-    @Autowired
-    private ProjectService projectService;
-    @Autowired
-    private UserContactService userContactService;
-    @Autowired
-    private TaskService taskService;
-    @Autowired
-    private EmailService emailService;
+    @Autowired private UserService userService;
+    @Autowired private PositionService positionService;
+    @Autowired private QualificationService qualificationService;
+    @Autowired private ProjectRoleService projectRoleService;
+    @Autowired private TaskStatusService taskStatusService;
+    @Autowired private TaskPriorityService taskPriorityService;
+    @Autowired private ProjectService projectService;
+    @Autowired private UserContactService userContactService;
+    @Autowired private TaskService taskService;
+    @Autowired private EmailService emailService;
 
     @RequestMapping(path = "/userPage", method = RequestMethod.GET)
     public ModelAndView getUserStartPage() {
@@ -97,10 +88,10 @@ public class UserController {
 
         SimpleMailMessage registrationEmail = new SimpleMailMessage();
         registrationEmail.setTo(userService.findUserById(userId).getUserContact().getWorkEmail());
-        registrationEmail.setSubject("Deletion notification");
+        registrationEmail.setSubject(USER_DELETION_NOTIFICATION);
         registrationEmail.setText("Dear user, be informed that you was deleted from system:\n"
                 + "You don't have permission to log-in anymore");
-        registrationEmail.setFrom(currentUser.getUserContact().getWorkEmail());
+        registrationEmail.setFrom(Constants.from_email);
         emailService.sendEmail(registrationEmail);
 
         userService.deleteUser(userId);

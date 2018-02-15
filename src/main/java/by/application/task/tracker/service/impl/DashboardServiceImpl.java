@@ -2,19 +2,13 @@ package by.application.task.tracker.service.impl;
 
 import by.application.task.tracker.data.dto.DashboardDTO;
 import by.application.task.tracker.data.entities.Dashboard;
-import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.repositories.DashboardRepository;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DashboardServiceImpl implements DashboardService {
@@ -29,15 +23,20 @@ public class DashboardServiceImpl implements DashboardService {
     private UserService userService;
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private DataConverterService dataConverterService;
 
     @Override
     public Dashboard createDashboard(DashboardDTO dashboardDTO) {
         Dashboard createdDashboard = new Dashboard(dashboardDTO);
-        Date today = new Date();
-        LocalDate date = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        createdDashboard.setCreated(date.format(DateTimeFormatter.ISO_DATE));
-        if (dashboardDTO.getEstimation().isEmpty()) {
-            createdDashboard.setEstimation("Not specified");
+        createdDashboard.setCreated(dataConverterService.generateTodayStringDay());
+        if (dashboardDTO.getDueDate().isEmpty()) {
+            createdDashboard.setDueDate("Not specified");
+        } else {
+            createdDashboard.setDueDate(dashboardDTO.getDueDate());
+        }
+        if (dashboardDTO.getEstimation() == 0.0) {
+            createdDashboard.setEstimation(0.0);
         } else {
             createdDashboard.setEstimation(dashboardDTO.getEstimation());
         }
@@ -57,11 +56,14 @@ public class DashboardServiceImpl implements DashboardService {
     @Override
     public Dashboard editDashboard(DashboardDTO dashboardDTO, long dashboardId) {
         Dashboard dashboard = dashboardRepository.findOne(dashboardId);
-        Date today = new Date();
-        LocalDate date = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        dashboard.setUpdated(date.format(DateTimeFormatter.ISO_DATE));
-        if (dashboardDTO.getEstimation().isEmpty()) {
-            dashboard.setEstimation("Not specified");
+        dashboard.setUpdated(dataConverterService.generateTodayStringDay());
+        if (dashboardDTO.getDueDate().isEmpty()) {
+            dashboard.setDueDate("Not specified");
+        } else {
+            dashboard.setDueDate(dashboardDTO.getDueDate());
+        }
+        if (dashboardDTO.getEstimation() == 0.0) {
+            dashboard.setEstimation(0.0);
         } else {
             dashboard.setEstimation(dashboardDTO.getEstimation());
         }
@@ -102,9 +104,7 @@ public class DashboardServiceImpl implements DashboardService {
     public Dashboard changePriority(DashboardDTO dashboardDTO, long id) {
         Dashboard dashboard = dashboardRepository.findOne(id);
         dashboard.setPriority(dashboardPriorityService.findDashboardByPriorityId(dashboardDTO.getPriority()));
-        Date today = new Date();
-        LocalDate date = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        dashboard.setUpdated(date.format(DateTimeFormatter.ISO_DATE));
+        dashboard.setUpdated(dataConverterService.generateTodayStringDay());
         return dashboardRepository.save(dashboard);
     }
 
@@ -112,9 +112,7 @@ public class DashboardServiceImpl implements DashboardService {
     public Dashboard changeStatus(DashboardDTO dashboardDTO, long id) {
         Dashboard dashboard = dashboardRepository.findOne(id);
         dashboard.setStatus(dashboardStatusService.findDashboardByStatusId(dashboardDTO.getStatus()));
-        Date today = new Date();
-        LocalDate date = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        dashboard.setUpdated(date.format(DateTimeFormatter.ISO_DATE));
+        dashboard.setUpdated(dataConverterService.generateTodayStringDay());
         return dashboardRepository.save(dashboard);
     }
 
@@ -122,9 +120,7 @@ public class DashboardServiceImpl implements DashboardService {
     public Dashboard assignAnotherReporter(DashboardDTO dashboardDTO, long id) {
         Dashboard dashboard = dashboardRepository.findOne(id);
         dashboard.setReporter(userService.findUserById(dashboardDTO.getReporter()));
-        Date today = new Date();
-        LocalDate date = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        dashboard.setUpdated(date.format(DateTimeFormatter.ISO_DATE));
+        dashboard.setUpdated(dataConverterService.generateTodayStringDay());
         return dashboardRepository.save(dashboard);
     }
 

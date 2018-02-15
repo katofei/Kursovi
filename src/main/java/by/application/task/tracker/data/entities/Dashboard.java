@@ -8,17 +8,17 @@ import javax.persistence.*;
 @Table(name = "dashboard")
 public class Dashboard {
 
-   public Dashboard(DashboardDTO dashboardDTO){
+    public Dashboard(DashboardDTO dashboardDTO) {
         this.dashboardName = dashboardDTO.getDashboardName();
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "dashboard_id", length = 5, nullable = false)
-    private Long dashboardId;
+    private long dashboardId;
 
     @Column(name = "dashboard_name")
-    private String  dashboardName;
+    private String dashboardName;
 
     @Column(name = "created")
     private String created;
@@ -26,11 +26,14 @@ public class Dashboard {
     @Column(name = "updated")
     private String updated;
 
-    @Column(name = "resolved")
-    private String resolved;
+    @Column(name = "closed")
+    private String closed;
 
     @Column(name = "estimation")
-    private String estimation;
+    private double estimation;
+
+    @Column(name = "due_date")
+    private String dueDate;
 
     @Lob
     private String description;
@@ -53,42 +56,45 @@ public class Dashboard {
     @ManyToOne
     private DashboardPriority priority;
 
-    public Long getDashboardId() {return dashboardId;}
-    public void setDashboardId(Long dashboardId) {this.dashboardId = dashboardId;}
+    public long getDashboardId() { return dashboardId; }
+    public void setDashboardId(long dashboardId) { this.dashboardId = dashboardId; }
 
-    public String getDashboardName() {return dashboardName;}
-    public void setDashboardName(String dashboardName) {this.dashboardName = dashboardName;}
+    public String getDashboardName() { return dashboardName; }
+    public void setDashboardName(String dashboardName) { this.dashboardName = dashboardName; }
 
-    public String getCreated() {return created;}
-    public void setCreated(String created) {this.created = created;}
+    public String getCreated() { return created; }
+    public void setCreated(String created) { this.created = created; }
 
-    public String getUpdated() {return updated;}
-    public void setUpdated(String updated) {this.updated = updated;}
+    public String getUpdated() { return updated; }
+    public void setUpdated(String updated) { this.updated = updated; }
 
-    public String getResolved() {return resolved;}
-    public void setResolved(String resolved) {this.resolved = resolved;}
+    public String getResolved() { return closed; }
+    public void setResolved(String closed) { this.closed = closed; }
 
-    public String getEstimation() {return estimation;}
-    public void setEstimation(String estimation) {this.estimation = estimation;}
+    public double getEstimation() { return estimation; }
+    public void setEstimation(double estimation) { this.estimation = estimation; }
 
-    public String getDescription() {return description;}
-    public void setDescription(String description) {this.description = description;}
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public double getTimeSpent() {return timeSpent;}
-    public void setTimeSpent(double timeSpent) {this.timeSpent = timeSpent;}
+    public double getTimeSpent() { return timeSpent; }
+    public void setTimeSpent(double timeSpent) { this.timeSpent = timeSpent; }
 
-    public User getCreator() {return creator;}
-    public void setCreator(User creator) {this.creator = creator;}
+    public User getCreator() { return creator; }
+    public void setCreator(User creator) { this.creator = creator; }
 
-    public User getReporter() {return reporter;}
-    public void setReporter(User reporter) {this.reporter = reporter;}
+    public User getReporter() { return reporter; }
+    public void setReporter(User reporter) { this.reporter = reporter; }
 
-    public DashboardStatus getStatus() {return status;}
-    public void setStatus(DashboardStatus status) {this.status = status;}
+    public DashboardStatus getStatus() { return status; }
+    public void setStatus(DashboardStatus status) { this.status = status; }
 
-    public DashboardPriority getPriority() {return priority;}
-    public void setPriority(DashboardPriority priority) {this.priority = priority;}
+    public DashboardPriority getPriority() { return priority; }
+    public void setPriority(DashboardPriority priority) { this.priority = priority; }
 
-    public Project getProject() {return project;}
-    public void setProject(Project project) {this.project = project;}
+    public Project getProject() { return project; }
+    public void setProject(Project project) { this.project = project; }
+
+    public String getDueDate() { return dueDate; }
+    public void setDueDate(String dueDate) { this.dueDate = dueDate; }
 }

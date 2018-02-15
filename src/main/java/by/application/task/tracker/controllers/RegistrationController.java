@@ -1,35 +1,33 @@
 package by.application.task.tracker.controllers;
 
 
+import by.application.task.tracker.Constants;
 import by.application.task.tracker.data.dto.UserDTO;
-import by.application.task.tracker.data.entities.Dashboard;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
-import by.application.task.tracker.validation.exception.WorkEmailExistsException;
 import by.application.task.tracker.validation.exception.LoginExistsException;
+import by.application.task.tracker.validation.exception.WorkEmailExistsException;
 import com.nulabinc.zxcvbn.Strength;
 import com.nulabinc.zxcvbn.Zxcvbn;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
-import static by.application.task.tracker.Constants.USER_ACTIVATED;
-import static by.application.task.tracker.Constants.USER_ASSIGNED;
+import static by.application.task.tracker.Constants.*;
 
 @Controller
 public class RegistrationController {
@@ -42,6 +40,7 @@ public class RegistrationController {
     @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired private EmailService emailService;
     @Autowired private UserStatusService userStatusService;
+    @Autowired private DataConverterService dataConverterService;
 
     @RequestMapping(path = "/registration", method = RequestMethod.GET)
     public ModelAndView getRegistrationPage(@RequestParam(value = "registrationSuccess", required = false) String registrationSuccess) {
@@ -51,15 +50,15 @@ public class RegistrationController {
         }
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
-       /* view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
+        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
         view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
         view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification()
-                .getQualificationId()));*/
+                .getQualificationId()));
 
-       /* view.addObject("positions",positionService.getAllPositions());
+        view.addObject("positions", positionService.getAllPositions());
         view.addObject("projects", projectService.getAllProjects());
-        view.addObject("qualifications",qualificationService.getAllQualifications());
-        view.addObject("projectRoles", projectRoleService.getAllProjectRoles());*/
+        view.addObject("qualifications", qualificationService.getAllQualifications());
+        view.addObject("projectRoles", projectRoleService.getAllProjectRoles());
         UserDTO userForCreation = new UserDTO();
         view.addObject("user", userForCreation);
         return view;
@@ -74,14 +73,14 @@ public class RegistrationController {
         if (result.hasErrors()) {
             view.setViewName("registration");
             view.addObject("currentUser", currentUser);
-           /* view.addObject("position", positionService.findPositionById(currentUser
+            view.addObject("position", positionService.findPositionById(currentUser
                     .getPosition().getPositionId()));
             view.addObject("qualification", qualificationService.findQualificationById(currentUser
-                    .getQualification().getQualificationId()));*/
-           /* view.addObject("positions", positionService.getAllPositions());
+                    .getQualification().getQualificationId()));
+            view.addObject("positions", positionService.getAllPositions());
             view.addObject("projects", projectService.getAllProjects());
             view.addObject("qualifications", qualificationService.getAllQualifications());
-            view.addObject("projectRoles", projectRoleService.getAllProjectRoles());*/
+            view.addObject("projectRoles", projectRoleService.getAllProjectRoles());
         } else {
             view.addObject("currentUser", currentUser);
             userDTO.setEnabled(false);
@@ -90,13 +89,11 @@ public class RegistrationController {
             String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
             SimpleMailMessage registrationEmail = new SimpleMailMessage();
             registrationEmail.setTo(userDTO.getWorkEmail());
-            LocalDate today  = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            Date date = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            registrationEmail.setSentDate(date);
-            registrationEmail.setSubject("Registration Confirmation");
+            registrationEmail.setSentDate(dataConverterService.generateTodayDateDay());
+            registrationEmail.setSubject(REGISTRATION_CONFIRM_NOTIFICATION);
             registrationEmail.setText("To confirm your e-mail address, please click the link below:\n"
                     + appUrl + "/confirmation?token=" + userDTO.getConfirmationToken());
-            registrationEmail.setFrom(currentUser.getUserContact().getWorkEmail());
+            registrationEmail.setFrom(Constants.from_email);
             emailService.sendEmail(registrationEmail);
             view.setViewName("redirect:/registration?registrationSuccess=ok");
 

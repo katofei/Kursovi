@@ -33,8 +33,11 @@ public class Task {
     @Column(name = "resolved")
     private String resolved;
 
+    @Column(name = "due_date")
+    private String dueDate;
+
     @Column(name = "estimation")
-    private String estimation;
+    private double estimation;
 
     @Lob
     private String description;
@@ -84,8 +87,11 @@ public class Task {
     public String getResolved() {return resolved;}
     public void setResolved(String resolved) {this.resolved = resolved;}
 
-    public String getEstimation() {return estimation;}
-    public void setEstimation(String estimation) {this.estimation = estimation;}
+    public double getEstimation() {return estimation;}
+    public void setEstimation(double estimation) {this.estimation = estimation;}
+
+    public String getDueDate() { return dueDate; }
+    public void setDueDate(String dueDate) { this.dueDate = dueDate; }
 
     public String getDescription() {return description;}
     public void setDescription(String description) {this.description = description;}
