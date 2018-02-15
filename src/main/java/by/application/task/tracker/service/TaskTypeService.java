@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TaskTypeService {
 
-    TaskType findTaskByTypeId(Long taskTypeId);
+    TaskType findTaskByTypeId(long taskTypeId);
     List<TaskType> getAllTaskTypes();
     TaskType findTaskByTypeName(String taskTypeName);
 }

@@ -7,11 +7,12 @@ import java.util.List;
 
 public interface DashboardService {
     Dashboard createDashboard(DashboardDTO dashboardDTO);
-    void deleteDashboard(Long contactId);
+    void deleteDashboard(long dashboardId);
     Dashboard editDashboard(DashboardDTO dashboardDTO, long dashboardId);
-    Dashboard findByDashboardById(Long dashboardId);
-    List<Dashboard> getAllDashboards(Long projectId);
-    Dashboard changePriority(DashboardDTO dashboardDTO, long id);
-    Dashboard changeStatus(DashboardDTO dashboardDTO, long id);
-    Dashboard assignAnotherReporter(DashboardDTO dashboardDTO, long id);
+    Dashboard findByDashboardById(long dashboardId);
+    List<Dashboard> getAllDashboards(long projectId);
+    List<Dashboard> getAllDashboards();
+    Dashboard changePriority(DashboardDTO dashboardDTO, long dashboardId);
+    Dashboard changeStatus(DashboardDTO dashboardDTO, long dashboardId);
+    Dashboard assignAnotherReporter(DashboardDTO dashboardDTO, long dashboardId);
 }

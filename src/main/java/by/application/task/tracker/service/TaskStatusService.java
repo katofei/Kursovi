@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TaskStatusService {
 
-    TaskStatus findTaskStatusById(Long taskStatusId);
+    TaskStatus findTaskStatusById(long taskStatusId);
     List<TaskStatus> getAllTaskStatuses();
     TaskStatus findTaskByStatusName(String taskStatusName);
 }

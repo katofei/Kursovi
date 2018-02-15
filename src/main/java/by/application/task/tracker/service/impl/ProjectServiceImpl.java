@@ -41,7 +41,7 @@ public class ProjectServiceImpl implements ProjectService{
         return projectRepository.save(createdProject);}
 
     @Override
-    public void deleteProject(Long projectId) { projectRepository.delete(projectId);}
+    public void deleteProject(long projectId) { projectRepository.delete(projectId);}
 
     @Override
     public Project editProject(ProjectInfoWrapper projectInfoWrapper) {
@@ -51,7 +51,7 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
     @Override
-    public Project findByProjectId(Long projectId) {
+    public Project findByProjectId(long projectId) {
         return projectRepository.findOne(projectId);
     }
 

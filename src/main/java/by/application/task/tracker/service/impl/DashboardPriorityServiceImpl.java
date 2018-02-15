@@ -16,7 +16,7 @@ public class DashboardPriorityServiceImpl implements DashboardPriorityService {
     private DashboardPriorityRepository priorityRepository;
 
     @Override
-    public DashboardPriority findDashboardByPriorityId(Long dashboardPriorityId) {
+    public DashboardPriority findDashboardByPriorityId(long dashboardPriorityId) {
         return priorityRepository.findOne(dashboardPriorityId);
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserContactService {
 
     UserContact createContact(UserDTO contactDTO);
-    void deleteContact(Long contactId);
+    void deleteContact(long contactId);
     UserContact editContact(UserInfoWrapper userInfoWrapper);
-    UserContact findByContactId(Long contactId);
+    UserContact findByContactId(long contactId);
 }

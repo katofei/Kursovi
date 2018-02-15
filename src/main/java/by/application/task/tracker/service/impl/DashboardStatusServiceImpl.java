@@ -15,7 +15,7 @@ public class DashboardStatusServiceImpl implements DashboardStatusService{
     @Autowired private DashboardStatusRepository statusRepository;
 
     @Override
-    public DashboardStatus findDashboardByStatusId(Long dashboardStatusId) {
+    public DashboardStatus findDashboardByStatusId(long dashboardStatusId) {
         return statusRepository.findOne(dashboardStatusId);
     }
 

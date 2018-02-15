@@ -16,7 +16,7 @@ public class ProjectRoleServiceImpl implements ProjectRoleService {
     private ProjectRoleRepository projectRoleRepository;
 
     @Override
-    public ProjectRole findProjectRoleById(Long projectRoleId) {
+    public ProjectRole findProjectRoleById(long projectRoleId) {
         return projectRoleRepository.findOne(projectRoleId);
     }
 

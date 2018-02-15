@@ -2,6 +2,7 @@ package by.application.task.tracker.service.impl;
 
 import by.application.task.tracker.data.dto.DashboardDTO;
 import by.application.task.tracker.data.entities.Dashboard;
+import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.repositories.DashboardRepository;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public void deleteDashboard(Long dashboardId) {
+    public void deleteDashboard(long dashboardId) {
         dashboardRepository.delete(dashboardId);
     }
 
@@ -73,12 +74,12 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public Dashboard findByDashboardById(Long dashboardId) {
+    public Dashboard findByDashboardById(long dashboardId) {
         return dashboardRepository.findOne(dashboardId);
     }
 
     @Override
-    public List<Dashboard> getAllDashboards(Long projectId) {
+    public List<Dashboard> getAllDashboards(long projectId) {
         List<Dashboard> dashboards = new ArrayList<>();
         dashboardRepository.findAll().forEach(dashboard -> {
             if (dashboard.getProject() == projectService.findByProjectId(projectId)) {
@@ -87,6 +88,15 @@ public class DashboardServiceImpl implements DashboardService {
         });
         return dashboards;
     }
+
+
+    @Override
+    public List<Dashboard> getAllDashboards() {
+        List<Dashboard> dashboards = new ArrayList<>();
+        dashboardRepository.findAll().forEach(dashboards::add);
+        return dashboards;
+    }
+
 
     @Override
     public Dashboard changePriority(DashboardDTO dashboardDTO, long id) {

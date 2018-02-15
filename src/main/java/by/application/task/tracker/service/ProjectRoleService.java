@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProjectRoleService {
 
-    ProjectRole findProjectRoleById(Long projectRoleId);
+    ProjectRole findProjectRoleById(long projectRoleId);
     List<ProjectRole> getAllProjectRoles();
     ProjectRole findByProjectRoleName(String projectRoleName);
 }

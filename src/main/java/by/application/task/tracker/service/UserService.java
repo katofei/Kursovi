@@ -10,10 +10,11 @@ import java.util.List;
 
 public interface UserService {
     User createUser(UserDTO userDTO) throws LoginExistsException, WorkEmailExistsException;
-    void deleteUser(Long userId);
+    void deleteUser(long userId);
     User editUser(UserInfoWrapper userInfoWrapper);
-    User findUserById(Long userId);
+    User findUserById(long userId);
     List<User> getAllUsers(long projectId);
+    List<User> getAllUsers();
     User findByUserName(String name);
     User findByLogin(String login);
     User findByConfirmationToken(String confirmationToken);

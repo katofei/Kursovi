@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long userId) {
+    public void deleteUser(long userId) {
         userRepository.delete(userId);
     }
 
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserById(Long id) {
+    public User findUserById(long id) {
         return userRepository.findOne(id);
     }
 
@@ -114,6 +114,13 @@ public class UserServiceImpl implements UserService {
                 userList.add(user);
             }
         });
+        return userList;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        List<User> userList = new ArrayList<>();
+        userRepository.findAll().forEach(userList::add);
         return userList;
     }
 }

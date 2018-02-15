@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserStatusService {
 
-    UserStatus findByStatusId(Long statusId);
+    UserStatus findByStatusId(long statusId);
     List<UserStatus> getAllUserStatuses();
     UserStatus findByStatusName(String statusName);
 }

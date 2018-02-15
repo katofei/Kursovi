@@ -17,7 +17,7 @@ public class UserStatusServiceImpl implements UserStatusService {
 
 
     @Override
-    public UserStatus findByStatusId(Long statusId) {
+    public UserStatus findByStatusId(long statusId) {
         return statusRepository.findByStatusId(statusId);
     }
 

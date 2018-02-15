@@ -16,7 +16,7 @@ public class TaskStatusServiceImpl implements TaskStatusService {
     private TaskStatusRepository taskStatusRepository;
 
     @Override
-    public TaskStatus findTaskStatusById(Long taskStatusId) {
+    public TaskStatus findTaskStatusById(long taskStatusId) {
         return taskStatusRepository.findOne(taskStatusId);
     }
 

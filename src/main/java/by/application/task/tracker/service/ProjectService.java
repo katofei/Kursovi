@@ -10,8 +10,8 @@ import java.util.List;
 public interface ProjectService {
 
     Project createProject(ProjectDTO projectDTO);
-    void deleteProject(Long projectId);
+    void deleteProject(long projectId);
     Project editProject(ProjectInfoWrapper projectInfoWrapper);
-    Project findByProjectId(Long projectId);
+    Project findByProjectId(long projectId);
     List<Project> getAllProjects();
 }

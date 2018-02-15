@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserRoleService {
 
-    UserRole findByRoleId(Long roleId);
+    UserRole findByRoleId(long roleId);
     List<UserRole> getAllUserRoles();
     UserRole findByRoleName(String roleName);
 }

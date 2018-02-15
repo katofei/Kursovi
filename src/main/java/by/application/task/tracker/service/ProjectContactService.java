@@ -9,8 +9,8 @@ import java.util.List;
 public interface ProjectContactService {
 
     ProjectContact createContact(ProjectDTO contactDTO);
-    void deleteContact(Long contactId);
+    void deleteContact(long contactId);
     ProjectContact editContact(ProjectInfoWrapper projectInfoWrapper);
-    ProjectContact findByContactId(Long contactId);
+    ProjectContact findByContactId(long contactId);
     List<ProjectContact> getAllUserContacts();
 }

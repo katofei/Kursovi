@@ -17,7 +17,7 @@ public class PositionServiceImpl implements PositionService {
 
 
     @Override
-    public Position findPositionById(Long positionId) {
+    public Position findPositionById(long positionId) {
         return positionRepository.findOne(positionId);
     }
 

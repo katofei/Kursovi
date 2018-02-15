@@ -25,7 +25,7 @@ public class ProjectContactRepositoryImpl implements ProjectContactService {
     }
 
     @Override
-    public void deleteContact(Long contactId) {
+    public void deleteContact(long contactId) {
         projectContactRepository.delete(contactId);
     }
 
@@ -36,7 +36,7 @@ public class ProjectContactRepositoryImpl implements ProjectContactService {
     }
 
     @Override
-    public ProjectContact findByContactId(Long contactId) {
+    public ProjectContact findByContactId(long contactId) {
         return projectContactRepository.findOne(contactId);
     }
 

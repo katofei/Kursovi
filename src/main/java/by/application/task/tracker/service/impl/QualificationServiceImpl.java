@@ -16,7 +16,7 @@ public class QualificationServiceImpl implements QualificationService {
     private QualificationRepository qualificationRepository;
 
     @Override
-    public Qualification findQualificationById(Long qualificationId) {
+    public Qualification findQualificationById(long qualificationId) {
         return qualificationRepository.findOne(qualificationId);
     }
 

@@ -25,7 +25,7 @@ public class UserContactServiceImpl implements UserContactService{
     }
 
     @Override
-    public void deleteContact(Long contactId) {
+    public void deleteContact(long contactId) {
         contactRepository.delete(contactId);
     }
 
@@ -35,14 +35,8 @@ public class UserContactServiceImpl implements UserContactService{
     }
 
     @Override
-    public UserContact findByContactId(Long contactId) {
+    public UserContact findByContactId(long contactId) {
         return contactRepository.findOne(contactId);
     }
 
-    @Override
-    public List<UserContact> getAllUserContacts() {
-        List<UserContact> contacts = new ArrayList<>();
-        contactRepository.findAll().forEach(contacts::add);
-        return contacts;
-    }
 }

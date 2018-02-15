@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface QualificationService {
 
-    Qualification findQualificationById(Long qualificationId);
+    Qualification findQualificationById(long qualificationId);
     List<Qualification> getAllQualifications();
     Qualification findByQualificationName(String qualificationName);
 }
