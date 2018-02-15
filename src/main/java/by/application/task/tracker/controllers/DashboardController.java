@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -30,7 +27,7 @@ public class DashboardController {
     @Autowired private QualificationService qualificationService;
     @Autowired private TaskService taskService;
 
-    @RequestMapping(path = "/dashboard-creation", method = RequestMethod.GET)
+    @RequestMapping(path = "project/{projectId}/dashboard-creation", method = RequestMethod.GET)
     public ModelAndView getProjectCreationPage() {
         ModelAndView view = new ModelAndView("dashboardCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -44,8 +41,8 @@ public class DashboardController {
         return view;
     }
 
-    @RequestMapping(path = "/dashboard-creation", method = RequestMethod.POST)
-    public ModelAndView createProject(@Valid @ModelAttribute("project") DashboardDTO dashboardDTO, BindingResult result) {
+    @RequestMapping(path = "project/{projectId}/dashboard-creation", method = RequestMethod.POST)
+    public ModelAndView createProject(@Valid @ModelAttribute("dashboard") DashboardDTO dashboardDTO, BindingResult result, @MatrixVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("dashboardCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -56,13 +53,13 @@ public class DashboardController {
             view.setViewName("dashboardCreation");
             return view;
         }
-        view.setViewName("redirect:/allDashboards");
+        view.setViewName("redirect:/project/{projectId}/allDashboards");
         dashboardService.createDashboard(dashboardDTO);
         return view;
     }
 
-    @RequestMapping(path = "project/{id}/allDashboards", method = RequestMethod.GET)
-    public ModelAndView getAllDashboards(@PathVariable("id") long projectId) {
+    @RequestMapping(path = "project/{projectId}/allDashboards", method = RequestMethod.GET)
+    public ModelAndView getAllDashboards(@PathVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("allDashboardsPage");
         User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
 
@@ -76,8 +73,8 @@ public class DashboardController {
         return view;
     }
 
-    @RequestMapping(value = "/dashboard/{id}", method = RequestMethod.GET)
-    public ModelAndView getProject(@PathVariable("id") long dashboardId) {
+    @RequestMapping(value = "project/{projectId}/dashboard/{dashboardId}", method = RequestMethod.GET)
+    public ModelAndView getProject(@PathVariable("dashboardId") long dashboardId) {
         ModelAndView view = new ModelAndView("dashboard");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -87,14 +84,14 @@ public class DashboardController {
 
         Dashboard dashboard = dashboardService.findByDashboardById(dashboardId);
         view.addObject("dashboard", dashboard);
-        List<Task> taskList = taskService.getAllTasks(dashboardId);
+        List<Task> taskList = taskService.getAllDashboardTasks(dashboardId);
         view.addObject("taskList", taskList);
         return view;
     }
 
 
-    @RequestMapping(value = "/dashboard-edition/{id}", method = RequestMethod.GET)
-    public ModelAndView getDashEdition(@PathVariable("id") long id) {
+    @RequestMapping(value = "project/{projectId}/dashboard-edition/{dashboardId}", method = RequestMethod.GET)
+    public ModelAndView getDashEdition(@PathVariable("dashboardId") long dashboardId) {
         ModelAndView view = new ModelAndView("editDashboardPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -106,8 +103,8 @@ public class DashboardController {
         return view;
     }
 
-    @RequestMapping(value = "/dashboard-edition/{id}", method = RequestMethod.POST)
-    public ModelAndView editDashboard(@Valid @ModelAttribute("project") DashboardDTO dashboardDTO, BindingResult result, @PathVariable("id") long dashboardId) {
+    @RequestMapping(value = "project/{projectId}/dashboard-edition/{dashboardId}", method = RequestMethod.POST)
+    public ModelAndView editDashboard(@Valid @ModelAttribute("dashboard") DashboardDTO dashboardDTO, BindingResult result, @PathVariable("dashboardId") long dashboardId) {
         ModelAndView view = new ModelAndView();
         if (result.hasErrors()) {
             view.setViewName("editDashboardPage");
@@ -117,13 +114,13 @@ public class DashboardController {
             view.addObject("qualification", currentUser.getQualification());
             return view;
         }
-        view.setViewName("redirect:/allDashboards");
+        view.setViewName("redirect:project/{projectId}/allDashboards");
         dashboardService.editDashboard(dashboardDTO, dashboardId);
         return view;
     }
 
 
-    @RequestMapping(value = "/dashboard-deletion/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "project/{projectId}/dashboard-deletion/{id}", method = RequestMethod.GET)
     public ModelAndView getProjectDeletion(@PathVariable("id") long dashboardId) {
         ModelAndView view = new ModelAndView("allDashboards");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -131,11 +128,12 @@ public class DashboardController {
         view.addObject("position", currentUser.getPosition());
         view.addObject("qualification", currentUser.getQualification());
 
+        //WHATAFUCK!?!?!?!??!?!
         return new ModelAndView("allDashboards");
     }
 
 
-    @RequestMapping(value = "/dashboard-deletion/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "project/{projectId}/dashboard-deletion/{id}", method = RequestMethod.DELETE)
     public ModelAndView deleteProject(@PathVariable("id") long dashboardId) {
         ModelAndView view = new ModelAndView("allDashboards");
         dashboardService.deleteDashboard(dashboardId);

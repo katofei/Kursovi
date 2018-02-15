@@ -1,5 +1,6 @@
 package by.application.task.tracker.controllers;
 
+import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.data.wrapper.UserInfoWrapper;
 import by.application.task.tracker.service.*;
@@ -9,10 +10,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -22,16 +20,26 @@ import java.util.stream.Collectors;
 @Controller
 public class UserController {
 
-    @Autowired private UserService userService;
-    @Autowired private PositionService positionService;
-    @Autowired private QualificationService qualificationService;
-    @Autowired private ProjectRoleService projectRoleService;
-    @Autowired private TaskStatusService taskStatusService;
-    @Autowired private TaskPriorityService taskPriorityService;
-    @Autowired private ProjectService projectService;
-    @Autowired private UserContactService userContactService;
-    @Autowired private TaskService taskService;
-    @Autowired private EmailService emailService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private PositionService positionService;
+    @Autowired
+    private QualificationService qualificationService;
+    @Autowired
+    private ProjectRoleService projectRoleService;
+    @Autowired
+    private TaskStatusService taskStatusService;
+    @Autowired
+    private TaskPriorityService taskPriorityService;
+    @Autowired
+    private ProjectService projectService;
+    @Autowired
+    private UserContactService userContactService;
+    @Autowired
+    private TaskService taskService;
+    @Autowired
+    private EmailService emailService;
 
     @RequestMapping(path = "/userPage", method = RequestMethod.GET)
     public ModelAndView getUserStartPage() {
@@ -44,7 +52,7 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(path = "/allUsers", method = RequestMethod.GET)
+    @RequestMapping(path = "project/{id}/allUsers", method = RequestMethod.GET)
     public ModelAndView getAllUsers(@PathVariable("id") long projectId) {
         ModelAndView view = new ModelAndView("allUsersPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -58,8 +66,8 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
-    public ModelAndView getUser(@PathVariable("id") long id) {
+    @RequestMapping(value = "/project/{id}/profile/{userId}", method = RequestMethod.GET)
+    public ModelAndView getUser(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("profile");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -67,7 +75,7 @@ public class UserController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-        User user = userService.findUserById(id);
+        User user = userService.findUserById(userId);
         view.addObject("user", user);
         view.addObject("userPosition", user.getPosition());
         view.addObject("userQualification", user.getQualification());
@@ -78,8 +86,8 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "/user-deletion/{id}", method = RequestMethod.DELETE)
-    public ModelAndView deleteUser(@PathVariable("id") long id) {
+    @RequestMapping(value = "/project/{id}/user-deletion/{userId}", method = RequestMethod.DELETE)
+    public ModelAndView deleteUser(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView();
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -88,20 +96,20 @@ public class UserController {
         view.addObject("qualification", currentUser.getQualification());
 
         SimpleMailMessage registrationEmail = new SimpleMailMessage();
-        registrationEmail.setTo(userService.findUserById(id).getUserContact().getWorkEmail());
+        registrationEmail.setTo(userService.findUserById(userId).getUserContact().getWorkEmail());
         registrationEmail.setSubject("Deletion notification");
-        registrationEmail.setText("Dear user, be informed that you deleted from system:\n"
-               +"You don't have permission to log in anymore");
+        registrationEmail.setText("Dear user, be informed that you was deleted from system:\n"
+                + "You don't have permission to log-in anymore");
         registrationEmail.setFrom(currentUser.getUserContact().getWorkEmail());
         emailService.sendEmail(registrationEmail);
 
-        userService.deleteUser(id);
-        view.setViewName("redirect:/allUsers");
+        userService.deleteUser(userId);
+        view.setViewName("redirect:/project/{id}/allUsers");
         return view;
     }
 
-    @RequestMapping(value = "/user-deletion/{id}", method = RequestMethod.GET)
-    public ModelAndView getUserDeletion(@PathVariable("id") long id) {
+    @RequestMapping(value = "/project/{id}/user-deletion/{userId}", method = RequestMethod.GET)
+    public ModelAndView getUserDeletion(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("allUsers");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -109,13 +117,13 @@ public class UserController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-        userService.deleteUser(id);
-        view.setViewName("redirect:/allUsers");
+        userService.deleteUser(userId);
+        view.setViewName("redirect:/project/{id}/allUsers");
         return view;
     }
 
-    @RequestMapping(value = "/user-edition/{id}", method = RequestMethod.GET)
-    public ModelAndView getUserEdition(@PathVariable("id") long id) {
+    @RequestMapping(value = "/project/{id}/user-edition/{userId}", method = RequestMethod.GET)
+    public ModelAndView getUserEdition(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("editUserPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -123,7 +131,7 @@ public class UserController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-        User user = userService.findUserById(id);
+        User user = userService.findUserById(userId);
         UserInfoWrapper userInfoWrapper = new UserInfoWrapper(user, user.getUserContact());
         view.addObject("user", userInfoWrapper);
 
@@ -134,10 +142,10 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "/user-edition/{id}", method = RequestMethod.POST)
-    public ModelAndView editUser(@Valid @ModelAttribute("user") UserInfoWrapper userInfoWrapper, BindingResult result, @PathVariable("id") long id) {
+    @RequestMapping(value = "/project/{id}/user-edition/{userId}", method = RequestMethod.POST)
+    public ModelAndView editUser(@Valid @ModelAttribute("user") UserInfoWrapper userInfoWrapper, BindingResult result, @PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView();
-        User user = userService.findUserById(id);
+        User user = userService.findUserById(userId);
         if (result.hasErrors()) {
             User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
             view.setViewName("editUserPage");
@@ -153,13 +161,13 @@ public class UserController {
             view.addObject("userContact", user.getUserContact());
             return view;
         }
-        view.setViewName("redirect:/allUsers");
+        view.setViewName("redirect:/project/{id}/allUsers");
         editUser(userInfoWrapper);
         return view;
     }
 
-    @RequestMapping(value = "/profile/my-tasks/{id}", method = RequestMethod.GET)
-    public ModelAndView getMyTasks(@PathVariable("id") long id) {
+    @RequestMapping(value = "/profile/{userId}/my-tasks", method = RequestMethod.GET)
+    public ModelAndView getMyTasks(@MatrixVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("myTasks");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -170,15 +178,13 @@ public class UserController {
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
 
-        // todo add logic for filtering
-       /* List<Task> taskList = taskService.getAllTasks().stream()
-                .filter(task -> task.getProject() == currentUser.getProject()).collect(Collectors.toList());*/
-       /* view.addObject("taskList", taskList);*/
+        List<Task> allUserTasks = taskService.getAllUserTasks(userId);
+         view.addObject("allUserTasks", allUserTasks);
         return view;
     }
 
-    @RequestMapping(value = "/profile/{id}/my-team", method = RequestMethod.GET)
-    public ModelAndView getMyTeamPage(@PathVariable("id") long id) {
+    @RequestMapping(value = "/profile/{userId}/my-team", method = RequestMethod.GET)
+    public ModelAndView getMyTeamPage(@MatrixVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("allUsersPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -187,14 +193,14 @@ public class UserController {
         view.addObject("qualification", currentUser.getQualification());
 
         // todo add logic for filtering
-       // List<User> userList= userService.getAllUsers().stream().filter(user -> currentUser.getProject() == user.getProject()).collect(Collectors.toList());
-       // view.addObject("userList", userList);
+        // List<User> userList= userService.getAllUsers().stream().filter(user -> currentUser.getProject() == user.getProject()).collect(Collectors.toList());
+        // view.addObject("userList", userList);
 
         return view;
     }
 
-    @RequestMapping(value = "/profile/{id}/team-statistics", method = RequestMethod.GET)
-    public ModelAndView getTeamStatisticsPage(@PathVariable("id") long id) {
+    @RequestMapping(value = "/profile/{userId}/team-statistics", method = RequestMethod.GET)
+    public ModelAndView getTeamStatisticsPage(@MatrixVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("teamStatistics");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -203,14 +209,14 @@ public class UserController {
         view.addObject("qualification", currentUser.getQualification());
 
         // todo add logic for filtering
-      //  List<User> userList= userService.getAllUsers();
-      //  view.addObject("userList", userList);
+        //  List<User> userList= userService.getAllUsers();
+        //  view.addObject("userList", userList);
 
         return view;
     }
 
-   @RequestMapping(value = "/profile/{id}/user-statistics", method = RequestMethod.GET)
-    public ModelAndView getUserStatisticsPage(@PathVariable("id") long id) {
+    @RequestMapping(value = "/profile/{userId}/user-statistics", method = RequestMethod.GET)
+    public ModelAndView getUserStatisticsPage(@MatrixVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("userStatistics");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -218,7 +224,8 @@ public class UserController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-       // todo add logic for filtering
+        // todo add logic for filtering
+        // need to create truly statistics
         return view;
     }
 

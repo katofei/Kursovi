@@ -131,10 +131,21 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getAllTasks(long dashboardId) {
+    public List<Task> getAllDashboardTasks(long dashboardId) {
         List<Task> taskList = new ArrayList<>();
         taskRepository.findAll().forEach(task -> {
             if(task.getDashboard() == dashboardService.findByDashboardById(dashboardId)){
+                taskList.add(task);
+            }
+        });
+        return taskList;
+    }
+
+    @Override
+    public List<Task> getAllUserTasks(long userId) {
+        List<Task> taskList = new ArrayList<>();
+        taskRepository.findAll().forEach(task -> {
+            if(task.getExecutor() == userService.findUserById(userId)){
                 taskList.add(task);
             }
         });

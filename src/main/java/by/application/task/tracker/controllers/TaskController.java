@@ -32,7 +32,7 @@ public class TaskController {
     @Autowired private TaskPriorityService taskPriorityService;
     @Autowired private ProjectService projectService;
 
-    @RequestMapping(path = "/profile/{id}/task-creation", method = RequestMethod.GET)
+    @RequestMapping(path = "/dashboard/{id}/task-creation", method = RequestMethod.GET)
     public ModelAndView getTaskCreationPage() {
         ModelAndView view = new ModelAndView("taskCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -50,7 +50,7 @@ public class TaskController {
         return view;
     }
 
-    @RequestMapping(path = "/profile/task-creation/{id}", method = RequestMethod.POST)
+    @RequestMapping(path = "/dashboard/{id}/task-creation", method = RequestMethod.POST)
     public ModelAndView createTask(@Valid @ModelAttribute("task") TaskDTO taskDTO, BindingResult result) {
         ModelAndView view = new ModelAndView("taskCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -68,12 +68,12 @@ public class TaskController {
             view.setViewName("taskCreation");
             return view;
         }
-        view.setViewName("redirect:/profile/my-tasks/{id}");
+        view.setViewName("redirect:/dashboard/task/{id}");
         taskService.createTask(taskDTO);
         return view;
     }
 
-    @RequestMapping(path = "dashboard/{id}/allTasks", method = RequestMethod.GET)
+    @RequestMapping(path = "/dashboard/{id}/allTasks", method = RequestMethod.GET)
     public ModelAndView getAllTasks(@PathVariable("id") long dashboardId) {
         ModelAndView view = new ModelAndView("allTasksPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -82,12 +82,12 @@ public class TaskController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-        List<Task> taskList = taskService.getAllTasks(dashboardId);
+        List<Task> taskList = taskService.getAllDashboardTasks(dashboardId);
         view.addObject("taskList", taskList);
         return view;
     }
 
-    @RequestMapping(path = "/profile/{id}/task/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/dashboard/{id}/task/{id}", method = RequestMethod.GET)
     public ModelAndView getTaskPage(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("task");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -120,19 +120,20 @@ public class TaskController {
         return view;
     }
 
-    @RequestMapping(value = "/profile/{id}/task-deletion/{id}", method = RequestMethod.DELETE)
-    public ModelAndView deleteProject(@PathVariable("id") long id) {
+    @RequestMapping(value = "/dashboard/{id}/task-deletion/{id}", method = RequestMethod.DELETE)
+    public ModelAndView deleteProject(@PathVariable("id") long taskId) {
         ModelAndView view = new ModelAndView("task");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
         view.addObject("position", currentUser.getPosition());
         view.addObject("qualification", currentUser.getQualification());
 
-        projectService.deleteProject(id);
-        return new ModelAndView("allTasks");
+       // projectService.deleteProject(taskId); WHATAFUCK!?!?!?!?!?
+        view.setViewName("redirect:/dashboard/allTasks");
+        return view;
     }
 
-    @RequestMapping(value = "profile/task-edition/{userId}/{taskId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/dashboard/{id}/task-edition/{taskId}", method = RequestMethod.GET)
     public ModelAndView getTaskEditionPage(@PathVariable("taskId") long taskId) {
         ModelAndView view = new ModelAndView("editTaskPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -148,11 +149,10 @@ public class TaskController {
         view.addObject("userList", userList);
         view.addObject("taskDTO", new TaskDTO());
         view.addObject("taskTypes", taskTypeService.getAllTaskTypes());
-
         return view;
     }
 
-    @RequestMapping(value = "/profile/task-edition/{userId}/{taskId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/dashboard/{id}/task-edition/{taskId}", method = RequestMethod.POST)
     public ModelAndView editTask(@Valid @ModelAttribute("task") TaskDTO taskDTO, BindingResult result,@PathVariable("taskId") long taskId) {
         ModelAndView view = new ModelAndView("editTaskPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -179,7 +179,7 @@ public class TaskController {
             view.setViewName("taskCreation");
             return view;
         }
-        view.setViewName("redirect:/profile/{id}/my-tasks");
+        view.setViewName("redirect:/dashboard/allTasks");
         taskService.editTask(taskDTO, taskId );
         return view;
     }

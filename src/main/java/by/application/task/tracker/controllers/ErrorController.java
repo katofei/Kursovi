@@ -1,9 +1,11 @@
 package by.application.task.tracker.controllers;
 
+import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.PositionService;
 import by.application.task.tracker.service.QualificationService;
 import by.application.task.tracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,11 +26,11 @@ public class ErrorController {
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public ModelAndView getErrorPage(HttpServletRequest httpRequest) {
         ModelAndView errorPage = new ModelAndView("errorPage");
-       /* User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+       User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         errorPage.addObject("currentUser", currentUser);
         errorPage.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
         errorPage.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification()
-                 .getQualificationId()));*/
+                 .getQualificationId()));
         String errorMsg = "";
         String advice = "";
         String parag="";
