@@ -147,7 +147,7 @@ public class DashboardController {
         view.addObject("qualification", currentUser.getQualification());
 
         //WHATAFUCK!?!?!?!??!?!
-        return new ModelAndView("allDashboards");
+        return new ModelAndView("redirect:/project/{projectId}/allDashboards");
     }
 
 
