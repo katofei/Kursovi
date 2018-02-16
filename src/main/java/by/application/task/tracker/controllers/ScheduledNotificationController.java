@@ -18,8 +18,8 @@ import java.util.List;
 
 import static by.application.task.tracker.Constants.*;
 
-@Component
-public class SheduledNotificationController {
+@Component("scheduledNotifications")
+public class ScheduledNotificationController {
 
     @Autowired private EmailService emailService;
     @Autowired private UserService userService;
@@ -29,9 +29,6 @@ public class SheduledNotificationController {
     @Autowired private DataConverterService dataConverterService;
     @Autowired private UserStatusService userStatusService;
     @Autowired private DashboardStatusService dashboardStatusService;
-
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MMM-dd");
-
 
     @Scheduled(cron = "0 0 0 ? * MON-FRI")
     public void sendTaskNotification() {
