@@ -49,6 +49,11 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
     @Override
+    public Project findProjectByProjectName(String projectName) {
+        return projectRepository.findProjectByProjectName(projectName);
+    }
+
+    @Override
     public List<Project> getAllProjects() {
         List<Project> projects = new ArrayList<>();
         projectRepository.findAll().forEach(projects::add);
