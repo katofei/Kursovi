@@ -42,7 +42,7 @@ public class ScheduledNotificationController {
                         Period period = Period.between(dataConverterService.convertDateToLocal(today), dataConverterService.convertDateToLocal(estimation));
                         if (period.getDays() < 5) {
                             SimpleMailMessage notificationEmail = new SimpleMailMessage();
-                            notificationEmail.setSubject(TASK_ESTIMATION_NOTIFICATION);
+                            notificationEmail.setSubject(TASK_DUEDATE_NOTIFICATION);
                             notificationEmail.setFrom(from_email);
                             notificationEmail.setSentDate(today);
                             notificationEmail.setText("Dear user, please be informed that task " + task.getTaskName() + " due date is to come in " + period.getDays() + " days");
@@ -117,7 +117,6 @@ public class ScheduledNotificationController {
                 if (today.before(estimation)) {
                     Period period = Period.between(dataConverterService.convertDateToLocal(today), dataConverterService.convertDateToLocal(estimation));
                     if (period.getDays() < 5) {
-                        user.setUserStatus(userStatusService.findByStatusName(USER_NOT_ASSIGNED));
                         SimpleMailMessage notificationEmail = new SimpleMailMessage();
                         notificationEmail.setSubject(USER_ASSIGN_NOTIFICATION);
                         notificationEmail.setFrom(from_email);
@@ -154,7 +153,7 @@ public class ScheduledNotificationController {
                         Period period = Period.between(dataConverterService.convertDateToLocal(today), dataConverterService.convertDateToLocal(estimation));
                         if (period.getDays() < 5) {
                             SimpleMailMessage notificationEmail = new SimpleMailMessage();
-                            notificationEmail.setSubject(DASHBOARD_ESTIMATION_NOTIFICATION);
+                            notificationEmail.setSubject(DASHBOARD_DUEDATE_NOTIFICATION);
                             notificationEmail.setFrom(from_email);
                             notificationEmail.setSentDate(today);
                             notificationEmail.setText("Dear user, please be informed that dashboard " + dashboard.getDashboardName() + " due date is to come in " + period.getDays() +" days");

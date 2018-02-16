@@ -22,6 +22,7 @@ public class TaskDTO implements Serializable{
     private long executor;
     private long creator;
     private long project;
+    private long dashboard;
     private double percentage;
     private double timeSpent;
 
@@ -68,4 +69,7 @@ public class TaskDTO implements Serializable{
 
     public double getTimeSpent() {return timeSpent;}
     public void setTimeSpent(double timeSpent) {this.timeSpent = timeSpent;}
+
+    public long getDashboard() { return dashboard; }
+    public void setDashboard(long dashboard) { this.dashboard = dashboard; }
 }

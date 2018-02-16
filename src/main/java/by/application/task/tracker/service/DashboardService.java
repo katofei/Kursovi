@@ -15,4 +15,5 @@ public interface DashboardService {
     Dashboard changePriority(DashboardDTO dashboardDTO, long dashboardId);
     Dashboard changeStatus(DashboardDTO dashboardDTO, long dashboardId);
     Dashboard assignAnotherReporter(DashboardDTO dashboardDTO, long dashboardId);
+    Dashboard logTime(DashboardDTO dashboardDTO, long id);
 }

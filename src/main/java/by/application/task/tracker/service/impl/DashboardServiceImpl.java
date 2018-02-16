@@ -1,7 +1,9 @@
 package by.application.task.tracker.service.impl;
 
 import by.application.task.tracker.data.dto.DashboardDTO;
+import by.application.task.tracker.data.dto.TaskDTO;
 import by.application.task.tracker.data.entities.Dashboard;
+import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.repositories.DashboardRepository;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,4 +126,14 @@ public class DashboardServiceImpl implements DashboardService {
         return dashboardRepository.save(dashboard);
     }
 
+    @Override
+    public Dashboard logTime(DashboardDTO taskDTO, long id) {
+        Dashboard dashboard = dashboardRepository.findOne(id);
+        dashboard.setTimeSpent(taskDTO.getTimeSpent());
+        dashboard.setUpdated(dataConverterService.generateTodayStringDay());
+        if(dashboard.getEstimation() != 0.0){
+            dashboard.setEstimation(dashboard.getEstimation() - taskDTO.getTimeSpent());
+        }
+        return dashboardRepository.save(dashboard);
+    }
 }

@@ -1,10 +1,7 @@
 package by.application.task.tracker.service.impl;
 
 import by.application.task.tracker.data.dto.TaskDTO;
-import by.application.task.tracker.data.entities.Task;
-import by.application.task.tracker.data.entities.TaskPriority;
-import by.application.task.tracker.data.entities.TaskStatus;
-import by.application.task.tracker.data.entities.User;
+import by.application.task.tracker.data.entities.*;
 import by.application.task.tracker.repositories.TaskRepository;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +57,16 @@ public class TaskServiceImpl implements TaskService {
     public Task logTime(TaskDTO taskDTO, long id) {
         Task task = taskRepository.findOne(id);
         task.setPercentage(taskDTO.getPercentage());
-        task.setTimeSpent(taskDTO.getTimeSpent());
+        task.setTimeSpent(task.getTimeSpent() + taskDTO.getTimeSpent());
         task.setUpdated(dataConverterService.generateTodayStringDay());
+        if(task.getEstimation() != 0.0){
+            task.setEstimation(task.getEstimation() - taskDTO.getTimeSpent());
+        }
+        Dashboard dashboard = task.getDashboard();
+        dashboard.setTimeSpent(dashboard.getTimeSpent() + taskDTO.getTimeSpent());
+        if(dashboard.getEstimation() != 0.0){
+        dashboard.setEstimation(dashboard.getEstimation() - taskDTO.getTimeSpent());
+        }
         return taskRepository.save(task);
     }
 
@@ -82,7 +87,7 @@ public class TaskServiceImpl implements TaskService {
         createdTask.setTaskStatus(taskStatusService.findTaskByStatusName("Open"));
         createdTask.setTaskPriority(taskPriorityService.findTaskByPriorityId(taskDTO.getTaskPriority()));
         createdTask.setTaskType(taskTypeService.findTaskByTypeId(taskDTO.getTaskType()));
-        //  createdTask.setProject(projectService.findByProjectId(taskDTO.getProject()));
+        createdTask.setDashboard(dashboardService.findByDashboardById(taskDTO.getDashboard()));
         createdTask.setCreator(userService.findUserById(taskDTO.getCreator()));
         createdTask.setExecutor(userService.findUserById(taskDTO.getExecutor()));
         return taskRepository.save(createdTask);

@@ -39,12 +39,22 @@ public class Constants {
 
     public static final String REGISTRATION_CONFIRM_NOTIFICATION = "Registration Confirmation";
     public static final String USER_DELETION_NOTIFICATION = "Deletion notification";
-    public static final String PROJECT_DEADLINE_NOTIFICATION = "Project deadline notification";
+
     public static final String USER_ASSIGN_NOTIFICATION = "User assign notification";
+
+    public static final String PROJECT_DEADLINE_NOTIFICATION = "Project deadline notification";
+
     public static final String TASK_ESTIMATION_NOTIFICATION = "Task estimation notification";
     public static final String TASK_DUEDATE_NOTIFICATION = "Task due date notification";
+    public static final String TASK_CREATION_NOTIFICATION = "New task created";
+    public static final String TASK_MODIFICATION_NOTIFICATION = "Task modification notification";
+
+
     public static final String DASHBOARD_ESTIMATION_NOTIFICATION = "Dashboard deadline notification";
     public static final String DASHBOARD_DUEDATE_NOTIFICATION = "Dashboard due date notification";
+    public static final String DASHBOARD_CREATION_NOTIFICATION = "New dashboard created";
+    public static final String DASHBOARD_MODIFICATION_NOTIFICATION = "Dashboard modification notification";
+
 
     public static final String from_email = "Task Tracker System";
 
