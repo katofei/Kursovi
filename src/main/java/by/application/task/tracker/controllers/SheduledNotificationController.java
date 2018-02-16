@@ -37,60 +37,76 @@ public class SheduledNotificationController {
     public void sendTaskNotification() {
         List<Task> allTasks = taskService.getAllTasks();
         allTasks.forEach((Task task) -> {
-            try {
-                Date estimation = dataConverterService.convertStringToDate(task.getEstimation());
-                Date today = dataConverterService.generateTodayDateDay();
-                //todo : check statement need to be crated for "Not specified"
-                //todo : check statement need to be crated for duration
-                if(today.before(estimation)){
-                    Period period =  Period.between(dataConverterService.convertDateToLocal(today), dataConverterService.convertDateToLocal(estimation));
-
-                }
-                else if (today.equals(estimation)){
-                SimpleMailMessage notificationEmail = new SimpleMailMessage();
-                notificationEmail.setSubject(TASK_ESTIMATION_NOTIFICATION);
-                notificationEmail.setFrom(from_email);
-                notificationEmail.setSentDate(today);
-                notificationEmail.setText("Dear user, please be informed that task " + task.getTaskName() + " estimated");
-                notificationEmail.setTo(task.getExecutor().getUserContact().getWorkEmail());
-                emailService.sendEmail(notificationEmail);
+            if (!task.getDueDate().equals("Not specified")) {
+                try {
+                    Date estimation = dataConverterService.convertStringToDate(task.getDueDate());
+                    Date today = dataConverterService.generateTodayDateDay();
+                    if (today.before(estimation)) {
+                        Period period = Period.between(dataConverterService.convertDateToLocal(today), dataConverterService.convertDateToLocal(estimation));
+                        if (period.getDays() < 5) {
+                            SimpleMailMessage notificationEmail = new SimpleMailMessage();
+                            notificationEmail.setSubject(TASK_ESTIMATION_NOTIFICATION);
+                            notificationEmail.setFrom(from_email);
+                            notificationEmail.setSentDate(today);
+                            notificationEmail.setText("Dear user, please be informed that task " + task.getTaskName() + " due date is to come in " + period.getDays() + " days");
+                            notificationEmail.setTo(task.getExecutor().getUserContact().getWorkEmail());
+                            emailService.sendEmail(notificationEmail);
+                        }
+                    } else if (today.equals(estimation)) {
+                        SimpleMailMessage notificationEmail = new SimpleMailMessage();
+                        notificationEmail.setSubject(TASK_ESTIMATION_NOTIFICATION);
+                        notificationEmail.setFrom(from_email);
+                        notificationEmail.setSentDate(today);
+                        notificationEmail.setText("Dear user, please be informed that task " + task.getTaskName() + " due date estimated");
+                        notificationEmail.setTo(task.getExecutor().getUserContact().getWorkEmail());
+                        emailService.sendEmail(notificationEmail);
                     }
 
-            } catch (ParseException e) {
-                e.printStackTrace();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         });
-
     }
 
     @Scheduled(cron = "0 0 0 ? * MON-FRI")
     public void sendProjectNotification() {
         List<Project> allProjects = projectService.getAllProjects();
         allProjects.forEach(project -> {
-            try {
-                Date deadLine = dataConverterService.convertStringToDate(project.getDeadLine());
-                Date today = dataConverterService.generateTodayDateDay();
-                if(deadLine != null){
-
+            if (!project.getDeadLine().equals("Not specified")) {
+                try {
+                    Date deadLine = dataConverterService.convertStringToDate(project.getDeadLine());
+                    Date today = dataConverterService.generateTodayDateDay();
+                    if (today.before(deadLine)) {
+                        Period period = Period.between(dataConverterService.convertDateToLocal(today), dataConverterService.convertDateToLocal(deadLine));
+                        if (period.getDays() < 5) {
+                            SimpleMailMessage notificationEmail = new SimpleMailMessage();
+                            notificationEmail.setSubject(PROJECT_DEADLINE_NOTIFICATION);
+                            notificationEmail.setFrom(from_email);
+                            notificationEmail.setSentDate(today);
+                            notificationEmail.setText("Dear user, please be informed that project " + project.getProjectName() + " is to end in " + period.getDays() + " days");
+                            userService.getAllUsers(project.getProjectId()).forEach(user -> {
+                                if (PROJECT_MANAGER.equals(user.getProjectRole().getProjectRoleName()) || TEAM_LEAD.equals(user.getProjectRole().getProjectRoleName()))
+                                    notificationEmail.setTo(user.getUserContact().getWorkEmail());
+                            });
+                            emailService.sendEmail(notificationEmail);
+                        }
+                    } else if (today.equals(deadLine)) {
+                        SimpleMailMessage notificationEmail = new SimpleMailMessage();
+                        notificationEmail.setSubject(PROJECT_DEADLINE_NOTIFICATION);
+                        notificationEmail.setFrom(from_email);
+                        notificationEmail.setSentDate(today);
+                        notificationEmail.setText("Dear user, please be informed that project " + project.getProjectName() + " ended");
+                        userService.getAllUsers(project.getProjectId()).forEach(user -> {
+                            if (PROJECT_MANAGER.equals(user.getProjectRole().getProjectRoleName()) || TEAM_LEAD.equals(user.getProjectRole().getProjectRoleName()))
+                                notificationEmail.setTo(user.getUserContact().getWorkEmail());
+                        });
+                        emailService.sendEmail(notificationEmail);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-                //todo WHATAFUCK!?!?!?!?!??!!?
-                else if (today.equals(deadLine)){
-                SimpleMailMessage notificationEmail = new SimpleMailMessage();
-                notificationEmail.setSubject(PROJECT_DEADLINE_NOTIFICATION);
-                notificationEmail.setFrom(from_email);
-                notificationEmail.setSentDate(today);
-                notificationEmail.setText("Dear user, please be informed that project " + project.getProjectName() + " ended");
-                userService.getAllUsers(project.getProjectId())
-                        .stream().forEach(user -> {
-                    if(PROJECT_MANAGER.equals(user.getProjectRole().toString()) || TEAM_LEAD.equals(user.getProjectRole().toString()))
-                        notificationEmail.setTo(user.getUserContact().getWorkEmail());
-                });
-                emailService.sendEmail(notificationEmail);
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
             }
-
         });
     }
 
@@ -101,10 +117,19 @@ public class SheduledNotificationController {
             try {
                 Date estimation = dataConverterService.convertStringToDate(user.getEstimation());
                 Date today = dataConverterService.generateTodayDateDay();
-                if(today.before(estimation)){
-                    user.setUserStatus(userStatusService.findByStatusName(USER_ASSIGNED));
-                }
-              else if (today.equals(estimation)){
+                if (today.before(estimation)) {
+                    Period period = Period.between(dataConverterService.convertDateToLocal(today), dataConverterService.convertDateToLocal(estimation));
+                    if (period.getDays() < 5) {
+                        user.setUserStatus(userStatusService.findByStatusName(USER_NOT_ASSIGNED));
+                        SimpleMailMessage notificationEmail = new SimpleMailMessage();
+                        notificationEmail.setSubject(USER_ASSIGN_NOTIFICATION);
+                        notificationEmail.setFrom(from_email);
+                        notificationEmail.setSentDate(today);
+                        notificationEmail.setText("Dear user, please be informed that your project assigned is to end in " + period.getDays()+ " days");
+                        notificationEmail.setTo(user.getUserContact().getWorkEmail());
+                        emailService.sendEmail(notificationEmail);
+                    }
+                } else if (today.equals(estimation)) {
                     user.setUserStatus(userStatusService.findByStatusName(USER_NOT_ASSIGNED));
                     SimpleMailMessage notificationEmail = new SimpleMailMessage();
                     notificationEmail.setSubject(USER_ASSIGN_NOTIFICATION);
@@ -114,35 +139,43 @@ public class SheduledNotificationController {
                     notificationEmail.setTo(user.getUserContact().getWorkEmail());
                     emailService.sendEmail(notificationEmail);
                 }
-
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
         });
-
     }
 
     @Scheduled(cron = "0 0 0 ? * MON-FRI")
     public void sendDashboardNotification() {
         List<Dashboard> allDashboards = dashboardService.getAllDashboards();
         allDashboards.forEach(dashboard -> {
-            try {
-                Date estimation = dataConverterService.convertStringToDate(dashboard.getEstimation());
-                Date today = dataConverterService.generateTodayDateDay();
-                if(today.before(estimation)){
-
+            if (!dashboard.getDueDate().equals("Not specified")) {
+                try {
+                    Date estimation = dataConverterService.convertStringToDate(dashboard.getDueDate());
+                    Date today = dataConverterService.generateTodayDateDay();
+                    if (today.before(estimation)) {
+                        Period period = Period.between(dataConverterService.convertDateToLocal(today), dataConverterService.convertDateToLocal(estimation));
+                        if (period.getDays() < 5) {
+                            SimpleMailMessage notificationEmail = new SimpleMailMessage();
+                            notificationEmail.setSubject(DASHBOARD_ESTIMATION_NOTIFICATION);
+                            notificationEmail.setFrom(from_email);
+                            notificationEmail.setSentDate(today);
+                            notificationEmail.setText("Dear user, please be informed that dashboard " + dashboard.getDashboardName() + " due date is to come in " + period.getDays() +" days");
+                            notificationEmail.setTo(dashboard.getReporter().getUserContact().getWorkEmail());
+                            emailService.sendEmail(notificationEmail);
+                        }
+                    } else if (today.equals(estimation)) {
+                        SimpleMailMessage notificationEmail = new SimpleMailMessage();
+                        notificationEmail.setSubject(DASHBOARD_ESTIMATION_NOTIFICATION);
+                        notificationEmail.setFrom(from_email);
+                        notificationEmail.setSentDate(today);
+                        notificationEmail.setText("Dear user, please be informed that dashboard " + dashboard.getDashboardName() + " due date estimated");
+                        notificationEmail.setTo(dashboard.getReporter().getUserContact().getWorkEmail());
+                        emailService.sendEmail(notificationEmail);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-                //todo : check statement need to be crated
-                SimpleMailMessage notificationEmail = new SimpleMailMessage();
-                notificationEmail.setSubject(DASHBOARD_ESTIMATION_NOTIFICATION);
-                notificationEmail.setFrom(from_email);
-                notificationEmail.setSentDate(today);
-                notificationEmail.setText("Dear user, please be informed that dashboard " + dashboard.getDashboardName() + " estimated");
-                notificationEmail.setTo(dashboard.getReporter().getUserContact().getWorkEmail());
-                emailService.sendEmail(notificationEmail);
-            } catch (ParseException e) {
-                e.printStackTrace();
             }
         });
     }
