@@ -57,7 +57,7 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "/project/{id}/profile/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "project/{id}/profile/{userId}", method = RequestMethod.GET)
     public ModelAndView getUser(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("profile");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -77,7 +77,7 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "/project/{id}/user-deletion/{userId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "project/{id}/user-deletion/{userId}", method = RequestMethod.DELETE)
     public ModelAndView deleteUser(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView();
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -99,7 +99,7 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "/project/{id}/user-deletion/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "project/{id}/user-deletion/{userId}", method = RequestMethod.GET)
     public ModelAndView getUserDeletion(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("allUsers");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -113,7 +113,7 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "/project/{id}/user-edition/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "project/{id}/user-edition/{userId}", method = RequestMethod.GET)
     public ModelAndView getUserEdition(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("editUserPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -133,7 +133,7 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "/project/{id}/user-edition/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = "project/{id}/user-edition/{userId}", method = RequestMethod.POST)
     public ModelAndView editUser(@Valid @ModelAttribute("user") UserInfoWrapper userInfoWrapper, BindingResult result, @PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView();
         User user = userService.findUserById(userId);
@@ -152,12 +152,12 @@ public class UserController {
             view.addObject("userContact", user.getUserContact());
             return view;
         }
-        view.setViewName("redirect:/project/{id}/allUsers");
+        view.setViewName("redirect:project/{id}/allUsers");
         editUser(userInfoWrapper);
         return view;
     }
 
-    @RequestMapping(value = "/profile/{userId}/my-tasks", method = RequestMethod.GET)
+    @RequestMapping(value = "profile/{userId}/my-tasks", method = RequestMethod.GET)
     public ModelAndView getMyTasks(@MatrixVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("myTasks");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -174,7 +174,7 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "/profile/{userId}/my-team", method = RequestMethod.GET)
+    @RequestMapping(value = "profile/{userId}/my-team", method = RequestMethod.GET)
     public ModelAndView getMyTeamPage(@MatrixVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("allUsersPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -190,7 +190,7 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "/profile/{userId}/team-statistics", method = RequestMethod.GET)
+    @RequestMapping(value = "profile/{userId}/team-statistics", method = RequestMethod.GET)
     public ModelAndView getTeamStatisticsPage(@MatrixVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("teamStatistics");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -206,7 +206,7 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "/profile/{userId}/user-statistics", method = RequestMethod.GET)
+    @RequestMapping(value = "profile/{userId}/user-statistics", method = RequestMethod.GET)
     public ModelAndView getUserStatisticsPage(@MatrixVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("userStatistics");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());

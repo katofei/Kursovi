@@ -27,6 +27,7 @@ public class ProjectController {
     @Autowired private PositionService positionService;
     @Autowired private QualificationService qualificationService;
     @Autowired private ProjectContactService projectContactService;
+    @Autowired private EmailService emailService;
 
     @RequestMapping(path = "/project-creation", method = RequestMethod.GET)
     public ModelAndView getProjectCreationPage() {

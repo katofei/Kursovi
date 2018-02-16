@@ -1,12 +1,14 @@
 package by.application.task.tracker.controllers;
 
 
+import by.application.task.tracker.Constants;
 import by.application.task.tracker.data.dto.DashboardDTO;
 import by.application.task.tracker.data.entities.Dashboard;
 import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -15,6 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+
+import static by.application.task.tracker.Constants.DASHBOARD_CREATION_NOTIFICATION;
+import static by.application.task.tracker.Constants.TASK_MODIFICATION_NOTIFICATION;
 
 @Controller
 public class DashboardController {
@@ -26,6 +31,7 @@ public class DashboardController {
     @Autowired private DashboardPriorityService dashboardPriorityService;
     @Autowired private QualificationService qualificationService;
     @Autowired private TaskService taskService;
+    @Autowired private EmailService emailService;
 
     @RequestMapping(path = "project/{projectId}/dashboard-creation", method = RequestMethod.GET)
     public ModelAndView getProjectCreationPage() {
@@ -55,6 +61,12 @@ public class DashboardController {
         }
         view.setViewName("redirect:/project/{projectId}/allDashboards");
         dashboardService.createDashboard(dashboardDTO);
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(userService.findUserById(dashboardDTO.getReporter()).getUserContact().getWorkEmail());
+        simpleMailMessage.setSubject(DASHBOARD_CREATION_NOTIFICATION);
+        simpleMailMessage.setText("Dear user, be informed that you was assigned as reporter to  " + dashboardDTO.getDashboardName() + " dashboard");
+        simpleMailMessage.setFrom(Constants.from_email);
+        emailService.sendEmail(simpleMailMessage);
         return view;
     }
 
@@ -116,6 +128,12 @@ public class DashboardController {
         }
         view.setViewName("redirect:project/{projectId}/allDashboards");
         dashboardService.editDashboard(dashboardDTO, dashboardId);
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(userService.findUserById(dashboardDTO.getReporter()).getUserContact().getWorkEmail());
+        simpleMailMessage.setSubject(TASK_MODIFICATION_NOTIFICATION);
+        simpleMailMessage.setText("Dear user, be informed that dashboard " + dashboardDTO.getDashboardName() + "was modified");
+        simpleMailMessage.setFrom(Constants.from_email);
+        emailService.sendEmail(simpleMailMessage);
         return view;
     }
 

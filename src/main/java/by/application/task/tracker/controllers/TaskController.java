@@ -1,11 +1,13 @@
 package by.application.task.tracker.controllers;
 
+import by.application.task.tracker.Constants;
 import by.application.task.tracker.data.dto.TaskDTO;
 import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,6 +23,10 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
+import static by.application.task.tracker.Constants.TASK_CREATION_NOTIFICATION;
+import static by.application.task.tracker.Constants.TASK_MODIFICATION_NOTIFICATION;
+import static by.application.task.tracker.Constants.USER_ASSIGN_NOTIFICATION;
+
 @Controller
 public class TaskController {
 
@@ -30,6 +36,7 @@ public class TaskController {
     @Autowired private TaskStatusService taskStatusService;
     @Autowired private TaskPriorityService taskPriorityService;
     @Autowired private ProjectService projectService;
+    @Autowired private EmailService emailService;
 
     @RequestMapping(path = "/dashboard/{id}/task-creation", method = RequestMethod.GET)
     public ModelAndView getTaskCreationPage() {
@@ -69,6 +76,13 @@ public class TaskController {
         }
         view.setViewName("redirect:/dashboard/task/{id}");
         taskService.createTask(taskDTO);
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(userService.findUserById(taskDTO.getExecutor()).getUserContact().getWorkEmail());
+        simpleMailMessage.setSubject(TASK_CREATION_NOTIFICATION);
+        simpleMailMessage.setText("Dear user, be informed that you was assigned to " + taskDTO.getTaskName()
+                + "You estimation date: " + taskDTO.getEstimation());
+        simpleMailMessage.setFrom(Constants.from_email);
+        emailService.sendEmail(simpleMailMessage);
         return view;
     }
 
@@ -180,6 +194,12 @@ public class TaskController {
         }
         view.setViewName("redirect:/dashboard/allTasks");
         taskService.editTask(taskDTO, taskId );
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(userService.findUserById(taskDTO.getExecutor()).getUserContact().getWorkEmail());
+        simpleMailMessage.setSubject(TASK_MODIFICATION_NOTIFICATION);
+        simpleMailMessage.setText("Dear user, be informed that task " + taskDTO.getTaskName() + "was modified");
+        simpleMailMessage.setFrom(Constants.from_email);
+        emailService.sendEmail(simpleMailMessage);
         return view;
     }
 }
