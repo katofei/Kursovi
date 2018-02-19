@@ -48,7 +48,8 @@ public class DashboardController {
     }
 
     @RequestMapping(path = "project/{projectId}/dashboard-creation", method = RequestMethod.POST)
-    public ModelAndView createProject(@Valid @ModelAttribute("dashboard") DashboardDTO dashboardDTO, BindingResult result, @MatrixVariable("projectId") long projectId) {
+    public ModelAndView createProject(@Valid @ModelAttribute("dashboard") DashboardDTO dashboardDTO, BindingResult result,
+                                      @MatrixVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("dashboardCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
