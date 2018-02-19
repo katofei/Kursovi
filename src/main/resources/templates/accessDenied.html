@@ -30,7 +30,7 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="/dist/img/user2-160x160.jpg" class="user-image"/>
-                           <!-- <span class="hidden-xs"
+                            <span class="hidden-xs"
                                   th:text="${currentUser.userName}+' '+${currentUser.userSurname}"></span>
                         </a>
                         <ul class="dropdown-menu">
@@ -38,14 +38,14 @@
                                 <img src="/dist/img/user2-160x160.jpg" class="img-circle"/>
                                 <p th:text="${currentUser.userName}+' '+${currentUser.userSurname}"></p>
                                 <p th:text="${qualification.qualificationName}+' '+${position.positionName}"></p>
-                            </li>-->
+                            </li>
                             <li class="user-footer">
-                                <!--<div class="pull-left">
+                                <div class="pull-left">
                                     <a th:href="@{profile/{id}(id=${currentUser.userId})}"
                                        class="btn btn-default btn-flat">My profile</a>
-                                </div>-->
+                                </div>
                                 <div class="pull-right">
-                                    <a th:href="@{/login}" class="btn btn-default btn-flat">Sign out</a>
+                                    <a th:href="@{/logout}" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
                             </li>
                         </ul>
@@ -63,7 +63,7 @@
                 <li>
                     <a th:href="@{/homePage}">
                         <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span>
+                        <span>Home</span>
                         <span class="pull-right-container"></span>
                     </a>
                 </li>
@@ -98,12 +98,6 @@
         </section>
     </div>
 </div>
-
-
-<script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
-<script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
-<script th:src="@{/dist/js/adminlte.min.js}"></script>
-<script th:src="@{/dist/js/demo.js}"></script>
 
 </body>
 </html>
