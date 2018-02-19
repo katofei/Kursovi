@@ -114,7 +114,8 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/confirmation", method = RequestMethod.POST)
-    public ModelAndView processConfirmationForm(ModelAndView modelAndView, BindingResult bindingResult, @RequestParam Map requestParams, RedirectAttributes redir) {
+    public ModelAndView processConfirmationForm(ModelAndView modelAndView, BindingResult bindingResult,
+                                                @RequestParam Map requestParams, RedirectAttributes redir) {
         modelAndView.setViewName("confirmation");
         Zxcvbn passwordCheck = new Zxcvbn();
         Strength strength = passwordCheck.measure((String) requestParams.get("password"));
