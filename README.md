@@ -29,15 +29,18 @@
                (сделаны сервис репозиторий и контролеер
                ничего не протестировано
                нет представлений)
+5. перепроверить и переделать маппинг по всему проекту
 
-5.                                      ** OPTION**
-      _/profile/${currentUser.userId}/my-tasks - use "myTasks" page, + filter by user ( as creator and as executor)
-                  this stuff started (MotherFUCKER) судя по всему не сделано
-        /profile/${currentUser.userId}/user-statistics - use page with name "userStatistics"
-      /profile/${currentUser.userId}/team-statistics - use page with name "teamStatistics"_
+6. "Logout" action should be created
 
-6. перепроверить и переделать маппинг по всему проекту
+7. integrate ftp server and file loading/ downloading and views
 
-7. "Logout" action should be created
 
-8. integrate ftp server and file loading/ downloading and views
+###### OPTION
+_/profile/${currentUser.userId}/my-tasks - use "myTasks" page, + filter by user ( as creator and as executor)_
+
+_cудя по всему не сделано_
+
+_/profile/${currentUser.userId}/user-statistics_ - _use page with name "userStatistics"_
+
+_/profile/${currentUser.userId}/team-statistics_ - _use page with name "teamStatistics"_
