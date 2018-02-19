@@ -47,6 +47,7 @@ public class DashboardServiceImpl implements DashboardService {
         createdDashboard.setCreator(userService.findUserById(dashboardDTO.getCreator()));
         createdDashboard.setReporter(userService.findUserById(dashboardDTO.getReporter()));
         createdDashboard.setDescription(dashboardDTO.getDescription());
+        createdDashboard.setProject(projectService.findByProjectId(dashboardDTO.getProject()));
         return dashboardRepository.save(createdDashboard);
     }
 

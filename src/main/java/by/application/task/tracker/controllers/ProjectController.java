@@ -1,9 +1,10 @@
 package by.application.task.tracker.controllers;
 
 import by.application.task.tracker.data.dto.ProjectDTO;
-import by.application.task.tracker.data.wrapper.ProjectInfoWrapper;
+import by.application.task.tracker.data.entities.Dashboard;
 import by.application.task.tracker.data.entities.Project;
 import by.application.task.tracker.data.entities.User;
+import by.application.task.tracker.data.wrapper.ProjectInfoWrapper;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class ProjectController {
@@ -27,6 +27,7 @@ public class ProjectController {
     @Autowired private PositionService positionService;
     @Autowired private QualificationService qualificationService;
     @Autowired private ProjectContactService projectContactService;
+    @Autowired private DashboardService dashboardService;
     @Autowired private EmailService emailService;
 
     @RequestMapping(path = "/project-creation", method = RequestMethod.GET)
@@ -88,7 +89,9 @@ public class ProjectController {
         view.addObject("project", project);
         view.addObject("projectContact", project.getProjectContact());
         List<User> userList= userService.getAllUsers(projectId);
+        List<Dashboard> dashboardList = dashboardService.getAllDashboards(projectId);
         view.addObject("userList", userList);
+        view.addObject("dashboardList" , dashboardList);
         return view;
     }
 
