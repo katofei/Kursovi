@@ -33,7 +33,7 @@
 
 6. "Logout" action should be created
 
-7. integrate ftp server and file loading/ downloading and views
+7. INTEGRATE FTP SERVER AND FILE LOADING/ DOWNLOADING AND VIEWS
 
 
 ###### OPTION

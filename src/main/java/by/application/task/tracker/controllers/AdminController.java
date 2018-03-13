@@ -23,7 +23,7 @@ import static by.application.task.tracker.Constants.USER_ASSIGNED;
 import static by.application.task.tracker.Constants.USER_ASSIGN_NOTIFICATION;
 
 @Controller
-public class AdminController {
+public class AdminController implements CurrentUserController{
 
     @Autowired private UserService userService;
     @Autowired private PositionService positionService;
@@ -35,12 +35,8 @@ public class AdminController {
 
     @RequestMapping(path = "/adminPage", method = RequestMethod.GET)
     public ModelAndView getAdminStartPage() {
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        ModelAndView view = new ModelAndView("adminStartPage");
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition());
-        view.addObject("project", currentUser.getProject());
-        view.addObject("qualification", currentUser.getQualification());
+        ModelAndView view = new ModelAndView("adminPage");
+        getCurrentUser(userService, view);
         return view;
     }
 
@@ -49,11 +45,7 @@ public class AdminController {
     public ModelAndView getAssignPage() {
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         ModelAndView view = new ModelAndView("userAssign");
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition());
-        view.addObject("project", currentUser.getProject());
-        view.addObject("qualification", currentUser.getQualification());
-
+        getCurrentUser(userService, view);
         List<Project> projectList = projectService.getAllProjects();
         view.addObject("projectList", projectList);
         UserDTO userDTO = new UserDTO();
@@ -67,10 +59,7 @@ public class AdminController {
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         User userForAssign = userService.findUserById(userId);
         ModelAndView view = new ModelAndView("userAssign");
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition());
-        view.addObject("project", currentUser.getProject());
-        view.addObject("qualification", currentUser.getQualification());
+        getCurrentUser(userService, view);
         if(result.hasErrors()){
             view.setViewName("userAssign");
             return view;

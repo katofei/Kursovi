@@ -23,12 +23,9 @@ public class UserRestController {
 
     @RequestMapping(value = "/getAllTasks", method = RequestMethod.GET)
     public ResponseEntity<List<Task>> getAllTasks() {
-
 //        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-
-        List<Task> taskList1 = taskService.getAllTasks();
-
-        return new ResponseEntity<>(taskList1, HttpStatus.OK);
+        List<Task> taskList = taskService.getAllTasks();
+        return new ResponseEntity<>(taskList, HttpStatus.OK);
     }
 
 }

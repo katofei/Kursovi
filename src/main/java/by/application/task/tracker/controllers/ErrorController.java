@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class ErrorController {
+public class ErrorController implements CurrentUserController{
 
     @Autowired
     private UserService userService;
@@ -26,11 +26,8 @@ public class ErrorController {
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public ModelAndView getErrorPage(HttpServletRequest httpRequest) {
         ModelAndView errorPage = new ModelAndView("errorPage");
-       User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        errorPage.addObject("currentUser", currentUser);
-        errorPage.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
-        errorPage.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification()
-                 .getQualificationId()));
+        getCurrentUser(userService, errorPage);
+
         String errorMsg= "", advice ="" , parag = "", warning = "", code ="" , thref = "'";
         int httpErrorCode = getErrorCode(httpRequest);
 
