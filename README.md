@@ -31,7 +31,7 @@
                нет представлений)
 5. перепроверить и переделать маппинг по всему проекту
 
-6. "Logout" action should be created
+6. "Logout" action should be created.Login action broken
 
 7. INTEGRATE FTP SERVER AND FILE LOADING/ DOWNLOADING AND VIEWS
 
