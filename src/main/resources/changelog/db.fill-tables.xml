@@ -27,13 +27,10 @@
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="city" type="VARCHAR(255)"/>
-            <column name="country" type="VARCHAR(255)"/>
             <column name="fax" type="VARCHAR(255)"/>
-            <column name="house_number" type="INT"/>
             <column name="office_email" type="VARCHAR(255)"/>
             <column name="office_phone" type="VARCHAR(255)"/>
-            <column name="street" type="VARCHAR(255)"/>
+            <column name="location_location_id" type="BIGINT"/>
         </createTable>
     </changeSet>
     <changeSet author="yekr0717 (generated)" id="1512659069035-5">
@@ -49,10 +46,12 @@
             <column autoIncrement="true" name="project_id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="created" type="VARCHAR(255)"/>
+            <column name="deadline" type="VARCHAR(255)"/>
             <column name="description" type="LONGTEXT"/>
             <column name="main_aim" type="LONGTEXT"/>
             <column name="project_name" type="VARCHAR(255)"/>
-            <column name="project_contact_id" type="BIGINT"/>
+           <!-- <column name="project_contact_id" type="BIGINT"/>-->
         </createTable>
     </changeSet>
     <changeSet author="yekr0717 (generated)" id="1512659069035-7">
@@ -79,20 +78,31 @@
             <column name="status_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="yekr0717 (generated)" id="1512659069035-10">
+    <changeSet author="yekr0717 (generated)" id="1520931784794-17">
+        <createTable tableName="streets">
+            <column autoIncrement="true" name="street_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="street_name" type="VARCHAR(255)"/>
+            <column name="city_city_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1520931784794-18">
         <createTable tableName="tasks">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
             <column name="created" type="VARCHAR(255)"/>
             <column name="description" type="LONGTEXT"/>
-            <column name="estimation" type="VARCHAR(255)"/>
+            <column name="due_date" type="VARCHAR(255)"/>
+            <column name="estimation" type="DOUBLE"/>
             <column name="percentage" type="DOUBLE"/>
             <column name="resolved" type="VARCHAR(255)"/>
             <column name="task_name" type="VARCHAR(255)"/>
             <column name="time_spent" type="DOUBLE"/>
             <column name="updated" type="VARCHAR(255)"/>
             <column name="creator_user_id" type="BIGINT"/>
+            <column name="dashboard_dashboard_id" type="BIGINT"/>
             <column name="executor_user_id" type="BIGINT"/>
             <column name="project_project_id" type="BIGINT"/>
             <column name="task_priority_priority_id" type="BIGINT"/>
@@ -113,15 +123,14 @@
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="city" type="VARCHAR(255)"/>
-            <column name="country" type="VARCHAR(255)"/>
             <column name="fax" type="VARCHAR(255)"/>
-            <column name="house_number" type="INT"/>
             <column name="private_email" type="VARCHAR(255)"/>
             <column name="private_phone" type="VARCHAR(255)"/>
-            <column name="street" type="VARCHAR(255)"/>
-            <column name="work_email" type="VARCHAR(255)"/>
+            <column name="work_email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="work_phone" type="VARCHAR(255)"/>
+            <column name="location_location_id" type="BIGINT"/>
         </createTable>
     </changeSet>
     <changeSet author="yekr0717 (generated)" id="1512659069035-13">
@@ -137,21 +146,40 @@
             <column autoIncrement="true" name="user_id" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="confirmation_token" type="VARCHAR(255)"/>
             <column name="enabled" type="TINYINT(4)"/>
-            <column name="login" type="VARCHAR(255)"/>
+            <column name="estimation" type="VARCHAR(255)"/>
+            <column name="login" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="password" type="VARCHAR(255)"/>
-            <column name="user_name" type="VARCHAR(255)"/>
-            <column name="user_surname" type="VARCHAR(255)"/>
+            <column name="user_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_surname" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="position_position_id" type="BIGINT"/>
             <column name="project_project_id" type="BIGINT"/>
             <column name="project_role_project_role_id" type="BIGINT"/>
             <column name="qualification_qualification_id" type="BIGINT"/>
-            <column name="user_contact_id" type="BIGINT"/>
+            <!--<column name="user_contact_id" type="BIGINT"/>-->
             <column name="user_role_role_id" type="BIGINT"/>
             <column name="user_status_status_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="yekr0717 (generated)" id="1512659069035-15">
+    <changeSet author="yekr0717 (generated)" id="1520931784794-23">
+        <addUniqueConstraint columnNames="work_email" constraintName="UK_m9e9ffwv00khaaojlkquggx58" tableName="user_contact"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1520931784794-24">
+        <addUniqueConstraint columnNames="login" constraintName="UK_ow0gan20590jrb00upg3va2fn" tableName="users"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1520931784794-25">
+        <createIndex indexName="FK1hjg8obsbnyiieijy039qv7mi" tableName="comments">
+            <column name="author_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1520931784794-26">
         <createIndex indexName="FK1txbuwm7iaeju7m0yw5129io5" tableName="tasks">
             <column name="task_priority_priority_id"/>
         </createIndex>
@@ -263,6 +291,9 @@
     <changeSet author="yekr0717 (generated)" id="1512659069035-42">
         <addForeignKeyConstraint baseColumnNames="qualification_qualification_id" baseTableName="users" constraintName="FKteiw5vxjuk1mhv4m2fxmuoufi" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="qualification_id" referencedTableName="qualifications"/>
     </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1520931784794-82">
+        <addForeignKeyConstraint baseColumnNames="location_location_id" baseTableName="user_contact" constraintName="FKtidtd15vjan0ue04ytr37oo9x" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="location_id" referencedTableName="location"/>
+    </changeSet>
 
     <changeSet id="insert_into_tables-1" author="Johny">
         <insert tableName="roles">
@@ -271,13 +302,24 @@
         <insert tableName="roles">
             <column name="role_name">USER</column>
         </insert>
+    </changeSet>
 
+    <changeSet id="insert_into_tables-2" author="Johny">
         <insert tableName="user_status">
             <column name="status_name">Assigned</column>
         </insert>
         <insert tableName="user_status">
             <column name="status_name">Not assigned</column>
         </insert>
+        <insert tableName="user_status">
+            <column name="status_name">Activated</column>
+        </insert>
+        <insert tableName="user_status">
+            <column name="status_name">Not activated</column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert_into_tables-3" author="Johny">
 
         <insert tableName="qualifications">
             <column name="qualification_name">Junior</column>
@@ -328,6 +370,7 @@
             <column name="project_role_name">Accountant</column>
         </insert>
 
+    <changeSet  id="insert_into_tables-4" author="Johny">
         <insert tableName="statuses">
             <column name="status_name">Open</column>
         </insert>
@@ -353,6 +396,34 @@
             <column name="status_name">Ready for testing</column>
         </insert>
 
+
+        <insert tableName="dashboard_statuses">
+            <column name="status_name">On hold</column>
+        </insert>
+        <insert tableName="dashboard_statuses">
+            <column name="status_name">In qa</column>
+        </insert>
+        <insert tableName="dashboard_statuses">
+            <column name="status_name">Open</column>
+        </insert>
+        <insert tableName="dashboard_statuses">
+            <column name="status_name">In build</column>
+        </insert>
+        <insert tableName="dashboard_statuses">
+            <column name="status_name">In design</column>
+        </insert>
+        <insert tableName="dashboard_statuses">
+             <column name="status_name">In analysis</column>
+        </insert>
+        <insert tableName="dashboard_statuses">
+            <column name="status_name">Reopened</column>
+        </insert>
+        <insert tableName="dashboard_statuses">
+            <column name="status_name">Closed</column>
+        </insert>
+    </changeSet>
+
+    <changeSet  id="insert_into_tables-5" author="Johny">
         <insert tableName="types">
             <column name="type_name">Dev task</column>
         </insert>

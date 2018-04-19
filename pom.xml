@@ -65,12 +65,6 @@
             <artifactId>liquibase-core</artifactId>
         </dependency>
 
-        <!--dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf</artifactId>
-            <version>2.1.6.RELEASE</version>
-        </dependency-->
-
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity4</artifactId>

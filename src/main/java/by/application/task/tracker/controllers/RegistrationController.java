@@ -30,7 +30,7 @@ import java.util.UUID;
 import static by.application.task.tracker.Constants.*;
 
 @Controller
-public class RegistrationController {
+public class RegistrationController implements CurrentUserController{
 
     @Autowired private UserService userService;
     @Autowired private ProjectService projectService;
@@ -48,12 +48,7 @@ public class RegistrationController {
         if (registrationSuccess.equals("ok")) {
             view.addObject("confirmationMessage", "A confirmation e-mail has been sent.");
         }
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", positionService.findPositionById(currentUser.getPosition().getPositionId()));
-        view.addObject("project", projectService.findByProjectId(currentUser.getProject().getProjectId()));
-        view.addObject("qualification", qualificationService.findQualificationById(currentUser.getQualification()
-                .getQualificationId()));
+        getCurrentUser(userService, view);
 
         view.addObject("positions", positionService.getAllPositions());
         view.addObject("projects", projectService.getAllProjects());
@@ -72,11 +67,7 @@ public class RegistrationController {
 
         if (result.hasErrors()) {
             view.setViewName("registration");
-            view.addObject("currentUser", currentUser);
-            view.addObject("position", positionService.findPositionById(currentUser
-                    .getPosition().getPositionId()));
-            view.addObject("qualification", qualificationService.findQualificationById(currentUser
-                    .getQualification().getQualificationId()));
+            getCurrentUser(userService, view);
             view.addObject("positions", positionService.getAllPositions());
             view.addObject("projects", projectService.getAllProjects());
             view.addObject("qualifications", qualificationService.getAllQualifications());
@@ -114,7 +105,8 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/confirmation", method = RequestMethod.POST)
-    public ModelAndView processConfirmationForm(ModelAndView modelAndView, BindingResult bindingResult, @RequestParam Map requestParams, RedirectAttributes redir) {
+    public ModelAndView processConfirmationForm(ModelAndView modelAndView, BindingResult bindingResult,
+                                                @RequestParam Map requestParams, RedirectAttributes redir) {
         modelAndView.setViewName("confirmation");
         Zxcvbn passwordCheck = new Zxcvbn();
         Strength strength = passwordCheck.measure((String) requestParams.get("password"));

@@ -10,19 +10,30 @@ import org.springframework.web.servlet.ModelAndView;
 public class AuthorizationController{
 
     @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
-    public ModelAndView getLoginPage(@RequestParam(value = "error", required = false) String error){
-
+    public ModelAndView getLoginPage(@RequestParam(value = "error", required = false) String error,
+                                     @RequestParam(value = "logout", required = false) String logout){
         ModelAndView model = new ModelAndView("authorization");
 
         if (error != null) {
             model.addObject("error", "Bad credentials");
         }
-        return  model;
+        if (logout != null) {
+            model.addObject("logout", "Logged out successfully.");
+        }
+
+        model.setViewName("login");
+        return model;
+    }
+
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public String logoutPage () {
+        return "redirect:login?logout=true";
     }
 
     @RequestMapping(path = "/accessDenied", method = RequestMethod.GET)
     public ModelAndView getDeniedPage() {
         return new ModelAndView("accessDenied");
     }
+
 }
 

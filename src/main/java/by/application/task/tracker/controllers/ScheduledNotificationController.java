@@ -83,7 +83,8 @@ public class ScheduledNotificationController {
                             notificationEmail.setSentDate(today);
                             notificationEmail.setText("Dear user, please be informed that project " + project.getProjectName() + " is to end in " + period.getDays() + " days");
                             userService.getAllUsers(project.getProjectId()).forEach(user -> {
-                                if (PROJECT_MANAGER.equals(user.getProjectRole().getProjectRoleName()) || TEAM_LEAD.equals(user.getProjectRole().getProjectRoleName()))
+                                if (PROJECT_MANAGER.equals(user.getProjectRole().getProjectRoleName())
+                                        || TEAM_LEAD.equals(user.getProjectRole().getProjectRoleName()))
                                     notificationEmail.setTo(user.getUserContact().getWorkEmail());
                             });
                             emailService.sendEmail(notificationEmail);
@@ -95,7 +96,8 @@ public class ScheduledNotificationController {
                         notificationEmail.setSentDate(today);
                         notificationEmail.setText("Dear user, please be informed that project " + project.getProjectName() + " ended");
                         userService.getAllUsers(project.getProjectId()).forEach(user -> {
-                            if (PROJECT_MANAGER.equals(user.getProjectRole().getProjectRoleName()) || TEAM_LEAD.equals(user.getProjectRole().getProjectRoleName()))
+                            if (PROJECT_MANAGER.equals(user.getProjectRole().getProjectRoleName())
+                                    || TEAM_LEAD.equals(user.getProjectRole().getProjectRoleName()))
                                 notificationEmail.setTo(user.getUserContact().getWorkEmail());
                         });
                         emailService.sendEmail(notificationEmail);

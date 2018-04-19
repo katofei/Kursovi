@@ -19,7 +19,7 @@ import java.util.List;
 import static by.application.task.tracker.Constants.USER_DELETION_NOTIFICATION;
 
 @Controller
-public class UserController {
+public class UserController implements CurrentUserController {
 
     @Autowired private UserService userService;
     @Autowired private PositionService positionService;
@@ -35,23 +35,14 @@ public class UserController {
     @RequestMapping(path = "/userPage", method = RequestMethod.GET)
     public ModelAndView getUserStartPage() {
         ModelAndView view = new ModelAndView("userStartPage");
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition());
-        view.addObject("project", currentUser.getProject());
-        view.addObject("qualification", currentUser.getQualification());
+        getCurrentUser(userService, view);
         return view;
     }
 
     @RequestMapping(path = "project/{id}/allUsers", method = RequestMethod.GET)
     public ModelAndView getAllUsers(@PathVariable("id") long projectId) {
         ModelAndView view = new ModelAndView("allUsersPage");
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition());
-        view.addObject("project", currentUser.getProject());
-        view.addObject("qualification", currentUser.getQualification());
-
+        getCurrentUser(userService, view);
         List<User> userList = userService.getAllUsers(projectId);
         view.addObject("userList", userList);
         return view;
@@ -60,11 +51,7 @@ public class UserController {
     @RequestMapping(value = "project/{id}/profile/{userId}", method = RequestMethod.GET)
     public ModelAndView getUser(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("profile");
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition());
-        view.addObject("project", currentUser.getProject());
-        view.addObject("qualification", currentUser.getQualification());
+        getCurrentUser(userService, view);
 
         User user = userService.findUserById(userId);
         view.addObject("user", user);
@@ -80,11 +67,7 @@ public class UserController {
     @RequestMapping(value = "project/{id}/user-deletion/{userId}", method = RequestMethod.DELETE)
     public ModelAndView deleteUser(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView();
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition());
-        view.addObject("project", currentUser.getProject());
-        view.addObject("qualification", currentUser.getQualification());
+        getCurrentUser(userService, view);
 
         SimpleMailMessage registrationEmail = new SimpleMailMessage();
         registrationEmail.setTo(userService.findUserById(userId).getUserContact().getWorkEmail());
@@ -102,11 +85,7 @@ public class UserController {
     @RequestMapping(value = "project/{id}/user-deletion/{userId}", method = RequestMethod.GET)
     public ModelAndView getUserDeletion(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("allUsers");
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition());
-        view.addObject("project", currentUser.getProject());
-        view.addObject("qualification", currentUser.getQualification());
+        getCurrentUser(userService, view);
 
         userService.deleteUser(userId);
         view.setViewName("redirect:/project/{id}/allUsers");
@@ -116,11 +95,7 @@ public class UserController {
     @RequestMapping(value = "project/{id}/user-edition/{userId}", method = RequestMethod.GET)
     public ModelAndView getUserEdition(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("editUserPage");
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition());
-        view.addObject("project", currentUser.getProject());
-        view.addObject("qualification", currentUser.getQualification());
+        getCurrentUser(userService, view);
 
         User user = userService.findUserById(userId);
         UserInfoWrapper userInfoWrapper = new UserInfoWrapper(user, user.getUserContact());
@@ -138,11 +113,7 @@ public class UserController {
         ModelAndView view = new ModelAndView();
         User user = userService.findUserById(userId);
         if (result.hasErrors()) {
-            User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-            view.setViewName("editUserPage");
-            view.addObject("currentUser", currentUser);
-            view.addObject("qualification", currentUser.getQualification());
-            view.addObject("position", currentUser.getPosition());
+            getCurrentUser(userService, view);
 
             view.addObject("positions", positionService.getAllPositions());
             view.addObject("projects", projectService.getAllProjects());
@@ -160,11 +131,7 @@ public class UserController {
     @RequestMapping(value = "profile/{userId}/my-tasks", method = RequestMethod.GET)
     public ModelAndView getMyTasks(@MatrixVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("myTasks");
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition());
-        view.addObject("project", currentUser.getProject());
-        view.addObject("qualification", currentUser.getQualification());
+        getCurrentUser(userService, view);
 
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
@@ -177,11 +144,7 @@ public class UserController {
     @RequestMapping(value = "profile/{userId}/my-team", method = RequestMethod.GET)
     public ModelAndView getMyTeamPage(@MatrixVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("allUsersPage");
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition());
-        view.addObject("project", currentUser.getProject());
-        view.addObject("qualification", currentUser.getQualification());
+        getCurrentUser(userService, view);
 
         // todo add logic for filtering
         // List<User> userList= userService.getAllUsers().stream().filter(user -> currentUser.getProject() == user.getProject()).collect(Collectors.toList());
@@ -193,11 +156,7 @@ public class UserController {
     @RequestMapping(value = "profile/{userId}/team-statistics", method = RequestMethod.GET)
     public ModelAndView getTeamStatisticsPage(@MatrixVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("teamStatistics");
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition());
-        view.addObject("project", currentUser.getProject());
-        view.addObject("qualification", currentUser.getQualification());
+        getCurrentUser(userService, view);
 
         // todo add logic for filtering
         //  List<User> userList= userService.getAllUsers();
@@ -209,11 +168,7 @@ public class UserController {
     @RequestMapping(value = "profile/{userId}/user-statistics", method = RequestMethod.GET)
     public ModelAndView getUserStatisticsPage(@MatrixVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("userStatistics");
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition());
-        view.addObject("project", currentUser.getProject());
-        view.addObject("qualification", currentUser.getQualification());
+        getCurrentUser(userService, view);
 
         // todo add logic for filtering
         // need to create truly statistics

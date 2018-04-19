@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class ErrorController {
+public class ErrorController implements CurrentUserController{
 
     @Autowired
     private UserService userService;
@@ -26,17 +26,9 @@ public class ErrorController {
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public ModelAndView getErrorPage(HttpServletRequest httpRequest) {
         ModelAndView errorPage = new ModelAndView("errorPage");
-       User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        errorPage.addObject("currentUser", currentUser);
-        errorPage.addObject("position",positionService.findPositionById(currentUser.getPosition().getPositionId()));
-        errorPage.addObject("qualification",qualificationService.findQualificationById(currentUser.getQualification()
-                 .getQualificationId()));
-        String errorMsg = "";
-        String advice = "";
-        String parag="";
-        String warning ="";
-        String code= "";
-        String thref ="";
+        getCurrentUser(userService, errorPage);
+
+        String errorMsg= "", advice ="" , parag = "", warning = "", code ="" , thref = "'";
         int httpErrorCode = getErrorCode(httpRequest);
 
         switch (httpErrorCode) {
@@ -45,7 +37,7 @@ public class ErrorController {
                 parag = "400 Error Page";
                 warning = " Oops! Bad request";
                 errorMsg = " You or Your browser sent a request that this server could not understand.\n";
-                advice="Meanwhile, you may return to dashboard";
+                advice="Meanwhile, you may return to homepage";
                 thref = "homePage";
                 break;
             }
@@ -63,7 +55,7 @@ public class ErrorController {
                 parag = "404 Error Page";
                 warning = " Oops! Page not found.";
                 errorMsg = " We could not find the page you were looking for.\n" ;
-                advice= " Meanwhile, you may return to dashboard";
+                advice= " Meanwhile, you may return to homepage";
                 thref = "homePage";
                 break;
             }
@@ -72,7 +64,7 @@ public class ErrorController {
                 parag = "500 Error Page";
                 warning = " Oops! Something went wrong.";
                 errorMsg = " We will work on fixing that right away.\n" ;
-                advice = "Meanwhile, you may return to dashboard";
+                advice = "Meanwhile, you may return to homepage";
                 thref = "homePage";
                 break;
             }
@@ -88,7 +80,6 @@ public class ErrorController {
 
 
     private int getErrorCode(HttpServletRequest httpRequest) {
-        return (Integer) httpRequest
-                .getAttribute("javax.servlet.error.status_code");
+        return (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
     }
 }

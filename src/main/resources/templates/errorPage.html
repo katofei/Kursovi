@@ -5,18 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>Error</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-    <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/bower_components/font_awesome/css/font_awesome.min.css}"/>
-    <link rel="stylesheet" th:href="@{/bower_components/Ionicons/css/ionicons.min.css}"/>
-    <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"/>
-    <link rel="stylesheet" th:href="@{/plugins/iCheck/square/blue.css}"/>
+    <link rel="import" th:href="@{main.html}"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
     <header class="main-header">
         <a href="#" class="logo">
-            <span class="logo-lg"><b>Dash</b>Bord</span>
+            <span class="logo-lg"><b>Task</b>Tracker</span>
         </a>
 
         <nav class="navbar navbar-static-top" role="navigation">
@@ -36,7 +32,7 @@
                 <li>
                     <a href="#">
                         <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span>
+                        <span>Home</span>
                         <span class="pull-right-container"></span>
                     </a>
                 </li>
@@ -66,9 +62,5 @@
     </div>
 </div>
 
-<script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
-<script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
-<script th:src="@{/dist/js/adminlte.min.js}"></script>
-<script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
 </body>
 </html>
