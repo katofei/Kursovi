@@ -14,6 +14,7 @@ public class Constants {
 
     /*      Project roles    */
     public static final String TEAM_LEAD = "Team lead";
+    public static final String ACCOUNTANT = "Accountant";
     public static final String PROJECT_MANAGER = "Project manager";
 
 

@@ -323,6 +323,10 @@
             <column name="project_role_id">3</column>
             <column name="project_role_name">Team Lead</column>
         </insert>
+        <insert tableName="project_roles">
+            <column name="project_role_id">4</column>
+            <column name="project_role_name">Accountant</column>
+        </insert>
 
         <insert tableName="statuses">
             <column name="status_name">Open</column>
