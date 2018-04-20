@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "projects")
+@Table(name = "project")
 public class Project {
 
     public Project(){}
@@ -47,6 +47,9 @@ public class Project {
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
     private List<Dashboard> dashboardList;
 
+    @ManyToOne()
+    private ProjectStrategy projectStrategy;
+
     public Long getProjectId() {
         return projectId;
     }
@@ -79,4 +82,7 @@ public class Project {
 
     public String getDeadLine() {return deadLine;}
     public void setDeadLine(String deadLine) {this.deadLine = deadLine;}
+
+    public ProjectStrategy getProjectStrategy() { return projectStrategy; }
+    public void setProjectStrategy(ProjectStrategy projectStrategy) { this.projectStrategy = projectStrategy; }
 }

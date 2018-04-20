@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "positions")
+@Table(name = "position")
 public class Position {
 
     public Position(){}
@@ -21,15 +21,12 @@ public class Position {
     private List<User> users;
 
     public Long getPositionId() {return positionId;}
-
     public void setPositionId(Long positionId) {this.positionId = positionId;}
 
     public String getPositionName() {return positionName;}
-
     public void setPositionName(String positionName) {this.positionName = positionName;}
 
     public List<User> getUsers() {return users;}
-
     public void setUsers(List<User> users) {this.users = users;}
 
 }

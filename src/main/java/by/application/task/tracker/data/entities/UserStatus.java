@@ -19,14 +19,11 @@ public class UserStatus {
     private List<User> users;
 
     public Long getStatusId() {return statusId;}
-
     public void setStatusId(Long statusId) {this.statusId = statusId;}
 
     public String getStatusName() {return statusName;}
-
     public void setStatusName(String statusName) {this.statusName = statusName;}
 
     public List<User> getUsers() {return users;}
-
     public void setUsers(List<User> users) {this.users = users;}
 }

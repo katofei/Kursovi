@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "priorities")
+@Table(name = "task_priority")
 public class TaskPriority implements Serializable{
 
    public TaskPriority(){}
@@ -22,14 +22,11 @@ public class TaskPriority implements Serializable{
    private List<Task> tasks;
 
    public Long getPriorityId() {return priorityId;}
-
    public void setPriorityId(Long priorityId) {this.priorityId = priorityId;}
 
    public String getPriorityName() {return priorityName;}
-
    public void setPriorityName(String priorityName) {this.priorityName = priorityName;}
 
    public List<Task> getTasks() {return tasks;}
-
    public void setTasks(List<Task> tasks) {this.tasks = tasks;}
 }

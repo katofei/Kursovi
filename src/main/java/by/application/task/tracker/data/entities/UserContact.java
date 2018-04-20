@@ -10,8 +10,7 @@ import javax.persistence.*;
 @Table(name = "user_contact")
 public class UserContact {
 
-    public UserContact() {
-    }
+    public UserContact() {}
 
     public UserContact(UserDTO userDTO) {
         this.fax = userDTO.getFax();
@@ -37,7 +36,7 @@ public class UserContact {
     @NotEmpty(message = "Please provide an e-mail")
     private String workEmail;
 
-    @Column(name = "private_Email")
+    @Column(name = "private_email")
     private String privateEmail;
 
     @Column(name = "fax")
