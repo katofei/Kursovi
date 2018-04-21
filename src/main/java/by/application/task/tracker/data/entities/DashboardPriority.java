@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "dashboard_priorities")
+@Table(name = "dashboard_priority")
 public class DashboardPriority {
 
     @Id

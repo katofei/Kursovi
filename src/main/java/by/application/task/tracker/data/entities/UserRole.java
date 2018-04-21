@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "user_role")
 public class UserRole implements Serializable {
 
     public UserRole(){}
@@ -22,15 +22,12 @@ public class UserRole implements Serializable {
     private List<User> users;
 
     public Long getRoleId() {return roleId;}
-
     public void setRoleId(Long roleId) {this.roleId = roleId;}
 
     public String getRoleName() {return roleName;}
-
     public void setRoleName(String roleName) {this.roleName = roleName;}
 
     public List<User> getUsers() {return users;}
-
     public void setUsers(List<User> users) {this.users = users;}
 
 }

@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="yekr0717 (generated)" id="1524216201934-1">
+        <createTable tableName="city">
+            <column autoIncrement="true" name="city_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="city_name" type="VARCHAR(255)"/>
+            <column name="country_country_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-2">
+        <createTable tableName="comment">
+            <column autoIncrement="true" name="comment_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="created" type="VARCHAR(255)"/>
+            <column name="text" type="LONGTEXT"/>
+            <column name="updated" type="VARCHAR(255)"/>
+            <column name="author_user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-3">
+        <createTable tableName="country">
+            <column autoIncrement="true" name="country_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="country_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-4">
+        <createTable tableName="dashboard">
+            <column autoIncrement="true" name="dashboard_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="closed" type="VARCHAR(255)"/>
+            <column name="created" type="VARCHAR(255)"/>
+            <column name="dashboard_name" type="VARCHAR(255)"/>
+            <column name="description" type="LONGTEXT"/>
+            <column name="due_date" type="VARCHAR(255)"/>
+            <column name="estimation" type="DOUBLE"/>
+            <column name="time_spent" type="DOUBLE"/>
+            <column name="updated" type="VARCHAR(255)"/>
+            <column name="creator_user_id" type="BIGINT"/>
+            <column name="priority_priority_id" type="BIGINT"/>
+            <column name="project_project_id" type="BIGINT"/>
+            <column name="reporter_user_id" type="BIGINT"/>
+            <column name="status_status_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-5">
+        <createTable tableName="dashboard_priority">
+            <column autoIncrement="true" name="priority_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="priority_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-6">
+        <createTable tableName="dashboard_status">
+            <column autoIncrement="true" name="status_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="status_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-7">
+        <createTable tableName="hous">
+            <column autoIncrement="true" name="house_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="house_number" type="INT"/>
+            <column name="street_street_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-8">
+        <createTable tableName="location">
+            <column autoIncrement="true" name="location_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="city_city_id" type="BIGINT"/>
+            <column name="country_country_id" type="BIGINT"/>
+            <column name="house_house_id" type="BIGINT"/>
+            <column name="street_street_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-9">
+        <createTable tableName="position">
+            <column autoIncrement="true" name="position_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="position_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-10">
+        <createTable tableName="project">
+            <column autoIncrement="true" name="project_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="created" type="VARCHAR(255)"/>
+            <column name="deadline" type="VARCHAR(255)"/>
+            <column name="description" type="LONGTEXT"/>
+            <column name="main_aim" type="LONGTEXT"/>
+            <column name="project_name" type="VARCHAR(255)"/>
+            <column name="project_contact_id" type="BIGINT"/>
+            <column name="project_strategy_project_strategy_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-11">
+        <createTable tableName="project_contact">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="fax" type="VARCHAR(255)"/>
+            <column name="office_email" type="VARCHAR(255)"/>
+            <column name="office_phone" type="VARCHAR(255)"/>
+            <column name="location_location_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-12">
+        <createTable tableName="project_role">
+            <column autoIncrement="true" name="project_role_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="project_role_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-13">
+        <createTable tableName="project_strategy">
+            <column autoIncrement="true" name="project_strategy_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="project_strategy_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-14">
+        <createTable tableName="qualification">
+            <column autoIncrement="true" name="qualification_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="qualification_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-15">
+        <createTable tableName="streets">
+            <column autoIncrement="true" name="street_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="street_name" type="VARCHAR(255)"/>
+            <column name="city_city_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-16">
+        <createTable tableName="task">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="created" type="VARCHAR(255)"/>
+            <column name="description" type="LONGTEXT"/>
+            <column name="due_date" type="VARCHAR(255)"/>
+            <column name="estimation" type="DOUBLE"/>
+            <column name="percentage" type="DOUBLE"/>
+            <column name="resolved" type="VARCHAR(255)"/>
+            <column name="task_name" type="VARCHAR(255)"/>
+            <column name="time_spent" type="DOUBLE"/>
+            <column name="updated" type="VARCHAR(255)"/>
+            <column name="creator_user_id" type="BIGINT"/>
+            <column name="dashboard_dashboard_id" type="BIGINT"/>
+            <column name="executor_user_id" type="BIGINT"/>
+            <column name="task_priority_priority_id" type="BIGINT"/>
+            <column name="task_status_status_id" type="BIGINT"/>
+            <column name="task_type_type_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-17">
+        <createTable tableName="task_priority">
+            <column autoIncrement="true" name="priority_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="priority_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-18">
+        <createTable tableName="task_statuse">
+            <column autoIncrement="true" name="status_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="status_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-19">
+        <createTable tableName="task_type">
+            <column autoIncrement="true" name="type_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="type_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-20">
+        <createTable tableName="user">
+            <column autoIncrement="true" name="user_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="confirmation_token" type="VARCHAR(255)"/>
+            <column name="enabled" type="BIT(1)"/>
+            <column name="estimation" type="VARCHAR(255)"/>
+            <column name="login" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="user_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_surname" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="position_position_id" type="BIGINT"/>
+            <column name="project_project_id" type="BIGINT"/>
+            <column name="project_role_project_role_id" type="BIGINT"/>
+            <column name="qualification_qualification_id" type="BIGINT"/>
+            <column name="user_contact_id" type="BIGINT"/>
+            <column name="user_role_role_id" type="BIGINT"/>
+            <column name="user_status_status_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-21">
+        <createTable tableName="user_contact">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="fax" type="VARCHAR(255)"/>
+            <column name="private_email" type="VARCHAR(255)"/>
+            <column name="private_phone" type="VARCHAR(255)"/>
+            <column name="work_email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="work_phone" type="VARCHAR(255)"/>
+            <column name="location_location_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-22">
+        <createTable tableName="user_role">
+            <column autoIncrement="true" name="role_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="role_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-23">
+        <createTable tableName="user_status">
+            <column autoIncrement="true" name="status_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="status_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-24">
+        <addUniqueConstraint columnNames="login" constraintName="UK_ew1hvam8uwaknuaellwhqchhb" tableName="user"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-25">
+        <addUniqueConstraint columnNames="work_email" constraintName="UK_m9e9ffwv00khaaojlkquggx58" tableName="user_contact"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-26">
+        <createIndex indexName="FK1pds1b0bbgbtle3scntfb0rop" tableName="task">
+            <column name="creator_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-27">
+        <createIndex indexName="FK1vwoad32kbp3vn2x792nd0rvv" tableName="streets">
+            <column name="city_city_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-28">
+        <createIndex indexName="FK3jvi828gimq2cby30a22p2ns0" tableName="task">
+            <column name="executor_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-29">
+        <createIndex indexName="FK6jeynqyu4lu32igjg7jp0al16" tableName="dashboard">
+            <column name="status_status_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-30">
+        <createIndex indexName="FKab3lcm8dfy8lwllwi1ugy89fx" tableName="task">
+            <column name="task_priority_priority_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-31">
+        <createIndex indexName="FKaqr1sshlnp4lbwba5hvdefdwd" tableName="location">
+            <column name="city_city_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-32">
+        <createIndex indexName="FKd6wl3d5ijilejihyv0ewj9nyt" tableName="location">
+            <column name="house_house_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-33">
+        <createIndex indexName="FKe64a85qvw684tsfh0vvemmmji" tableName="project">
+            <column name="project_strategy_project_strategy_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-34">
+        <createIndex indexName="FKec6uk0q49muk6jgs7vrjb5wi4" tableName="user">
+            <column name="position_position_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-35">
+        <createIndex indexName="FKeva9o92w3m9d6pj3byt08qrx9" tableName="city">
+            <column name="country_country_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-36">
+        <createIndex indexName="FKj4cl97n7hpke9hs5io2b5xgl" tableName="project_contact">
+            <column name="location_location_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-37">
+        <createIndex indexName="FKjke06kpc66au1duxx1kyt5i59" tableName="task">
+            <column name="task_status_status_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-38">
+        <createIndex indexName="FKjxqgqjny2hcw0i87sq8n70epy" tableName="user">
+            <column name="user_status_status_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-39">
+        <createIndex indexName="FKke199w1ebfuc7simn8e018yx9" tableName="user">
+            <column name="user_role_role_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-40">
+        <createIndex indexName="FKkmiu4odu61gtfsax7xcfulwv4" tableName="dashboard">
+            <column name="project_project_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-41">
+        <createIndex indexName="FKkmnv5lgyyxntay7l9sc4op9ru" tableName="dashboard">
+            <column name="priority_priority_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-42">
+        <createIndex indexName="FKlwfhohqwrc1yynxqj2y5jahgp" tableName="task">
+            <column name="task_type_type_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-43">
+        <createIndex indexName="FKmiw2eici3h5u00cndaqg2dmlw" tableName="project">
+            <column name="project_contact_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-44">
+        <createIndex indexName="FKmoty4g0jd7ob0h9c7vqi5t5a" tableName="hous">
+            <column name="street_street_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-45">
+        <createIndex indexName="FKna43a1udokn9aqcg6w4wilnmx" tableName="user">
+            <column name="qualification_qualification_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-46">
+        <createIndex indexName="FKnht0vru4ssmwa3mevinkfre72" tableName="comment">
+            <column name="author_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-47">
+        <createIndex indexName="FKobqkwau3wdfw79q6e07smgq6r" tableName="location">
+            <column name="country_country_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-48">
+        <createIndex indexName="FKql5s3u6s19u4ir8x9ehnubmvl" tableName="task">
+            <column name="dashboard_dashboard_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-49">
+        <createIndex indexName="FKsm9pdip5wggdvox6bersaewh8" tableName="dashboard">
+            <column name="creator_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-50">
+        <createIndex indexName="FKsx5exnr7ptou5jmf7wdao51c5" tableName="location">
+            <column name="street_street_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-51">
+        <createIndex indexName="FKsy8oc9hxlkevddi9899xmygs0" tableName="dashboard">
+            <column name="reporter_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-52">
+        <createIndex indexName="FKteboydcvbtg3w2glmxjs7nwdb" tableName="user">
+            <column name="user_contact_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-53">
+        <createIndex indexName="FKtidtd15vjan0ue04ytr37oo9x" tableName="user_contact">
+            <column name="location_location_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-54">
+        <createIndex indexName="FKtkcrdghtjql7ocb102dbny5bl" tableName="user">
+            <column name="project_project_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-55">
+        <createIndex indexName="FKtnltvfuwy4o5td4otwl3k77pq" tableName="user">
+            <column name="project_role_project_role_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-56">
+        <addForeignKeyConstraint baseColumnNames="creator_user_id" baseTableName="task" constraintName="FK1pds1b0bbgbtle3scntfb0rop" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-57">
+        <addForeignKeyConstraint baseColumnNames="city_city_id" baseTableName="streets" constraintName="FK1vwoad32kbp3vn2x792nd0rvv" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="city_id" referencedTableName="city"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-58">
+        <addForeignKeyConstraint baseColumnNames="executor_user_id" baseTableName="task" constraintName="FK3jvi828gimq2cby30a22p2ns0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-59">
+        <addForeignKeyConstraint baseColumnNames="status_status_id" baseTableName="dashboard" constraintName="FK6jeynqyu4lu32igjg7jp0al16" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="status_id" referencedTableName="dashboard_status"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-60">
+        <addForeignKeyConstraint baseColumnNames="task_priority_priority_id" baseTableName="task" constraintName="FKab3lcm8dfy8lwllwi1ugy89fx" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="priority_id" referencedTableName="task_priority"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-61">
+        <addForeignKeyConstraint baseColumnNames="city_city_id" baseTableName="location" constraintName="FKaqr1sshlnp4lbwba5hvdefdwd" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="city_id" referencedTableName="city"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-62">
+        <addForeignKeyConstraint baseColumnNames="house_house_id" baseTableName="location" constraintName="FKd6wl3d5ijilejihyv0ewj9nyt" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="house_id" referencedTableName="hous"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-63">
+        <addForeignKeyConstraint baseColumnNames="project_strategy_project_strategy_id" baseTableName="project" constraintName="FKe64a85qvw684tsfh0vvemmmji" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_strategy_id" referencedTableName="project_strategy"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-64">
+        <addForeignKeyConstraint baseColumnNames="position_position_id" baseTableName="user" constraintName="FKec6uk0q49muk6jgs7vrjb5wi4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="position_id" referencedTableName="position"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-65">
+        <addForeignKeyConstraint baseColumnNames="country_country_id" baseTableName="city" constraintName="FKeva9o92w3m9d6pj3byt08qrx9" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="country_id" referencedTableName="country"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-66">
+        <addForeignKeyConstraint baseColumnNames="location_location_id" baseTableName="project_contact" constraintName="FKj4cl97n7hpke9hs5io2b5xgl" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="location_id" referencedTableName="location"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-67">
+        <addForeignKeyConstraint baseColumnNames="task_status_status_id" baseTableName="task" constraintName="FKjke06kpc66au1duxx1kyt5i59" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="status_id" referencedTableName="task_statuse"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-68">
+        <addForeignKeyConstraint baseColumnNames="user_status_status_id" baseTableName="user" constraintName="FKjxqgqjny2hcw0i87sq8n70epy" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="status_id" referencedTableName="user_status"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-69">
+        <addForeignKeyConstraint baseColumnNames="user_role_role_id" baseTableName="user" constraintName="FKke199w1ebfuc7simn8e018yx9" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="role_id" referencedTableName="user_role"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-70">
+        <addForeignKeyConstraint baseColumnNames="project_project_id" baseTableName="dashboard" constraintName="FKkmiu4odu61gtfsax7xcfulwv4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_id" referencedTableName="project"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-71">
+        <addForeignKeyConstraint baseColumnNames="priority_priority_id" baseTableName="dashboard" constraintName="FKkmnv5lgyyxntay7l9sc4op9ru" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="priority_id" referencedTableName="dashboard_priority"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-72">
+        <addForeignKeyConstraint baseColumnNames="task_type_type_id" baseTableName="task" constraintName="FKlwfhohqwrc1yynxqj2y5jahgp" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="type_id" referencedTableName="task_type"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-73">
+        <addForeignKeyConstraint baseColumnNames="project_contact_id" baseTableName="project" constraintName="FKmiw2eici3h5u00cndaqg2dmlw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_contact"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-74">
+        <addForeignKeyConstraint baseColumnNames="street_street_id" baseTableName="hous" constraintName="FKmoty4g0jd7ob0h9c7vqi5t5a" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="street_id" referencedTableName="streets"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-75">
+        <addForeignKeyConstraint baseColumnNames="qualification_qualification_id" baseTableName="user" constraintName="FKna43a1udokn9aqcg6w4wilnmx" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="qualification_id" referencedTableName="qualification"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-76">
+        <addForeignKeyConstraint baseColumnNames="author_user_id" baseTableName="comment" constraintName="FKnht0vru4ssmwa3mevinkfre72" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-77">
+        <addForeignKeyConstraint baseColumnNames="country_country_id" baseTableName="location" constraintName="FKobqkwau3wdfw79q6e07smgq6r" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="country_id" referencedTableName="country"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-78">
+        <addForeignKeyConstraint baseColumnNames="dashboard_dashboard_id" baseTableName="task" constraintName="FKql5s3u6s19u4ir8x9ehnubmvl" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="dashboard_id" referencedTableName="dashboard"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-79">
+        <addForeignKeyConstraint baseColumnNames="creator_user_id" baseTableName="dashboard" constraintName="FKsm9pdip5wggdvox6bersaewh8" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-80">
+        <addForeignKeyConstraint baseColumnNames="street_street_id" baseTableName="location" constraintName="FKsx5exnr7ptou5jmf7wdao51c5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="street_id" referencedTableName="streets"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-81">
+        <addForeignKeyConstraint baseColumnNames="reporter_user_id" baseTableName="dashboard" constraintName="FKsy8oc9hxlkevddi9899xmygs0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-82">
+        <addForeignKeyConstraint baseColumnNames="user_contact_id" baseTableName="user" constraintName="FKteboydcvbtg3w2glmxjs7nwdb" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user_contact"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-83">
+        <addForeignKeyConstraint baseColumnNames="location_location_id" baseTableName="user_contact" constraintName="FKtidtd15vjan0ue04ytr37oo9x" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="location_id" referencedTableName="location"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-84">
+        <addForeignKeyConstraint baseColumnNames="project_project_id" baseTableName="user" constraintName="FKtkcrdghtjql7ocb102dbny5bl" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_id" referencedTableName="project"/>
+    </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1524216201934-85">
+        <addForeignKeyConstraint baseColumnNames="project_role_project_role_id" baseTableName="user" constraintName="FKtnltvfuwy4o5td4otwl3k77pq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="project_role_id" referencedTableName="project_role"/>
+    </changeSet>
+</databaseChangeLog>

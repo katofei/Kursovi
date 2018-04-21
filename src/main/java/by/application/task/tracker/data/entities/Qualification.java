@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "qualifications")
+@Table(name = "qualification")
 public class Qualification {
 
     public Qualification(){}
@@ -23,7 +23,6 @@ public class Qualification {
     public Long getQualificationId() {
         return qualificationId;
     }
-
     public void setQualificationId(Long qualificationId) {
         this.qualificationId = qualificationId;
     }
@@ -31,7 +30,6 @@ public class Qualification {
     public String getQualificationName() {
         return qualificationName;
     }
-
     public void setQualificationName(String qualificationName) {
         this.qualificationName = qualificationName;
     }
@@ -39,7 +37,6 @@ public class Qualification {
     public List<User> getUsers() {
         return users;
     }
-
     public void setUsers(List<User> users) {
         this.users = users;
     }

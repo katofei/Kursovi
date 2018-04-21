@@ -27,7 +27,6 @@ public class Street {
     public Long getStreetId() {
         return streetId;
     }
-
     public void setStreetId(Long streetId) {
         this.streetId = streetId;
     }
@@ -35,7 +34,6 @@ public class Street {
     public String getStreetName() {
         return streetName;
     }
-
     public void setStreetName(String streetName) {
         this.streetName = streetName;
     }
@@ -43,7 +41,6 @@ public class Street {
     public City getCity() {
         return city;
     }
-
     public void setCity(City city) {
         this.city = city;
     }
@@ -51,7 +48,6 @@ public class Street {
     public List<House> getHouseList() {
         return houseList;
     }
-
     public void setHouseList(List<House> houseList) {
         this.houseList = houseList;
     }

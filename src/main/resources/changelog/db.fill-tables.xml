@@ -62,6 +62,14 @@
             <column name="qualification_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
+    <changeSet author="yekr0717 (generated)" id="1512659069035-7">
+        <createTable tableName="comments">
+            <column autoIncrement="true" name="comment_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="text" type="LONGTEXT"/>
+        </createTable>
+    </changeSet>
     <changeSet author="yekr0717 (generated)" id="1512659069035-8">
         <createTable tableName="roles">
             <column autoIncrement="true" name="role_id" type="BIGINT">

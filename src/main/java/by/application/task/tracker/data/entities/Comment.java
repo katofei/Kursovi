@@ -3,7 +3,7 @@ package by.application.task.tracker.data.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "comments")
+@Table(name = "comment")
 public class Comment {
 
     @Id
