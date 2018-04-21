@@ -369,6 +369,7 @@
             <column name="project_role_id">4</column>
             <column name="project_role_name">Accountant</column>
         </insert>
+    </changeSet>
 
     <changeSet  id="insert_into_tables-4" author="Johny">
         <insert tableName="statuses">

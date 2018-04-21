@@ -21,7 +21,7 @@ public class AuthorizationController{
             model.addObject("logout", "Logged out successfully.");
         }
 
-        model.setViewName("login");
+        model.setViewName("authorization");
         return model;
     }
 
