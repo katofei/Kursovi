@@ -17,7 +17,7 @@ public class EmailService {
     }
 
     @Async
-    public void sendEmail(SimpleMailMessage email) {
-        mailSender.send(email);
+    public void sendEmail(SimpleMailMessage message) {
+        mailSender.send(message);
     }
 }

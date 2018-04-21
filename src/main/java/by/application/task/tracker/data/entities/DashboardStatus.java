@@ -21,7 +21,6 @@ public class DashboardStatus {
     public Long getStatusId() {
         return statusId;
     }
-
     public void setStatusId(Long statusId) {
         this.statusId = statusId;
     }
@@ -29,7 +28,6 @@ public class DashboardStatus {
     public String getStatusName() {
         return statusName;
     }
-
     public void setStatusName(String statusName) {
         this.statusName = statusName;
     }
@@ -37,7 +35,6 @@ public class DashboardStatus {
     public List<Dashboard> getDashboardList() {
         return dashboardList;
     }
-
     public void setDashboardList(List<Dashboard> dashboardList) {
         this.dashboardList = dashboardList;
     }

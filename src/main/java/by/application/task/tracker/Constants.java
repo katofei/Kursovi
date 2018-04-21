@@ -57,6 +57,6 @@ public interface Constants {
     String DASHBOARD_MODIFICATION_NOTIFICATION = "Dashboard modification notification";
 
 
-    String from_email = "Task Tracker System";
+    String from_email = "notReply.by";
 
 }

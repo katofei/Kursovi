@@ -27,7 +27,7 @@ public class AuthorizationController{
 
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logoutPage () {
-        return "redirect:login?logout=true";
+        return "redirect:authorization?logout=true";
     }
 
     @RequestMapping(path = "/accessDenied", method = RequestMethod.GET)

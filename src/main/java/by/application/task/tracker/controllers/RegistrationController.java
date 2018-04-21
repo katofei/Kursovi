@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.Map;
 import java.util.UUID;
 
@@ -45,7 +46,7 @@ public class RegistrationController implements CurrentUserController{
     @RequestMapping(path = "/registration", method = RequestMethod.GET)
     public ModelAndView getRegistrationPage(@RequestParam(value = "registrationSuccess", required = false) String registrationSuccess) {
         ModelAndView view = new ModelAndView("registration");
-        if (registrationSuccess.equals("ok")) {
+        if ( registrationSuccess != null && "ok".equals(registrationSuccess)) {
             view.addObject("confirmationMessage", "A confirmation e-mail has been sent.");
         }
         getCurrentUser(userService, view);
@@ -61,7 +62,7 @@ public class RegistrationController implements CurrentUserController{
 
     @RequestMapping(path = "/registration", method = RequestMethod.POST)
     public ModelAndView registerUser(@RequestParam(value = "registrationSuccess", required = false) String registrationSuccess,
-                                     @Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, HttpServletRequest request) {
+                                     @Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, HttpServletRequest request) throws ParseException {
         ModelAndView view = new ModelAndView();
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
 
@@ -82,12 +83,13 @@ public class RegistrationController implements CurrentUserController{
             registrationEmail.setTo(userDTO.getWorkEmail());
             registrationEmail.setSentDate(dataConverterService.generateTodayDateDay());
             registrationEmail.setSubject(REGISTRATION_CONFIRM_NOTIFICATION);
-            registrationEmail.setText("To confirm your e-mail address, please click the link below:\n"
+            registrationEmail.setText("Dear, " + userDTO.getUserName() +  " "+ userDTO.getUserSurname()+".\n We congratulate you," +
+                    " with the acceptance in our company for work, and also send you an invitation to register in our " +
+                    "TaskTracker system\n" + "To confirm your e-mail address, please click the link below:\n"
                     + appUrl + "/confirmation?token=" + userDTO.getConfirmationToken());
             registrationEmail.setFrom(Constants.from_email);
             emailService.sendEmail(registrationEmail);
             view.setViewName("redirect:/registration?registrationSuccess=ok");
-
         }
         return view;
     }

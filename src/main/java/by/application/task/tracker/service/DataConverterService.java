@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +13,7 @@ import java.util.Date;
 @Service
 public class DataConverterService {
 
-    private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MMM-dd");
+    private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
 
     public Date convertStringToDate(String date) throws ParseException {
         return formatter.parse(date);
@@ -30,9 +29,8 @@ public class DataConverterService {
                 .format(DateTimeFormatter.ISO_DATE);
     }
 
-    public Date generateTodayDateDay() {
+    public Date generateTodayDateDay() throws ParseException {
         Date today = new Date();
-        LocalDate localDate = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return Date.from(Instant.from(localDate));
+        return formatter.parse(formatter.format(today));
     }
 }

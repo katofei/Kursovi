@@ -3,9 +3,27 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Confirmation</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-    <link rel="import" th:href="@{main.html}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/font_awesome/css/font_awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/Ionicons/css/ionicons.min.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"/>
+    <link rel="stylesheet" th:href="@{/plugins/iCheck/square/blue.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/skins/_all_skins.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
+    <link rel="stylesheet"
+          th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
+
+    <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/dist/js/adminlte.min.js}"></script>
+    <script th:src="@{/dist/js/demo.js}"></script>
+    <script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
+    <script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
+    <script th:src="@{/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+    <script th:src="@{plugins/iCheck/icheck.min.js}"></script>
 </head>
 
 <body class="hold-transition login-page">
@@ -27,7 +45,7 @@
              role="alert" th:text="${invalidToken}"></div>
 
         <form th:if="!${invalidToken}" class="m-t" id="passwordForm" role="form" action="#"
-              th:object="${setPassword}" th:action="@{/confirm}" method="post">
+              th:object="${setPassword}" th:action="@{/confirmation}" method="post">
 
             <input type="hidden" name="token" th:value="${confirmationToken}"/>
 
@@ -70,7 +88,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
 <script th:src="@{js/fv.min.js}"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#passwordForm').formValidation({
             framework: 'bootstrap',
             icon: {
@@ -85,13 +103,13 @@
                             message: 'The password is required'
                         },
                         callback: {
-                            callback: function(value, validator, $field) {
+                            callback: function (value, validator, $field) {
                                 var password = $field.val();
                                 if (password == '') {
                                     return true;
                                 }
-                                var result  = zxcvbn(password),
-                                    score   = result.score,
+                                var result = zxcvbn(password),
+                                    score = result.score,
                                     message = result.feedback.warning || 'The password is weak';
 
                                 var $bar = $('#strengthBar');

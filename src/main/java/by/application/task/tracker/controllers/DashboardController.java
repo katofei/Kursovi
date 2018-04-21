@@ -24,41 +24,53 @@ import static by.application.task.tracker.Constants.TASK_MODIFICATION_NOTIFICATI
 @Controller
 public class DashboardController implements CurrentUserController {
 
-    @Autowired private ProjectService projectService;
-    @Autowired private UserService userService;
-    @Autowired private DashboardService dashboardService;
-    @Autowired private DashboardStatusService dashboardStatusService;
-    @Autowired private DashboardPriorityService dashboardPriorityService;
-    @Autowired private QualificationService qualificationService;
-    @Autowired private TaskService taskService;
-    @Autowired private EmailService emailService;
+    @Autowired
+    private ProjectService projectService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private DashboardService dashboardService;
+    @Autowired
+    private DashboardStatusService dashboardStatusService;
+    @Autowired
+    private DashboardPriorityService dashboardPriorityService;
+    @Autowired
+    private QualificationService qualificationService;
+    @Autowired
+    private TaskService taskService;
+    @Autowired
+    private EmailService emailService;
 
     @RequestMapping(path = "project/{projectId}/dashboard-creation", method = RequestMethod.GET)
-    public ModelAndView getProjectCreationPage() {
+    public ModelAndView getProjectCreationPage(@PathVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("dashboardCreation");
         getCurrentUser(userService, view);
+        view.addObject("project", projectService.findByProjectId(projectId));
+        view.addObject("allUsers", userService.getAllUsers(projectId));
+        view.addObject("dashboardPriorities", dashboardPriorityService.getAllDashboardPriorities());
 
         DashboardDTO dashboardDTO = new DashboardDTO();
         view.addObject("dashboard", dashboardDTO);
         return view;
     }
 
-    @RequestMapping(path = "project/{projectId}/dashboard-creation", method = RequestMethod.POST)
-    public ModelAndView createProject(@Valid @ModelAttribute("dashboard") DashboardDTO dashboardDTO, BindingResult result,
-                                      @MatrixVariable("projectId") long projectId) {
+    @RequestMapping(path = "/dashboard-creation", method = RequestMethod.POST)
+    public ModelAndView createProject(@Valid @ModelAttribute("dashboard") DashboardDTO dashboardDTO, BindingResult result) {
         ModelAndView view = new ModelAndView("dashboardCreation");
         getCurrentUser(userService, view);
 
         if (result.hasErrors()) {
-            view.setViewName("dashboardCreation");
+            view.setViewName("project/"+ dashboardDTO.getProject() + "/dashboard-creation");
             return view;
         }
-        view.setViewName("redirect:/project/{projectId}/allDashboards");
+        view.setViewName("redirect:/project/"+ dashboardDTO.getProject() + "/allDashboards");
         dashboardService.createDashboard(dashboardDTO);
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(userService.findUserById(dashboardDTO.getReporter()).getUserContact().getWorkEmail());
         simpleMailMessage.setSubject(DASHBOARD_CREATION_NOTIFICATION);
-        simpleMailMessage.setText("Dear user, be informed that you was assigned as reporter to  " + dashboardDTO.getDashboardName() + " dashboard");
+        simpleMailMessage.setText("Dear user, be informed that you was assigned as reporter to \" " + dashboardDTO.getDashboardName() + " \" dashboard.\n"+
+        "Your task is : " + dashboardDTO.getDescription()+".\n"+
+        "It should be finished due to - " + dashboardDTO.getDueDate());
         simpleMailMessage.setFrom(Constants.from_email);
         emailService.sendEmail(simpleMailMessage);
         return view;

@@ -35,7 +35,7 @@ public class AdminController implements CurrentUserController{
 
     @RequestMapping(path = "/adminPage", method = RequestMethod.GET)
     public ModelAndView getAdminStartPage() {
-        ModelAndView view = new ModelAndView("adminPage");
+        ModelAndView view = new ModelAndView("adminStartPage");
         getCurrentUser(userService, view);
         return view;
     }
