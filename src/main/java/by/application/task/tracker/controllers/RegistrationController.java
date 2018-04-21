@@ -5,6 +5,8 @@ import by.application.task.tracker.Constants;
 import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
+import by.application.task.tracker.service.impl.DataConverterService;
+import by.application.task.tracker.service.impl.EmailService;
 import by.application.task.tracker.validation.exception.LoginExistsException;
 import by.application.task.tracker.validation.exception.WorkEmailExistsException;
 import com.nulabinc.zxcvbn.Strength;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.Map;
 import java.util.UUID;
 
@@ -32,20 +35,37 @@ import static by.application.task.tracker.Constants.*;
 @Controller
 public class RegistrationController implements CurrentUserController{
 
-    @Autowired private UserService userService;
-    @Autowired private ProjectService projectService;
-    @Autowired private PositionService positionService;
-    @Autowired private QualificationService qualificationService;
-    @Autowired private ProjectRoleService projectRoleService;
-    @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired private EmailService emailService;
-    @Autowired private UserStatusService userStatusService;
-    @Autowired private DataConverterService dataConverterService;
+    private final UserService userService;
+    private final ProjectService projectService;
+    private final PositionService positionService;
+    private final QualificationService qualificationService;
+    private final ProjectRoleService projectRoleService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final EmailService emailService;
+    private final UserStatusService userStatusService;
+    private final DataConverterService dataConverterService;
+
+    @Autowired
+    public RegistrationController(UserService userService, ProjectService projectService,
+                                  PositionService positionService, QualificationService qualificationService,
+                                  ProjectRoleService projectRoleService, BCryptPasswordEncoder bCryptPasswordEncoder,
+                                  EmailService emailService, UserStatusService userStatusService,
+                                  DataConverterService dataConverterService) {
+        this.userService = userService;
+        this.projectService = projectService;
+        this.positionService = positionService;
+        this.qualificationService = qualificationService;
+        this.projectRoleService = projectRoleService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.emailService = emailService;
+        this.userStatusService = userStatusService;
+        this.dataConverterService = dataConverterService;
+    }
 
     @RequestMapping(path = "/registration", method = RequestMethod.GET)
     public ModelAndView getRegistrationPage(@RequestParam(value = "registrationSuccess", required = false) String registrationSuccess) {
         ModelAndView view = new ModelAndView("registration");
-        if (registrationSuccess.equals("ok")) {
+        if ( registrationSuccess != null && "ok".equals(registrationSuccess)) {
             view.addObject("confirmationMessage", "A confirmation e-mail has been sent.");
         }
         getCurrentUser(userService, view);
@@ -61,7 +81,7 @@ public class RegistrationController implements CurrentUserController{
 
     @RequestMapping(path = "/registration", method = RequestMethod.POST)
     public ModelAndView registerUser(@RequestParam(value = "registrationSuccess", required = false) String registrationSuccess,
-                                     @Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, HttpServletRequest request) {
+                                     @Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, HttpServletRequest request) throws ParseException {
         ModelAndView view = new ModelAndView();
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
 
@@ -82,12 +102,13 @@ public class RegistrationController implements CurrentUserController{
             registrationEmail.setTo(userDTO.getWorkEmail());
             registrationEmail.setSentDate(dataConverterService.generateTodayDateDay());
             registrationEmail.setSubject(REGISTRATION_CONFIRM_NOTIFICATION);
-            registrationEmail.setText("To confirm your e-mail address, please click the link below:\n"
+            registrationEmail.setText("Dear, " + userDTO.getUserName() +  " "+ userDTO.getUserSurname()+".\n We congratulate you," +
+                    " with the acceptance in our company for work, and also send you an invitation to register in our " +
+                    "TaskTracker system\n" + "To confirm your e-mail address, please click the link below:\n"
                     + appUrl + "/confirmation?token=" + userDTO.getConfirmationToken());
             registrationEmail.setFrom(Constants.from_email);
             emailService.sendEmail(registrationEmail);
             view.setViewName("redirect:/registration?registrationSuccess=ok");
-
         }
         return view;
     }

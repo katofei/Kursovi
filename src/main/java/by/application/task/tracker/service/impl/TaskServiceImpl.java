@@ -1,7 +1,10 @@
 package by.application.task.tracker.service.impl;
 
 import by.application.task.tracker.data.dto.TaskDTO;
-import by.application.task.tracker.data.entities.*;
+import by.application.task.tracker.data.entities.Task;
+import by.application.task.tracker.data.entities.TaskPriority;
+import by.application.task.tracker.data.entities.TaskStatus;
+import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.repositories.TaskRepository;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +17,29 @@ import java.util.Objects;
 @Service
 public class TaskServiceImpl implements TaskService {
 
-    @Autowired private TaskRepository taskRepository;
-    @Autowired private TaskPriorityService taskPriorityService;
-    @Autowired private TaskStatusService taskStatusService;
-    @Autowired private TaskTypeService taskTypeService;
-    @Autowired private UserService userService;
-    @Autowired private DashboardService dashboardService;
-    @Autowired private ProjectService projectService;
-    @Autowired private DataConverterService dataConverterService;
+    private final TaskRepository taskRepository;
+    private final TaskPriorityService taskPriorityService;
+    private final TaskStatusService taskStatusService;
+    private final TaskTypeService taskTypeService;
+    private final UserService userService;
+    private final DashboardService dashboardService;
+    private final ProjectService projectService;
+    private final DataConverterService dataConverterService;
+
+    @Autowired
+    public TaskServiceImpl(TaskRepository taskRepository, TaskPriorityService taskPriorityService,
+                           TaskStatusService taskStatusService, TaskTypeService taskTypeService,
+                           UserService userService, DashboardService dashboardService, ProjectService projectService,
+                           DataConverterService dataConverterService) {
+        this.taskRepository = taskRepository;
+        this.taskPriorityService = taskPriorityService;
+        this.taskStatusService = taskStatusService;
+        this.taskTypeService = taskTypeService;
+        this.userService = userService;
+        this.dashboardService = dashboardService;
+        this.projectService = projectService;
+        this.dataConverterService = dataConverterService;
+    }
 
     @Override
     public Task assignAnotherUser(TaskDTO taskDTO, long id) {
@@ -53,33 +71,17 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.save(task);
     }
 
-    @Override
-    public Task logTime(TaskDTO taskDTO, long id) {
-        Task task = taskRepository.findOne(id);
-        task.setPercentage(taskDTO.getPercentage());
-        task.setTimeSpent(task.getTimeSpent() + taskDTO.getTimeSpent());
-        task.setUpdated(dataConverterService.generateTodayStringDay());
-        if(task.getEstimation() != 0.0){
-            task.setEstimation(task.getEstimation() - taskDTO.getTimeSpent());
-        }
-        Dashboard dashboard = task.getDashboard();
-        dashboard.setTimeSpent(dashboard.getTimeSpent() + taskDTO.getTimeSpent());
-        if(dashboard.getEstimation() != 0.0){
-        dashboard.setEstimation(dashboard.getEstimation() - taskDTO.getTimeSpent());
-        }
-        return taskRepository.save(task);
-    }
 
     @Override
     public Task createTask(TaskDTO taskDTO) {
         Task createdTask = new Task(taskDTO);
         createdTask.setCreated(dataConverterService.generateTodayStringDay());
-        if (taskDTO.getDueDate()!= null) {
+        if (taskDTO.getDueDate() != null) {
             createdTask.setDueDate("Not specified");
         } else {
             createdTask.setDueDate(taskDTO.getDueDate());
         }
-        if (taskDTO.getEstimation()== 0.0) {
+        if (taskDTO.getEstimation() == 0.0) {
             createdTask.setEstimation(0.0);
         } else {
             createdTask.setEstimation(taskDTO.getEstimation());
@@ -106,20 +108,18 @@ public class TaskServiceImpl implements TaskService {
         editingTask.setTaskType(taskTypeService.findTaskByTypeId(taskDTO.getTaskType()));
         editingTask.setTaskStatus(taskStatusService.findTaskStatusById(taskDTO.getTaskStatus()));
         editingTask.setTaskPriority(taskPriorityService.findTaskByPriorityId(taskDTO.getTaskPriority()));
-        if (taskDTO.getDueDate()!= null) {
+        if (taskDTO.getDueDate() != null) {
             editingTask.setDueDate("Not specified");
         } else {
             editingTask.setDueDate(taskDTO.getDueDate());
         }
-        if (taskDTO.getEstimation()== 0.0) {
+        if (taskDTO.getEstimation() == 0.0) {
             editingTask.setEstimation(0.0);
         } else {
             editingTask.setEstimation(taskDTO.getEstimation());
         }
         editingTask.setUpdated(dataConverterService.generateTodayStringDay());
         editingTask.setDescription(taskDTO.getDescription());
-        editingTask.setPercentage(taskDTO.getPercentage());
-        editingTask.setTimeSpent(taskDTO.getTimeSpent());
         return taskRepository.save(editingTask);
     }
 

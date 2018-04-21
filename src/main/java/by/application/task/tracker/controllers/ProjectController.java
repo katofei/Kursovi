@@ -6,6 +6,7 @@ import by.application.task.tracker.data.entities.Project;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.data.wrapper.ProjectInfoWrapper;
 import by.application.task.tracker.service.*;
+import by.application.task.tracker.service.impl.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,13 +23,25 @@ import java.util.List;
 @Controller
 public class ProjectController implements CurrentUserController {
 
-    @Autowired private ProjectService projectService;
-    @Autowired private UserService userService;
-    @Autowired private PositionService positionService;
-    @Autowired private QualificationService qualificationService;
-    @Autowired private ProjectContactService projectContactService;
-    @Autowired private DashboardService dashboardService;
-    @Autowired private EmailService emailService;
+    private final ProjectService projectService;
+    private final UserService userService;
+    private final PositionService positionService;
+    private final QualificationService qualificationService;
+    private final ProjectContactService projectContactService;
+    private final DashboardService dashboardService;
+    private final EmailService emailService;
+
+    @Autowired
+    public ProjectController(ProjectService projectService, UserService userService,
+                             PositionService positionService, QualificationService qualificationService, ProjectContactService projectContactService, DashboardService dashboardService, EmailService emailService) {
+        this.projectService = projectService;
+        this.userService = userService;
+        this.positionService = positionService;
+        this.qualificationService = qualificationService;
+        this.projectContactService = projectContactService;
+        this.dashboardService = dashboardService;
+        this.emailService = emailService;
+    }
 
     @RequestMapping(path = "/project-creation", method = RequestMethod.GET)
     public ModelAndView getProjectCreationPage() {

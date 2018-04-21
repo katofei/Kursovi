@@ -1,9 +1,7 @@
 package by.application.task.tracker.service.impl;
 
 import by.application.task.tracker.data.dto.DashboardDTO;
-import by.application.task.tracker.data.dto.TaskDTO;
 import by.application.task.tracker.data.entities.Dashboard;
-import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.repositories.DashboardRepository;
 import by.application.task.tracker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +13,25 @@ import java.util.List;
 @Service
 public class DashboardServiceImpl implements DashboardService {
 
+    private final DashboardRepository dashboardRepository;
+    private final DashboardStatusService dashboardStatusService;
+    private final DashboardPriorityService dashboardPriorityService;
+    private final UserService userService;
+    private final ProjectService projectService;
+    private final DataConverterService dataConverterService;
+
     @Autowired
-    private DashboardRepository dashboardRepository;
-    @Autowired
-    private DashboardStatusService dashboardStatusService;
-    @Autowired
-    private DashboardPriorityService dashboardPriorityService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private ProjectService projectService;
-    @Autowired
-    private DataConverterService dataConverterService;
+    public DashboardServiceImpl(DashboardRepository dashboardRepository,
+                                DashboardStatusService dashboardStatusService,
+                                DashboardPriorityService dashboardPriorityService, UserService userService,
+                                ProjectService projectService, DataConverterService dataConverterService) {
+        this.dashboardRepository = dashboardRepository;
+        this.dashboardStatusService = dashboardStatusService;
+        this.dashboardPriorityService = dashboardPriorityService;
+        this.userService = userService;
+        this.projectService = projectService;
+        this.dataConverterService = dataConverterService;
+    }
 
     @Override
     public Dashboard createDashboard(DashboardDTO dashboardDTO) {

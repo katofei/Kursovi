@@ -5,7 +5,9 @@ import by.application.task.tracker.data.dto.TaskDTO;
 import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
+import by.application.task.tracker.repositories.CommentRepository;
 import by.application.task.tracker.service.*;
+import by.application.task.tracker.service.impl.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,18 +27,32 @@ import java.util.List;
 
 import static by.application.task.tracker.Constants.TASK_CREATION_NOTIFICATION;
 import static by.application.task.tracker.Constants.TASK_MODIFICATION_NOTIFICATION;
-import static by.application.task.tracker.Constants.USER_ASSIGN_NOTIFICATION;
 
 @Controller
 public class TaskController implements CurrentUserController {
 
-    @Autowired private UserService userService;
-    @Autowired private TaskService taskService;
-    @Autowired private TaskTypeService taskTypeService;
-    @Autowired private TaskStatusService taskStatusService;
-    @Autowired private TaskPriorityService taskPriorityService;
-    @Autowired private ProjectService projectService;
-    @Autowired private EmailService emailService;
+    private final UserService userService;
+    private final TaskService taskService;
+    private final TaskTypeService taskTypeService;
+    private final TaskStatusService taskStatusService;
+    private final TaskPriorityService taskPriorityService;
+    private final ProjectService projectService;
+    private final EmailService emailService;
+    private final CommentRepository commentRepository;
+
+    @Autowired
+    public TaskController(CommentRepository commentRepository, ProjectService projectService,
+                          UserService userService, TaskService taskService, TaskTypeService taskTypeService,
+                          TaskStatusService taskStatusService, TaskPriorityService taskPriorityService, EmailService emailService) {
+        this.commentRepository = commentRepository;
+        this.projectService = projectService;
+        this.userService = userService;
+        this.taskService = taskService;
+        this.taskTypeService = taskTypeService;
+        this.taskStatusService = taskStatusService;
+        this.taskPriorityService = taskPriorityService;
+        this.emailService = emailService;
+    }
 
     @RequestMapping(path = "/dashboard/{id}/task-creation", method = RequestMethod.GET)
     public ModelAndView getTaskCreationPage() {
@@ -112,6 +128,7 @@ public class TaskController implements CurrentUserController {
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
 
+        view.addObject("comments" , commentRepository.findByTaskId(id));
 
         view.addObject("userDTO", new UserDTO());
         view.addObject("taskDTO", new TaskDTO());

@@ -1,11 +1,9 @@
 package by.application.task.tracker.controllers;
 
-import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.PositionService;
 import by.application.task.tracker.service.QualificationService;
 import by.application.task.tracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,12 +14,17 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class ErrorController implements CurrentUserController{
 
+    private final UserService userService;
+    private final PositionService positionService;
+    private final QualificationService qualificationService;
+
     @Autowired
-    private UserService userService;
-    @Autowired
-    private PositionService positionService;
-    @Autowired
-    private QualificationService qualificationService;
+    public ErrorController(UserService userService, PositionService positionService,
+                           QualificationService qualificationService) {
+        this.userService = userService;
+        this.positionService = positionService;
+        this.qualificationService = qualificationService;
+    }
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public ModelAndView getErrorPage(HttpServletRequest httpRequest) {

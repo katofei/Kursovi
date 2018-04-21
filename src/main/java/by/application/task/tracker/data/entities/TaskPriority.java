@@ -29,4 +29,7 @@ public class TaskPriority implements Serializable{
 
    public List<Task> getTasks() {return tasks;}
    public void setTasks(List<Task> tasks) {this.tasks = tasks;}
+
+   //todo add user_logs table
+
 }

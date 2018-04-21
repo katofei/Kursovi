@@ -1,5 +1,8 @@
 package by.application.task.tracker.data.entities;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 @Entity
@@ -23,6 +26,11 @@ public class Comment {
     @Lob
     private String text;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "task_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Task task;
+
     public Long getCommentId() {return commentId;}
     public void setCommentId(Long commentId) {this.commentId = commentId;}
 
@@ -37,4 +45,7 @@ public class Comment {
 
     public String getText() {return text;}
     public void setText(String text) {this.text = text;}
+
+    public Task getTask() { return task; }
+    public void setTask(Task task) { this.task = task; }
 }

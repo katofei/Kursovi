@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Edit task</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/font_awesome/css/font_awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/Ionicons/css/ionicons.min.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"/>
+    <link rel="stylesheet" th:href="@{/plugins/iCheck/square/blue.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/skins/_all_skins.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
+    <link rel="stylesheet"
+          th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
+
+    <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/dist/js/adminlte.min.js}"></script>
+    <script th:src="@{/dist/js/demo.js}"></script>
+    <script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
+    <script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
+    <script th:src="@{/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+    <script th:src="@{plugins/iCheck/icheck.min.js}"></script>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="content-wrapper">
+    <section class="content-header">
+        <section class="content container-fluid">
+            <div class="box box-primary" style="width:950px">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Reports</h3>
+                </div>
+
+                <table width="100%" class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <td style="width: 100%; text-align: center;" colspan="21">&nbsp;Month :</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 218px; text-align: center;" colspan="6">Week № 1</td>
+                        <td style="width: 218px; text-align: center;" colspan="5">Week № 2</td>
+                        <td style="width: 218px; text-align: center;" colspan="5">Week № 3</td>
+                        <td style="width: 218px; text-align: center;" colspan="5">Week № 4</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40px;">User</td>
+                        <td style="width: 40px;">1</td>
+                        <td style="width: 40px;">2</td>
+                        <td style="width: 40px;">3</td>
+                        <td style="width: 40px;">4</td>
+                        <td style="width: 40px;">5</td>
+                        <td style="width: 40px;">1</td>
+                        <td style="width: 40px;">2</td>
+                        <td style="width: 40px;">3</td>
+                        <td style="width: 40px;">4</td>
+                        <td style="width: 40px;">5</td>
+                        <td style="width: 40px;">1</td>
+                        <td style="width: 40px;">2</td>
+                        <td style="width: 40px;">3</td>
+                        <td style="width: 40px;">4</td>
+                        <td style="width: 40px;">5</td>
+                        <td style="width: 40px;">1</td>
+                        <td style="width: 40px;">2</td>
+                        <td style="width: 40px;">3</td>
+                        <td style="width: 40px;">4</td>
+                        <td style="width: 40px;">5</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                        <td style="width: 40px;">&nbsp;</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+
+                <table width="100%" id="example1" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th width="200">User</th>
+                        <th width="200">Total time</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody id="myTable">
+                    <tr style="height: 29px;">
+                        <td style="width: 370.486px; height: 29px;">&nbsp;</td>
+                        <td style="width: 370.486px; height: 29px;">&nbsp;</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+    </section>
+</div>
+
+
+
+
+<script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script th:src="@{/dist/js/adminlte.min.js}"></script>
+<script th:src="@{/dist/js/demo.js}"></script>
+<script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
+<script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
+
+<script>
+    $(function () {
+        $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+    });
+</script>
+</body>
+</html>

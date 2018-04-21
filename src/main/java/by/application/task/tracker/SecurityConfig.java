@@ -28,9 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication()
                 .rolePrefix("ROLE_")
                 .usersByUsernameQuery(
-                        "select login as username,password, enabled from users where login=?")
+                        "select login as username,password, enabled from user where login=?")
                 .authoritiesByUsernameQuery(
-                        "select u.login as username, r.role_name as role from roles r,users u "
+                        "select u.login as username, r.role_name as role from user_role r,user u "
                                 + "where u.user_role_role_id = r.role_id and u.login=?")
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder());
@@ -66,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
+       /* System.out.println(encoder.encode("admin"));*/
         return encoder;
     }
 }

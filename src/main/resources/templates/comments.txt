@@ -1,0 +1,30 @@
+<div class="col-md-8">
+                <h2 id="comments">Questions / Comments: </h2>
+				<input type="hidden" id="forumIdHash" value="z16pr">
+				<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<style>.hljs { white-space: nowrap; max-height: 300px;}pre {padding:0}.forumDivOuter {padding:10px 10px;}.forumTagline {padding:10px 0;}.forumvote:hover {color:orange; cursor: pointer;}.forumText { font-weight:500; font-size:1.2em;}.forumName { font-weight:200; font-size:1em;}.forumTime { font-size:1em;}.forumKey { border-radius: 4px;    border: 2px solid #555;    width: 20px;    display: inline-flex;    align-items: center;    justify-content: center;    height: 20px; margin: 0 2px;}</style><div class="newPost"><div id="newPostContainer" class="container-fluid" style="margin-top:10px;"><!--<div class="row"><div class="col-xs-4"><hr style="margin-top:16px;border-top:1px solid #ccc;"></div><div class="col-xs-4 text-center"><a class="btn btn-md btn-warning" id="newPostButton">NEW POST</a></div><div class="col-xs-4"><hr style="margin-top:16px;border-top:1px solid #ccc;"></div></div>--></div><div class="forumDivOuter" style=""><div id="forumDiv"><textarea class="autoExpand forumPost form-control" rows="4" data-min-rows="4" placeholder="Enter your message here"></textarea><br><button class="forumPostButton btn btn-default">Post</button><span style="margin: 0 10px;" class="pull-right"><a href="#" data-toggle="popover" title="" data-html="true" data-content="<ul><li>When asking a question, provide as much detail as possible.  Posts of simply &quot;It doesn't work&quot; may be removed.  </li><li>Don't Spam</li><li>Be respectful</li></ul>" data-original-title="">Posting Guidelines</a></span><span style="margin: 0 10px;" class="pull-right"><a href="#" data-toggle="popover" title="" data-html="true" data-content="<ul><li><span class='forumKey'>`</span> - Surround code with backticks</li><li><span class='forumKey'>*</span> - Surround text with stars to italicize.</li><li><span class='forumKey'>></span><span class='forumKey'>></span> - A line starting with two greater than characters will be indented as a quote.</li><li>A blank line will separate paragraphs.</li></ul>" data-original-title="">Formatting</a></span></div></div><hr><div class="col-md-12 hidden"><p class="forumTagline"><strong class="reply 0 name"></strong> - Now</p><hr></div></div>
+        	<div style="margin-top:10px">
+<center>
+
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display: block; height: 90px;" data-ad-client="ca-pub-8815422507798180" data-ad-slot="5700240528" data-ad-format="auto" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:1200px;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:1200px;background-color:transparent;"><iframe width="1200" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;width:1200px;height:90px;"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+<!--<div id='div-gpt-ad-1491271781423-0'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1491271781423-0'); });
+</script>
+</div>
+-->
+</center>
+</div>
+
+		</div>
+
+
+		https://codepen.io/magnus16/pen/buGiB

@@ -5,13 +5,14 @@ import by.application.task.tracker.data.entities.Project;
 import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
+import by.application.task.tracker.service.impl.DataConverterService;
+import by.application.task.tracker.service.impl.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Period;
 import java.util.Date;
 import java.util.List;
@@ -21,14 +22,27 @@ import static by.application.task.tracker.Constants.*;
 @Component("scheduledNotifications")
 public class ScheduledNotificationController {
 
-    @Autowired private EmailService emailService;
-    @Autowired private UserService userService;
-    @Autowired private ProjectService projectService;
-    @Autowired private TaskService taskService;
-    @Autowired private DashboardService dashboardService;
-    @Autowired private DataConverterService dataConverterService;
-    @Autowired private UserStatusService userStatusService;
-    @Autowired private DashboardStatusService dashboardStatusService;
+    private final EmailService emailService;
+    private final UserService userService;
+    private final ProjectService projectService;
+    private final TaskService taskService;
+    private final DashboardService dashboardService;
+    private final DataConverterService dataConverterService;
+    private final UserStatusService userStatusService;
+
+    @Autowired
+    public ScheduledNotificationController(EmailService emailService, UserService userService,
+                                           ProjectService projectService, TaskService taskService,
+                                           DashboardService dashboardService, DataConverterService dataConverterService,
+                                           UserStatusService userStatusService) {
+        this.emailService = emailService;
+        this.userService = userService;
+        this.projectService = projectService;
+        this.taskService = taskService;
+        this.dashboardService = dashboardService;
+        this.dataConverterService = dataConverterService;
+        this.userStatusService = userStatusService;
+    }
 
     @Scheduled(cron = "0 0 0 ? * MON-FRI")
     public void sendTaskNotification() {

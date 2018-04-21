@@ -7,32 +7,46 @@ import by.application.task.tracker.data.wrapper.UserInfoWrapper;
 import by.application.task.tracker.repositories.UserContactRepository;
 import by.application.task.tracker.repositories.UserRepository;
 import by.application.task.tracker.service.*;
-import by.application.task.tracker.validation.exception.WorkEmailExistsException;
 import by.application.task.tracker.validation.exception.LoginExistsException;
+import by.application.task.tracker.validation.exception.WorkEmailExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static by.application.task.tracker.Constants.*;
+import static by.application.task.tracker.Constants.USER_NOT_ACTIVATED;
+import static by.application.task.tracker.Constants.USER_ROLE;
 
 @Service
 public class UserServiceImpl implements UserService {
 
 
-    @Autowired private UserRepository userRepository;
-    @Autowired private UserContactRepository userContactRepository;
-    @Autowired private PositionService positionService;
-    @Autowired private ProjectService projectService;
-    @Autowired private ProjectRoleService projectRoleService;
-    @Autowired private QualificationService qualificationService;
-    @Autowired private UserRoleService roleService;
-    @Autowired private PasswordEncoder passwordEncoder;
-    @Autowired private UserStatusService userStatusService;
-    @Autowired private UserContactService userContactService;
+    private final UserRepository userRepository;
+    private final UserContactRepository userContactRepository;
+    private final PositionService positionService;
+    private final ProjectService projectService;
+    private final ProjectRoleService projectRoleService;
+    private final QualificationService qualificationService;
+    private final UserRoleService roleService;
+    private final PasswordEncoder passwordEncoder;
+    private final UserStatusService userStatusService;
+    private final UserContactService userContactService;
+
+    @Autowired
+    public UserServiceImpl(UserContactRepository userContactRepository, PositionService positionService, UserContactService userContactService, UserRepository userRepository, ProjectService projectService, ProjectRoleService projectRoleService, QualificationService qualificationService, UserRoleService roleService, PasswordEncoder passwordEncoder, UserStatusService userStatusService) {
+        this.userContactRepository = userContactRepository;
+        this.positionService = positionService;
+        this.userContactService = userContactService;
+        this.userRepository = userRepository;
+        this.projectService = projectService;
+        this.projectRoleService = projectRoleService;
+        this.qualificationService = qualificationService;
+        this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
+        this.userStatusService = userStatusService;
+    }
 
     @Override
     public User createUser(UserDTO userDTO) throws LoginExistsException, WorkEmailExistsException {

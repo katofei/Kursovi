@@ -22,7 +22,6 @@ public class DashboardDTO {
     public String getDashboardName() {
         return dashboardName;
     }
-
     public void setDashboardName(String dashboardName) {
         this.dashboardName = dashboardName;
     }
@@ -30,7 +29,6 @@ public class DashboardDTO {
     public String getCreated() {
         return created;
     }
-
     public void setCreated(String created) {
         this.created = created;
     }
@@ -38,7 +36,6 @@ public class DashboardDTO {
     public String getUpdated() {
         return updated;
     }
-
     public void setUpdated(String updated) {
         this.updated = updated;
     }
@@ -46,7 +43,6 @@ public class DashboardDTO {
     public String getResolved() {
         return resolved;
     }
-
     public void setResolved(String resolved) {
         this.resolved = resolved;
     }
@@ -54,7 +50,6 @@ public class DashboardDTO {
     public double getEstimation() {
         return estimation;
     }
-
     public void setEstimation(double estimation) {
         this.estimation = estimation;
     }
@@ -62,7 +57,6 @@ public class DashboardDTO {
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -70,7 +64,6 @@ public class DashboardDTO {
     public double getTimeSpent() {
         return timeSpent;
     }
-
     public void setTimeSpent(double timeSpent) {
         this.timeSpent = timeSpent;
     }
@@ -78,7 +71,6 @@ public class DashboardDTO {
     public long getProject() {
         return project;
     }
-
     public void setProject(long project) {
         this.project = project;
     }
@@ -86,7 +78,6 @@ public class DashboardDTO {
     public long getCreator() {
         return creator;
     }
-
     public void setCreator(long creator) {
         this.creator = creator;
     }
@@ -94,7 +85,6 @@ public class DashboardDTO {
     public long getReporter() {
         return reporter;
     }
-
     public void setReporter(long reporter) {
         this.reporter = reporter;
     }
@@ -102,7 +92,6 @@ public class DashboardDTO {
     public long getStatus() {
         return status;
     }
-
     public void setStatus(long status) {
         this.status = status;
     }
@@ -110,12 +99,10 @@ public class DashboardDTO {
     public long getPriority() {
         return priority;
     }
-
     public void setPriority(long priority) {
         this.priority = priority;
     }
 
     public String getDueDate() { return dueDate; }
-
     public void setDueDate(String dueDate) { this.dueDate = dueDate; }
 }

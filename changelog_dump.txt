@@ -202,7 +202,7 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="confirmation_token" type="VARCHAR(255)"/>
-            <column name="enabled" type="BIT(1)"/>
+            <column name="enabled" type="TINYINT(4)"/>
             <column name="estimation" type="VARCHAR(255)"/>
             <column name="login" type="VARCHAR(255)">
                 <constraints nullable="false"/>

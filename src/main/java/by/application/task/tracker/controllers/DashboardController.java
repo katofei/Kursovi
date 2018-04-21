@@ -7,12 +7,16 @@ import by.application.task.tracker.data.entities.Dashboard;
 import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.service.*;
+import by.application.task.tracker.service.impl.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -24,41 +28,56 @@ import static by.application.task.tracker.Constants.TASK_MODIFICATION_NOTIFICATI
 @Controller
 public class DashboardController implements CurrentUserController {
 
-    @Autowired private ProjectService projectService;
-    @Autowired private UserService userService;
-    @Autowired private DashboardService dashboardService;
-    @Autowired private DashboardStatusService dashboardStatusService;
-    @Autowired private DashboardPriorityService dashboardPriorityService;
-    @Autowired private QualificationService qualificationService;
-    @Autowired private TaskService taskService;
-    @Autowired private EmailService emailService;
+    private final ProjectService projectService;
+    private final UserService userService;
+    private final DashboardService dashboardService;
+    private final DashboardPriorityService dashboardPriorityService;
+    private final TaskService taskService;
+    private final EmailService emailService;
+
+    @Autowired
+    public DashboardController(ProjectService projectService, UserService userService,
+                               DashboardService dashboardService,
+                               DashboardPriorityService dashboardPriorityService,
+                               TaskService taskService, EmailService emailService) {
+        this.projectService = projectService;
+        this.userService = userService;
+        this.dashboardService = dashboardService;
+        this.dashboardPriorityService = dashboardPriorityService;
+        this.taskService = taskService;
+        this.emailService = emailService;
+    }
 
     @RequestMapping(path = "project/{projectId}/dashboard-creation", method = RequestMethod.GET)
-    public ModelAndView getProjectCreationPage() {
+    public ModelAndView getProjectCreationPage(@PathVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("dashboardCreation");
         getCurrentUser(userService, view);
+        view.addObject("project", projectService.findByProjectId(projectId));
+        view.addObject("allUsers", userService.getAllUsers(projectId));
+        view.addObject("dashboardPriorities", dashboardPriorityService.getAllDashboardPriorities());
 
         DashboardDTO dashboardDTO = new DashboardDTO();
         view.addObject("dashboard", dashboardDTO);
         return view;
     }
 
-    @RequestMapping(path = "project/{projectId}/dashboard-creation", method = RequestMethod.POST)
-    public ModelAndView createProject(@Valid @ModelAttribute("dashboard") DashboardDTO dashboardDTO, BindingResult result,
-                                      @MatrixVariable("projectId") long projectId) {
+    @RequestMapping(path = "/dashboard-creation", method = RequestMethod.POST)
+    public ModelAndView createProject(@Valid @ModelAttribute("dashboard") DashboardDTO dashboardDTO, BindingResult result) {
         ModelAndView view = new ModelAndView("dashboardCreation");
         getCurrentUser(userService, view);
 
         if (result.hasErrors()) {
-            view.setViewName("dashboardCreation");
+            view.setViewName("project/"+ dashboardDTO.getProject() + "/dashboard-creation");
             return view;
         }
-        view.setViewName("redirect:/project/{projectId}/allDashboards");
+        view.setViewName("redirect:/project/"+ dashboardDTO.getProject() + "/allDashboards");
         dashboardService.createDashboard(dashboardDTO);
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(userService.findUserById(dashboardDTO.getReporter()).getUserContact().getWorkEmail());
         simpleMailMessage.setSubject(DASHBOARD_CREATION_NOTIFICATION);
-        simpleMailMessage.setText("Dear user, be informed that you was assigned as reporter to  " + dashboardDTO.getDashboardName() + " dashboard");
+        simpleMailMessage.setText("Dear user, be informed that you was assigned as reporter to \" " + dashboardDTO.getDashboardName() + " \" dashboard.\n"+
+        "Your task is : " + dashboardDTO.getDescription()+".\n"+
+        "It should be finished due to - " + dashboardDTO.getDueDate());
         simpleMailMessage.setFrom(Constants.from_email);
         emailService.sendEmail(simpleMailMessage);
         return view;

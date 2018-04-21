@@ -1,30 +1,27 @@
-$( document ).ready(function() {
+$(document).ready(function () {
 
     // SUBMIT FORM
-    $("#assignAnotherUserForm").submit(function(event) {
-        // Prevent the form from submitting via the browser.
+    $("#assignUserToProjectForm").submit(function (event) {
         event.preventDefault();
         ajaxPost();
     });
 
-    function ajaxPost(){
-
-        // PREPARE FORM DATA
-
+    function ajaxPost() {
         var formData;
 
         formData = {
-            executor : $("#executorId").val()
+            project : $("#project").val(),
+            estimationDate : $("#estimationDate").val()
         };
 
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: window.location + "/assignAnotherUser",
+            url: window.location + "/user-assign/",
             data: JSON.stringify(formData),
             dataType: 'json',
             success: function (data) {
-                $('#assignAnotherUser').modal('hide');
+                $('#assignUserToProjectForm').modal('hide');
                 console.log(data);
             },
             error: function (e) {
@@ -33,4 +30,5 @@ $( document ).ready(function() {
             }
         });
     }
+    // todo look here motherFucker and UserRestController
 });

@@ -6,18 +6,12 @@ $( document ).ready(function() {
         event.preventDefault();
         ajaxPost();
     });
-
-
     function ajaxPost(){
-
         // PREPARE FORM DATA
-
         var formData;
-
         formData = {
             taskStatus : $("#statusId").val()
         };
-
         $.ajax({
             type: "POST",
             contentType: "application/json",

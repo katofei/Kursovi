@@ -5,9 +5,9 @@ import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.data.wrapper.UserInfoWrapper;
 import by.application.task.tracker.service.*;
+import by.application.task.tracker.service.impl.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -21,16 +21,34 @@ import static by.application.task.tracker.Constants.USER_DELETION_NOTIFICATION;
 @Controller
 public class UserController implements CurrentUserController {
 
-    @Autowired private UserService userService;
-    @Autowired private PositionService positionService;
-    @Autowired private QualificationService qualificationService;
-    @Autowired private ProjectRoleService projectRoleService;
-    @Autowired private TaskStatusService taskStatusService;
-    @Autowired private TaskPriorityService taskPriorityService;
-    @Autowired private ProjectService projectService;
-    @Autowired private UserContactService userContactService;
-    @Autowired private TaskService taskService;
-    @Autowired private EmailService emailService;
+    private final UserService userService;
+    private final PositionService positionService;
+    private final QualificationService qualificationService;
+    private final ProjectRoleService projectRoleService;
+    private final TaskStatusService taskStatusService;
+    private final TaskPriorityService taskPriorityService;
+    private final ProjectService projectService;
+    private final UserContactService userContactService;
+    private final TaskService taskService;
+    private final EmailService emailService;
+
+    @Autowired
+    public UserController(QualificationService qualificationService, UserService userService,
+                          PositionService positionService, ProjectRoleService projectRoleService,
+                          TaskStatusService taskStatusService, TaskPriorityService taskPriorityService,
+                          ProjectService projectService, UserContactService userContactService, TaskService taskService,
+                          EmailService emailService) {
+        this.qualificationService = qualificationService;
+        this.userService = userService;
+        this.positionService = positionService;
+        this.projectRoleService = projectRoleService;
+        this.taskStatusService = taskStatusService;
+        this.taskPriorityService = taskPriorityService;
+        this.projectService = projectService;
+        this.userContactService = userContactService;
+        this.taskService = taskService;
+        this.emailService = emailService;
+    }
 
     @RequestMapping(path = "/userPage", method = RequestMethod.GET)
     public ModelAndView getUserStartPage() {

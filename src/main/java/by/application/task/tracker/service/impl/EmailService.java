@@ -1,4 +1,4 @@
-package by.application.task.tracker.service;
+package by.application.task.tracker.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -17,7 +17,7 @@ public class EmailService {
     }
 
     @Async
-    public void sendEmail(SimpleMailMessage email) {
-        mailSender.send(email);
+    public void sendEmail(SimpleMailMessage message) {
+        mailSender.send(message);
     }
 }

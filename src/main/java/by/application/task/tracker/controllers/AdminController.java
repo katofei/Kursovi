@@ -4,7 +4,10 @@ import by.application.task.tracker.Constants;
 import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.Project;
 import by.application.task.tracker.data.entities.User;
-import by.application.task.tracker.service.*;
+import by.application.task.tracker.service.ProjectService;
+import by.application.task.tracker.service.UserService;
+import by.application.task.tracker.service.UserStatusService;
+import by.application.task.tracker.service.impl.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,19 +26,25 @@ import static by.application.task.tracker.Constants.USER_ASSIGNED;
 import static by.application.task.tracker.Constants.USER_ASSIGN_NOTIFICATION;
 
 @Controller
-public class AdminController implements CurrentUserController{
+public class AdminController implements CurrentUserController {
 
-    @Autowired private UserService userService;
-    @Autowired private PositionService positionService;
-    @Autowired private QualificationService qualificationService;
-    @Autowired private ProjectRoleService projectRoleService;
-    @Autowired private ProjectService projectService;
-    @Autowired private UserStatusService userStatusService;
-    @Autowired private EmailService emailService;
+    private final UserService userService;
+    private final ProjectService projectService;
+    private final UserStatusService userStatusService;
+    private final EmailService emailService;
+
+    @Autowired
+    public AdminController(UserService userService, ProjectService projectService,
+                           UserStatusService userStatusService, EmailService emailService) {
+        this.userService = userService;
+        this.projectService = projectService;
+        this.userStatusService = userStatusService;
+        this.emailService = emailService;
+    }
 
     @RequestMapping(path = "/adminPage", method = RequestMethod.GET)
     public ModelAndView getAdminStartPage() {
-        ModelAndView view = new ModelAndView("adminPage");
+        ModelAndView view = new ModelAndView("adminStartPage");
         getCurrentUser(userService, view);
         return view;
     }
@@ -60,7 +69,7 @@ public class AdminController implements CurrentUserController{
         User userForAssign = userService.findUserById(userId);
         ModelAndView view = new ModelAndView("userAssign");
         getCurrentUser(userService, view);
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             view.setViewName("userAssign");
             return view;
         }
@@ -77,7 +86,6 @@ public class AdminController implements CurrentUserController{
         emailService.sendEmail(registrationEmail);
         return view;
     }
-
 
 
     @RequestMapping(path = "/homePage", method = RequestMethod.GET)

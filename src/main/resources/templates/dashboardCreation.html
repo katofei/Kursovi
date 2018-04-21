@@ -5,7 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>Create new dashboard</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-    <link rel="import" th:href="@{main.html}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/font_awesome/css/font_awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/Ionicons/css/ionicons.min.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}"/>
+    <link rel="stylesheet" th:href="@{/plugins/iCheck/square/blue.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/skins/_all_skins.min.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/morris.js/morris.css}"/>
+    <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
+    <link rel="stylesheet"
+          th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
+
+    <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/dist/js/adminlte.min.js}"></script>
+    <script th:src="@{/dist/js/demo.js}"></script>
+    <script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
+    <script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
+    <script th:src="@{/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+    <script th:src="@{plugins/iCheck/icheck.min.js}"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -17,7 +36,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Dashboard creation</h3>
                     </div>
-                    <form role="form" th:action="@{project/{projectId}/dashboard-creation}" th:object="${dashboard}"
+                    <form role="form" th:action="@{/dashboard-creation}" th:object="${dashboard}"
                           method="post">
                         <div class="box-body">
                             <div class="form-group has-feedback">
@@ -40,7 +59,7 @@
                             <div class="form-group has-feedback">
                                 <label>Priority</label>
                                 <select th:field="*{priority}" class="form-control select2" style="width: 100%;">
-                                    <option th:each="priority:${taskPriorities}"
+                                    <option th:each="priority:${dashboardPriorities}"
                                             th:value="${priority.priorityId}"
                                             th:text="${priority.priorityName}" selected="selected">Low
                                     </option>
@@ -51,7 +70,7 @@
                                 <div class="form-group">
                                     <label>Description</label>
                                     <textarea class="form-control" th:field="*{description}"
-                                              rows="3" placeholder="Enter ..."></textarea>
+                                          rows="1"   placeholder="Enter ..."></textarea>
                                 </div>
                             </div>
 
@@ -65,7 +84,7 @@
                             <div class="form-group has-feedback">
                                 <label>Reporter</label>
                                 <select th:field="*{reporter}" class="form-control select2" style="width: 100%;">
-                                    <option th:each="reporter:${userList}"
+                                    <option th:each="reporter:${allUsers}"
                                             th:value="${reporter.userId}"
                                             th:text="${reporter.userName}+' '+${reporter.userSurname}">
                                     </option>
@@ -78,7 +97,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input type="date" th:field="*{deadLine}" class="form-control pull-right"
+                                        <input type="date" th:field="*{dueDate}" class="form-control pull-right"
                                                id="datepicker"/>
                                     </div>
                                 </div>
@@ -87,7 +106,7 @@
                                 <div class="form-group">
                                     <label>Estimation:</label>
                                     <div class="input-group date">
-                                        <input type="date" th:field="*{estimation}" class="form-control pull-right"
+                                        <input type="text" th:field="*{estimation}" class="form-control pull-right"
                                                placeholder="Enter estimation ..."/>
                                     </div>
                                 </div>

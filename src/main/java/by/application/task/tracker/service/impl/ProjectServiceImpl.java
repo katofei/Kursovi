@@ -1,10 +1,9 @@
 package by.application.task.tracker.service.impl;
 
 import by.application.task.tracker.data.dto.ProjectDTO;
-import by.application.task.tracker.data.wrapper.ProjectInfoWrapper;
 import by.application.task.tracker.data.entities.Project;
+import by.application.task.tracker.data.wrapper.ProjectInfoWrapper;
 import by.application.task.tracker.repositories.ProjectRepository;
-import by.application.task.tracker.service.DataConverterService;
 import by.application.task.tracker.service.ProjectContactService;
 import by.application.task.tracker.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,16 @@ import java.util.List;
 @Service
 public class ProjectServiceImpl implements ProjectService{
 
-    @Autowired private ProjectRepository projectRepository;
-    @Autowired private ProjectContactService contactService;
-    @Autowired private DataConverterService dataConverterService;
+    private final ProjectRepository projectRepository;
+    private final ProjectContactService contactService;
+    private final DataConverterService dataConverterService;
+
+    @Autowired
+    public ProjectServiceImpl(ProjectContactService contactService, DataConverterService dataConverterService, ProjectRepository projectRepository) {
+        this.contactService = contactService;
+        this.dataConverterService = dataConverterService;
+        this.projectRepository = projectRepository;
+    }
 
     @Override
     public Project createProject(ProjectDTO projectDTO) {

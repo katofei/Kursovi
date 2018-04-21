@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>All tasks</title>
+    <title>All dashboard</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/font_awesome/css/font_awesome.min.css}"/>
@@ -15,7 +15,6 @@
     <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
     <link rel="stylesheet"
           th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
-
     <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
     <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
     <script th:src="@{/dist/js/adminlte.min.js}"></script>
@@ -27,45 +26,40 @@
     <script th:src="@{plugins/iCheck/icheck.min.js}"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+
 <div class="wrapper">
 
-      <div class="content-wrapper">
+    <div class="content-wrapper">
         <section class="content-header">
             <section class="content container-fluid">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box">
                             <div class="box-header">
-                                <h3 class="box-title">All tasks</h3>
+                                <h3 class="box-title">All dashboards</h3>
                             </div>
                             <div class="box-body table-responsive no-padding">
-                                <table id="example1" class="table table-hover">
+                                <table id="example1" class="table  table-hover">
                                     <thead>
                                     <tr>
-                                        <th>№</th>
-                                        <th>Name</th>
-                                        <th>Creator</th>
-                                        <th>Executor</th>
-                                        <th>Estimation date</th>
-                                        <th>Status</th>
+                                        <th width="200">Name</th>
+                                        <th width="200">Reporter</th>
+                                        <th width="200">Due date</th>
                                         <th></th>
                                         <th></th>
                                         <th></th>
                                     </tr>
                                     </thead>
                                     <tbody id="myTable">
-                                    <tr th:each="task:${taskList}">
-                                        <th th:text="${task.id}" style="font-weight: normal"></th>
-                                        <th th:text="${task.taskName}" style="font-weight: normal"></th>
-                                        <th th:text="${task.creator.userName}+' '+${task.creator.userSurname}"
+                                    <tr th:each="dashboard:${dashboardList}">
+                                        <th width="200" th:text="${dashboard.dashboardName}"
                                             style="font-weight: normal"></th>
-                                        <th th:text="${task.executor.userName}+' '+${task.executor.userSurname}"
+                                        <th width="200" th:text="${dashboard.reporter.userName}+' '+${dashboard.reporter.userSurname}"
                                             style="font-weight: normal"></th>
-                                        <th th:text="${task.estimation}" style="font-weight: normal"></th>
-                                        <th th:text="${task.taskStatus.statusName}" style="font-weight: normal"></th>
+                                        <th width="200" th:text="${dashboard.dueDate}" style="font-weight: normal"></th>
                                         <th width="100">
                                             <button type="button" class="btn btn-primary btn-md"
-                                                    th:onclick="|window.location.href='/task-edition/${task.id}'|">
+                                                    th:onclick="|window.location.href='/dashboard-edition/${dashboard.dashboardId}'|">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                                 <span>Edit</span>
                                             </button>
@@ -76,25 +70,27 @@
                                                 <span>Delete</span>
                                             </a>
                                             <div id="myModal" class="modal fade">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-hidden="true">×
-                                                            </button>
-                                                            <h4 class="modal-title">Confirm you action</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Do you want delete task?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default"
-                                                                    data-dismiss="modal">Close
-                                                            </button>
-                                                            <button type="button" class="btn btn-primary"
-                                                                    th:onclick="|window.location.href='/task-deletion/${task.id}'|">
-                                                                Save changes
-                                                            </button>
+                                                <div class="modal modal-danger">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">×
+                                                                </button>
+                                                                <h4 class="modal-title">Confirm you action</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Do you want delete project?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
+                                                                <button type="button" class="btn btn-primary"
+                                                                        th:onclick="|window.location.href='/dashboard-deletion/${dashboard.dashboardId}'|">
+                                                                    Save changes
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -102,7 +98,7 @@
                                         </th>
                                         <th width="100">
                                             <button type="button" class="btn btn-primary btn-md"
-                                                    th:onclick="|window.location.href='/task/${task.id}'|">
+                                                    th:onclick="|window.location.href='/dashboard/${dashboard.dashboardId}'|">
                                                 <span class="glyphicon glyphicon-info-sign"></span>
                                                 <span>Info</span>
                                             </button>
@@ -119,13 +115,6 @@
     </div>
 </div>
 
-
-<script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
-<script th:src="@{/dist/js/adminlte.min.js}"></script>
-<script th:src="@{/dist/js/demo.js}"></script>
-<script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
-<script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
-
 <script>
     $(function () {
         $('#example1').DataTable({
@@ -137,6 +126,8 @@
             "autoWidth": false
         });
     });
+
 </script>
+
 </body>
 </html>

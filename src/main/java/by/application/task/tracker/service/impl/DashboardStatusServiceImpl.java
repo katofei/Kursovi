@@ -12,7 +12,12 @@ import java.util.List;
 @Service
 public class DashboardStatusServiceImpl implements DashboardStatusService{
 
-    @Autowired private DashboardStatusRepository statusRepository;
+    private final DashboardStatusRepository statusRepository;
+
+    @Autowired
+    public DashboardStatusServiceImpl(DashboardStatusRepository statusRepository) {
+        this.statusRepository = statusRepository;
+    }
 
     @Override
     public DashboardStatus findDashboardByStatusId(long dashboardStatusId) {

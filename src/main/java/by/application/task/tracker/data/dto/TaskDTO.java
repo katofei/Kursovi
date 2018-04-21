@@ -23,8 +23,6 @@ public class TaskDTO implements Serializable{
     private long creator;
     private long project;
     private long dashboard;
-    private double percentage;
-    private double timeSpent;
 
     public String getTaskName() {return taskName;}
     public void setTaskName(String taskName) {
@@ -63,12 +61,6 @@ public class TaskDTO implements Serializable{
 
     public long getProject() { return project; }
     public void setProject(long project) { this.project = project; }
-
-    public double getPercentage() {return percentage;}
-    public void setPercentage(double percentage) {this.percentage = percentage;}
-
-    public double getTimeSpent() {return timeSpent;}
-    public void setTimeSpent(double timeSpent) {this.timeSpent = timeSpent;}
 
     public long getDashboard() { return dashboard; }
     public void setDashboard(long dashboard) { this.dashboard = dashboard; }
