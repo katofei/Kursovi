@@ -13,10 +13,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -28,24 +25,22 @@ import static by.application.task.tracker.Constants.TASK_MODIFICATION_NOTIFICATI
 @Controller
 public class DashboardController implements CurrentUserController {
 
-    private final ProjectService projectService;
     private final UserService userService;
     private final DashboardService dashboardService;
-    private final DashboardPriorityService dashboardPriorityService;
     private final TaskService taskService;
     private final EmailService emailService;
+    private ProjectService projectService;
+    private DashboardPriorityService dashboardPriorityService;
 
     @Autowired
-    public DashboardController(ProjectService projectService, UserService userService,
-                               DashboardService dashboardService,
-                               DashboardPriorityService dashboardPriorityService,
-                               TaskService taskService, EmailService emailService) {
-        this.projectService = projectService;
+    public DashboardController(UserService userService, DashboardService dashboardService,
+                               TaskService taskService, EmailService emailService, ProjectService projectService, DashboardPriorityService dashboardPriorityService) {
         this.userService = userService;
         this.dashboardService = dashboardService;
-        this.dashboardPriorityService = dashboardPriorityService;
         this.taskService = taskService;
         this.emailService = emailService;
+        this.projectService = projectService;
+        this.dashboardPriorityService = dashboardPriorityService;
     }
 
     @RequestMapping(path = "project/{projectId}/dashboard-creation", method = RequestMethod.GET)
@@ -61,8 +56,9 @@ public class DashboardController implements CurrentUserController {
         return view;
     }
 
-    @RequestMapping(path = "/dashboard-creation", method = RequestMethod.POST)
-    public ModelAndView createProject(@Valid @ModelAttribute("dashboard") DashboardDTO dashboardDTO, BindingResult result) {
+    @RequestMapping(path = "project/{projectId}/dashboard-creation", method = RequestMethod.POST)
+    public ModelAndView createProject(@Valid @ModelAttribute("dashboard") DashboardDTO dashboardDTO, BindingResult result,
+                                      @PathVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("dashboardCreation");
         getCurrentUser(userService, view);
 
