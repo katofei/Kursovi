@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -27,6 +27,43 @@
     <script th:src="@{plugins/iCheck/icheck.min.js}"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+
+<form role="form" id="assignUserToProjectForm" th:action="@{/assign-user}" th:object="${userDTO}" method="post">
+    <div th:fragment="confirm">
+        <div id="assignUserToProject" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Log time</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label>Time spent, h</label>
+                        <select id="project" th:field="*{project}" class="form-control select2" style="width: 100%;">
+                            <option th:each="project:${projectList}"
+                                    th:value="${project.projectId}"
+                                    th:text="${project.projectName}">
+                            </option>
+                        </select>
+                        <p></p>
+                        <label>Estimation date:</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="date" th:field="*{estimation}" class="form-control pull-right"
+                                   id="estimationDate"/>
+                        </div>
+                        <p></p>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button id="btn-confirm" type="submit" class="btn btn-primary pull-right">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 <div class="wrapper">
 
 

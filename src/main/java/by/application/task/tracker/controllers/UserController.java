@@ -63,6 +63,7 @@ public class UserController implements CurrentUserController {
         getCurrentUser(userService, view);
         List<User> userList = userService.getAllUsers(projectId);
         view.addObject("userList", userList);
+        view.addObject("projectList", projectService.getAllProjects());
         return view;
     }
 
