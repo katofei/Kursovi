@@ -53,13 +53,15 @@ public class ScheduledNotificationController {
                     Date estimation = dataConverterService.convertStringToDate(task.getDueDate());
                     Date today = dataConverterService.generateTodayDateDay();
                     if (today.before(estimation)) {
-                        Period period = Period.between(dataConverterService.convertDateToLocal(today), dataConverterService.convertDateToLocal(estimation));
+                        Period period = Period.between(dataConverterService.convertDateToLocal(today),
+                                dataConverterService.convertDateToLocal(estimation));
                         if (period.getDays() < 5) {
                             SimpleMailMessage notificationEmail = new SimpleMailMessage();
                             notificationEmail.setSubject(TASK_DUEDATE_NOTIFICATION);
                             notificationEmail.setFrom(from_email);
                             notificationEmail.setSentDate(today);
-                            notificationEmail.setText("Dear user, please be informed that task " + task.getTaskName() + " due date is to come in " + period.getDays() + " days");
+                            notificationEmail.setText("Dear user, please be informed that task " + task.getTaskName()
+                                    + " due date is to come in " + period.getDays() + " days");
                             notificationEmail.setTo(task.getExecutor().getUserContact().getWorkEmail());
                             emailService.sendEmail(notificationEmail);
                         }
@@ -68,7 +70,8 @@ public class ScheduledNotificationController {
                         notificationEmail.setSubject(TASK_ESTIMATION_NOTIFICATION);
                         notificationEmail.setFrom(from_email);
                         notificationEmail.setSentDate(today);
-                        notificationEmail.setText("Dear user, please be informed that task " + task.getTaskName() + " due date estimated");
+                        notificationEmail.setText("Dear user, please be informed that task " + task.getTaskName()
+                                + " due date estimated");
                         notificationEmail.setTo(task.getExecutor().getUserContact().getWorkEmail());
                         emailService.sendEmail(notificationEmail);
                     }
@@ -89,13 +92,15 @@ public class ScheduledNotificationController {
                     Date deadLine = dataConverterService.convertStringToDate(project.getDeadLine());
                     Date today = dataConverterService.generateTodayDateDay();
                     if (today.before(deadLine)) {
-                        Period period = Period.between(dataConverterService.convertDateToLocal(today), dataConverterService.convertDateToLocal(deadLine));
+                        Period period = Period.between(dataConverterService.convertDateToLocal(today),
+                                dataConverterService.convertDateToLocal(deadLine));
                         if (period.getDays() < 5) {
                             SimpleMailMessage notificationEmail = new SimpleMailMessage();
                             notificationEmail.setSubject(PROJECT_DEADLINE_NOTIFICATION);
                             notificationEmail.setFrom(from_email);
                             notificationEmail.setSentDate(today);
-                            notificationEmail.setText("Dear user, please be informed that project " + project.getProjectName() + " is to end in " + period.getDays() + " days");
+                            notificationEmail.setText("Dear user, please be informed that project "
+                                    + project.getProjectName() + " is to end in " + period.getDays() + " days");
                             userService.getAllUsers(project.getProjectId()).forEach(user -> {
                                 if (PROJECT_MANAGER.equals(user.getProjectRole().getProjectRoleName())
                                         || TEAM_LEAD.equals(user.getProjectRole().getProjectRoleName()))
@@ -131,13 +136,15 @@ public class ScheduledNotificationController {
                 Date estimation = dataConverterService.convertStringToDate(user.getEstimation());
                 Date today = dataConverterService.generateTodayDateDay();
                 if (today.before(estimation)) {
-                    Period period = Period.between(dataConverterService.convertDateToLocal(today), dataConverterService.convertDateToLocal(estimation));
+                    Period period = Period.between(dataConverterService.convertDateToLocal(today),
+                            dataConverterService.convertDateToLocal(estimation));
                     if (period.getDays() < 5) {
                         SimpleMailMessage notificationEmail = new SimpleMailMessage();
                         notificationEmail.setSubject(USER_ASSIGN_NOTIFICATION);
                         notificationEmail.setFrom(from_email);
                         notificationEmail.setSentDate(today);
-                        notificationEmail.setText("Dear user, please be informed that your project assigned is to end in " + period.getDays()+ " days");
+                        notificationEmail.setText("Dear user, please be informed that your project assigned is to end in "
+                                + period.getDays()+ " days");
                         notificationEmail.setTo(user.getUserContact().getWorkEmail());
                         emailService.sendEmail(notificationEmail);
                     }
@@ -166,13 +173,15 @@ public class ScheduledNotificationController {
                     Date estimation = dataConverterService.convertStringToDate(dashboard.getDueDate());
                     Date today = dataConverterService.generateTodayDateDay();
                     if (today.before(estimation)) {
-                        Period period = Period.between(dataConverterService.convertDateToLocal(today), dataConverterService.convertDateToLocal(estimation));
+                        Period period = Period.between(dataConverterService.convertDateToLocal(today),
+                                dataConverterService.convertDateToLocal(estimation));
                         if (period.getDays() < 5) {
                             SimpleMailMessage notificationEmail = new SimpleMailMessage();
                             notificationEmail.setSubject(DASHBOARD_DUEDATE_NOTIFICATION);
                             notificationEmail.setFrom(from_email);
                             notificationEmail.setSentDate(today);
-                            notificationEmail.setText("Dear user, please be informed that dashboard " + dashboard.getDashboardName() + " due date is to come in " + period.getDays() +" days");
+                            notificationEmail.setText("Dear user, please be informed that dashboard "
+                                    + dashboard.getDashboardName() + " due date is to come in " + period.getDays() +" days");
                             notificationEmail.setTo(dashboard.getReporter().getUserContact().getWorkEmail());
                             emailService.sendEmail(notificationEmail);
                         }
@@ -181,7 +190,8 @@ public class ScheduledNotificationController {
                         notificationEmail.setSubject(DASHBOARD_ESTIMATION_NOTIFICATION);
                         notificationEmail.setFrom(from_email);
                         notificationEmail.setSentDate(today);
-                        notificationEmail.setText("Dear user, please be informed that dashboard " + dashboard.getDashboardName() + " due date estimated");
+                        notificationEmail.setText("Dear user, please be informed that dashboard "
+                                + dashboard.getDashboardName() + " due date estimated");
                         notificationEmail.setTo(dashboard.getReporter().getUserContact().getWorkEmail());
                         emailService.sendEmail(notificationEmail);
                     }
