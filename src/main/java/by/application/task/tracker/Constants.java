@@ -32,7 +32,6 @@ public interface Constants {
     String IMPLEMENTED = "Implemented";
     String IN_PROGRESS = "In progress";
     String NEED_INFO = "Additional info required";
-    String INFO_RECEIVED = "Info received";
     String READY_FOR_TESTING = "Ready for testing";
 
 

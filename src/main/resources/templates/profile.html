@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -109,8 +109,8 @@
                                                     Knoxville
                                                 </p>
                                                 <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-                                                <p class="text-muted" th:text="${userContact.country}+', '+${userContact.city}"></p>
-                                                <p class="text-muted" th:text="${userContact.street}+', '+${userContact.houseNumber}"></p>
+                                                <p class="text-muted" th:text="${userContact.countryName}+', '+${userContact.cityName}"></p>
+                                                <p class="text-muted" th:text="${userContact.streetName}+', '+${userContact.houseNumber}"></p>
                                             </div>
                                         </td>
                                     </tr>

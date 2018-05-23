@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>All dashboard</title>
+    <title>All users</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/font_awesome/css/font_awesome.min.css}"/>
@@ -15,6 +15,7 @@
     <link rel="stylesheet" th:href="@{/bower_components/jvectormap/jquery_jvectormap.css}"/>
     <link rel="stylesheet"
           th:href="@{/bower_components/bootstrap_datepicker/dist/css/bootstrap_datepicker.min.css}"/>
+
     <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
     <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
     <script th:src="@{/dist/js/adminlte.min.js}"></script>
@@ -26,7 +27,6 @@
     <script th:src="@{plugins/iCheck/icheck.min.js}"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-
 <div class="wrapper">
     <header class="main-header">
         <a href="#" class="logo">
@@ -64,7 +64,6 @@
             </div>
         </nav>
     </header>
-
     <div sec:authorize="hasRole('ROLE_USER')">
         <aside class="main-sidebar">
             <section class="sidebar">
@@ -99,24 +98,24 @@
                             </li>
                         </ul>
                     </li>
-                      <li class="treeview">
-                           <a>
-                               <i class="fa fa-share"></i> <span>Manage tasks</span>
-                               <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                           </a>
-                           <ul class="treeview-menu">
-                               <li>
-                                   <a th:onclick="|window.location.href='/profile/task-creation/${currentUser.userId}'|">
-                                       <i class="fa fa-share"></i> <span>Create new</span>
-                                   </a>
-                               </li>
-                               <li>
-                                   <a th:onclick="|window.location.href='/profile/my-tasks/${currentUser.userId}'|">
-                                       <i class="fa fa-share"></i> <span>My tasks</span>
-                                   </a>
-                               </li>
-                           </ul>
-                       </li>
+                    <li class="treeview">
+                        <a>
+                            <i class="fa fa-share"></i> <span>Manage tasks</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a th:onclick="|window.location.href='/profile/task-creation/${currentUser.userId}'|">
+                                    <i class="fa fa-share"></i> <span>Create new</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:onclick="|window.location.href='/profile/my-tasks/${currentUser.userId}'|">
+                                    <i class="fa fa-share"></i> <span>My tasks</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="treeview">
                         <a>
                             <i class="fa fa-table"></i> <span>Statistics</span>
@@ -142,73 +141,39 @@
                     <div class="col-xs-12">
                         <div class="box">
                             <div class="box-header">
-                                <h3 class="box-title">All dashboards</h3>
+                                <h3>
+                                    <small style="color:#a31515; font-family: Times, serif; font-weight:bold;"
+                                           th:if="${userList.isEmpty()}" th:errors="*{userList}">
+                                    </small>
+                                </h3>
+
+                                <h3 class="box-title">All users</h3>
                             </div>
                             <div class="box-body table-responsive no-padding">
-                                <table id="example1" class="table  table-hover">
+                                <table id="example1" class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th width="200">Name</th>
-                                        <th width="200">Reporter</th>
-                                        <th width="200">Due date</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <th>Name</th>
+                                        <th>Surname</th>
+                                        <th>Project</th>
+                                        <th>Post</th>
+                                        <th>Project role</th>
+                                        <th>Country</th>
+                                        <th>City</th>
+
                                     </tr>
                                     </thead>
-                                    <tbody id="myTable">
-                                    <tr th:each="dashboard:${dashboardList}">
-                                        <th width="200" th:text="${dashboard.dashboardName}"
+                                    <tbody>
+                                    <tr th:each="user:${userList}">
+                                        <th th:text="${user.userName}" style="font-weight: normal"></th>
+                                        <th th:text="${user.userSurname}" style="font-weight: normal"></th>
+                                        <th th:text="${user.project.projectName}" style="font-weight: normal"></th>
+                                        <th th:text="${user.qualification.qualificationName}+' '+${user.position.positionName}"
                                             style="font-weight: normal"></th>
-                                        <th width="200" th:text="${dashboard.reporter.userName}+' '+${dashboard.reporter.userSurname}"
-                                            style="font-weight: normal"></th>
-                                        <th width="200" th:text="${dashboard.dueDate}" style="font-weight: normal"></th>
-                                        <th width="100">
-                                            <button type="button" class="btn btn-primary btn-md"
-                                                    th:onclick="|window.location.href='/dashboard-edition/${dashboard.dashboardId}'|">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                                <span>Edit</span>
-                                            </button>
-                                        </th>
-                                        <th width="120">
-                                            <a href="#myModal" class="btn btn-primary btn-md " data-toggle="modal">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                                <span>Delete</span>
-                                            </a>
-                                            <div id="myModal" class="modal fade">
-                                                <div class="modal modal-danger">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                        aria-hidden="true">×
-                                                                </button>
-                                                                <h4 class="modal-title">Confirm you action</h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                Do you want delete project?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default"
-                                                                        data-dismiss="modal">Close
-                                                                </button>
-                                                                <button type="button" class="btn btn-primary"
-                                                                        th:onclick="|window.location.href='/dashboard-deletion/${dashboard.dashboardId}'|">
-                                                                    Save changes
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </th>
-                                        <th width="100">
-                                            <button type="button" class="btn btn-primary btn-md"
-                                                    th:onclick="|window.location.href='/dashboard/${dashboard.dashboardId}'|">
-                                                <span class="glyphicon glyphicon-info-sign"></span>
-                                                <span>Info</span>
-                                            </button>
-                                        </th>
+                                        <th style="font-weight: normal"
+                                            th:text="${user.projectRole.projectRoleName}"></th>
+                                        <th style="font-weight: normal" th:text="${user.userContact.countryName}"></th>
+                                        <th style="font-weight: normal" th:text="${user.userContact.cityName}"></th>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -221,6 +186,7 @@
     </div>
 </div>
 
+
 <script>
     $(function () {
         $('#example1').DataTable({
@@ -228,12 +194,12 @@
             "lengthChange": false,
             "searching": true,
             "ordering": true,
-            "info": true,
-            "autoWidth": false
+            "info": false,
+            "autoWidth": true
         });
     });
 
-</script>
 
+</script>
 </body>
 </html>

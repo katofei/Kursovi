@@ -26,7 +26,7 @@ import static by.application.task.tracker.Constants.USER_ASSIGNED;
 import static by.application.task.tracker.Constants.USER_ASSIGN_NOTIFICATION;
 
 @Controller
-public class AdminController implements CurrentUserController {
+public class AdminController {
 
     private final UserService userService;
     private final ProjectService projectService;
@@ -45,16 +45,23 @@ public class AdminController implements CurrentUserController {
     @RequestMapping(path = "/adminPage", method = RequestMethod.GET)
     public ModelAndView getAdminStartPage() {
         ModelAndView view = new ModelAndView("adminStartPage");
-        getCurrentUser(userService, view);
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         return view;
     }
 
 
     @RequestMapping(path = "assign/{userId}", method = RequestMethod.GET)
     public ModelAndView getAssignPage() {
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         ModelAndView view = new ModelAndView("userAssign");
-        getCurrentUser(userService, view);
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         List<Project> projectList = projectService.getAllProjects();
         view.addObject("projectList", projectList);
         UserDTO userDTO = new UserDTO();
@@ -68,7 +75,7 @@ public class AdminController implements CurrentUserController {
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         User userForAssign = userService.findUserById(userId);
         ModelAndView view = new ModelAndView("userAssign");
-        getCurrentUser(userService, view);
+        /* getCurrentUser(userService, view);*/
         if (result.hasErrors()) {
             view.setViewName("userAssign");
             return view;
@@ -87,6 +94,19 @@ public class AdminController implements CurrentUserController {
         return view;
     }
 
+    @RequestMapping(path = "/allUsers", method = RequestMethod.GET)
+    public ModelAndView getAllUsers(@Valid @ModelAttribute("userDTO") UserDTO userDTO, BindingResult result) {
+        ModelAndView view = new ModelAndView("allUsersPage");
+        List<User> userList = userService.getAllUsers();
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
+        view.addObject("userList", userList);
+        view.addObject("projectList", projectService.getAllProjects());
+        return view;
+    }
 
     @RequestMapping(path = "/homePage", method = RequestMethod.GET)
     public ModelAndView getHomePage() {

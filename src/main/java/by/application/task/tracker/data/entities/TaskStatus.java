@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "task_statuse")
+@Table(name = "task_status")
 public class TaskStatus implements Serializable{
 
     public TaskStatus(){}

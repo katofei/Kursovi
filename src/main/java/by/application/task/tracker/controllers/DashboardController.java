@@ -13,7 +13,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -23,7 +26,7 @@ import static by.application.task.tracker.Constants.DASHBOARD_CREATION_NOTIFICAT
 import static by.application.task.tracker.Constants.TASK_MODIFICATION_NOTIFICATION;
 
 @Controller
-public class DashboardController implements CurrentUserController {
+public class DashboardController{
 
     private final UserService userService;
     private final DashboardService dashboardService;
@@ -46,7 +49,11 @@ public class DashboardController implements CurrentUserController {
     @RequestMapping(path = "project/{projectId}/dashboard-creation", method = RequestMethod.GET)
     public ModelAndView getProjectCreationPage(@PathVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("dashboardCreation");
-        getCurrentUser(userService, view);
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         view.addObject("project", projectService.findByProjectId(projectId));
         view.addObject("allUsers", userService.getAllUsers(projectId));
         view.addObject("dashboardPriorities", dashboardPriorityService.getAllDashboardPriorities());
@@ -60,7 +67,11 @@ public class DashboardController implements CurrentUserController {
     public ModelAndView createProject(@Valid @ModelAttribute("dashboard") DashboardDTO dashboardDTO, BindingResult result,
                                       @PathVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("dashboardCreation");
-        getCurrentUser(userService, view);
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
 
         if (result.hasErrors()) {
             view.setViewName("project/"+ dashboardDTO.getProject() + "/dashboard-creation");
@@ -82,7 +93,11 @@ public class DashboardController implements CurrentUserController {
     @RequestMapping(path = "project/{projectId}/allDashboards", method = RequestMethod.GET)
     public ModelAndView getAllDashboards(@PathVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("allDashboardsPage");
-        getCurrentUser(userService, view);
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
 
         List<Dashboard> dashboards = dashboardService.getAllDashboards(projectId);
         view.addObject("dashboardList", dashboards);
@@ -92,8 +107,11 @@ public class DashboardController implements CurrentUserController {
     @RequestMapping(value = "project/{projectId}/dashboard/{dashboardId}", method = RequestMethod.GET)
     public ModelAndView getProject(@PathVariable("dashboardId") long dashboardId) {
         ModelAndView view = new ModelAndView("dashboard");
-        getCurrentUser(userService, view);
-
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         Dashboard dashboard = dashboardService.findByDashboardById(dashboardId);
         view.addObject("dashboard", dashboard);
         List<Task> taskList = taskService.getAllDashboardTasks(dashboardId);
