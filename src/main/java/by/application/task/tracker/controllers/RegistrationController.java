@@ -33,7 +33,7 @@ import java.util.UUID;
 import static by.application.task.tracker.Constants.*;
 
 @Controller
-public class RegistrationController implements CurrentUserController{
+public class RegistrationController{
 
     private final UserService userService;
     private final ProjectService projectService;
@@ -68,8 +68,11 @@ public class RegistrationController implements CurrentUserController{
         if ( registrationSuccess != null && "ok".equals(registrationSuccess)) {
             view.addObject("confirmationMessage", "A confirmation e-mail has been sent.");
         }
-        getCurrentUser(userService, view);
-
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         view.addObject("positions", positionService.getAllPositions());
         view.addObject("projects", projectService.getAllProjects());
         view.addObject("qualifications", qualificationService.getAllQualifications());
@@ -87,7 +90,10 @@ public class RegistrationController implements CurrentUserController{
 
         if (result.hasErrors()) {
             view.setViewName("registration");
-            getCurrentUser(userService, view);
+            view.addObject("currentUser", currentUser);
+            view.addObject("position", currentUser.getPosition());
+            view.addObject("project", currentUser.getProject());
+            view.addObject("qualification", currentUser.getQualification());
             view.addObject("positions", positionService.getAllPositions());
             view.addObject("projects", projectService.getAllProjects());
             view.addObject("qualifications", qualificationService.getAllQualifications());

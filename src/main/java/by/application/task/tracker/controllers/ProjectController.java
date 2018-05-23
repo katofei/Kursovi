@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class ProjectController implements CurrentUserController {
+public class ProjectController {
 
     private final ProjectService projectService;
     private final UserService userService;
@@ -46,7 +46,11 @@ public class ProjectController implements CurrentUserController {
     @RequestMapping(path = "/project-creation", method = RequestMethod.GET)
     public ModelAndView getProjectCreationPage() {
         ModelAndView view = new ModelAndView("projectCreation");
-        getCurrentUser(userService, view);
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
 
         ProjectDTO projectDTO = new ProjectDTO();
         view.addObject("project", projectDTO);
@@ -56,8 +60,11 @@ public class ProjectController implements CurrentUserController {
     @RequestMapping(path = "/project-creation", method = RequestMethod.POST)
     public ModelAndView createProject(@Valid @ModelAttribute("project") ProjectDTO projectDTO, BindingResult result) {
         ModelAndView view = new ModelAndView("projectCreation");
-        getCurrentUser(userService, view);
-
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         if (result.hasErrors()) {
             view.setViewName("project-creation");
             return view;
@@ -70,8 +77,11 @@ public class ProjectController implements CurrentUserController {
     @RequestMapping(path = "/allProjects", method = RequestMethod.GET)
     public ModelAndView getAllProjects() {
         ModelAndView view = new ModelAndView("allProjectsPage");
-        getCurrentUser(userService, view);
-
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         List<Project> projectList = projectService.getAllProjects();
         view.addObject("projectList", projectList);
         return view;
@@ -81,8 +91,10 @@ public class ProjectController implements CurrentUserController {
     public ModelAndView getProject(@PathVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("project");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        getCurrentUser(userService, view);
-
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         Project project = projectService.findByProjectId(projectId);
         view.addObject("project", project);
         view.addObject("projectContact", project.getProjectContact());
@@ -97,8 +109,11 @@ public class ProjectController implements CurrentUserController {
     @RequestMapping(value = "/project-edition/{projectId}", method = RequestMethod.GET)
     public ModelAndView getProjectEdition(@PathVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("editProjectPage");
-        getCurrentUser(userService, view);
-
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         Project editingProject = projectService.findByProjectId(projectId);
         ProjectInfoWrapper projectInfoWrapper = new ProjectInfoWrapper(editingProject, editingProject.getProjectContact());
         view.addObject("project",projectInfoWrapper);
@@ -111,8 +126,11 @@ public class ProjectController implements CurrentUserController {
         ModelAndView view = new ModelAndView();
         if (result.hasErrors()) {
             view.setViewName("editProjectPage");
-            getCurrentUser(userService, view);
-
+            User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+            view.addObject("currentUser", currentUser);
+            view.addObject("position", currentUser.getPosition());
+            view.addObject("project", currentUser.getProject());
+            view.addObject("qualification", currentUser.getQualification());
             Project editingProject = projectService.findByProjectId(projectId);
             view.addObject("projectContact", editingProject.getProjectContact());
             return view;
@@ -128,8 +146,11 @@ public class ProjectController implements CurrentUserController {
     @RequestMapping(value = "/project-deletion/{id}", method = RequestMethod.GET)
     public ModelAndView getProjectDeletion(@PathVariable("projectId") long projectId) {
         ModelAndView view = new ModelAndView("allProjects");
-        getCurrentUser(userService, view);
-
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         return new ModelAndView("allProjects");
     }
 
