@@ -93,24 +93,44 @@
                 </ul>
             </section>
         </aside>
+        <table width="100%" id="example1" class="table table-hover">
+            <thead>
+            <tr>
+                <th width="200">User</th>
+                <th width="200">Total time</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="myTable">
+            <tr style="height: 29px;">
+                <td style="width: 370.486px; height: 29px;">&nbsp;</td>
+                <td style="width: 370.486px; height: 29px;">&nbsp;</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
-    <script th:src="@{/dist/js/adminlte.min.js}"></script>
-    <script th:src="@{/dist/js/demo.js}"></script>
-    <script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
-    <script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
 
-    <script>
-        $(function () {
-            $('#example1').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false
-            });
+<script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script th:src="@{/dist/js/adminlte.min.js}"></script>
+<script th:src="@{/dist/js/demo.js}"></script>
+<script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
+<script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
+
+<script>
+    $(function () {
+        $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
         });
-    </script>
+    });
+</script>
 </body>
 </html>

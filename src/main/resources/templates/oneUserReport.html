@@ -25,6 +25,7 @@
     <script th:src="@{/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
     <script th:src="@{/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
     <script th:src="@{plugins/iCheck/icheck.min.js}"></script>
+    <script th:src="@{/pashaJs/userSelector.js}"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="content-wrapper">
@@ -93,6 +94,97 @@
                 </ul>
             </section>
         </aside>
+
+
+        <section class="content-header">
+            <section class="content container-fluid">
+                <div class="box box-primary" style="width:950px">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Reports</h3>
+                    </div>
+                    <section class="content">
+                        <table style="height: 41px; width:91%;">
+                            <tbody>
+                            <tr>
+                                <td style="width: 89px;">
+                                    <form th:action="@{/user-report}" method="GET" th:object="${user}">
+                                        <select class="mySelect" id="id" name="id">
+                                            <option value="0" disabled hidden>Select user, please</option>
+                                            <option class="select-option"
+                                                    th:each="user:${userLists}"
+                                                    th:value="${user.userid}"
+                                                    th:text="${user.userName}+' '+${user.userSurname}">
+                                            </option>
+                                        </select>
+                                    </form>
+                                </td>
+                                <td style="width: 10px;">&nbsp;</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table width="100%" class="table table-hover">
+                            <tbody>
+                            <tr>
+                                <td style="width: 100%; text-align: center;" colspan="21">&nbsp;Month :</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 218px; text-align: center;" colspan="6">Week № 1</td>
+                                <td style="width: 218px; text-align: center;" colspan="5">Week № 2</td>
+                                <td style="width: 218px; text-align: center;" colspan="5">Week № 3</td>
+                                <td style="width: 218px; text-align: center;" colspan="5">Week № 4</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40px;">User</td>
+                                <td style="width: 40px;">1</td>
+                                <td style="width: 40px;">2</td>
+                                <td style="width: 40px;">3</td>
+                                <td style="width: 40px;">4</td>
+                                <td style="width: 40px;">5</td>
+                                <td style="width: 40px;">1</td>
+                                <td style="width: 40px;">2</td>
+                                <td style="width: 40px;">3</td>
+                                <td style="width: 40px;">4</td>
+                                <td style="width: 40px;">5</td>
+                                <td style="width: 40px;">1</td>
+                                <td style="width: 40px;">2</td>
+                                <td style="width: 40px;">3</td>
+                                <td style="width: 40px;">4</td>
+                                <td style="width: 40px;">5</td>
+                                <td style="width: 40px;">1</td>
+                                <td style="width: 40px;">2</td>
+                                <td style="width: 40px;">3</td>
+                                <td style="width: 40px;">4</td>
+                                <td style="width: 40px;">5</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                                <td style="width: 40px;">&nbsp;</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                </div>
+            </section>
+        </section>
+    </div>
+
 
     <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
     <script th:src="@{/dist/js/adminlte.min.js}"></script>

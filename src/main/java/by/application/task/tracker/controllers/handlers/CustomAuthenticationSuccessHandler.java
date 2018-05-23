@@ -46,6 +46,7 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
     protected String determineTargetUrl(Authentication authentication) {
         boolean isUser = false;
         boolean isAdmin = false;
+        boolean isAccountant = false;
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
             if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
@@ -55,6 +56,10 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
                 isAdmin = true;
                 break;
             }
+            else if (grantedAuthority.getAuthority().equals("ROLE_ACCOUNTANT")) {
+                isAccountant = true;
+                break;
+            }
         }
 
         if (isUser) {
@@ -62,6 +67,9 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
         }
         else if (isAdmin) {
             return "/adminPage";
+        }
+        else if (isAccountant) {
+            return "/accountantPage";
         }
         else {
             return "/accessDenied";
