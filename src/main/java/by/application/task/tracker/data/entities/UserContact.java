@@ -42,11 +42,20 @@ public class UserContact {
     @Column(name = "fax")
     private String fax;
 
+    @Column(name = "country_name")
+    private String countryName;
+
+    @Column(name = "city_name")
+    private String cityName;
+
+    @Column(name = "street_name")
+    private String streetName;
+
+    @Column(name = "house_number")
+    private int houseNumber;
+
     @OneToOne(mappedBy = "userContact", fetch = FetchType.LAZY)
     private User user;
-
-    @ManyToOne
-    private Location location;
 
     public Long getContactId() {
         return contactId;
@@ -88,9 +97,38 @@ public class UserContact {
     }
     public void setFax(String fax) {this.fax = fax;}
 
-    public Location getLocation() {return location;}
-    public void setLocation(Location location) {this.location = location;}
-
     public User getUser() {return user;}
     public void setUser(User user) {this.user = user;}
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+
+    public int getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(int houseNumber) {
+        this.houseNumber = houseNumber;
+    }
 }

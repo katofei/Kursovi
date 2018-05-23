@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Start Page</title>
+    <title>All users</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/bower_components/font_awesome/css/font_awesome.min.css}"/>
@@ -133,17 +133,73 @@
             </section>
         </aside>
     </div>
+
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>
-                User start Page
-            </h1>
+            <section class="content container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-header">
+                                <h3>
+                                    <small style="color:#a31515; font-family: Times, serif; font-weight:bold;"
+                                           th:if="${userList.isEmpty()}" th:errors="*{userList}">
+                                    </small>
+                                </h3>
+
+                                <h3 class="box-title">All users</h3>
+                            </div>
+                            <div class="box-body table-responsive no-padding">
+                                <table id="example1" class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Surname</th>
+                                        <th>Project</th>
+                                        <th>Post</th>
+                                        <th>Project role</th>
+                                        <th>Country</th>
+                                        <th>City</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="user:${userList}">
+                                        <th th:text="${user.userName}" style="font-weight: normal"></th>
+                                        <th th:text="${user.userSurname}" style="font-weight: normal"></th>
+                                        <th th:text="${user.project.projectName}" style="font-weight: normal"></th>
+                                        <th th:text="${user.qualification.qualificationName}+' '+${user.position.positionName}"
+                                            style="font-weight: normal"></th>
+                                        <th style="font-weight: normal"
+                                            th:text="${user.projectRole.projectRoleName}"></th>
+                                        <th style="font-weight: normal" th:text="${user.userContact.countryName}"></th>
+                                        <th style="font-weight: normal" th:text="${user.userContact.cityName}"></th>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </section>
     </div>
 </div>
 
-<script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
-<script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
-<script th:src="@{/dist/js/adminlte.min.js}"></script>
+
+<script>
+    $(function () {
+        $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": false,
+            "autoWidth": true
+        });
+    });
+
+
+</script>
 </body>
 </html>

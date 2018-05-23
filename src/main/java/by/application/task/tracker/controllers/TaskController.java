@@ -29,7 +29,7 @@ import static by.application.task.tracker.Constants.TASK_CREATION_NOTIFICATION;
 import static by.application.task.tracker.Constants.TASK_MODIFICATION_NOTIFICATION;
 
 @Controller
-public class TaskController implements CurrentUserController {
+public class TaskController{
 
     private final UserService userService;
     private final TaskService taskService;
@@ -58,7 +58,10 @@ public class TaskController implements CurrentUserController {
     public ModelAndView getTaskCreationPage() {
         ModelAndView view = new ModelAndView("taskCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        getCurrentUser(userService, view);
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         view.addObject("allUsers", userService.getAllUsers(currentUser.getProject().getProjectId()));
         view.addObject("taskTypes", taskTypeService.getAllTaskTypes());
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
@@ -72,8 +75,10 @@ public class TaskController implements CurrentUserController {
     public ModelAndView createTask(@Valid @ModelAttribute("task") TaskDTO taskDTO, BindingResult result) {
         ModelAndView view = new ModelAndView("taskCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        getCurrentUser(userService, view);
-
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         view.addObject("allUsers", userService.getAllUsers(currentUser.getProject().getProjectId()));
         view.addObject("taskTypes", taskTypeService.getAllTaskTypes());
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
@@ -98,8 +103,11 @@ public class TaskController implements CurrentUserController {
     @RequestMapping(path = "/dashboard/{id}/allTasks", method = RequestMethod.GET)
     public ModelAndView getAllTasks(@PathVariable("id") long dashboardId) {
         ModelAndView view = new ModelAndView("allTasksPage");
-        getCurrentUser(userService, view);
-
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         List<Task> taskList = taskService.getAllDashboardTasks(dashboardId);
         view.addObject("taskList", taskList);
         return view;
@@ -109,8 +117,10 @@ public class TaskController implements CurrentUserController {
     public ModelAndView getTaskPage(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("task");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        getCurrentUser(userService, view);
-
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         Task task = taskService.findTaskById(id);
         view.addObject("taskType", task.getTaskType());
        // view.addObject("taskProject",task.getProject());
@@ -138,8 +148,11 @@ public class TaskController implements CurrentUserController {
     @RequestMapping(value = "/dashboard/{id}/task-deletion/{id}", method = RequestMethod.DELETE)
     public ModelAndView deleteProject(@PathVariable("id") long taskId) {
         ModelAndView view = new ModelAndView("task");
-        getCurrentUser(userService, view);
-
+        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
        // projectService.deleteProject(taskId); WHATAFUCK!?!?!?!?!?
         view.setViewName("redirect:/dashboard/allTasks");
         return view;
@@ -149,8 +162,10 @@ public class TaskController implements CurrentUserController {
     public ModelAndView getTaskEditionPage(@PathVariable("taskId") long taskId) {
         ModelAndView view = new ModelAndView("editTaskPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        getCurrentUser(userService, view);
-
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
         Task task = taskService.findTaskById(taskId);
         view.addObject("task", task);
 
@@ -166,8 +181,11 @@ public class TaskController implements CurrentUserController {
                                  @PathVariable("taskId") long taskId) {
         ModelAndView view = new ModelAndView("editTaskPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        getCurrentUser(userService, view);
-
+        view.addObject("currentUser", currentUser);
+        view.addObject("position", currentUser.getPosition());
+        view.addObject("project", currentUser.getProject());
+        view.addObject("qualification", currentUser.getQualification());
+        view.addObject("project", currentUser.getProject());
         Task task = taskService.findTaskById(taskId);
         view.addObject("taskType", task.getTaskType());
       //  view.addObject("taskProject",task.getProject());
