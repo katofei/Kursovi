@@ -1,6 +1,7 @@
 package by.application.task.tracker.controllers;
 
 import by.application.task.tracker.Constants;
+import by.application.task.tracker.data.entities.Dashboard;
 import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
 import by.application.task.tracker.data.wrapper.UserInfoWrapper;
@@ -11,11 +12,16 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static by.application.task.tracker.Constants.USER_DELETION_NOTIFICATION;
@@ -33,13 +39,16 @@ public class UserController {
     private final UserContactService userContactService;
     private final TaskService taskService;
     private final EmailService emailService;
+    private final DashboardService dashboardService;
+
+
 
     @Autowired
     public UserController(QualificationService qualificationService, UserService userService,
                           PositionService positionService, ProjectRoleService projectRoleService,
                           TaskStatusService taskStatusService, TaskPriorityService taskPriorityService,
                           ProjectService projectService, UserContactService userContactService, TaskService taskService,
-                          EmailService emailService) {
+                          EmailService emailService, DashboardService dashboardService) {
         this.qualificationService = qualificationService;
         this.userService = userService;
         this.positionService = positionService;
@@ -50,6 +59,7 @@ public class UserController {
         this.userContactService = userContactService;
         this.taskService = taskService;
         this.emailService = emailService;
+        this.dashboardService = dashboardService;
     }
 
     @RequestMapping(path = "/userPage", method = RequestMethod.GET)
@@ -77,7 +87,7 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "project/{id}/profile/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/profile/{userId}", method = RequestMethod.GET)
     public ModelAndView getUser(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("profile");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -96,7 +106,7 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "project/{id}/user-deletion/{userId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/user-deletion/{userId}", method = RequestMethod.DELETE)
     public ModelAndView deleteUser(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView();
         SimpleMailMessage registrationEmail = new SimpleMailMessage();
@@ -112,19 +122,16 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "project/{id}/user-deletion/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user-deletion/{userId}", method = RequestMethod.GET)
     public ModelAndView getUserDeletion(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("allUsers");
-/*
-        getCurrentUser(userService, view);
-*/
-
+        /*getCurrentUser(userService, view);*/
         userService.deleteUser(userId);
         view.setViewName("redirect:/project/{id}/allUsers");
         return view;
     }
 
-    @RequestMapping(value = "project/{id}/user-edition/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user-edition/{userId}", method = RequestMethod.GET)
     public ModelAndView getUserEdition(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("editUserPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -135,7 +142,7 @@ public class UserController {
 
         User user = userService.findUserById(userId);
         UserInfoWrapper userInfoWrapper = new UserInfoWrapper(user, user.getUserContact());
-        view.addObject("user", userInfoWrapper);
+        view.addObject("userInfoWrapper", userInfoWrapper);
 
         view.addObject("positions", positionService.getAllPositions());
         view.addObject("projects", projectService.getAllProjects());
@@ -144,8 +151,9 @@ public class UserController {
         return view;
     }
 
-    @RequestMapping(value = "project/{id}/user-edition/{userId}", method = RequestMethod.POST)
-    public ModelAndView editUser(@Valid @ModelAttribute("user") UserInfoWrapper userInfoWrapper, BindingResult result, @PathVariable("userId") long userId) {
+    @RequestMapping(value = "/user-edition/{userId}", method = RequestMethod.POST)
+    public String editUser(@Valid @ModelAttribute("userInfoWrapper") UserInfoWrapper userInfoWrapper,
+                           BindingResult result, @PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView();
         User user = userService.findUserById(userId);
         if (result.hasErrors()) {
@@ -160,15 +168,14 @@ public class UserController {
             view.addObject("projectRoles", projectRoleService.getAllProjectRoles());
 
             view.addObject("userContact", user.getUserContact());
-            return view;
+            return "redirect:/user-edition/" + userId;
         }
-        view.setViewName("redirect:project/{id}/allUsers");
         editUser(userInfoWrapper);
-        return view;
+        return "redirect:/allUsers";
     }
 
     @RequestMapping(value = "profile/{userId}/my-tasks", method = RequestMethod.GET)
-    public ModelAndView getMyTasks(@MatrixVariable("userId") long userId) {
+    public ModelAndView getMyTasks(@PathVariable("userId") long userId) {
         ModelAndView view = new ModelAndView("myTasks");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
@@ -191,8 +198,7 @@ public class UserController {
         view.addObject("position", currentUser.getPosition());
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
-        // todo looks like works OK
-        List<User> userList= userService.getAllUsers().stream().filter(user -> currentUser.getProject() ==
+        List<User> userList = userService.getAllUsers().stream().filter(user -> currentUser.getProject() ==
                 user.getProject()).collect(Collectors.toList());
         view.addObject("userList", userList);
 
@@ -208,10 +214,65 @@ public class UserController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-        // todo add logic for filtering and statistic
-        //  List<User> userList= userService.getAllUsers();
-        //  view.addObject("userList", userList);
+        //todo add logic for filtering and statistic
+        List<User> userList = userService.getAllUsers().stream().filter(user -> currentUser.getProject() ==
+                user.getProject()).collect(Collectors.toList());
+        view.addObject("userList", userList);
+        userList.forEach(user -> {
+            List<Task> allUserTasks = taskService.getAllUserTasks(user.getUserId());
+            long implementedCount = allUserTasks.stream().
+                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.IMPLEMENTED)).count();
+            long addInfoCount = allUserTasks.stream().
+                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.NEED_INFO)).count();
+            long readyCount = allUserTasks.stream().
+                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.READY_FOR_TESTING)).count();
+            long reopen = allUserTasks.stream().
+                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.REOPENED)).count();
+            long closed = allUserTasks.stream().
+                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.CLOSED)).count();
+            long open = allUserTasks.stream().
+                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.OPEN)).count();
+            Map<String, Long> tasksCountMap = new HashMap<>();
+            tasksCountMap.put("implementedCount", implementedCount);
+            tasksCountMap.put("addInfoCount", addInfoCount);
+            tasksCountMap.put("readyCount", readyCount);
+            tasksCountMap.put("reopen", reopen);
+            tasksCountMap.put("closed", closed);
+            tasksCountMap.put("open", open);
+            view.addAllObjects(tasksCountMap);
+        });
 
+        userList.forEach(user -> {
+            List<Dashboard> dashboardList = dashboardService.getAllDashboards(user.getProject().getProjectId());
+            long onHoldCount = dashboardList.stream().
+                    filter(dashboard -> dashboard.getStatus().getStatusName().equals(Constants.ON_HOLD)).count();
+            long inAnalysesCount = dashboardList.stream().
+                    filter(task -> task.getStatus().getStatusName().equals(Constants.IN_ANALYSIS)).count();
+            long inQACount = dashboardList.stream().
+                    filter(task -> task.getStatus().getStatusName().equals(Constants.IN_QA)).count();
+            long inBuildCount = dashboardList.stream().
+                    filter(task -> task.getStatus().getStatusName().equals(Constants.IN_BUILD)).count();
+            long inDesign = dashboardList.stream().
+                    filter(task -> task.getStatus().getStatusName().equals(Constants.IN_DESIGN)).count();
+            long open = dashboardList.stream().
+                    filter(task -> task.getStatus().getStatusName().equals(Constants.OPEN)).count();
+            long implementedCount = dashboardList.stream().
+                    filter(task -> task.getStatus().getStatusName().equals(Constants.IMPLEMENTED)).count();
+            long reopen = dashboardList.stream().
+                    filter(task -> task.getStatus().getStatusName().equals(Constants.REOPENED)).count();
+            Map<String, Long> dashboardCountMap = new HashMap<>();
+            dashboardCountMap.put("donHoldCount", onHoldCount);
+            dashboardCountMap.put("dinAnalysesCount", inAnalysesCount);
+            dashboardCountMap.put("dinQACount", inQACount);
+            dashboardCountMap.put("dinBuildCount", inBuildCount);
+            dashboardCountMap.put("dinDesign", inDesign);
+            dashboardCountMap.put("dopen", open);
+            dashboardCountMap.put("dimplementedCount", implementedCount);
+            dashboardCountMap.put("dreopen", reopen);
+            view.addAllObjects(dashboardCountMap);
+        });
+
+        //get tasks of each user
         return view;
     }
 
@@ -224,9 +285,29 @@ public class UserController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
+        List<Task> allUserTasks = taskService.getAllUserTasks(userId);
+        long implementedCount = allUserTasks.stream().
+                filter(task -> task.getTaskStatus().getStatusName().equals(Constants.IMPLEMENTED)).count();
+        long addInfoCount = allUserTasks.stream().
+                filter(task -> task.getTaskStatus().getStatusName().equals(Constants.NEED_INFO)).count();
+        long readyCount = allUserTasks.stream().
+                filter(task -> task.getTaskStatus().getStatusName().equals(Constants.READY_FOR_TESTING)).count();
+        long reopen = allUserTasks.stream().
+                filter(task -> task.getTaskStatus().getStatusName().equals(Constants.REOPENED)).count();
+        long closed = allUserTasks.stream().
+                filter(task -> task.getTaskStatus().getStatusName().equals(Constants.CLOSED)).count();
+        long open = allUserTasks.stream().
+                filter(task -> task.getTaskStatus().getStatusName().equals(Constants.OPEN)).count();
+        Map<String, Long> tasksCountMap = new HashMap<>();
+        tasksCountMap.put("implementedCount", implementedCount);
+        tasksCountMap.put("addInfoCount", addInfoCount);
+        tasksCountMap.put("readyCount", readyCount);
+        tasksCountMap.put("reopen", reopen);
+        tasksCountMap.put("closed", closed);
+        tasksCountMap.put("open", open);
 
-        // todo add logic for filtering
-        // need to create truly statistics
+        //todo  draw statistics by diagramm..see userStatistics.html
+        view.addAllObjects(tasksCountMap);
         return view;
     }
 

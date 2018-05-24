@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -28,6 +28,84 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
+    <header class="main-header">
+        <a href="#" class="logo">
+            <span class="logo-lg"><b>Task</b>Tracker</span>
+        </a>
+
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"></a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="/dist/img/user2-160x160.jpg" class="user-image"/>
+                            <span class="hidden-xs"
+                                  th:text="${currentUser.userName}+' '+${currentUser.userSurname}"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                <img src="/dist/img/user2-160x160.jpg" class="img-circle"/>
+                                <p th:text="${currentUser.userName}+' '+${currentUser.userSurname}"></p>
+                                <p th:text="${qualification.qualificationName}+' '+${position.positionName}"></p>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
+                                       class="btn btn-default btn-flat">My profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a th:href="@{/logout}" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li>
+                        <a th:href="@{/homePage}">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                            <span class="pull-right-container"></span>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a>
+                            <i class="fa fa-dashboard"></i>
+                            <span>Manage users</span>
+                            <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right-container"></i>
+                    </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a th:href="@{/registration}"><i class="fa fa-circle-o"></i>Register new</a></li>
+                            <li><a th:href="@{/allUsers}"><i class="fa fa-circle-o"></i>View all</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a>
+                            <i class="fa fa-dashboard"></i>
+                            <span>Manage projects</span>
+                            <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right-container"></i>
+                        </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a th:href="@{/project-creation}"><i class="fa fa-circle-o"></i>Create new</a></li>
+                            <li><a th:href="@{/allProjects}"><i class="fa fa-circle-o"></i>View all</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+    </div>
 
     <div class="content-wrapper">
         <section class="content-header">
@@ -51,10 +129,14 @@
                                                  src="dist/img/user4-128x128.jpg"/>
                                             <h3 class="profile-username text-center"
                                                 th:text="${user.userName}+' '+${user.userSurname}"></h3>
-                                            <p class="text-muted text-center"
-                                               th:text="${userQualification.qualificationName}+' '+${userPosition.positionName}"></p>
-                                              <p class="text-muted text-center"
-                                                 th:text="${projectRole.projectRoleName}"></p>
+                                           <div th:if="${user.qualification != null and user.position!=null}">
+                                               <p class="text-muted text-center"
+                                                  th:text="${userQualification.qualificationName}+' '+${userPosition.positionName}"></p>
+                                           </div>
+                                            <div th:if="${user.projectRole != null}">
+                                                <p class="text-muted text-center"
+                                                   th:text="${projectRole.projectRoleName}"></p>
+                                            </div>
                                         </td>
                                         <td style="width: 385px; height: 34px;" rowspan="2">&nbsp;&nbsp;
                                             <table style="height: 229px; width: 416px;">
@@ -68,37 +150,42 @@
                                                     <td style="width: 141.767px; height: 11px;"><strong><i
                                                             class="fa fa-book margin-r-5"></i>Work phone:</strong></td>
                                                     <td style="width: 258.233px; height: 11px;"
-                                                    th:text="${userContact.workPhone}">&nbsp;</td>
+                                                        th:text="${userContact.workPhone}">&nbsp;
+                                                    </td>
                                                 </tr>
                                                 <tr style="height: 24px;">
                                                     <td style="width: 141.767px; height: 24px;"><strong><i
                                                             class="fa fa-book margin-r-5"></i>Work e-mail:</strong></td>
                                                     <td style="width: 258.233px; height: 24px;"
-                                                        th:text="${userContact.workEmail}">&nbsp;</td>
+                                                        th:text="${userContact.workEmail}">&nbsp;
+                                                    </td>
                                                 </tr>
                                                 <tr style="height: 24px;">
                                                     <td style="width: 141.767px; height: 24px;"><strong><i
                                                             class="fa fa-book margin-r-5"></i>Fax:</strong></td>
                                                     <td style="width: 258.233px; height: 24px;"
-                                                        th:text="${userContact.fax}">&nbsp;</td>
+                                                        th:text="${userContact.fax}">&nbsp;
+                                                    </td>
                                                 </tr>
                                                 <tr style="height: 24px;">
                                                     <td style="width: 141.767px; height: 24px;"><strong><i
                                                             class="fa fa-book margin-r-5"></i>Private phone:</strong>
                                                     </td>
                                                     <td style="width: 258.233px; height: 24px;"
-                                                        th:text="${userContact.privatePhone}">&nbsp;</td>
+                                                        th:text="${userContact.privatePhone}">&nbsp;
+                                                    </td>
                                                 </tr>
                                                 <tr style="height: 27px;">
                                                     <td style="width: 141.767px; height: 27px;"><strong><i
                                                             class="fa fa-book margin-r-5"></i>Private e-mail:</strong>
                                                     </td>
                                                     <td style="width: 258.233px; height: 27px;"
-                                                        th:text="${userContact.privateEmail}">&nbsp;</td>
+                                                        th:text="${userContact.privateEmail}">&nbsp;
+                                                    </td>
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                    </td>
+                                        </td>
                                     </tr>
                                     <tr style="height: 147px;">
                                         <td style="width: 451px; height: 147px;">&nbsp;
@@ -109,8 +196,10 @@
                                                     Knoxville
                                                 </p>
                                                 <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-                                                <p class="text-muted" th:text="${userContact.countryName}+', '+${userContact.cityName}"></p>
-                                                <p class="text-muted" th:text="${userContact.streetName}+', '+${userContact.houseNumber}"></p>
+                                                <p class="text-muted"
+                                                   th:text="${userContact.countryName}+', '+${userContact.cityName}"></p>
+                                                <p class="text-muted"
+                                                   th:text="${userContact.streetName}+', '+${userContact.houseNumber}"></p>
                                             </div>
                                         </td>
                                     </tr>

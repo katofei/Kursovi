@@ -10,10 +10,10 @@ public class DashboardStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "status_id", length = 5, nullable = false)
-    private Long statusId;
+    public Long statusId;
 
     @Column(name = "status_name")
-    private String statusName;
+    public String statusName;
 
     @OneToMany(mappedBy = "status", fetch = FetchType.LAZY)
     private List<Dashboard> dashboardList;

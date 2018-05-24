@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -64,76 +64,73 @@
             </div>
         </nav>
     </header>
-    <div sec:authorize="hasRole('ROLE_USER')">
-        <aside class="main-sidebar">
-            <section class="sidebar">
-                <ul class="sidebar-menu" data-widget="tree">
-                    <li class="header">MAIN NAVIGATION</li>
-                    <li>
-                        <a th:onclick="|window.location.href='/project/${currentUser.project.projectId}'|">
-                            <i class="fa fa-share"></i> <span>My Project</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-team'|">
-                            <i class="fa fa-share"></i> <span>My team</span>
-                        </a>
-                    </li>
-                    <!-- todo:  add  dashboards somewhere-->
-                    <li class="treeview">
-                        <a>
-                            <i class="fa fa-table"></i> <span>Dashboards</span>
-                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li>
-                                <a th:onclick="|window.location.href='/profile/${currentUser.userId}/user-statistics'|">
-                                    <i class="fa fa-share"></i> <span>Create new</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a th:onclick="|window.location.href='/profile/${currentUser.userId}/user-statistics'|">
-                                    <i class="fa fa-share"></i> <span>View all</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a>
-                            <i class="fa fa-share"></i> <span>Manage tasks</span>
-                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li>
-                                <a th:onclick="|window.location.href='/profile/task-creation/${currentUser.userId}'|">
-                                    <i class="fa fa-share"></i> <span>Create new</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a th:onclick="|window.location.href='/profile/my-tasks/${currentUser.userId}'|">
-                                    <i class="fa fa-share"></i> <span>My tasks</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a>
-                            <i class="fa fa-table"></i> <span>Statistics</span>
-                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li>
-                                <a th:onclick="|window.location.href='/profile/${currentUser.userId}/user-statistics'|">
-                                    <i class="fa fa-share"></i> <span>My statistics</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </section>
-        </aside>
-    </div>
-
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">MAIN NAVIGATION</li>
+                <li>
+                    <a th:onclick="|window.location.href='/project/${currentUser.project.projectId}'|">
+                        <i class="fa fa-share"></i> <span>My Project</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-team'|">
+                        <i class="fa fa-share"></i> <span>My team</span>
+                    </a>
+                </li>
+                <!-- todo:  add  dashboards somewhere-->
+                <li class="treeview">
+                    <a>
+                        <i class="fa fa-table"></i> <span>Dashboards</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a th:onclick="|window.location.href='/project/${currentUser.project.projectId}/dashboard-creation'|">
+                                <i class="fa fa-share"></i> <span>Create new</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:onclick="|window.location.href='/project/${currentUser.project.projectId}/allDashboards'|">
+                                <i class="fa fa-share"></i> <span>View all</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a>
+                        <i class="fa fa-share"></i> <span>Manage tasks</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
+                                <i class="fa fa-share"></i> <span>Create new</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
+                                <i class="fa fa-share"></i> <span>My tasks</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a>
+                        <i class="fa fa-table"></i> <span>Statistics</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/user-statistics'|">
+                                <i class="fa fa-share"></i> <span>My statistics</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
     <div class="content-wrapper">
         <section class="content-header">
             <section class="content container-fluid">
@@ -160,18 +157,34 @@
                                         <th>Project role</th>
                                         <th>Country</th>
                                         <th>City</th>
-
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="user:${userList}">
                                         <th th:text="${user.userName}" style="font-weight: normal"></th>
                                         <th th:text="${user.userSurname}" style="font-weight: normal"></th>
-                                        <th th:text="${user.project.projectName}" style="font-weight: normal"></th>
-                                        <th th:text="${user.qualification.qualificationName}+' '+${user.position.positionName}"
-                                            style="font-weight: normal"></th>
-                                        <th style="font-weight: normal"
-                                            th:text="${user.projectRole.projectRoleName}"></th>
+
+                                        <div th:if="${user.project != null}">
+                                            <th th:text="${user.project.projectName}" style="font-weight: normal"></th>
+                                        </div>
+                                        <div th:unless="${user.project != null}">
+                                            <th/>
+                                        </div>
+                                        <div th:if="${user.qualification != null}">
+                                            <th style="font-weight: normal" th:text="${user.qualification.qualificationName}+'
+                                            '+${user.position.positionName}"></th>
+                                        </div>
+                                        <div th:unless="${user.qualification != null}">
+                                            <th/>
+                                        </div>
+
+                                        <div th:if="${user.projectRole != null}">
+                                            <th style="font-weight: normal"
+                                                th:text="${user.projectRole.projectRoleName}"></th>
+                                        </div>
+                                        <div th:unless="${user.projectRole != null}">
+                                            <th/>
+                                        </div>
                                         <th style="font-weight: normal" th:text="${user.userContact.countryName}"></th>
                                         <th style="font-weight: normal" th:text="${user.userContact.cityName}"></th>
                                     </tr>

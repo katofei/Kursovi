@@ -3,6 +3,7 @@ package by.application.task.tracker.controllers;
 
 import by.application.task.tracker.Constants;
 import by.application.task.tracker.data.dto.DashboardDTO;
+import by.application.task.tracker.data.dto.UserDTO;
 import by.application.task.tracker.data.entities.Dashboard;
 import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
@@ -20,13 +21,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import static by.application.task.tracker.Constants.DASHBOARD_CREATION_NOTIFICATION;
 import static by.application.task.tracker.Constants.TASK_MODIFICATION_NOTIFICATION;
 
 @Controller
-public class DashboardController{
+public class DashboardController {
 
     private final UserService userService;
     private final DashboardService dashboardService;
@@ -34,16 +38,19 @@ public class DashboardController{
     private final EmailService emailService;
     private ProjectService projectService;
     private DashboardPriorityService dashboardPriorityService;
+    private DashboardStatusService dashboardStatusService;
 
     @Autowired
     public DashboardController(UserService userService, DashboardService dashboardService,
-                               TaskService taskService, EmailService emailService, ProjectService projectService, DashboardPriorityService dashboardPriorityService) {
+                               TaskService taskService, EmailService emailService, ProjectService projectService,
+                               DashboardPriorityService dashboardPriorityService, DashboardStatusService dashboardStatusService) {
         this.userService = userService;
         this.dashboardService = dashboardService;
         this.taskService = taskService;
         this.emailService = emailService;
         this.projectService = projectService;
         this.dashboardPriorityService = dashboardPriorityService;
+        this.dashboardStatusService = dashboardStatusService;
     }
 
     @RequestMapping(path = "project/{projectId}/dashboard-creation", method = RequestMethod.GET)
@@ -74,17 +81,17 @@ public class DashboardController{
         view.addObject("qualification", currentUser.getQualification());
 
         if (result.hasErrors()) {
-            view.setViewName("project/"+ dashboardDTO.getProject() + "/dashboard-creation");
+            view.setViewName("project/" + dashboardDTO.getProject() + "/dashboard-creation");
             return view;
         }
-        view.setViewName("redirect:/project/"+ dashboardDTO.getProject() + "/allDashboards");
+        view.setViewName("redirect:/project/" + dashboardDTO.getProject() + "/allDashboards");
         dashboardService.createDashboard(dashboardDTO);
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(userService.findUserById(dashboardDTO.getReporter()).getUserContact().getWorkEmail());
         simpleMailMessage.setSubject(DASHBOARD_CREATION_NOTIFICATION);
-        simpleMailMessage.setText("Dear user, be informed that you was assigned as reporter to \" " + dashboardDTO.getDashboardName() + " \" dashboard.\n"+
-        "Your task is : " + dashboardDTO.getDescription()+".\n"+
-        "It should be finished due to - " + dashboardDTO.getDueDate());
+        simpleMailMessage.setText("Dear user, be informed that you was assigned as reporter to \" " + dashboardDTO.getDashboardName() + " \" dashboard.\n" +
+                "Your task is : " + dashboardDTO.getDescription() + ".\n" +
+                "It should be finished due to - " + dashboardDTO.getDueDate());
         simpleMailMessage.setFrom(Constants.from_email);
         emailService.sendEmail(simpleMailMessage);
         return view;
@@ -104,18 +111,32 @@ public class DashboardController{
         return view;
     }
 
-    @RequestMapping(value = "project/{projectId}/dashboard/{dashboardId}", method = RequestMethod.GET)
-    public ModelAndView getProject(@PathVariable("dashboardId") long dashboardId) {
+    @RequestMapping(value = "/dashboard/{dashboardId}", method = RequestMethod.GET)
+    public ModelAndView getProject(@PathVariable("dashboardId") long dashboardId,
+                                   @Valid @ModelAttribute("dashboardDTO") DashboardDTO dashboardDTO,
+                                   BindingResult result) {
         ModelAndView view = new ModelAndView("dashboard");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         view.addObject("currentUser", currentUser);
         view.addObject("position", currentUser.getPosition());
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
+
         Dashboard dashboard = dashboardService.findByDashboardById(dashboardId);
         view.addObject("dashboard", dashboard);
         List<Task> taskList = taskService.getAllDashboardTasks(dashboardId);
         view.addObject("taskList", taskList);
+        view.addObject("dashboardPriorities", dashboardPriorityService.getAllDashboardPriorities());
+        view.addObject("dashboardStatuses", dashboardStatusService.getAllDashboardStatuses());
+        view.addObject("dasProject", dashboard.getProject());
+        Date today = new Date();
+        LocalDate date = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        view.addObject("currentDate", date.toString());
+
+        List<User> userList = userService.getAllUsers(currentUser.getProject().getProjectId());
+        view.addObject("userList", userList);
+        view.addObject("userDTO", new UserDTO());
+        view.addObject("dashboardDTO", new DashboardDTO());
         return view;
     }
 

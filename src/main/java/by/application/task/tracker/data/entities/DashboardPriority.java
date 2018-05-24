@@ -10,10 +10,10 @@ public class DashboardPriority {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "priority_id", length = 5, nullable = false)
-    private Long priorityId;
+    public Long priorityId;
 
     @Column(name = "priority_name")
-    private String priorityName;
+    public String priorityName;
 
     @OneToMany(mappedBy = "priority", fetch = FetchType.LAZY)
     private List<Dashboard> dashboardList;

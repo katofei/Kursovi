@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -64,46 +64,69 @@
             </div>
         </nav>
     </header>
-    <aside class="main-sidebar">
-        <section class="sidebar">
-            <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">MAIN NAVIGATION</li>
-                <li>
-                    <a th:href="@{/homePage}">
-                        <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span>
-                        <span class="pull-right-container"></span>
-                    </a>
-                </li>
-                <li class="treeview">
-                    <a>
-                        <i class="fa fa-dashboard"></i>
-                        <span>Manage users</span>
-                        <span class="pull-right-container">
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li>
+                        <a th:href="@{/homePage}">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                            <span class="pull-right-container"></span>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a>
+                            <i class="fa fa-dashboard"></i>
+                            <span>Manage users</span>
+                            <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right-container"></i>
                     </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a th:href="@{/registration}"><i class="fa fa-circle-o"></i>Register new</a></li>
-                        <li><a th:href="@{/allUsers}"><i class="fa fa-circle-o"></i>View all</a></li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a>
-                        <i class="fa fa-dashboard"></i>
-                        <span>Manage projects</span>
-                        <span class="pull-right-container">
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a th:href="@{/registration}"><i class="fa fa-circle-o"></i>Register new</a></li>
+                            <li><a th:href="@{/allUsers}"><i class="fa fa-circle-o"></i>View all</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a>
+                            <i class="fa fa-dashboard"></i>
+                            <span>Manage projects</span>
+                            <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right-container"></i>
                         </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a th:href="@{/project-creation}"><i class="fa fa-circle-o"></i>Create new</a></li>
-                        <li><a th:href="@{/allProjects}"><i class="fa fa-circle-o"></i>View all</a></li>
-                    </ul>
-                </li>
-            </ul>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a th:href="@{/project-creation}"><i class="fa fa-circle-o"></i>Create new</a></li>
+                            <li><a th:href="@{/allProjects}"><i class="fa fa-circle-o"></i>View all</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+    </div>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                Admin start page
+            </h1>
         </section>
-    </aside>
+
+        <section class="content">
+            <div class="col-md-9">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <i class="fa fa-text-width"></i>
+                        <div class="box box-primary">
+                            <div class="box-body box-profile">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+         </div>
 </div>
 
 </body>

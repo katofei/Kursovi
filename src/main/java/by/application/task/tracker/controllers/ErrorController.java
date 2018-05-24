@@ -1,3 +1,4 @@
+/*
 package by.application.task.tracker.controllers;
 
 import by.application.task.tracker.data.entities.User;
@@ -84,4 +85,4 @@ public class ErrorController {
     private int getErrorCode(HttpServletRequest httpRequest) {
         return (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
     }
-}
+}*/

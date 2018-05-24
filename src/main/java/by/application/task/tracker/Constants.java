@@ -11,11 +11,13 @@ public interface Constants {
     /*      User roles    */
     String USER_ROLE = "USER";
     String ADMIN_ROLE = "ADMIN";
+    String TEAM_LEAD_ROLE = "TEAM_LEAD";
+    String ACCOUNTANT_ROLE = "ACCOUNTANT";
 
     /*      Project roles    */
-    public static final String TEAM_LEAD = "Team lead";
-    public static final String ACCOUNTANT = "Accountant";
-    public static final String PROJECT_MANAGER = "Project manager";
+    String TEAM_LEAD = "Team lead";
+    String ACCOUNTANT = "Accountant";
+    String PROJECT_MANAGER = "Project manager";
 
 
     /*      Dashboard statuses    */

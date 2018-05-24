@@ -33,67 +33,171 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
+    <header class="main-header">
+        <a href="#" class="logo">
+            <span class="logo-lg"><b>Task</b>Tracker</span>
+        </a>
 
-       <div class="content-wrapper">
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"></a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="/dist/img/user2-160x160.jpg" class="user-image"/>
+                            <span class="hidden-xs"
+                                  th:text="${currentUser.userName}+' '+${currentUser.userSurname}"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                <img src="/dist/img/user2-160x160.jpg" class="img-circle"/>
+                                <p th:text="${currentUser.userName}+' '+${currentUser.userSurname}"></p>
+                                <p th:text="${qualification.qualificationName}+' '+${position.positionName}"></p>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}'|"
+                                       class="btn btn-default btn-flat">My profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a th:href="@{/logout}" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">MAIN NAVIGATION</li>
+                <li>
+                    <a th:onclick="|window.location.href='/project/${currentUser.project.projectId}'|">
+                        <i class="fa fa-share"></i> <span>My Project</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-team'|">
+                        <i class="fa fa-share"></i> <span>My team</span>
+                    </a>
+                </li>
+                <!-- todo:  add  dashboards somewhere-->
+                <li class="treeview">
+                    <a>
+                        <i class="fa fa-table"></i> <span>Dashboards</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a th:onclick="|window.location.href='/project/${currentUser.project.projectId}/dashboard-creation'|">
+                                <i class="fa fa-share"></i> <span>Create new</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:onclick="|window.location.href='/project/${currentUser.project.projectId}/allDashboards'|">
+                                <i class="fa fa-share"></i> <span>View all</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a>
+                        <i class="fa fa-share"></i> <span>Manage tasks</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/task-creation'|">
+                                <i class="fa fa-share"></i> <span>Create new</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/my-tasks'|">
+                                <i class="fa fa-share"></i> <span>My tasks</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a>
+                        <i class="fa fa-table"></i> <span>Statistics</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a th:onclick="|window.location.href='/profile/${currentUser.userId}/user-statistics'|">
+                                <i class="fa fa-share"></i> <span>My statistics</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
+    <div class="content-wrapper">
         <section class="content-header">
             <h3>
                 Team statistics
             </h3>
             <div class="box-body table-responsive no-padding">
-                <table width="70%">
+                <table id="example1" class="table table-hover"  width="90%">
                     <caption>Tasks</caption>
                     <htead>
                         <tr>
-                            <td style="width:90px; height: 24px; text-align: center;"><strong>User</strong></td>
-                            <td style="width:90px; height: 24px; text-align: center;">Implemented</td>
-                            <td style="width:90px; height: 24px; text-align: center;">Additional info required</td>
-                            <td style="width:90px; height: 24px; text-align: center;">Ready for testing</td>
-                            <td style="width:90px; height: 24px; text-align: center;">Reopened</td>
-                            <td style="width:90px; height: 24px; text-align: center;">Closed</td>
-                            <td style="width:90px; height: 24px; text-align: center;">Open</td>
+                            <th style="width:150px; height: 30px; text-align: center;"><strong>User</strong></th>
+                            <th style="width:90px; height: 30px; text-align: center;">Implemented</th>
+                            <th style="width:90px; height: 30px; text-align: center;">Additional info required</th>
+                            <th style="width:90px; height: 30px; text-align: center;">Ready for testing</th>
+                            <th style="width:90px; height: 30px; text-align: center;">Reopened</th>
+                            <th style="width:90px; height: 30px; text-align: center;">Closed</th>
+                            <th style="width:90px; height: 30px; text-align: center;">Open</th>
                         </tr>
                     </htead>
                     <tbody>
-                    <tr>
-                        <td style="width:90px; height: 31.2674px;"></td>
-                        <td style="width:90px; height: 31.2674px;"></td>
-                        <td style="width:90px; height: 31.2674px;"></td>
-                        <td style="width:90px; height: 31.2674px;"></td>
-                        <td style="width:90px; height: 31.2674px;"></td>
-                        <td style="width:90px; height: 31.2674px;"></td>
-                        <td style="width:90px; height: 31.2674px;"></td>
+                    <tr th:each="user:${userList}">
+                        <td th:text="${user.userName}+' '+ ${user.userSurname}"
+                            style="width:150px; height: 30px;"></td>
+                        <td th:text="${implementedCount}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${addInfoCount}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${readyCount}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${reopen}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${closed}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${open}" style="text-align: center; width:90px; height: 30px;"></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
+            <p style="height: 30px"></p>
 
             <div class="box-body table-responsive no-padding">
-                <table width="70%">
+                <table id="example1" class="table table-hover" width="90%">
                     <caption>Dashboards</caption>
                     <htead>
                         <tr>
-                            <td style="width:90px; height: 24px; text-align: center;"><strong>User</strong></td>
-                            <td style="width:90px; height: 24px; text-align: center;">On hold</td>
-                            <td style="width:90px; height: 24px; text-align: center;">In analysis</td>
-                            <td style="width:90px; height: 24px; text-align: center;">In qa</td>
-                            <td style="width:90px; height: 24px; text-align: center;">In build</td>
-                            <td style="width:90px; height: 24px; text-align: center;">In design</td>
-                            <td style="width:90px; height: 24px; text-align: center;">Open</td>
-                            <td style="width:90px; height: 24px; text-align: center;">Reopened</td>
-                            <td style="width:90px; height: 24px; text-align: center;">Implemented</td>
+                            <th style="width:150px; height: 30px; text-align: center;"><strong>User</strong></th>
+                            <th style="width:90px; height: 30px; text-align: center;">On hold</th>
+                            <th style="width:90px; height: 30px; text-align: center;">In analysis</th>
+                            <th style="width:90px; height: 30px; text-align: center;">In qa</th>
+                            <th style="width:90px; height: 30px; text-align: center;">In build</th>
+                            <th style="width:90px; height: 30px; text-align: center;">In design</th>
+                            <th style="width:90px; height: 30px; text-align: center;">Open</th>
+                            <th style="width:90px; height: 30px; text-align: center;">Reopened</th>
+                            <th style="width:90px; height: 30px; text-align: center;">Implemented</th>
                         </tr>
                     </htead>
                     <tbody>
-                    <tr>
-                        <td style="width:90px; height: 31.2674px;"></td>
-                        <td style="width:90px; height: 31.2674px;"></td>
-                        <td style="width:90px; height: 31.2674px;"></td>
-                        <td style="width:90px; height: 31.2674px;"></td>
-                        <td style="width:90px; height: 31.2674px;"></td>
-                        <td style="width:90px; height: 31.2674px;"></td>
-                        <td style="width:90px; height: 31.2674px;"></td>
-                        <td style="width:90px; height: 31.2674px;"></td>
-                        <td style="width:90px; height: 31.2674px;"></td>
+                    <tr th:each="user:${userList}">
+                        <td th:text="${user.userName}+' '+ ${user.userSurname}" style="width:150px; height: 31.2674px;"></td>
+                        <td th:text="${donHoldCount}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${dinAnalysesCount}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${dinQACount}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${dinBuildCount}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${dinDesign}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${dopen}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${dreopen}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${dimplementedCount}" style="text-align: center; width:90px; height: 30px;"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -102,5 +206,19 @@
     </div>
 </div>
 
+
+
+<script>
+    $(function () {
+        $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": false,
+            "autoWidth": true
+        });
+    });
+</script>
 </body>
 </html>

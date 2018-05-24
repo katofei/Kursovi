@@ -25,10 +25,12 @@
     <script th:src="@{/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
     <script th:src="@{/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
     <script th:src="@{plugins/iCheck/icheck.min.js}"></script>
+
+    <script th:src="@{/pashaJs/assignToProjectUser.js}"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
-<form role="form" id="assignUserToProjectForm" th:action="@{/assign-user}" th:object="${userDTO}" method="post">
+<form role="form" id="assignUserToProjectForm" th:action="@{/user-assign}" th:object="${userDTO}" method="post">
     <div th:fragment="confirm">
         <div id="assignUserToProject" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -39,7 +41,7 @@
                         <h4 class="modal-title">Log time</h4>
                     </div>
                     <div class="modal-body">
-                        <label>Time spent, h</label>
+                        <label>Choose project</label>
                         <select id="project" th:field="*{project}" class="form-control select2" style="width: 100%;">
                             <option th:each="project:${projectList}"
                                     th:value="${project.projectId}"
@@ -179,64 +181,91 @@
                                     <tr th:each="user:${userList}">
                                         <th th:text="${user.userName}" style="font-weight: normal"></th>
                                         <th th:text="${user.userSurname}" style="font-weight: normal"></th>
-                                        <th th:text="${user.project.projectName}" style="font-weight: normal"></th>
-                                        <th th:text="${user.qualification.qualificationName}+' '+${user.position.positionName}"
-                                            style="font-weight: normal"></th>
-                                        <th style="font-weight: normal"
-                                            th:text="${user.projectRole.projectRoleName}"></th>
-                                            <th th:text="${user.userStatus.statusName}"
-                                                style="font-weight: normal"></th>
-                                            <th width="100">
-                                                <button type="button" class="btn btn-primary btn-md"
-                                                        th:onclick="|window.location.href='/user-assign/${user.userId}'|">
-                                                    <span class="glyphicon glyphicon-pencil"></span>
-                                                    <span>Assign user</span>
-                                                </button>
-                                            </th>
-                                            <th width="100">
-                                                <button type="button" class="btn btn-primary btn-md"
-                                                        th:onclick="|window.location.href='/user-edition/${user.userId}'|">
-                                                    <span class="glyphicon glyphicon-pencil"></span>
-                                                    <span>Edit</span>
-                                                </button>
-                                            </th>
-                                            <th width="120">
-                                                <a href="#myModal" class="btn btn-primary btn-md " data-toggle="modal">
-                                                    <span class="glyphicon glyphicon-trash"></span>
-                                                    <span>Delete</span>
-                                                </a>
-                                                <div id="myModal" class="modal fade">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                        aria-hidden="true">×
-                                                                </button>
-                                                                <h4 class="modal-title">Confirm you action</h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                Do you want delete user?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default"
-                                                                        data-dismiss="modal">Close
-                                                                </button>
-                                                                <button type="button" class="btn btn-primary"
-                                                                        th:onclick="|window.location.href='/user-deletion/${user.userId}'|">
-                                                                    Save changes
-                                                                </button>
-                                                            </div>
+
+                                        <div th:if="${user.project != null}">
+                                            <th th:text="${user.project.projectName}" style="font-weight: normal"></th>
+                                        </div>
+                                        <div th:unless="${user.project != null}">
+                                            <th/>
+                                        </div>
+
+                                        <div th:if="${user.qualification != null}">
+                                            <th style="font-weight: normal" th:text="${user.qualification.qualificationName}+'
+                                            '+${user.position.positionName}"></th>
+                                        </div>
+                                        <div th:unless="${user.qualification != null}">
+                                            <th/>
+                                        </div>
+
+                                        <div th:if="${user.projectRole != null}">
+                                            <th style="font-weight: normal"
+                                                th:text="${user.projectRole.projectRoleName}"></th>
+                                        </div>
+                                        <div th:unless="${user.projectRole != null}">
+                                            <th/>
+                                        </div>
+
+                                        <div th:if="${user.userStatus != null}">
+                                            <th style="font-weight: normal"
+                                                th:text="${user.userStatus.statusName}"></th>
+                                        </div>
+                                        <div th:unless="${user.userStatus != null}">
+                                            <th/>
+                                        </div>
+
+                                        <th width="100">
+                                            <button th:id="${user.userId}"
+                                                    onclick="createSelectedClass(this)" data-toggle="modal"
+                                                    data-target="#assignUserToProject"
+                                                    type="button" class="btn btn-primary btn-md">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                                <span>Assign user</span>
+                                            </button>
+                                        </th>
+                                        <th width="100">
+                                            <button type="button" class="btn btn-primary btn-md"
+                                                    th:onclick="|window.location.href='/user-edition/${user.userId}'|">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                                <span>Edit</span>
+                                            </button>
+                                        </th>
+                                        <th width="120">
+                                            <a href="#myModal" class="btn btn-primary btn-md " data-toggle="modal">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                                <span>Delete</span>
+                                            </a>
+                                            <div id="myModal" class="modal fade">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-hidden="true">×
+                                                            </button>
+                                                            <h4 class="modal-title">Confirm you action</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Do you want delete user?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">Close
+                                                            </button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                    th:onclick="|window.location.href='/user-deletion/${user.userId}'|">
+                                                                Save changes
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </th>
-                                            <th width="100">
-                                                <button type="button" class="btn btn-primary btn-md"
-                                                        th:onclick="|window.location.href='/profile/${user.userId}'|">
-                                                    <span class="glyphicon glyphicon-info-sign"></span>
-                                                    <span>Info</span>
-                                                </button>
-                                            </th>
+                                            </div>
+                                        </th>
+                                        <th width="100">
+                                            <button type="button" class="btn btn-primary btn-md"
+                                                    th:onclick="|window.location.href='/profile/${user.userId}'|">
+                                                <span class="glyphicon glyphicon-info-sign"></span>
+                                                <span>Info</span>
+                                            </button>
+                                        </th>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -261,8 +290,12 @@
             "autoWidth": true
         });
     });
+</script>
 
-
+<script>
+    function createSelectedClass(elem) {
+        elem.classList.add('selected');
+    }
 </script>
 </body>
 </html>

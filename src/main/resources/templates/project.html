@@ -65,6 +65,7 @@
             </div>
         </nav>
     </header>
+
     <div sec:authorize="hasRole('ROLE_ADMIN')">
         <aside class="main-sidebar">
             <section class="sidebar">
@@ -107,6 +108,7 @@
             </section>
         </aside>
     </div>
+
     <div sec:authorize="hasRole('ROLE_USER')">
         <aside class="main-sidebar">
             <section class="sidebar">
@@ -176,6 +178,7 @@
             </section>
         </aside>
     </div>
+
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
@@ -291,107 +294,107 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    <tr style="height: 208px;">
-                                        <td style="width: 710px; height: 208px;" colspan="2">
-                                            <table style="height: 209px;" width="673">
-                                                <tbody>
-                                                <tr style="height: 23.75px;">
-                                                    <td style="width: 663px; height: 30px;">People</td>
-                                                </tr>
-                                                <tr style="height: 96px;">
-                                                    <td style="width: 663px; height: 96px;">&nbsp;
-                                                        <div class="box-body table-responsive no-padding">
-                                                            <table id="example1" class="table table-hover">
-                                                                <thead>
-                                                                <tr>
-                                                                    <th>Name</th>
-                                                                    <th>Surname</th>
-                                                                    <th>Post</th>
-                                                                    <th>Location</th>
-                                                                    <th></th>
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                <tr th:each="user:${userList}">
-                                                                    <th th:text="${user.userName}"
-                                                                        style="font-weight: normal"></th>
-                                                                    <th th:text="${user.userSurname}"
-                                                                        style="font-weight: normal"></th>
-                                                                    <th th:text="${user.qualification.qualificationName}+' '+${user.position.positionName}"
-                                                                        style="font-weight: normal"></th>
-                                                                    <th th:text="${user.userContact.countryName}+', '+${user.userContact.cityName}"
-                                                                        style="font-weight: normal"></th>
-                                                                    <th width="100">
-                                                                        <form th:action="@{/profile/{id}(id=${user.userId})}" method="GET">
-                                                                            <button type="submit"
-                                                                                    class="btn btn-primary btn-md">
+                                    <div th:if="${!userList.isEmpty() and userList != null}">
+                                        <tr style="height: 208px;">
+                                            <td style="width: 710px; height: 208px;" colspan="2">
+                                                <table style="height: 209px;" width="673">
+                                                    <tbody>
+                                                    <tr style="height: 23.75px;">
+                                                        <td style="width: 663px; height: 30px;">People</td>
+                                                    </tr>
+                                                    <tr style="height: 96px;">
+                                                        <td style="width: 663px; height: 96px;">&nbsp;
+                                                            <div class="box-body table-responsive no-padding">
+                                                                <table id="example1" class="table table-hover">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>Name</th>
+                                                                        <th>Surname</th>
+                                                                        <th>Post</th>
+                                                                        <th>Location</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr th:each="user:${userList}">
+                                                                        <th th:text="${user.userName}"
+                                                                            style="font-weight: normal"></th>
+                                                                        <th th:text="${user.userSurname}"
+                                                                            style="font-weight: normal"></th>
+                                                                        <th th:text="${user.qualification.qualificationName}+' '+${user.position.positionName}"
+                                                                            style="font-weight: normal"></th>
+                                                                        <th th:text="${user.userContact.countryName}+', '+${user.userContact.cityName}"
+                                                                            style="font-weight: normal"></th>
+                                                                        <th width="100">
+                                                                            <button type="button" class="btn btn-primary btn-md"
+                                                                                    th:onclick="|window.location.href='/profile/${user.userId}'|">
                                                                                 <span class="glyphicon glyphicon-info-sign"></span>
                                                                                 <span>Info</span>
                                                                             </button>
-                                                                        </form>
-                                                                    </th>
-                                                                </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 710px; height: 208px;" colspan="2">
-                                            <table style="height: 209px;" width="673">
-                                                <tbody>
-                                                <tr style="height: 23.75px;">
-                                                    <td style="width: 663px; height: 30px;">Dashboards</td>
-                                                </tr>
-                                                <tr style="height: 96px;">
-                                                    <td style="width: 663px; height: 96px;">&nbsp;
-                                                        <div class="box-body table-responsive no-padding">
-                                                            <table id="example1" class="table table-hover">
-                                                                <thead>
-                                                                <tr>
-                                                                    <th>№</th>
-                                                                    <th>Name</th>
-                                                                    <th>Priority</th>
-                                                                    <th>Status</th>
-                                                                    <th>Reporter</th>
-                                                                    <th></th>
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                <tr th:each="dashboard:${dashboardList}">
-                                                                    <th th:text="${dashboard.dashboardId}"
-                                                                        style="font-weight: normal"></th>
-                                                                    <th th:text="${dashboard.dashboardName}"
-                                                                        style="font-weight: normal"></th>
-                                                                    <th th:text="${dashboard.status.statusName}"
-                                                                        style="font-weight: normal"></th>
-                                                                    <th th:text="${dashboard.priority.priorityName}"
-                                                                        style="font-weight: normal"></th>
-                                                                    <th></th>
-                                                                    <th width="100">
-                                                                      <form method="GET" th:action="@{/dashboard/{id}(id=${dashboard.dashboardId})}">
-                                                                          <button type="submit"
-                                                                                  class="btn btn-primary btn-md">
-                                                                              <span class="glyphicon glyphicon-info-sign"></span>
-                                                                              <span>Info</span>
-                                                                          </button>
-                                                                      </form>
-                                                                    </th>
-                                                                </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                                                        </th>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </div>
+                                    <div th:if="${!dashboardList.isEmpty() and dashboardList!= null}">
+                                        <tr>
+                                            <td style="width: 710px; height: 208px;" colspan="2">
+                                                <table style="height: 209px;" width="673">
+                                                    <tbody>
+                                                    <tr style="height: 23.75px;">
+                                                        <td style="width: 663px; height: 30px;">Dashboards</td>
+                                                    </tr>
+                                                    <tr style="height: 96px;">
+                                                        <td style="width: 663px; height: 96px;">&nbsp;
+                                                            <div class="box-body table-responsive no-padding">
+                                                                <table id="example1" class="table table-hover">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>№</th>
+                                                                        <th>Name</th>
+                                                                        <th>Priority</th>
+                                                                        <th>Status</th>
+                                                                        <th>Reporter</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr th:each="dashboard:${dashboardList}">
+                                                                        <th th:text="${dashboard.dashboardId}"
+                                                                            style="font-weight: normal"></th>
+                                                                        <th th:text="${dashboard.dashboardName}"
+                                                                            style="font-weight: normal"></th>
+                                                                        <th th:text="${dashboard.status.statusName}"
+                                                                            style="font-weight: normal"></th>
+                                                                        <th th:text="${dashboard.priority.priorityName}"
+                                                                            style="font-weight: normal"></th>
+                                                                        <th></th>
+                                                                        <th width="100">
+                                                                            <button type="button" class="btn btn-primary btn-md"
+                                                                                    th:onclick="|window.location.href='/dashboard/${dashboard.dashboardId}'|">
+                                                                                <span class="glyphicon glyphicon-info-sign"></span>
+                                                                                <span>Info</span>
+                                                                            </button>
+                                                                        </th>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
 
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                    </div>
                                     </tbody>
                                 </table>
                                 <p>&nbsp;</p>

@@ -1,13 +1,31 @@
 package by.application.task.tracker.data.dto;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Date;
 
 public class UserDTO implements Serializable {
 
     public UserDTO() {}
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Date getEstimationDate() {
+        return estimationDate;
+    }
+
+    public void setEstimationDate(Date estimationDate) {
+        this.estimationDate = estimationDate;
+    }
+
+    private long id;
+    private Date estimationDate;
 
     private String userName;
     private String userSurname;
