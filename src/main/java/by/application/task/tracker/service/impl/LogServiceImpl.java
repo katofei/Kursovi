@@ -42,7 +42,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public UserLog logTime(LogDTO logDTO, long id) {
+    public void logTime(LogDTO logDTO, long id) {
         UserLog userLog = new UserLog(logDTO);
         userLog.setExecutor(userRepository.findOne(logDTO.getExecutor()));
         userLog.setLogDate(dataConverterService.generateTodayStringDay());
@@ -62,6 +62,6 @@ public class LogServiceImpl implements LogService {
             dashboard.setEstimation(dashboard.getEstimation() - logDTO.getTimeSpent());
         }
         dashboardRepository.save(dashboard);
-        return logRepository.save(userLog);
+        logRepository.save(userLog);
     }
 }

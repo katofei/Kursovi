@@ -5,5 +5,5 @@ import by.application.task.tracker.data.entities.UserLog;
 
 public interface LogService {
     UserLog findByExecutorId(long userId);
-    UserLog logTime(LogDTO logDTO, long id);
+    void logTime(LogDTO logDTO, long id);
 }

@@ -463,18 +463,16 @@
                                     <strong>Description</strong></td>
                                 <td style="width: 471px; height: 33px;">&nbsp;</td>
                             </tr>
-                            <tr style="height: 184px;">
-                                <td style="width: 927px;height: 184px;vertical-align:top" colspan="2"
+                            <tr style="height: 70px;">
+                                <td style="width: 927px;height: 70px;vertical-align:top" colspan="2"
                                     th:text="${dashboard.description}">
                                     &nbsp;
                                 </td>
                             </tr>
                             <div th:if="${!taskList.isEmpty() and taskList!=null}" class="box">
-                                <div class="box-header">
-                                    <h3 class="box-title">All tasks</h3>
-                                </div>
                                 <div class="box-body table-responsive no-padding">
                                     <table id="example1" class="table table-hover">
+                                        <caption>Dashboard tasks</caption>
                                         <thead>
                                         <tr>
                                             <th>№</th>
@@ -527,10 +525,11 @@
                                                                 <button type="button" class="btn btn-default"
                                                                         data-dismiss="modal">Close
                                                                 </button>
-                                                                <button type="button" class="btn btn-primary"
-                                                                        th:onclick="|window.location.href='/task-deletion/${task.id}'|">
-                                                                    Save changes
-                                                                </button>
+                                                                <form method="get" th:action="@{/task-deletion/{id}(id=${task.id})}">
+                                                                    <button type="submit" class="btn btn-primary">
+                                                                        Save changes
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>

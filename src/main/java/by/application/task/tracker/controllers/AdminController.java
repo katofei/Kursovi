@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,21 +46,6 @@ public class AdminController {
         return view;
     }
 
-
-    @RequestMapping(path = "assign/{userId}", method = RequestMethod.POST)
-    public ModelAndView assignUser(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, @PathVariable("userId") long userId) {
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        User userForAssign = userService.findUserById(userId);
-        ModelAndView view = new ModelAndView("userAssign");
-        /* getCurrentUser(userService, view);*/
-        if (result.hasErrors()) {
-            view.setViewName("userAssign");
-            return view;
-        }
-        view.setViewName("redirect:project/{id}/profile/{userId}");
-        return view;
-    }
-
     @RequestMapping(path = "/allUsers", method = RequestMethod.GET)
     public ModelAndView getAllUsers(@Valid @ModelAttribute("userDTO") UserDTO userDTO, BindingResult result) {
         ModelAndView view = new ModelAndView("allUsersPage");
@@ -77,8 +61,4 @@ public class AdminController {
         return view;
     }
 
-    @RequestMapping(path = "/homePage", method = RequestMethod.GET)
-    public ModelAndView getHomePage() {
-        return new ModelAndView("homePage");
-    }
 }

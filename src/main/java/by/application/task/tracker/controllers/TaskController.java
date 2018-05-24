@@ -39,11 +39,13 @@ public class TaskController{
     private final ProjectService projectService;
     private final EmailService emailService;
     private final CommentRepository commentRepository;
+    private final DashboardService dashboardService;
 
     @Autowired
     public TaskController(CommentRepository commentRepository, ProjectService projectService,
                           UserService userService, TaskService taskService, TaskTypeService taskTypeService,
-                          TaskStatusService taskStatusService, TaskPriorityService taskPriorityService, EmailService emailService) {
+                          TaskStatusService taskStatusService, TaskPriorityService taskPriorityService,
+                          EmailService emailService, DashboardService dashboardService) {
         this.commentRepository = commentRepository;
         this.projectService = projectService;
         this.userService = userService;
@@ -52,9 +54,10 @@ public class TaskController{
         this.taskStatusService = taskStatusService;
         this.taskPriorityService = taskPriorityService;
         this.emailService = emailService;
+        this.dashboardService = dashboardService;
     }
 
-    @RequestMapping(path = "/dashboard/{id}/task-creation", method = RequestMethod.GET)
+    @RequestMapping(path = "/task-creation", method = RequestMethod.GET)
     public ModelAndView getTaskCreationPage() {
         ModelAndView view = new ModelAndView("taskCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -62,16 +65,20 @@ public class TaskController{
         view.addObject("position", currentUser.getPosition());
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
-        view.addObject("allUsers", userService.getAllUsers(currentUser.getProject().getProjectId()));
+
+        long projectId = currentUser.getProject().getProjectId();
+        view.addObject("allUsers", userService.getAllUsers(projectId));
         view.addObject("taskTypes", taskTypeService.getAllTaskTypes());
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
+        view.addObject("allDashboardsList", dashboardService.getAllProjectDashboards(projectId));
+
         TaskDTO taskForCreation = new TaskDTO();
         view.addObject("task", taskForCreation);
         return view;
     }
 
-    @RequestMapping(path = "/dashboard/{id}/task-creation", method = RequestMethod.POST)
+    @RequestMapping(path = "/task-creation", method = RequestMethod.POST)
     public ModelAndView createTask(@Valid @ModelAttribute("task") TaskDTO taskDTO, BindingResult result) {
         ModelAndView view = new ModelAndView("taskCreation");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -79,17 +86,20 @@ public class TaskController{
         view.addObject("position", currentUser.getPosition());
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
+
         view.addObject("allUsers", userService.getAllUsers(currentUser.getProject().getProjectId()));
         view.addObject("taskTypes", taskTypeService.getAllTaskTypes());
         view.addObject("taskPriorities", taskPriorityService.getAllTaskPriorities());
         view.addObject("taskStatuses", taskStatusService.getAllTaskStatuses());
+        view.addObject("allDashboardsList", dashboardService.getAllProjectDashboards(taskDTO.getProject()));
 
         if (result.hasErrors()) {
             view.setViewName("taskCreation");
             return view;
         }
-        view.setViewName("redirect:/dashboard/task/{id}");
+        view.setViewName("redirect:/dashboard/" + taskDTO.getDashboard());
         taskService.createTask(taskDTO);
+
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(userService.findUserById(taskDTO.getExecutor()).getUserContact().getWorkEmail());
         simpleMailMessage.setSubject(TASK_CREATION_NOTIFICATION);
@@ -97,23 +107,21 @@ public class TaskController{
                 + "You estimation date: " + taskDTO.getEstimation());
         simpleMailMessage.setFrom(Constants.from_email);
         emailService.sendEmail(simpleMailMessage);
+
+        SimpleMailMessage mailForReporter = new SimpleMailMessage();
+        mailForReporter.setTo(userService.findUserById(dashboardService.findByDashboardById(taskDTO.getDashboard())
+                .getReporter().getUserId()).getUserContact().getWorkEmail());
+        mailForReporter.setSubject(TASK_CREATION_NOTIFICATION);
+        mailForReporter.setText("Dear user, be informed that " + userService.findUserById(taskDTO.getCreator()).getUserName()  + " "+
+                userService.findUserById(taskDTO.getCreator()).getUserSurname()
+                + "created new task under your dashboard"
+                + dashboardService.findByDashboardById(taskDTO.getDashboard()).getDashboardName());
+        mailForReporter.setFrom(Constants.from_email);
+        emailService.sendEmail(mailForReporter);
         return view;
     }
 
-    @RequestMapping(path = "/dashboard/{id}/allTasks", method = RequestMethod.GET)
-    public ModelAndView getAllTasks(@PathVariable("id") long dashboardId) {
-        ModelAndView view = new ModelAndView("allTasksPage");
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition());
-        view.addObject("project", currentUser.getProject());
-        view.addObject("qualification", currentUser.getQualification());
-        List<Task> taskList = taskService.getAllDashboardTasks(dashboardId);
-        view.addObject("taskList", taskList);
-        return view;
-    }
-
-    @RequestMapping(path = "/dashboard/{id}/task/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/task/{id}", method = RequestMethod.GET)
     public ModelAndView getTaskPage(@PathVariable("id") long id) {
         ModelAndView view = new ModelAndView("task");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -123,7 +131,7 @@ public class TaskController{
         view.addObject("qualification", currentUser.getQualification());
         Task task = taskService.findTaskById(id);
         view.addObject("taskType", task.getTaskType());
-       // view.addObject("taskProject",task.getProject());
+       view.addObject("dashboard",task.getDashboard());
         view.addObject("taskPriority", task.getTaskPriority());
         view.addObject("taskStatus", task.getTaskStatus());
         view.addObject("creator", task.getCreator());
@@ -145,20 +153,15 @@ public class TaskController{
         return view;
     }
 
-    @RequestMapping(value = "/dashboard/{id}/task-deletion/{id}", method = RequestMethod.DELETE)
-    public ModelAndView deleteProject(@PathVariable("id") long taskId) {
-        ModelAndView view = new ModelAndView("task");
-        User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        view.addObject("currentUser", currentUser);
-        view.addObject("position", currentUser.getPosition());
-        view.addObject("project", currentUser.getProject());
-        view.addObject("qualification", currentUser.getQualification());
-       // projectService.deleteProject(taskId); WHATAFUCK!?!?!?!?!?
-        view.setViewName("redirect:/dashboard/allTasks");
-        return view;
+    @RequestMapping(value = "/task-deletion/{id}", method = RequestMethod.GET)
+    public String deleteProject(@PathVariable("id") long taskId) {
+        Task taskById = taskService.findTaskById(taskId);
+        long dashboardId = taskById.getDashboard().getDashboardId();
+        taskService.deleteTask(taskId);
+        return "redirect:/dashboard/" + dashboardId;
     }
 
-    @RequestMapping(value = "/dashboard/{id}/task-edition/{taskId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/task-edition/{taskId}", method = RequestMethod.GET)
     public ModelAndView getTaskEditionPage(@PathVariable("taskId") long taskId) {
         ModelAndView view = new ModelAndView("editTaskPage");
         User currentUser = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -176,7 +179,7 @@ public class TaskController{
         return view;
     }
 
-    @RequestMapping(value = "/dashboard/{id}/task-edition/{taskId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/task-edition/{taskId}", method = RequestMethod.POST)
     public ModelAndView editTask(@Valid @ModelAttribute("task") TaskDTO taskDTO, BindingResult result,
                                  @PathVariable("taskId") long taskId) {
         ModelAndView view = new ModelAndView("editTaskPage");
@@ -186,9 +189,10 @@ public class TaskController{
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
         view.addObject("project", currentUser.getProject());
+
         Task task = taskService.findTaskById(taskId);
         view.addObject("taskType", task.getTaskType());
-      //  view.addObject("taskProject",task.getProject());
+        view.addObject("dashboard",task.getDashboard());
         view.addObject("taskPriority", task.getTaskPriority());
         view.addObject("taskStatus", task.getTaskStatus());
         view.addObject("creator", task.getCreator());
@@ -204,7 +208,7 @@ public class TaskController{
             view.setViewName("taskCreation");
             return view;
         }
-        view.setViewName("redirect:/dashboard/allTasks");
+        view.setViewName("redirect:/dashboard/" + taskDTO.getDashboard());
         taskService.editTask(taskDTO, taskId );
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(userService.findUserById(taskDTO.getExecutor()).getUserContact().getWorkEmail());

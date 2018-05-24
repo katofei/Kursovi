@@ -1,6 +1,7 @@
 package by.application.task.tracker.controllers;
 
 import by.application.task.tracker.Constants;
+import by.application.task.tracker.data.dto.UserForTaskInfoDto;
 import by.application.task.tracker.data.entities.Dashboard;
 import by.application.task.tracker.data.entities.Task;
 import by.application.task.tracker.data.entities.User;
@@ -40,7 +41,6 @@ public class UserController {
     private final TaskService taskService;
     private final EmailService emailService;
     private final DashboardService dashboardService;
-
 
 
     @Autowired
@@ -214,65 +214,51 @@ public class UserController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-        //todo add logic for filtering and statistic
         List<User> userList = userService.getAllUsers().stream().filter(user -> currentUser.getProject() ==
                 user.getProject()).collect(Collectors.toList());
-        view.addObject("userList", userList);
-        userList.forEach(user -> {
+        List<UserForTaskInfoDto> userForTaskInfoDtos = userList.stream().map(user -> {
+            UserForTaskInfoDto userForTaskInfoDto = new UserForTaskInfoDto();
+
+            List<Dashboard> dashboardList = dashboardService.getAllUserDashboards(user.getUserId());
             List<Task> allUserTasks = taskService.getAllUserTasks(user.getUserId());
-            long implementedCount = allUserTasks.stream().
-                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.IMPLEMENTED)).count();
-            long addInfoCount = allUserTasks.stream().
-                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.NEED_INFO)).count();
-            long readyCount = allUserTasks.stream().
-                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.READY_FOR_TESTING)).count();
-            long reopen = allUserTasks.stream().
-                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.REOPENED)).count();
-            long closed = allUserTasks.stream().
-                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.CLOSED)).count();
-            long open = allUserTasks.stream().
-                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.OPEN)).count();
-            Map<String, Long> tasksCountMap = new HashMap<>();
-            tasksCountMap.put("implementedCount", implementedCount);
-            tasksCountMap.put("addInfoCount", addInfoCount);
-            tasksCountMap.put("readyCount", readyCount);
-            tasksCountMap.put("reopen", reopen);
-            tasksCountMap.put("closed", closed);
-            tasksCountMap.put("open", open);
-            view.addAllObjects(tasksCountMap);
-        });
 
-        userList.forEach(user -> {
-            List<Dashboard> dashboardList = dashboardService.getAllDashboards(user.getProject().getProjectId());
-            long onHoldCount = dashboardList.stream().
-                    filter(dashboard -> dashboard.getStatus().getStatusName().equals(Constants.ON_HOLD)).count();
-            long inAnalysesCount = dashboardList.stream().
-                    filter(task -> task.getStatus().getStatusName().equals(Constants.IN_ANALYSIS)).count();
-            long inQACount = dashboardList.stream().
-                    filter(task -> task.getStatus().getStatusName().equals(Constants.IN_QA)).count();
-            long inBuildCount = dashboardList.stream().
-                    filter(task -> task.getStatus().getStatusName().equals(Constants.IN_BUILD)).count();
-            long inDesign = dashboardList.stream().
-                    filter(task -> task.getStatus().getStatusName().equals(Constants.IN_DESIGN)).count();
-            long open = dashboardList.stream().
-                    filter(task -> task.getStatus().getStatusName().equals(Constants.OPEN)).count();
-            long implementedCount = dashboardList.stream().
-                    filter(task -> task.getStatus().getStatusName().equals(Constants.IMPLEMENTED)).count();
-            long reopen = dashboardList.stream().
-                    filter(task -> task.getStatus().getStatusName().equals(Constants.REOPENED)).count();
-            Map<String, Long> dashboardCountMap = new HashMap<>();
-            dashboardCountMap.put("donHoldCount", onHoldCount);
-            dashboardCountMap.put("dinAnalysesCount", inAnalysesCount);
-            dashboardCountMap.put("dinQACount", inQACount);
-            dashboardCountMap.put("dinBuildCount", inBuildCount);
-            dashboardCountMap.put("dinDesign", inDesign);
-            dashboardCountMap.put("dopen", open);
-            dashboardCountMap.put("dimplementedCount", implementedCount);
-            dashboardCountMap.put("dreopen", reopen);
-            view.addAllObjects(dashboardCountMap);
-        });
+            userForTaskInfoDto.setUserName(user.getUserName());
+            userForTaskInfoDto.setUserSurname(user.getUserSurname());
+            userForTaskInfoDto.setImplementedCount(allUserTasks.stream().
+                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.IMPLEMENTED)).count());
+            userForTaskInfoDto.setAddInfoCount(allUserTasks.stream().
+                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.NEED_INFO)).count());
+            userForTaskInfoDto.setReadyCount(allUserTasks.stream().
+                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.READY_FOR_TESTING)).count());
+            userForTaskInfoDto.setReopen(allUserTasks.stream().
+                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.REOPENED)).count());
+            userForTaskInfoDto.setClosed(allUserTasks.stream().
+                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.CLOSED)).count());
+            userForTaskInfoDto.setOpen(allUserTasks.stream().
+                    filter(task -> task.getTaskStatus().getStatusName().equals(Constants.OPEN)).count());
 
-        //get tasks of each user
+
+
+            userForTaskInfoDto.setDonHoldCount(dashboardList.stream().
+                    filter(dashboard -> dashboard.getStatus().getStatusName().equals(Constants.ON_HOLD)).count());
+            userForTaskInfoDto.setDinAnalysesCount(dashboardList.stream().
+                    filter(dashboard -> dashboard.getStatus().getStatusName().equals(Constants.IN_ANALYSIS)).count());
+            userForTaskInfoDto.setDinQACount(dashboardList.stream().
+                    filter(dashboard -> dashboard.getStatus().getStatusName().equals(Constants.IN_QA)).count());
+            userForTaskInfoDto.setDinBuildCount(dashboardList.stream().
+                    filter(dashboard -> dashboard.getStatus().getStatusName().equals(Constants.IN_BUILD)).count());
+            userForTaskInfoDto.setDinDesign(dashboardList.stream().
+                    filter(dashboard -> dashboard.getStatus().getStatusName().equals(Constants.IN_DESIGN)).count());
+            userForTaskInfoDto.setDopen(dashboardList.stream().
+                    filter(dashboard -> dashboard.getStatus().getStatusName().equals(Constants.OPEN)).count());
+            userForTaskInfoDto.setDimplementedCount(dashboardList.stream().
+                    filter(dashboard -> dashboard.getStatus().getStatusName().equals(Constants.IMPLEMENTED)).count());
+            userForTaskInfoDto.setDreopen(dashboardList.stream().
+                    filter(dashboard -> dashboard.getStatus().getStatusName().equals(Constants.REOPENED)).count());
+            return userForTaskInfoDto;
+        }).collect(Collectors.toList());
+
+        view.addObject("userForTaskInfoDtos",userForTaskInfoDtos);
         return view;
     }
 

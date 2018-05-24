@@ -99,7 +99,7 @@ public class ProjectController {
         view.addObject("project", project);
         view.addObject("projectContact", project.getProjectContact());
         List<User> userList= userService.getAllUsers(projectId);
-        List<Dashboard> dashboardList = dashboardService.getAllDashboards(projectId);
+        List<Dashboard> dashboardList = dashboardService.getAllProjectDashboards(projectId);
         view.addObject("userList", userList);
         view.addObject("dashboardList" , dashboardList);
         return view;

@@ -75,12 +75,10 @@ public class DashboardServiceImpl implements DashboardService {
         } else {
             dashboard.setEstimation(dashboardDTO.getEstimation());
         }
-        dashboard.setStatus(dashboardStatusService.findDashboardByStatusName("Open"));
-        dashboard.setPriority(dashboardPriorityService.findDashboardByPriorityId(dashboardDTO.getPriority()));
-        dashboard.setCreator(userService.findUserById(dashboardDTO.getCreator()));
-        dashboard.setReporter(userService.findUserById(dashboardDTO.getReporter()));
-        dashboard.setDescription(dashboardDTO.getDescription());
-        return null;
+        if (dashboardDTO.getDescription() != null) {
+            dashboard.setDescription(dashboardDTO.getDescription());
+        }
+        return dashboardRepository.save(dashboard);
     }
 
     @Override
@@ -89,12 +87,22 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public List<Dashboard> getAllDashboards(long projectId) {
+    public List<Dashboard> getAllProjectDashboards(long projectId) {
         List<Dashboard> dashboards = new ArrayList<>();
         dashboardRepository.findAll().forEach(dashboard -> {
             if (dashboard.getProject() == projectService.findByProjectId(projectId)) {
                 dashboards.add(dashboard);
             }
+        });
+        return dashboards;
+    }
+
+    @Override
+    public List<Dashboard> getAllUserDashboards(long userId) {
+        List<Dashboard> dashboards = new ArrayList<>();
+        dashboardRepository.findAll().forEach(dashboard -> {
+            if (dashboard.getReporter() == userService.findUserById(userId))
+                dashboards.add(dashboard);
         });
         return dashboards;
     }
@@ -137,7 +145,7 @@ public class DashboardServiceImpl implements DashboardService {
         Dashboard dashboard = dashboardRepository.findOne(id);
         dashboard.setTimeSpent(taskDTO.getTimeSpent());
         dashboard.setUpdated(dataConverterService.generateTodayStringDay());
-        if(dashboard.getEstimation() != 0.0){
+        if (dashboard.getEstimation() != 0.0) {
             dashboard.setEstimation(dashboard.getEstimation() - taskDTO.getTimeSpent());
         }
         return dashboardRepository.save(dashboard);

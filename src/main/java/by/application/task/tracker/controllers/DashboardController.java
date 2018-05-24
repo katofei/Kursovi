@@ -106,7 +106,7 @@ public class DashboardController {
         view.addObject("project", currentUser.getProject());
         view.addObject("qualification", currentUser.getQualification());
 
-        List<Dashboard> dashboards = dashboardService.getAllDashboards(projectId);
+        List<Dashboard> dashboards = dashboardService.getAllProjectDashboards(projectId);
         view.addObject("dashboardList", dashboards);
         return view;
     }

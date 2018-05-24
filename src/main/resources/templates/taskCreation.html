@@ -138,7 +138,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Task creation</h3>
                     </div>
-                    <form role="form" th:action="@{/profile/task-creation/{id}(id=${currentUser.userId})}" th:object="${task}" method="post">
+                    <form role="form" th:action="@{/task-creation}" th:object="${task}" method="post">
                         <div class="box-body">
                             <div class="form-group has-feedback">
                                 <label>Task name</label>
@@ -168,6 +168,15 @@
                                     <option th:each="executor:${allUsers}"
                                             th:value="${executor.userId}"
                                             th:text="${executor.userName}+' '+${executor.userSurname}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label>Dashboard</label>
+                                <select th:field="*{dashboard}" class="form-control select2" style="width: 100%;">
+                                    <option th:each="dashboard:${allDashboardsList}"
+                                            th:value="${dashboard.dashboardId}"
+                                            th:text="${dashboard.dashboardName}">
                                     </option>
                                 </select>
                             </div>
@@ -204,7 +213,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input type="date" th:field="*{estimation}" class="form-control pull-right"
+                                        <input type="date" th:field="*{dueDate}" class="form-control pull-right"
                                                id="datepicker"/>
                                     </div>
                                 </div>
@@ -212,10 +221,8 @@
                             <div class="form-group has-feedback">
                                 <div class="form-group">
                                     <label>Estimation:</label>
-                                    <div class="input-group date">
-                                        <input type="date" th:field="*{estimation}" class="form-control pull-right"
+                                        <input type="text" th:field="*{estimation}" class="form-control pull-right"
                                                placeholder="Enter estimation ..."/>
-                                    </div>
                                 </div>
                             </div>
                             <div class="box-footer">

@@ -156,15 +156,15 @@
                         </tr>
                     </htead>
                     <tbody>
-                    <tr th:each="user:${userList}">
+                    <tr th:each="user:${userForTaskInfoDtos}">
                         <td th:text="${user.userName}+' '+ ${user.userSurname}"
                             style="width:150px; height: 30px;"></td>
-                        <td th:text="${implementedCount}" style="text-align: center; width:90px; height: 30px;"></td>
-                        <td th:text="${addInfoCount}" style="text-align: center; width:90px; height: 30px;"></td>
-                        <td th:text="${readyCount}" style="text-align: center; width:90px; height: 30px;"></td>
-                        <td th:text="${reopen}" style="text-align: center; width:90px; height: 30px;"></td>
-                        <td th:text="${closed}" style="text-align: center; width:90px; height: 30px;"></td>
-                        <td th:text="${open}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${user.implementedCount}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${user.addInfoCount}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${user.readyCount}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${user.reopen}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${user.closed}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${user.open}" style="text-align: center; width:90px; height: 30px;"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -188,16 +188,16 @@
                         </tr>
                     </htead>
                     <tbody>
-                    <tr th:each="user:${userList}">
+                    <tr th:each="user:${userForTaskInfoDtos}">
                         <td th:text="${user.userName}+' '+ ${user.userSurname}" style="width:150px; height: 31.2674px;"></td>
-                        <td th:text="${donHoldCount}" style="text-align: center; width:90px; height: 30px;"></td>
-                        <td th:text="${dinAnalysesCount}" style="text-align: center; width:90px; height: 30px;"></td>
-                        <td th:text="${dinQACount}" style="text-align: center; width:90px; height: 30px;"></td>
-                        <td th:text="${dinBuildCount}" style="text-align: center; width:90px; height: 30px;"></td>
-                        <td th:text="${dinDesign}" style="text-align: center; width:90px; height: 30px;"></td>
-                        <td th:text="${dopen}" style="text-align: center; width:90px; height: 30px;"></td>
-                        <td th:text="${dreopen}" style="text-align: center; width:90px; height: 30px;"></td>
-                        <td th:text="${dimplementedCount}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${user.donHoldCount}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${user.dinAnalysesCount}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${user.dinQACount}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${user.dinBuildCount}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${user.dinDesign}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${user.dopen}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${user.dreopen}" style="text-align: center; width:90px; height: 30px;"></td>
+                        <td th:text="${user.dimplementedCount}" style="text-align: center; width:90px; height: 30px;"></td>
                     </tr>
                     </tbody>
                 </table>
