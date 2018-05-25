@@ -48,7 +48,6 @@
                                 <li class="user-header">
                                     <img src="/dist/img/user2-160x160.jpg" class="img-circle"/>
                                     <p th:text="${currentUser.userName}+' '+${currentUser.userSurname}"></p>
-                                    <p th:text="${qualification.qualificationName}+' '+${position.positionName}"></p>
                                 </li>
                                 <li class="user-footer">
                                     <div class="pull-left">
@@ -87,24 +86,33 @@
                 </ul>
             </section>
         </aside>
+    </div>
 
-    <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
-    <script th:src="@{/dist/js/adminlte.min.js}"></script>
-    <script th:src="@{/dist/js/demo.js}"></script>
-    <script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
-    <script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
+    <a th:href="@{/download.xls}">
+        <button>Export</button>
+    </a>
 
-    <script>
-        $(function () {
-            $('#example1').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false
-            });
+</div>
+
+<script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script th:src="@{/dist/js/adminlte.min.js}"></script>
+<script th:src="@{/dist/js/demo.js}"></script>
+<script th:src="@{/plugins/bootstrap_wysihtml5/bootstrap3_wysihtml5.all.min.js}"></script>
+<script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
+
+<script>
+    $(function () {
+        $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
         });
-    </script>
+    });
+</script>
 </body>
+
+
 </html>
