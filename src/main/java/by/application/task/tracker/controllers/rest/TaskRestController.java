@@ -39,6 +39,7 @@ public class TaskRestController {
     }
     @RequestMapping(value = "/logTime", method = RequestMethod.POST)
     public ResponseEntity<LogDTO> logTime(@PathVariable("id") long id, @RequestBody LogDTO logDTO) {
+        logDTO.setTask(id);
         logTime(logDTO, id);
         return new ResponseEntity<>(logDTO, HttpStatus.OK);
     }
